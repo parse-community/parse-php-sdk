@@ -1,0 +1,342 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+namespace Parse;
+
+/**
+ * ParseUser - Representation of a user object stored on Parse.
+ *
+ * @package  Parse
+ * @author   Fosco Marotto &lt;fjm@fb.com&gt;
+ */
+class ParseUser extends ParseObject
+{
+
+  public static $parseClassName = &quot;_User&quot;;
+
+  /**
+   * @var ParseUser The currently logged-in user.
+   */
+  private static $currentUser = null;
+
+  /**
+   * @var string The sessionToken for an authenticated user.
+   */
+  protected $_sessionToken = null;
+
+  /**
+   * Returns the username.
+   *
+   * @return string|null
+   */
+  public function getUsername()
+  {
+    return $this-&gt;get(&quot;username&quot;);
+  }
+
+  /**
+   * Sets the username for the ParseUser.
+   *
+   * @param string $username The username
+   *
+   * @return null
+   */
+  public function setUsername($username)
+  {
+    return $this-&gt;set(&quot;username&quot;, $username);
+  }
+
+  /**
+   * Sets the password for the ParseUser.
+   *
+   * @param string $password The password
+   *
+   * @return null
+   */
+  public function setPassword($password)
+  {
+    return $this-&gt;set(&quot;password&quot;, $password);
+  }
+
+  /**
+   * Returns the email address, if set, for the ParseUser.
+   *
+   * @return string|null
+   */
+  public function getEmail()
+  {
+    return $this-&gt;get(&quot;email&quot;);
+  }
+
+  /**
+   * Sets the email address for the ParseUser.
+   *
+   * @param string $email The email address
+   *
+   * @return null
+   */
+  public function setEmail($email)
+  {
+    return $this-&gt;set(&quot;email&quot;, $email);
+  }
+
+  /**
+   * Checks whether this user has been authenticated.
+   *
+   * @return boolean
+   */
+  public function isAuthenticated()
+  {
+    return $this-&gt;_sessionToken !== null;
+  }
+
+  /**
+   * Signs up the current user, or throw if invalid.
+   * This will create a new ParseUser on the server, and also persist the
+   * session so that you can access the user using ParseUser::getCurrentUser();
+   */
+  public function signUp()
+  {
+    if (!$this-&gt;get('username')) {
+      throw new ParseException(&quot;Cannot sign up user with an empty name&quot;);
+    }
+    if (!$this-&gt;get('password')) {
+      throw new ParseException(
+        &quot;Cannot sign up user with an empty password.&quot;
+      );
+    }
+    if ($this-&gt;getObjectId()) {
+      throw new ParseException(
+        &quot;Cannot sign up an already existing user.&quot;
+      );
+    }
+    parent::save();
+    $this-&gt;handleSaveResult(true);
+  }
+
+  /**
+   * Logs in a and returns a valid ParseUser, or throws if invalid.
+   *
+   * @param string $username
+   * @param string $password
+   *
+   * @return ParseUser
+   *
+   * @throws ParseException
+   */
+  public static function logIn($username, $password)
+  {
+    if (!$username) {
+      throw new ParseException(&quot;Cannot log in user with an empty name&quot;);
+    }
+    if (!$password) {
+      throw new ParseException(
+        &quot;Cannot log in user with an empty password.&quot;
+      );
+    }
+    $data = array(&quot;username&quot; =&gt; $username, &quot;password&quot; =&gt; $password);
+    $result = ParseClient::_request(&quot;GET&quot;, &quot;/1/login&quot;, &quot;&quot;, $data);
+    $user = new ParseUser();
+    $user-&gt;_mergeAfterFetch($result);
+    $user-&gt;handleSaveResult(true);
+    ParseClient::getStorage()-&gt;set(&quot;user&quot;, $user);
+    return $user;
+  }
+
+  /**
+   * Logs in a user with a session token.  Calls the /users/me route and if
+   *   valid, creates and returns the current user.
+   *
+   * @param string $sessionToken
+   *
+   * @return ParseUser
+   */
+  public static function become($sessionToken)
+  {
+    $result = ParseClient::_request('GET', '/1/users/me', $sessionToken);
+    $user = new ParseUser();
+    $user-&gt;_mergeAfterFetch($result);
+    $user-&gt;handleSaveResult(true);
+    ParseClient::getStorage()-&gt;set(&quot;user&quot;, $user);
+    return $user;
+  }
+
+  /**
+   * Log out the current user.  This will clear the storage and future calls
+   *   to current will return null
+   *
+   * @return null
+   */
+  public static function logOut()
+  {
+    if (ParseUser::getCurrentUser()) {
+      static::$currentUser = null;
+    }
+    ParseClient::getStorage()-&gt;remove('user');
+  }
+
+  /**
+   * After a save, perform User object specific logic.
+   *
+   * @param boolean $makeCurrent Whether to set the current user.
+   *
+   * @return null
+   */
+  private function handleSaveResult($makeCurrent = false)
+  {
+    if (isset($this-&gt;serverData['password'])) {
+      unset($this-&gt;serverData['password']);
+    }
+    if (isset($this-&gt;serverData['sessionToken'])) {
+      $this-&gt;_sessionToken = $this-&gt;serverData['sessionToken'];
+      unset($this-&gt;serverData['sessionToken']);
+    }
+    if ($makeCurrent) {
+      static::$currentUser = $this;
+      static::saveCurrentUser();
+    }
+    $this-&gt;rebuildEstimatedData();
+  }
+
+  /**
+   * Retrieves the currently logged in ParseUser with a valid session,
+   * either from memory or the storage provider, if necessary.
+   *
+   * @return ParseUser|null
+   */
+  public static function getCurrentUser()
+  {
+    if (static::$currentUser instanceof ParseUser) {
+      return static::$currentUser;
+    }
+    $storage = ParseClient::getStorage();
+    $userData = $storage-&gt;get(&quot;user&quot;);
+    if (isset($userData[&quot;id&quot;]) &amp;&amp; isset($userData[&quot;_sessionToken&quot;])) {
+      $user = ParseUser::create(&quot;_User&quot;, $userData[&quot;id&quot;]);
+      unset($userData[&quot;id&quot;]);
+      $user-&gt;_sessionToken = $userData[&quot;_sessionToken&quot;];
+      unset($userData[&quot;_sessionToken&quot;]);
+      foreach ($userData as $key =&gt; $value) {
+        $user-&gt;set($key, $value);
+      }
+      $user-&gt;synchronizeAllAuthData();
+      $user-&gt;_opSetQueue = array();
+      static::$currentUser = $user;
+      static::saveCurrentUser();
+      return $user;
+    }
+    return null;
+  }
+
+  /**
+   * Persists the current user to the storage provider.
+   *
+   * @return null
+   */
+  protected static function saveCurrentUser()
+  {
+    $storage = ParseClient::getStorage();
+    $storage-&gt;set('user', ParseUser::getCurrentUser());
+  }
+
+  /**
+   * Returns the session token, if available
+   *
+   * @return string|null
+   */
+  public function getSessionToken()
+  {
+    return $this-&gt;_sessionToken;
+  }
+
+  /**
+   * Returns true if this user is the current user.
+   *
+   * @return boolean
+   */
+  public function isCurrent()
+  {
+    if (ParseUser::getCurrentUser() &amp;&amp; $this-&gt;getObjectId()) {
+      if ($this-&gt;getObjectId() == ParseUser::getCurrentUser()-&gt;getObjectId()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Save the current user object, unless it is not signed up.
+   *
+   * @return null
+   *
+   * @throws ParseException
+   */
+  public function save()
+  {
+    if ($this-&gt;getObjectId()) {
+      parent::save();
+    } else {
+      throw new ParseException(
+        &quot;You must call signUp to create a new User.&quot;
+      );
+    }
+  }
+
+  /**
+   * Requests a password reset email to be sent to the specified email
+   * address associated with the user account.  This email allows the user
+   * to securely reset their password on the Parse site.
+   *
+   * @param string $email
+   *
+   * @return null
+   */
+  public static function requestPasswordReset($email)
+  {
+    $json = json_encode(array('email' =&gt; $email));
+    ParseClient::_request('POST', '/1/requestPasswordReset', null, $json);
+  }
+}</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

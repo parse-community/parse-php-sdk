@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+namespace Parse;
+
+/**
+ * ParseStorageInterface - Specifies an interface for implementing persistence.
+ *
+ * @package  Parse
+ * @author   Fosco Marotto &lt;fjm@fb.com&gt;
+ */
+interface ParseStorageInterface
+{
+
+  /**
+   * Sets a key-value pair in storage.
+   *
+   * @param string $key   The key to set
+   * @param mixed  $value The value to set
+   *
+   * @return null
+   */
+  public function set($key, $value);
+
+  /**
+   * Remove a key from storage.
+   *
+   * @param string $key The key to remove.
+   *
+   * @return null
+   */
+  public function remove($key);
+
+  /**
+   * Gets the value for a key from storage.
+   *
+   * @param string $key The key to get the value for
+   *
+   * @return mixed
+   */
+  public function get($key);
+
+  /**
+   * Clear all the values in storage.
+   *
+   * @return null
+   */
+  public function clear();
+
+  /**
+   * Save the data, if necessary.  This would be a no-op when using the
+   * $_SESSION implementation, but could be used for saving to file or
+   * database as an action instead of on every set.
+   *
+   * @return null
+   */
+  public function save();
+
+  /**
+   * Get all keys in storage.
+   *
+   * @return array
+   */
+  public function getKeys();
+
+  /**
+   * Get all key-value pairs from storage.
+   *
+   * @return array
+   */
+  public function getAll();
+
+} </pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

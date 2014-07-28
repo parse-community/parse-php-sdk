@@ -1,0 +1,459 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+namespace Parse;
+
+/**
+ * ParseFile - Representation of a Parse File object.
+ *
+ * @package  Parse
+ * @author   Fosco Marotto &lt;fjm@fb.com&gt;
+ */
+class ParseFile implements \Parse\Internal\Encodable
+{
+
+  /**
+   * @var - Filename
+   */
+  private $name;
+  /**
+   * @var - URL of File data stored on Parse.
+   */
+  private $url;
+  /**
+   * @var - Data
+   */
+  private $data;
+  /**
+   * @var - Mime type
+   */
+  private $mimeType;
+
+  /**
+   * Return the data for the file, downloading it if not already present.
+   *
+   * @returns mixed
+   *
+   * @throws ParseException
+   */
+  public function getData()
+  {
+    if ($this-&gt;data) {
+      return $this-&gt;data;
+    }
+    if (!$this-&gt;url) {
+      throw new ParseException(&quot;Cannot retrieve data for unsaved ParseFile.&quot;);
+    }
+    $this-&gt;data = $this-&gt;download();
+    return $this-&gt;data;
+  }
+
+  /**
+   * Return the URL for the file, if saved.
+   *
+   * @returns string|null
+   */
+  public function getURL()
+  {
+    return $this-&gt;url;
+  }
+
+  /**
+   * Return the name for the file
+   * Upon saving to Parse, the name will change to a unique identifier.
+   *
+   * @return string
+   */
+  public function getName()
+  {
+    return $this-&gt;name;
+  }
+
+  /**
+   * Return the mimeType for the file, if set.
+   *
+   * @return string|null
+   */
+  public function getMimeType()
+  {
+    return $this-&gt;mimeType;
+  }
+
+  /**
+   * Create a Parse File from data
+   * i.e. $file = ParseFile::createFromData(&quot;hello world!&quot;, &quot;hi.txt&quot;);
+   *
+   * @param mixed $contents The file contents
+   * @param string $name The file name on Parse, can be used to detect mimeType
+   * @param string $mimeType Optional, The mime-type to use when saving the file
+   *
+   * @returns ParseFile
+   */
+  public static function createFromData($contents, $name, $mimeType = null)
+  {
+    $file = new ParseFile();
+    $file-&gt;name = $name;
+    $file-&gt;mimeType = $mimeType;
+    $file-&gt;data = $contents;
+    return $file;
+  }
+
+  /**
+   * Create a Parse File from the contents of a local file
+   * i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
+   * &quot;foo.bar&quot;);
+   *
+   * @param string $path Path to local file
+   * @param string $name Filename to use on Parse, can be used to detect mimeType
+   * @param string $mimeType Optional, The mime-type to use when saving the file
+   *
+   * @returns ParseFile
+   */
+  public static function createFromFile($path, $name, $mimeType = null)
+  {
+    $contents = file_get_contents($path, &quot;rb&quot;);
+    return static::createFromData($contents, $name, $mimeType);
+  }
+
+  /**
+   * Internal method used when constructing a Parse File from Parse.
+   *
+   * @param $name
+   * @param $url
+   *
+   * @return ParseFile
+   * @ignore
+   */
+  public static function _createFromServer($name, $url)
+  {
+    $file = new ParseFile();
+    $file-&gt;name = $name;
+    $file-&gt;url = $url;
+    return $file;
+  }
+
+  /**
+   * Encode to associative array representation.
+   *
+   * @return string
+   * @ignore
+   */
+  public function _encode()
+  {
+    return array(
+      '__type' =&gt; 'File',
+      'url' =&gt; $this-&gt;url,
+      'name' =&gt; $this-&gt;name
+    );
+  }
+
+  /**
+   * Uploads the file contents to Parse, if not saved.
+   *
+   * @return bool
+   */
+  public function save()
+  {
+    if ($this-&gt;url) {
+      return true;
+    }
+    $response = $this-&gt;upload();
+    $this-&gt;url = $response['url'];
+    $this-&gt;name = $response['name'];
+  }
+
+  private function upload()
+  {
+    $fileParts = explode('.', $this-&gt;getName());
+    $extension = array_pop($fileParts);
+    $mimeType = $this-&gt;mimeType ?: $this-&gt;getMimeTypeForExtension($extension);
+
+    $headers = ParseClient::_getRequestHeaders(null, false);
+    $url = ParseClient::HOST_NAME . '/1/files/' . $this-&gt;getName();
+    $rest = curl_init();
+    curl_setopt($rest, CURLOPT_URL, $url);
+    curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($rest, CURLOPT_BINARYTRANSFER, 1);
+    $headers[] = 'Content-Type: ' . $mimeType;
+    curl_setopt($rest, CURLOPT_POST, 1);
+    curl_setopt($rest, CURLOPT_POSTFIELDS, $this-&gt;getData());
+    curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
+    $response = curl_exec($rest);
+    $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
+    if (curl_errno($rest)) {
+      throw new ParseException(curl_error($rest), curl_errno($rest));
+    }
+    curl_close($rest);
+    if (strpos($contentType, 'text/html') !== false) {
+      throw new ParseException('Bad Request', -1);
+    }
+
+    $decoded = json_decode($response, true);
+    if (isset($decoded['error'])) {
+      throw new ParseException($decoded['error'],
+        isset($decoded['code']) ? $decoded['code'] : 0
+      );
+    }
+    return $decoded;
+
+  }
+
+  private function download()
+  {
+    $rest = curl_init();
+    curl_setopt($rest, CURLOPT_URL, $this-&gt;url);
+    curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($rest, CURLOPT_BINARYTRANSFER, 1);
+    $response = curl_exec($rest);
+    if (curl_errno($rest)) {
+      throw new ParseException(curl_error($rest), curl_errno($rest));
+    }
+    $this-&gt;mimeType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
+    $this-&gt;data = $response;
+    curl_close($rest);
+    return $response;
+  }
+
+  private function getMimeTypeForExtension($extension)
+  {
+    $knownTypes = array(
+      &quot;ai&quot; =&gt; &quot;application/postscript&quot;,
+      &quot;aif&quot; =&gt; &quot;audio/x-aiff&quot;,
+      &quot;aifc&quot; =&gt; &quot;audio/x-aiff&quot;,
+      &quot;aiff&quot; =&gt; &quot;audio/x-aiff&quot;,
+      &quot;asc&quot; =&gt; &quot;text/plain&quot;,
+      &quot;atom&quot; =&gt; &quot;application/atom+xml&quot;,
+      &quot;au&quot; =&gt; &quot;audio/basic&quot;,
+      &quot;avi&quot; =&gt; &quot;video/x-msvideo&quot;,
+      &quot;bcpio&quot; =&gt; &quot;application/x-bcpio&quot;,
+      &quot;bin&quot; =&gt; &quot;application/octet-stream&quot;,
+      &quot;bmp&quot; =&gt; &quot;image/bmp&quot;,
+      &quot;cdf&quot; =&gt; &quot;application/x-netcdf&quot;,
+      &quot;cgm&quot; =&gt; &quot;image/cgm&quot;,
+      &quot;class&quot; =&gt; &quot;application/octet-stream&quot;,
+      &quot;cpio&quot; =&gt; &quot;application/x-cpio&quot;,
+      &quot;cpt&quot; =&gt; &quot;application/mac-compactpro&quot;,
+      &quot;csh&quot; =&gt; &quot;application/x-csh&quot;,
+      &quot;css&quot; =&gt; &quot;text/css&quot;,
+      &quot;dcr&quot; =&gt; &quot;application/x-director&quot;,
+      &quot;dif&quot; =&gt; &quot;video/x-dv&quot;,
+      &quot;dir&quot; =&gt; &quot;application/x-director&quot;,
+      &quot;djv&quot; =&gt; &quot;image/vnd.djvu&quot;,
+      &quot;djvu&quot; =&gt; &quot;image/vnd.djvu&quot;,
+      &quot;dll&quot; =&gt; &quot;application/octet-stream&quot;,
+      &quot;dmg&quot; =&gt; &quot;application/octet-stream&quot;,
+      &quot;dms&quot; =&gt; &quot;application/octet-stream&quot;,
+      &quot;doc&quot; =&gt; &quot;application/msword&quot;,
+      &quot;docx&quot; =&gt;&quot;application/vnd.openxmlformats-officedocument.wordprocessingml.document&quot;,
+      &quot;dotx&quot; =&gt; &quot;application/vnd.openxmlformats-officedocument.wordprocessingml.template&quot;,
+      &quot;docm&quot; =&gt;&quot;application/vnd.ms-word.document.macroEnabled.12&quot;,
+      &quot;dotm&quot; =&gt;&quot;application/vnd.ms-word.template.macroEnabled.12&quot;,
+      &quot;dtd&quot; =&gt; &quot;application/xml-dtd&quot;,
+      &quot;dv&quot; =&gt; &quot;video/x-dv&quot;,
+      &quot;dvi&quot; =&gt; &quot;application/x-dvi&quot;,
+      &quot;dxr&quot; =&gt; &quot;application/x-director&quot;,
+      &quot;eps&quot; =&gt; &quot;application/postscript&quot;,
+      &quot;etx&quot; =&gt; &quot;text/x-setext&quot;,
+      &quot;exe&quot; =&gt; &quot;application/octet-stream&quot;,
+      &quot;ez&quot; =&gt; &quot;application/andrew-inset&quot;,
+      &quot;gif&quot; =&gt; &quot;image/gif&quot;,
+      &quot;gram&quot; =&gt; &quot;application/srgs&quot;,
+      &quot;grxml&quot; =&gt; &quot;application/srgs+xml&quot;,
+      &quot;gtar&quot; =&gt; &quot;application/x-gtar&quot;,
+      &quot;hdf&quot; =&gt; &quot;application/x-hdf&quot;,
+      &quot;hqx&quot; =&gt; &quot;application/mac-binhex40&quot;,
+      &quot;htm&quot; =&gt; &quot;text/html&quot;,
+      &quot;html&quot; =&gt; &quot;text/html&quot;,
+      &quot;ice&quot; =&gt; &quot;x-conference/x-cooltalk&quot;,
+      &quot;ico&quot; =&gt; &quot;image/x-icon&quot;,
+      &quot;ics&quot; =&gt; &quot;text/calendar&quot;,
+      &quot;ief&quot; =&gt; &quot;image/ief&quot;,
+      &quot;ifb&quot; =&gt; &quot;text/calendar&quot;,
+      &quot;iges&quot; =&gt; &quot;model/iges&quot;,
+      &quot;igs&quot; =&gt; &quot;model/iges&quot;,
+      &quot;jnlp&quot; =&gt; &quot;application/x-java-jnlp-file&quot;,
+      &quot;jp2&quot; =&gt; &quot;image/jp2&quot;,
+      &quot;jpe&quot; =&gt; &quot;image/jpeg&quot;,
+      &quot;jpeg&quot; =&gt; &quot;image/jpeg&quot;,
+      &quot;jpg&quot; =&gt; &quot;image/jpeg&quot;,
+      &quot;js&quot; =&gt; &quot;application/x-javascript&quot;,
+      &quot;kar&quot; =&gt; &quot;audio/midi&quot;,
+      &quot;latex&quot; =&gt; &quot;application/x-latex&quot;,
+      &quot;lha&quot; =&gt; &quot;application/octet-stream&quot;,
+      &quot;lzh&quot; =&gt; &quot;application/octet-stream&quot;,
+      &quot;m3u&quot; =&gt; &quot;audio/x-mpegurl&quot;,
+      &quot;m4a&quot; =&gt; &quot;audio/mp4a-latm&quot;,
+      &quot;m4b&quot; =&gt; &quot;audio/mp4a-latm&quot;,
+      &quot;m4p&quot; =&gt; &quot;audio/mp4a-latm&quot;,
+      &quot;m4u&quot; =&gt; &quot;video/vnd.mpegurl&quot;,
+      &quot;m4v&quot; =&gt; &quot;video/x-m4v&quot;,
+      &quot;mac&quot; =&gt; &quot;image/x-macpaint&quot;,
+      &quot;man&quot; =&gt; &quot;application/x-troff-man&quot;,
+      &quot;mathml&quot; =&gt; &quot;application/mathml+xml&quot;,
+      &quot;me&quot; =&gt; &quot;application/x-troff-me&quot;,
+      &quot;mesh&quot; =&gt; &quot;model/mesh&quot;,
+      &quot;mid&quot; =&gt; &quot;audio/midi&quot;,
+      &quot;midi&quot; =&gt; &quot;audio/midi&quot;,
+      &quot;mif&quot; =&gt; &quot;application/vnd.mif&quot;,
+      &quot;mov&quot; =&gt; &quot;video/quicktime&quot;,
+      &quot;movie&quot; =&gt; &quot;video/x-sgi-movie&quot;,
+      &quot;mp2&quot; =&gt; &quot;audio/mpeg&quot;,
+      &quot;mp3&quot; =&gt; &quot;audio/mpeg&quot;,
+      &quot;mp4&quot; =&gt; &quot;video/mp4&quot;,
+      &quot;mpe&quot; =&gt; &quot;video/mpeg&quot;,
+      &quot;mpeg&quot; =&gt; &quot;video/mpeg&quot;,
+      &quot;mpg&quot; =&gt; &quot;video/mpeg&quot;,
+      &quot;mpga&quot; =&gt; &quot;audio/mpeg&quot;,
+      &quot;ms&quot; =&gt; &quot;application/x-troff-ms&quot;,
+      &quot;msh&quot; =&gt; &quot;model/mesh&quot;,
+      &quot;mxu&quot; =&gt; &quot;video/vnd.mpegurl&quot;,
+      &quot;nc&quot; =&gt; &quot;application/x-netcdf&quot;,
+      &quot;oda&quot; =&gt; &quot;application/oda&quot;,
+      &quot;ogg&quot; =&gt; &quot;application/ogg&quot;,
+      &quot;pbm&quot; =&gt; &quot;image/x-portable-bitmap&quot;,
+      &quot;pct&quot; =&gt; &quot;image/pict&quot;,
+      &quot;pdb&quot; =&gt; &quot;chemical/x-pdb&quot;,
+      &quot;pdf&quot; =&gt; &quot;application/pdf&quot;,
+      &quot;pgm&quot; =&gt; &quot;image/x-portable-graymap&quot;,
+      &quot;pgn&quot; =&gt; &quot;application/x-chess-pgn&quot;,
+      &quot;pic&quot; =&gt; &quot;image/pict&quot;,
+      &quot;pict&quot; =&gt; &quot;image/pict&quot;,
+      &quot;png&quot; =&gt; &quot;image/png&quot;,
+      &quot;pnm&quot; =&gt; &quot;image/x-portable-anymap&quot;,
+      &quot;pnt&quot; =&gt; &quot;image/x-macpaint&quot;,
+      &quot;pntg&quot; =&gt; &quot;image/x-macpaint&quot;,
+      &quot;ppm&quot; =&gt; &quot;image/x-portable-pixmap&quot;,
+      &quot;ppt&quot; =&gt; &quot;application/vnd.ms-powerpoint&quot;,
+      &quot;pptx&quot; =&gt;&quot;application/vnd.openxmlformats-officedocument.presentationml.presentation&quot;,
+      &quot;potx&quot; =&gt;&quot;application/vnd.openxmlformats-officedocument.presentationml.template&quot;,
+      &quot;ppsx&quot; =&gt;&quot;application/vnd.openxmlformats-officedocument.presentationml.slideshow&quot;,
+      &quot;ppam&quot; =&gt;&quot;application/vnd.ms-powerpoint.addin.macroEnabled.12&quot;,
+      &quot;pptm&quot; =&gt;&quot;application/vnd.ms-powerpoint.presentation.macroEnabled.12&quot;,
+      &quot;potm&quot; =&gt;&quot;application/vnd.ms-powerpoint.template.macroEnabled.12&quot;,
+      &quot;ppsm&quot; =&gt;&quot;application/vnd.ms-powerpoint.slideshow.macroEnabled.12&quot;,
+      &quot;ps&quot; =&gt; &quot;application/postscript&quot;,
+      &quot;qt&quot; =&gt; &quot;video/quicktime&quot;,
+      &quot;qti&quot; =&gt; &quot;image/x-quicktime&quot;,
+      &quot;qtif&quot; =&gt; &quot;image/x-quicktime&quot;,
+      &quot;ra&quot; =&gt; &quot;audio/x-pn-realaudio&quot;,
+      &quot;ram&quot; =&gt; &quot;audio/x-pn-realaudio&quot;,
+      &quot;ras&quot; =&gt; &quot;image/x-cmu-raster&quot;,
+      &quot;rdf&quot; =&gt; &quot;application/rdf+xml&quot;,
+      &quot;rgb&quot; =&gt; &quot;image/x-rgb&quot;,
+      &quot;rm&quot; =&gt; &quot;application/vnd.rn-realmedia&quot;,
+      &quot;roff&quot; =&gt; &quot;application/x-troff&quot;,
+      &quot;rtf&quot; =&gt; &quot;text/rtf&quot;,
+      &quot;rtx&quot; =&gt; &quot;text/richtext&quot;,
+      &quot;sgm&quot; =&gt; &quot;text/sgml&quot;,
+      &quot;sgml&quot; =&gt; &quot;text/sgml&quot;,
+      &quot;sh&quot; =&gt; &quot;application/x-sh&quot;,
+      &quot;shar&quot; =&gt; &quot;application/x-shar&quot;,
+      &quot;silo&quot; =&gt; &quot;model/mesh&quot;,
+      &quot;sit&quot; =&gt; &quot;application/x-stuffit&quot;,
+      &quot;skd&quot; =&gt; &quot;application/x-koan&quot;,
+      &quot;skm&quot; =&gt; &quot;application/x-koan&quot;,
+      &quot;skp&quot; =&gt; &quot;application/x-koan&quot;,
+      &quot;skt&quot; =&gt; &quot;application/x-koan&quot;,
+      &quot;smi&quot; =&gt; &quot;application/smil&quot;,
+      &quot;smil&quot; =&gt; &quot;application/smil&quot;,
+      &quot;snd&quot; =&gt; &quot;audio/basic&quot;,
+      &quot;so&quot; =&gt; &quot;application/octet-stream&quot;,
+      &quot;spl&quot; =&gt; &quot;application/x-futuresplash&quot;,
+      &quot;src&quot; =&gt; &quot;application/x-wais-source&quot;,
+      &quot;sv4cpio&quot; =&gt; &quot;application/x-sv4cpio&quot;,
+      &quot;sv4crc&quot; =&gt; &quot;application/x-sv4crc&quot;,
+      &quot;svg&quot; =&gt; &quot;image/svg+xml&quot;,
+      &quot;swf&quot; =&gt; &quot;application/x-shockwave-flash&quot;,
+      &quot;t&quot; =&gt; &quot;application/x-troff&quot;,
+      &quot;tar&quot; =&gt; &quot;application/x-tar&quot;,
+      &quot;tcl&quot; =&gt; &quot;application/x-tcl&quot;,
+      &quot;tex&quot; =&gt; &quot;application/x-tex&quot;,
+      &quot;texi&quot; =&gt; &quot;application/x-texinfo&quot;,
+      &quot;texinfo&quot; =&gt; &quot;application/x-texinfo&quot;,
+      &quot;tif&quot; =&gt; &quot;image/tiff&quot;,
+      &quot;tiff&quot; =&gt; &quot;image/tiff&quot;,
+      &quot;tr&quot; =&gt; &quot;application/x-troff&quot;,
+      &quot;tsv&quot; =&gt; &quot;text/tab-separated-values&quot;,
+      &quot;txt&quot; =&gt; &quot;text/plain&quot;,
+      &quot;ustar&quot; =&gt; &quot;application/x-ustar&quot;,
+      &quot;vcd&quot; =&gt; &quot;application/x-cdlink&quot;,
+      &quot;vrml&quot; =&gt; &quot;model/vrml&quot;,
+      &quot;vxml&quot; =&gt; &quot;application/voicexml+xml&quot;,
+      &quot;wav&quot; =&gt; &quot;audio/x-wav&quot;,
+      &quot;wbmp&quot; =&gt; &quot;image/vnd.wap.wbmp&quot;,
+      &quot;wbmxl&quot; =&gt; &quot;application/vnd.wap.wbxml&quot;,
+      &quot;wml&quot; =&gt; &quot;text/vnd.wap.wml&quot;,
+      &quot;wmlc&quot; =&gt; &quot;application/vnd.wap.wmlc&quot;,
+      &quot;wmls&quot; =&gt; &quot;text/vnd.wap.wmlscript&quot;,
+      &quot;wmlsc&quot; =&gt; &quot;application/vnd.wap.wmlscriptc&quot;,
+      &quot;wrl&quot; =&gt; &quot;model/vrml&quot;,
+      &quot;xbm&quot; =&gt; &quot;image/x-xbitmap&quot;,
+      &quot;xht&quot; =&gt; &quot;application/xhtml+xml&quot;,
+      &quot;xhtml&quot; =&gt; &quot;application/xhtml+xml&quot;,
+      &quot;xls&quot; =&gt; &quot;application/vnd.ms-excel&quot;,
+      &quot;xml&quot; =&gt; &quot;application/xml&quot;,
+      &quot;xpm&quot; =&gt; &quot;image/x-xpixmap&quot;,
+      &quot;xsl&quot; =&gt; &quot;application/xml&quot;,
+      &quot;xlsx&quot; =&gt;&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
+      &quot;xltx&quot; =&gt;&quot;application/vnd.openxmlformats-officedocument.spreadsheetml.template&quot;,
+      &quot;xlsm&quot; =&gt;&quot;application/vnd.ms-excel.sheet.macroEnabled.12&quot;,
+      &quot;xltm&quot; =&gt;&quot;application/vnd.ms-excel.template.macroEnabled.12&quot;,
+      &quot;xlam&quot; =&gt;&quot;application/vnd.ms-excel.addin.macroEnabled.12&quot;,
+      &quot;xlsb&quot; =&gt;&quot;application/vnd.ms-excel.sheet.binary.macroEnabled.12&quot;,
+      &quot;xslt&quot; =&gt; &quot;application/xslt+xml&quot;,
+      &quot;xul&quot; =&gt; &quot;application/vnd.mozilla.xul+xml&quot;,
+      &quot;xwd&quot; =&gt; &quot;image/x-xwindowdump&quot;,
+      &quot;xyz&quot; =&gt; &quot;chemical/x-xyz&quot;,
+      &quot;zip&quot; =&gt; &quot;application/zip&quot;
+    );
+
+    if (isset($knownTypes[$extension])) {
+      return $knownTypes[$extension];
+    }
+    return 'unknown/unknown';
+  }
+
+}</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

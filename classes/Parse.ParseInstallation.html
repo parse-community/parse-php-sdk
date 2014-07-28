@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Parse PHP SDK API Reference » \Parse\ParseInstallation</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Parse PHP SDK API Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Parse.html"><i class="icon-folder-open"></i> Parse</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">38</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<div class="btn-toolbar">
+<div class="btn-group visibility" data-toggle="buttons-checkbox">
+<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
+</div>
+<div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i title="Methods" class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct() :: Create a Parse Object"><span class="description">Create a Parse Object</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_add" title="add() :: Add a value to an array property."><span class="description">Add a value to an array property.</span><pre>add()</pre></a></li>
+<li class="method public "><a href="#method_addUnique" title="addUnique() :: Add unique values to an array property."><span class="description">Add unique values to an array property.</span><pre>addUnique()</pre></a></li>
+<li class="method public "><a href="#method_clear" title="clear() :: Clear all keys on this object by creating delete operations
+for each key."><span class="description">Clear all keys on this object by creating delete operations
+for each key.</span><pre>clear()</pre></a></li>
+<li class="method public "><a href="#method_create" title="create() :: Static method which returns a new Parse Object for a given class"><span class="description">Static method which returns a new Parse Object for a given class</span><pre>create()</pre></a></li>
+<li class="method public "><a href="#method_delete" title="delete() :: Delete a key from an object."><span class="description">Delete a key from an object.</span><pre>delete()</pre></a></li>
+<li class="method public "><a href="#method_destroy" title="destroy() :: Delete object."><span class="description">Delete object.</span><pre>destroy()</pre></a></li>
+<li class="method public "><a href="#method_destroyAll" title="destroyAll() :: Delete an array of objects."><span class="description">Delete an array of objects.</span><pre>destroyAll()</pre></a></li>
+<li class="method public "><a href="#method_fetch" title="fetch() :: Fetch the whole object from the server and update the local object."><span class="description">Fetch the whole object from the server and update the local object.</span><pre>fetch()</pre></a></li>
+<li class="method public "><a href="#method_get" title="get() :: Get current value for an object property."><span class="description">Get current value for an object property.</span><pre>get()</pre></a></li>
+<li class="method public "><a href="#method_getACL" title="getACL() :: Get ACL assigned to the object."><span class="description">Get ACL assigned to the object.</span><pre>getACL()</pre></a></li>
+<li class="method public "><a href="#method_getClassName" title="getClassName() :: Get the Parse Class Name for the object."><span class="description">Get the Parse Class Name for the object.</span><pre>getClassName()</pre></a></li>
+<li class="method public "><a href="#method_getCreatedAt" title="getCreatedAt() :: Get the createdAt for the object, or null if unsaved."><span class="description">Get the createdAt for the object, or null if unsaved.</span><pre>getCreatedAt()</pre></a></li>
+<li class="method public "><a href="#method_getObjectId" title="getObjectId() :: Get the objectId for the object, or null if unsaved."><span class="description">Get the objectId for the object, or null if unsaved.</span><pre>getObjectId()</pre></a></li>
+<li class="method public "><a href="#method_getRelation" title="getRelation() :: Access or create a Relation value for a key."><span class="description">Access or create a Relation value for a key.</span><pre>getRelation()</pre></a></li>
+<li class="method public "><a href="#method_getUpdatedAt" title="getUpdatedAt() :: Get the updatedAt for the object, or null if unsaved."><span class="description">Get the updatedAt for the object, or null if unsaved.</span><pre>getUpdatedAt()</pre></a></li>
+<li class="method public "><a href="#method_has" title="has() :: Check if the object has a given key"><span class="description">Check if the object has a given key</span><pre>has()</pre></a></li>
+<li class="method public "><a href="#method_increment" title="increment() :: Increment a numeric key by a certain value."><span class="description">Increment a numeric key by a certain value.</span><pre>increment()</pre></a></li>
+<li class="method public "><a href="#method_isDataAvailable" title="isDataAvailable() :: Returns true if the object has been fetched."><span class="description">Returns true if the object has been fetched.</span><pre>isDataAvailable()</pre></a></li>
+<li class="method public "><a href="#method_isDirty" title="isDirty() :: Check if the object or any of its child objects have unsaved operations."><span class="description">Check if the object or any of its child objects have unsaved operations.</span><pre>isDirty()</pre></a></li>
+<li class="method public "><a href="#method_isKeyDirty" title="isKeyDirty() :: Check if the a value associated with a key has been
+added/updated/removed and not saved yet."><span class="description">Check if the a value associated with a key has been
+added/updated/removed and not saved yet.</span><pre>isKeyDirty()</pre></a></li>
+<li class="method public "><a href="#method_query" title="query() :: Creates a ParseQuery for the subclass of ParseObject."><span class="description">Creates a ParseQuery for the subclass of ParseObject.</span><pre>query()</pre></a></li>
+<li class="method public "><a href="#method_registerSubclass" title="registerSubclass() :: Register a subclass.  Should be called before any other Parse functions."><span class="description">Register a subclass.  Should be called before any other Parse functions.</span><pre>registerSubclass()</pre></a></li>
+<li class="method public "><a href="#method_remove" title="remove() :: Remove a value from an array for an object key."><span class="description">Remove a value from an array for an object key.</span><pre>remove()</pre></a></li>
+<li class="method public "><a href="#method_revert" title="revert() :: Revert all unsaved operations."><span class="description">Revert all unsaved operations.</span><pre>revert()</pre></a></li>
+<li class="method public "><a href="#method_save" title="save() :: Save Object to Parse"><span class="description">Save Object to Parse</span><pre>save()</pre></a></li>
+<li class="method public "><a href="#method_saveAll" title="saveAll() :: Save all the objects in the provided array"><span class="description">Save all the objects in the provided array</span><pre>saveAll()</pre></a></li>
+<li class="method public "><a href="#method_set" title="set() :: Validate and set a value for an object key."><span class="description">Validate and set a value for an object key.</span><pre>set()</pre></a></li>
+<li class="method public "><a href="#method_setACL" title="setACL() :: Set ACL for this object."><span class="description">Set ACL for this object.</span><pre>setACL()</pre></a></li>
+<li class="method public "><a href="#method_setArray" title="setArray() :: Set an array value for an object key."><span class="description">Set an array value for an object key.</span><pre>setArray()</pre></a></li>
+<li class="method public "><a href="#method_setAssociativeArray" title="setAssociativeArray() :: Set an associative array value for an object key."><span class="description">Set an associative array value for an object key.</span><pre>setAssociativeArray()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i title="Properties" class="icon-custom icon-property"></i> Properties
+                    <ul><li class="property public "><a href="#property_parseClassName" title="$parseClassName() :: "><span class="description"></span><pre>$parseClassName</pre></a></li></ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\Parse\ParseInstallation"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/Parse.html">Parse</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Parse.ParseInstallation.html">ParseInstallation</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">ParseInstallation - Representation of an Installation stored on Parse.</p>
+<div class="details"><div class="long_description"></div></div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

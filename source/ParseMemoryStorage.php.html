@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+namespace Parse;
+
+/**
+ * ParseMemoryStorage - Uses non-persisted memory for storage.
+ * This is used by default if a PHP Session is not active.
+ *
+ * @package  Parse
+ * @author   Fosco Marotto &lt;fjm@fb.com&gt;
+ */
+class ParseMemoryStorage implements ParseStorageInterface
+{
+
+  /**
+   * @var array
+   */
+  private $storage = array();
+
+  public function set($key, $value)
+  {
+    $this-&gt;storage[$key] = $value;
+  }
+
+  public function remove($key)
+  {
+    unset($this-&gt;storage[$key]);
+  }
+
+  public function get($key)
+  {
+    if (isset($this-&gt;storage[$key])) {
+      return $this-&gt;storage[$key];
+    }
+    return null;
+  }
+
+  public function clear()
+  {
+    $this-&gt;storage = array();
+  }
+
+  public function save()
+  {
+    // No action required.
+    return;
+  }
+
+  public function getKeys()
+  {
+    return array_keys($this-&gt;storage);
+  }
+
+  public function getAll()
+  {
+    return $this-&gt;storage;
+  }
+
+}</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+namespace Parse;
+
+use Parse\ParseObject;
+
+/**
+ * ParseRole - Representation of an access Role.
+ *
+ * @package  Parse
+ * @author   Fosco Marotto &lt;fjm@fb.com&gt;
+ */
+class ParseRole extends ParseObject
+{
+
+  public static $parseClassName = &quot;_Role&quot;;
+
+  /**
+   * Create a ParseRole object with a given name and ACL.
+   *
+   * @param string   $name
+   * @param ParseACL $acl
+   *
+   * @return ParseRole
+   */
+  public static function createRole($name, ParseACL $acl)
+  {
+    $role = ParseObject::create(static::$parseClassName);
+    $role-&gt;setName($name);
+    $role-&gt;setACL($acl);
+    return $role;
+  }
+
+  /**
+   * Returns the role name.
+   *
+   * @return string
+   */
+  public function getName()
+  {
+    return $this-&gt;get(&quot;name&quot;);
+  }
+
+  /**
+   * Sets the role name.
+   *
+   * @param string $name The role name
+   *
+   * @return null
+   */
+  public function setName($name)
+  {
+    if ($this-&gt;getObjectId()) {
+      throw new ParseException(
+        &quot;A role's name can only be set before it has been saved.&quot;
+      );
+    }
+    if (!is_string($name)) {
+      throw new ParseException(
+        &quot;A role's name must be a string.&quot;
+      );
+    }
+    return $this-&gt;set(&quot;name&quot;, $name);
+  }
+
+  /**
+   * Gets the ParseRelation for the ParseUsers which are direct children of
+   *   this role.  These users are granted any privileges that this role
+   *   has been granted.
+   *
+   * @return ParseRelation
+   */
+  public function getUsers()
+  {
+    return $this-&gt;getRelation(&quot;users&quot;);
+  }
+
+  /**
+   * Gets the ParseRelation for the ParseRoles which are direct children of
+   *   this role.  These roles' users are granted any privileges that this role
+   *   has been granted.
+   *
+   * @return ParseRelation
+   */
+  public function getRoles()
+  {
+    return $this-&gt;getRelation(&quot;roles&quot;);
+  }
+
+  public function save()
+  {
+    if (!$this-&gt;getACL()) {
+      throw new ParseException(
+        &quot;Roles must have an ACL.&quot;
+      );
+    }
+    if (!$this-&gt;getName() || !is_string($this-&gt;getName())) {
+      throw new ParseException(
+        &quot;Roles must have a name.&quot;
+      );
+    }
+    return parent::save();
+  }
+
+
+
+}</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

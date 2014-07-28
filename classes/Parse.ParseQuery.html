@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>Parse PHP SDK API Reference » \Parse\ParseQuery</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Parse PHP SDK API Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Parse.html"><i class="icon-folder-open"></i> Parse</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">38</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<div class="btn-toolbar">
+<div class="btn-group visibility" data-toggle="buttons-checkbox">
+<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
+</div>
+<div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+</div>
+<ul class="side-nav nav nav-list"><li class="nav-header">
+<i title="Methods" class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct() :: Create a Parse Query for a given Parse Class."><span class="description">Create a Parse Query for a given Parse Class.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_addAscending" title="addAscending() :: Set the query orderBy to ascending for the given key(s). It can also add
+secondary sort descriptors without overwriting the existing order."><span class="description">Set the query orderBy to ascending for the given key(s). It can also add
+secondary sort descriptors without overwriting the existing order.</span><pre>addAscending()</pre></a></li>
+<li class="method public "><a href="#method_addDescending" title="addDescending() :: Set the query orderBy to descending for a given key(s). It can also add
+secondary sort descriptors without overwriting the existing order."><span class="description">Set the query orderBy to descending for a given key(s). It can also add
+secondary sort descriptors without overwriting the existing order.</span><pre>addDescending()</pre></a></li>
+<li class="method public "><a href="#method_ascending" title="ascending() :: Set the query orderBy to ascending for the given key(s). It overwrites the
+existing order criteria."><span class="description">Set the query orderBy to ascending for the given key(s). It overwrites the
+existing order criteria.</span><pre>ascending()</pre></a></li>
+<li class="method public "><a href="#method_containedIn" title="containedIn() :: Add a constraint to the query that requires a particular key's value to
+be contained in the provided list of values."><span class="description">Add a constraint to the query that requires a particular key's value to
+be contained in the provided list of values.</span><pre>containedIn()</pre></a></li>
+<li class="method public "><a href="#method_containsAll" title="containsAll() :: Add a constraint to the query that requires a particular key's value to
+contain each one of the provided list of values."><span class="description">Add a constraint to the query that requires a particular key's value to
+contain each one of the provided list of values.</span><pre>containsAll()</pre></a></li>
+<li class="method public "><a href="#method_count" title="count() :: Execute a count query and return the count."><span class="description">Execute a count query and return the count.</span><pre>count()</pre></a></li>
+<li class="method public "><a href="#method_descending" title="descending() :: Set the query orderBy to descending for a given key(s). It overwrites the
+existing order criteria."><span class="description">Set the query orderBy to descending for a given key(s). It overwrites the
+existing order criteria.</span><pre>descending()</pre></a></li>
+<li class="method public "><a href="#method_doesNotExist" title="doesNotExist() :: Add a constraint for finding objects that not contain the given key."><span class="description">Add a constraint for finding objects that not contain the given key.</span><pre>doesNotExist()</pre></a></li>
+<li class="method public "><a href="#method_doesNotMatchKeyInQuery" title="doesNotMatchKeyInQuery() :: Add a constraint that requires that a key's value not match a value in an
+object returned by the given query."><span class="description">Add a constraint that requires that a key's value not match a value in an
+object returned by the given query.</span><pre>doesNotMatchKeyInQuery()</pre></a></li>
+<li class="method public "><a href="#method_doesNotMatchQuery" title="doesNotMatchQuery() :: Add a constraint that requires that a key's value not matches a ParseQuery
+constraint."><span class="description">Add a constraint that requires that a key's value not matches a ParseQuery
+constraint.</span><pre>doesNotMatchQuery()</pre></a></li>
+<li class="method public "><a href="#method_each" title="each() :: Iterates over each result of a query, calling a callback for each one. The
+items are processed in an unspecified order. The query may not have any
+sort order, and may not use limit or skip."><span class="description">Iterates over each result of a query, calling a callback for each one. The
+items are processed in an unspecified order. The query may not have any
+sort order, and may not use limit or skip.</span><pre>each()</pre></a></li>
+<li class="method public "><a href="#method_equalTo" title="equalTo() :: Set a constraint for a field matching a given value."><span class="description">Set a constraint for a field matching a given value.</span><pre>equalTo()</pre></a></li>
+<li class="method public "><a href="#method_exists" title="exists() :: Add a constraint for finding objects that contain the given key."><span class="description">Add a constraint for finding objects that contain the given key.</span><pre>exists()</pre></a></li>
+<li class="method public "><a href="#method_find" title="find() :: Execute a find query and return the results."><span class="description">Execute a find query and return the results.</span><pre>find()</pre></a></li>
+<li class="method public "><a href="#method_first" title="first() :: Execute a query to get only the first result."><span class="description">Execute a query to get only the first result.</span><pre>first()</pre></a></li>
+<li class="method public "><a href="#method_get" title="get() :: Execute a query to retrieve a specific object"><span class="description">Execute a query to retrieve a specific object</span><pre>get()</pre></a></li>
+<li class="method public "><a href="#method_greaterThan" title="greaterThan() :: Add a constraint to the query that requires a particular key's value to
+be greater than the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
+be greater than the provided value.</span><pre>greaterThan()</pre></a></li>
+<li class="method public "><a href="#method_greaterThanOrEqualTo" title="greaterThanOrEqualTo() :: Add a constraint to the query that requires a particular key's value to
+be greater than or equal to the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
+be greater than or equal to the provided value.</span><pre>greaterThanOrEqualTo()</pre></a></li>
+<li class="method public "><a href="#method_includeKey" title="includeKey() :: Include nested Parse Objects for the provided key.  You can use dot
+notation to specify which fields in the included object are also fetch."><span class="description">Include nested Parse Objects for the provided key.  You can use dot
+notation to specify which fields in the included object are also fetch.</span><pre>includeKey()</pre></a></li>
+<li class="method public "><a href="#method_lessThan" title="lessThan() :: Add a constraint to the query that requires a particular key's value to
+be less than the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
+be less than the provided value.</span><pre>lessThan()</pre></a></li>
+<li class="method public "><a href="#method_lessThanOrEqualTo" title="lessThanOrEqualTo() :: Add a constraint to the query that requires a particular key's value to
+be less than or equal to the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
+be less than or equal to the provided value.</span><pre>lessThanOrEqualTo()</pre></a></li>
+<li class="method public "><a href="#method_limit" title="limit() :: Set the limit parameter as a query constraint"><span class="description">Set the limit parameter as a query constraint</span><pre>limit()</pre></a></li>
+<li class="method public "><a href="#method_matchesKeyInQuery" title="matchesKeyInQuery() :: Add a constraint that requires that a key's value matches a value in an
+object returned by the given query."><span class="description">Add a constraint that requires that a key's value matches a value in an
+object returned by the given query.</span><pre>matchesKeyInQuery()</pre></a></li>
+<li class="method public "><a href="#method_matchesQuery" title="matchesQuery() :: Add a constraint that requires that a key's value matches a ParseQuery
+constraint."><span class="description">Add a constraint that requires that a key's value matches a ParseQuery
+constraint.</span><pre>matchesQuery()</pre></a></li>
+<li class="method public "><a href="#method_near" title="near() :: Add a proximity based constraint for finding objects with key point
+values near the point given."><span class="description">Add a proximity based constraint for finding objects with key point
+values near the point given.</span><pre>near()</pre></a></li>
+<li class="method public "><a href="#method_notContainedIn" title="notContainedIn() :: Add a constraint to the query that requires a particular key's value to
+not be contained in the provided list of values."><span class="description">Add a constraint to the query that requires a particular key's value to
+not be contained in the provided list of values.</span><pre>notContainedIn()</pre></a></li>
+<li class="method public "><a href="#method_notEqualTo" title="notEqualTo() :: Add a constraint to the query that requires a particular key's value to
+be not equal to the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
+be not equal to the provided value.</span><pre>notEqualTo()</pre></a></li>
+<li class="method public "><a href="#method_orQueries" title="orQueries() :: Constructs a ParseQuery object that is the OR of the passed in queries objects."><span class="description">Constructs a ParseQuery object that is the OR of the passed in queries objects.</span><pre>orQueries()</pre></a></li>
+<li class="method public "><a href="#method_relatedTo" title="relatedTo() :: Add constraint for parse relation."><span class="description">Add constraint for parse relation.</span><pre>relatedTo()</pre></a></li>
+<li class="method public "><a href="#method_select" title="select() :: Restrict the fields of the returned Parse Objects to include only the
+provided keys. If this is called multiple times, then all of the keys
+specified in each of the calls will be included."><span class="description">Restrict the fields of the returned Parse Objects to include only the
+provided keys. If this is called multiple times, then all of the keys
+specified in each of the calls will be included.</span><pre>select()</pre></a></li>
+<li class="method public "><a href="#method_skip" title="skip() :: Set the skip parameter as a query constraint."><span class="description">Set the skip parameter as a query constraint.</span><pre>skip()</pre></a></li>
+<li class="method public "><a href="#method_startsWith" title="startsWith() :: Add a constraint to the query that requires a particular key's value to
+start with the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
+start with the provided value.</span><pre>startsWith()</pre></a></li>
+<li class="method public "><a href="#method_withinGeoBox" title="withinGeoBox() :: Add a constraint to the query that requires a particular key's
+coordinates be contained within a given rectangular geographic bounding
+box."><span class="description">Add a constraint to the query that requires a particular key's
+coordinates be contained within a given rectangular geographic bounding
+box.</span><pre>withinGeoBox()</pre></a></li>
+<li class="method public "><a href="#method_withinKilometers" title="withinKilometers() :: Add a proximity based constraint for finding objects with key point
+values near the point given and within the maximum distance given."><span class="description">Add a proximity based constraint for finding objects with key point
+values near the point given and within the maximum distance given.</span><pre>withinKilometers()</pre></a></li>
+<li class="method public "><a href="#method_withinMiles" title="withinMiles() :: Add a proximity based constraint for finding objects with key point
+values near the point given and within the maximum distance given."><span class="description">Add a proximity based constraint for finding objects with key point
+values near the point given and within the maximum distance given.</span><pre>withinMiles()</pre></a></li>
+<li class="method public "><a href="#method_withinRadians" title="withinRadians() :: Add a proximity based constraint for finding objects with key point
+values near the point given and within the maximum distance given."><span class="description">Add a proximity based constraint for finding objects with key point
+values near the point given and within the maximum distance given.</span><pre>withinRadians()</pre></a></li>
+</ul>
+</li></ul>
+</div>
+<div class="span8">
+<a id="\Parse\ParseQuery"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/Parse.html">Parse</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Parse.ParseQuery.html">ParseQuery</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">ParseQuery - Handles querying data from Parse</p>
+<div class="details"><div class="long_description"></div></div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
