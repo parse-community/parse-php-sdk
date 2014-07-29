@@ -1,177 +1,1952 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>Parse PHP SDK API Reference » \Parse\ParseQuery</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Parse PHP SDK API Reference</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Parse PHP SDK API Reference</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Packages</a></li>
-<li><a href="../packages/Parse.html"><i class="icon-folder-open"></i> Parse</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">38</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">0</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Parse PHP SDK API Reference</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Parse.html">\Parse</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">38</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<div class="btn-toolbar">
-<div class="btn-group visibility" data-toggle="buttons-checkbox">
-<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
-</div>
-<div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-</div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
-<i title="Methods" class="icon-custom icon-method"></i> Methods
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-163143570"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-163143570" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1753324395"></a>
+                                <a href="../namespaces/Parse.html" style="margin-left: 30px; padding-left: 0">Parse</a>
+            </div>
+            <div id="namespace-1753324395" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct() :: Create a Parse Query for a given Parse Class."><span class="description">Create a Parse Query for a given Parse Class.</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_addAscending" title="addAscending() :: Set the query orderBy to ascending for the given key(s). It can also add
-secondary sort descriptors without overwriting the existing order."><span class="description">Set the query orderBy to ascending for the given key(s). It can also add
-secondary sort descriptors without overwriting the existing order.</span><pre>addAscending()</pre></a></li>
-<li class="method public "><a href="#method_addDescending" title="addDescending() :: Set the query orderBy to descending for a given key(s). It can also add
-secondary sort descriptors without overwriting the existing order."><span class="description">Set the query orderBy to descending for a given key(s). It can also add
-secondary sort descriptors without overwriting the existing order.</span><pre>addDescending()</pre></a></li>
-<li class="method public "><a href="#method_ascending" title="ascending() :: Set the query orderBy to ascending for the given key(s). It overwrites the
-existing order criteria."><span class="description">Set the query orderBy to ascending for the given key(s). It overwrites the
-existing order criteria.</span><pre>ascending()</pre></a></li>
-<li class="method public "><a href="#method_containedIn" title="containedIn() :: Add a constraint to the query that requires a particular key's value to
-be contained in the provided list of values."><span class="description">Add a constraint to the query that requires a particular key's value to
-be contained in the provided list of values.</span><pre>containedIn()</pre></a></li>
-<li class="method public "><a href="#method_containsAll" title="containsAll() :: Add a constraint to the query that requires a particular key's value to
-contain each one of the provided list of values."><span class="description">Add a constraint to the query that requires a particular key's value to
-contain each one of the provided list of values.</span><pre>containsAll()</pre></a></li>
-<li class="method public "><a href="#method_count" title="count() :: Execute a count query and return the count."><span class="description">Execute a count query and return the count.</span><pre>count()</pre></a></li>
-<li class="method public "><a href="#method_descending" title="descending() :: Set the query orderBy to descending for a given key(s). It overwrites the
-existing order criteria."><span class="description">Set the query orderBy to descending for a given key(s). It overwrites the
-existing order criteria.</span><pre>descending()</pre></a></li>
-<li class="method public "><a href="#method_doesNotExist" title="doesNotExist() :: Add a constraint for finding objects that not contain the given key."><span class="description">Add a constraint for finding objects that not contain the given key.</span><pre>doesNotExist()</pre></a></li>
-<li class="method public "><a href="#method_doesNotMatchKeyInQuery" title="doesNotMatchKeyInQuery() :: Add a constraint that requires that a key's value not match a value in an
-object returned by the given query."><span class="description">Add a constraint that requires that a key's value not match a value in an
-object returned by the given query.</span><pre>doesNotMatchKeyInQuery()</pre></a></li>
-<li class="method public "><a href="#method_doesNotMatchQuery" title="doesNotMatchQuery() :: Add a constraint that requires that a key's value not matches a ParseQuery
-constraint."><span class="description">Add a constraint that requires that a key's value not matches a ParseQuery
-constraint.</span><pre>doesNotMatchQuery()</pre></a></li>
-<li class="method public "><a href="#method_each" title="each() :: Iterates over each result of a query, calling a callback for each one. The
-items are processed in an unspecified order. The query may not have any
-sort order, and may not use limit or skip."><span class="description">Iterates over each result of a query, calling a callback for each one. The
-items are processed in an unspecified order. The query may not have any
-sort order, and may not use limit or skip.</span><pre>each()</pre></a></li>
-<li class="method public "><a href="#method_equalTo" title="equalTo() :: Set a constraint for a field matching a given value."><span class="description">Set a constraint for a field matching a given value.</span><pre>equalTo()</pre></a></li>
-<li class="method public "><a href="#method_exists" title="exists() :: Add a constraint for finding objects that contain the given key."><span class="description">Add a constraint for finding objects that contain the given key.</span><pre>exists()</pre></a></li>
-<li class="method public "><a href="#method_find" title="find() :: Execute a find query and return the results."><span class="description">Execute a find query and return the results.</span><pre>find()</pre></a></li>
-<li class="method public "><a href="#method_first" title="first() :: Execute a query to get only the first result."><span class="description">Execute a query to get only the first result.</span><pre>first()</pre></a></li>
-<li class="method public "><a href="#method_get" title="get() :: Execute a query to retrieve a specific object"><span class="description">Execute a query to retrieve a specific object</span><pre>get()</pre></a></li>
-<li class="method public "><a href="#method_greaterThan" title="greaterThan() :: Add a constraint to the query that requires a particular key's value to
-be greater than the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
-be greater than the provided value.</span><pre>greaterThan()</pre></a></li>
-<li class="method public "><a href="#method_greaterThanOrEqualTo" title="greaterThanOrEqualTo() :: Add a constraint to the query that requires a particular key's value to
-be greater than or equal to the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
-be greater than or equal to the provided value.</span><pre>greaterThanOrEqualTo()</pre></a></li>
-<li class="method public "><a href="#method_includeKey" title="includeKey() :: Include nested Parse Objects for the provided key.  You can use dot
-notation to specify which fields in the included object are also fetch."><span class="description">Include nested Parse Objects for the provided key.  You can use dot
-notation to specify which fields in the included object are also fetch.</span><pre>includeKey()</pre></a></li>
-<li class="method public "><a href="#method_lessThan" title="lessThan() :: Add a constraint to the query that requires a particular key's value to
-be less than the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
-be less than the provided value.</span><pre>lessThan()</pre></a></li>
-<li class="method public "><a href="#method_lessThanOrEqualTo" title="lessThanOrEqualTo() :: Add a constraint to the query that requires a particular key's value to
-be less than or equal to the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
-be less than or equal to the provided value.</span><pre>lessThanOrEqualTo()</pre></a></li>
-<li class="method public "><a href="#method_limit" title="limit() :: Set the limit parameter as a query constraint"><span class="description">Set the limit parameter as a query constraint</span><pre>limit()</pre></a></li>
-<li class="method public "><a href="#method_matchesKeyInQuery" title="matchesKeyInQuery() :: Add a constraint that requires that a key's value matches a value in an
-object returned by the given query."><span class="description">Add a constraint that requires that a key's value matches a value in an
-object returned by the given query.</span><pre>matchesKeyInQuery()</pre></a></li>
-<li class="method public "><a href="#method_matchesQuery" title="matchesQuery() :: Add a constraint that requires that a key's value matches a ParseQuery
-constraint."><span class="description">Add a constraint that requires that a key's value matches a ParseQuery
-constraint.</span><pre>matchesQuery()</pre></a></li>
-<li class="method public "><a href="#method_near" title="near() :: Add a proximity based constraint for finding objects with key point
-values near the point given."><span class="description">Add a proximity based constraint for finding objects with key point
-values near the point given.</span><pre>near()</pre></a></li>
-<li class="method public "><a href="#method_notContainedIn" title="notContainedIn() :: Add a constraint to the query that requires a particular key's value to
-not be contained in the provided list of values."><span class="description">Add a constraint to the query that requires a particular key's value to
-not be contained in the provided list of values.</span><pre>notContainedIn()</pre></a></li>
-<li class="method public "><a href="#method_notEqualTo" title="notEqualTo() :: Add a constraint to the query that requires a particular key's value to
-be not equal to the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
-be not equal to the provided value.</span><pre>notEqualTo()</pre></a></li>
-<li class="method public "><a href="#method_orQueries" title="orQueries() :: Constructs a ParseQuery object that is the OR of the passed in queries objects."><span class="description">Constructs a ParseQuery object that is the OR of the passed in queries objects.</span><pre>orQueries()</pre></a></li>
-<li class="method public "><a href="#method_relatedTo" title="relatedTo() :: Add constraint for parse relation."><span class="description">Add constraint for parse relation.</span><pre>relatedTo()</pre></a></li>
-<li class="method public "><a href="#method_select" title="select() :: Restrict the fields of the returned Parse Objects to include only the
-provided keys. If this is called multiple times, then all of the keys
-specified in each of the calls will be included."><span class="description">Restrict the fields of the returned Parse Objects to include only the
-provided keys. If this is called multiple times, then all of the keys
-specified in each of the calls will be included.</span><pre>select()</pre></a></li>
-<li class="method public "><a href="#method_skip" title="skip() :: Set the skip parameter as a query constraint."><span class="description">Set the skip parameter as a query constraint.</span><pre>skip()</pre></a></li>
-<li class="method public "><a href="#method_startsWith" title="startsWith() :: Add a constraint to the query that requires a particular key's value to
-start with the provided value."><span class="description">Add a constraint to the query that requires a particular key's value to
-start with the provided value.</span><pre>startsWith()</pre></a></li>
-<li class="method public "><a href="#method_withinGeoBox" title="withinGeoBox() :: Add a constraint to the query that requires a particular key's
+                                                    <li class="interface"><a href="../classes/Parse.ParseStorageInterface.html">ParseStorageInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Parse.ParseACL.html">ParseACL</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseAggregateException.html">ParseAggregateException</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseAnalytics.html">ParseAnalytics</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseBytes.html">ParseBytes</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseClient.html">ParseClient</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseCloud.html">ParseCloud</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseException.html">ParseException</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseFile.html">ParseFile</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseGeoPoint.html">ParseGeoPoint</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseInstallation.html">ParseInstallation</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseMemoryStorage.html">ParseMemoryStorage</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseObject.html">ParseObject</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParsePush.html">ParsePush</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseQuery.html">ParseQuery</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseRelation.html">ParseRelation</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseRole.html">ParseRole</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseSessionStorage.html">ParseSessionStorage</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseUser.html">ParseUser</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Parse.html">\Parse</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Parse</small>ParseQuery</h1>
+                    <p><em>ParseQuery - Handles querying data from Parse</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Parse.ParseQuery.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_get" class="">get()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_equalTo" class="">equalTo()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_notEqualTo" class="">notEqualTo()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_lessThan" class="">lessThan()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_greaterThan" class="">greaterThan()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_greaterThanOrEqualTo" class="">greaterThanOrEqualTo()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_lessThanOrEqualTo" class="">lessThanOrEqualTo()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_startsWith" class="">startsWith()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_first" class="">first()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_count" class="">count()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_find" class="">find()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_skip" class="">skip()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_limit" class="">limit()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_ascending" class="">ascending()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_addAscending" class="">addAscending()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_descending" class="">descending()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_addDescending" class="">addDescending()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_near" class="">near()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_withinRadians" class="">withinRadians()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_withinMiles" class="">withinMiles()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_withinKilometers" class="">withinKilometers()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_withinGeoBox" class="">withinGeoBox()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_containedIn" class="">containedIn()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_each" class="">each()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_notContainedIn" class="">notContainedIn()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_matchesQuery" class="">matchesQuery()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_doesNotMatchQuery" class="">doesNotMatchQuery()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_matchesKeyInQuery" class="">matchesKeyInQuery()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_doesNotMatchKeyInQuery" class="">doesNotMatchKeyInQuery()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_orQueries" class="">orQueries()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_containsAll" class="">containsAll()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_exists" class="">exists()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_doesNotExist" class="">doesNotExist()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_select" class="">select()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_includeKey" class="">includeKey()</a><br />
+                                                                    <a href="../classes/Parse.ParseQuery.html#method_relatedTo" class="">relatedTo()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/ParseQuery.html"><div class="path-wrapper">ParseQuery.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Parse</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Parse\ParseQuery</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Fosco Marotto <a href="mailto:fjm@fb.com">fjm@fb.com</a></p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(mixed  <span class="argument">$className</span>) </pre>
+                <p><em>Create a Parse Query for a given Parse Class.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$className </td>
+                                <td><p>Class Name of data on Parse.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get" name="method_get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get(string  <span class="argument">$objectId</span>, boolean  <span class="argument">$useMasterKey = false</span>) : array</pre>
+                <p><em>Execute a query to retrieve a specific object</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$objectId </td>
+                                <td><p>Unique object id to retrieve.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$useMasterKey </td>
+                                <td><p>If the query should use the master key</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Parse\ParseException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_equalTo" name="method_equalTo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">equalTo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">equalTo(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : \Parse\ParseQuery</pre>
+                <p><em>Set a constraint for a field matching a given value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key to set up an equals constraint.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>Value the key must equal.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_notEqualTo" name="method_notEqualTo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">notEqualTo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">notEqualTo(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s value to
+be not equal to the provided value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to check.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>The value that must not be equalled.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_lessThan" name="method_lessThan" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">lessThan()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">lessThan(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s value to
+be less than the provided value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to check.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>The value that provides an Upper bound.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_greaterThan" name="method_greaterThan" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">greaterThan()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">greaterThan(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s value to
+be greater than the provided value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to check.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>The value that provides an Lower bound.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_greaterThanOrEqualTo" name="method_greaterThanOrEqualTo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">greaterThanOrEqualTo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">greaterThanOrEqualTo(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s value to
+be greater than or equal to the provided value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to check.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>The value that provides an Lower bound.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_lessThanOrEqualTo" name="method_lessThanOrEqualTo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">lessThanOrEqualTo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">lessThanOrEqualTo(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s value to
+be less than or equal to the provided value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to check.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>The value that provides an Upper bound.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_startsWith" name="method_startsWith" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">startsWith()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">startsWith(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s value to
+start with the provided value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to check.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>The substring that the value must start with.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_first" name="method_first" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">first()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">first(boolean  <span class="argument">$useMasterKey = false</span>) : array</pre>
+                <p><em>Execute a query to get only the first result.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$useMasterKey </td>
+                                <td><p>If the query should use the master key</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_count" name="method_count" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">count()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">count(boolean  <span class="argument">$useMasterKey = false</span>) : integer</pre>
+                <p><em>Execute a count query and return the count.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$useMasterKey </td>
+                                <td><p>If the query should use the master key</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_find" name="method_find" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">find()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">find(boolean  <span class="argument">$useMasterKey = false</span>) : array</pre>
+                <p><em>Execute a find query and return the results.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$useMasterKey </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_skip" name="method_skip" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">skip()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">skip(integer  <span class="argument">$n</span>) : \Parse\ParseQuery</pre>
+                <p><em>Set the skip parameter as a query constraint.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$n </td>
+                                <td><p>Number of objects to skip from start of results.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_limit" name="method_limit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">limit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">limit(integer  <span class="argument">$n</span>) : \Parse\ParseQuery</pre>
+                <p><em>Set the limit parameter as a query constraint</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$n </td>
+                                <td><p>Number of objects to return from the query.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_ascending" name="method_ascending" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">ascending()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">ascending(mixed  <span class="argument">$key</span>) : \Parse\ParseQuery</pre>
+                <p><em>Set the query orderBy to ascending for the given key(s). It overwrites the
+existing order criteria.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key </td>
+                                <td><p>Key(s) to sort by, which is a string or an array of strings.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addAscending" name="method_addAscending" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addAscending()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addAscending(mixed  <span class="argument">$key</span>) : \Parse\ParseQuery</pre>
+                <p><em>Set the query orderBy to ascending for the given key(s). It can also add
+secondary sort descriptors without overwriting the existing order.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key </td>
+                                <td><p>Key(s) to sort by, which is a string or an array of strings.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_descending" name="method_descending" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">descending()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">descending(mixed  <span class="argument">$key</span>) : \Parse\ParseQuery</pre>
+                <p><em>Set the query orderBy to descending for a given key(s). It overwrites the
+existing order criteria.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key </td>
+                                <td><p>Key(s) to sort by, which is a string or an array of strings.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addDescending" name="method_addDescending" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addDescending()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addDescending(mixed  <span class="argument">$key</span>) : \Parse\ParseQuery</pre>
+                <p><em>Set the query orderBy to descending for a given key(s). It can also add
+secondary sort descriptors without overwriting the existing order.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key </td>
+                                <td><p>Key(s) to sort by, which is a string or an array of strings.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_near" name="method_near" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">near()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">near(string  <span class="argument">$key</span>, \Parse\ParseGeoPoint  <span class="argument">$point</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a proximity based constraint for finding objects with key point
+values near the point given.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key that the ParseGeoPoint is stored in.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseGeoPoint.html">\Parse\ParseGeoPoint</a></td>
+                                <td>$point </td>
+                                <td><p>The reference ParseGeoPoint that is used.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_withinRadians" name="method_withinRadians" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">withinRadians()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">withinRadians(string  <span class="argument">$key</span>, \Parse\ParseGeoPoint  <span class="argument">$point</span>, integer  <span class="argument">$maxDistance</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a proximity based constraint for finding objects with key point
+values near the point given and within the maximum distance given.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key of the ParseGeoPoint</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseGeoPoint.html">\Parse\ParseGeoPoint</a></td>
+                                <td>$point </td>
+                                <td><p>The ParseGeoPoint that is used.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$maxDistance </td>
+                                <td><p>Maximum distance (in radians)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_withinMiles" name="method_withinMiles" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">withinMiles()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">withinMiles(string  <span class="argument">$key</span>, \Parse\ParseGeoPoint  <span class="argument">$point</span>, integer  <span class="argument">$maxDistance</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a proximity based constraint for finding objects with key point
+values near the point given and within the maximum distance given.</em></p>
+                <p>Radius of earth used is 3958.5 miles.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key of the ParseGeoPoint</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseGeoPoint.html">\Parse\ParseGeoPoint</a></td>
+                                <td>$point </td>
+                                <td><p>The ParseGeoPoint that is used.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$maxDistance </td>
+                                <td><p>Maximum distance (in miles)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_withinKilometers" name="method_withinKilometers" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">withinKilometers()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">withinKilometers(string  <span class="argument">$key</span>, \Parse\ParseGeoPoint  <span class="argument">$point</span>, integer  <span class="argument">$maxDistance</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a proximity based constraint for finding objects with key point
+values near the point given and within the maximum distance given.</em></p>
+                <p>Radius of earth used is 6371.0 kilometers.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key of the ParseGeoPoint</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseGeoPoint.html">\Parse\ParseGeoPoint</a></td>
+                                <td>$point </td>
+                                <td><p>The ParseGeoPoint that is used.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$maxDistance </td>
+                                <td><p>Maximum distance (in kilometers)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_withinGeoBox" name="method_withinGeoBox" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">withinGeoBox()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">withinGeoBox(string  <span class="argument">$key</span>, \Parse\ParseGeoPoint  <span class="argument">$southwest</span>, \Parse\ParseGeoPoint  <span class="argument">$northeast</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s
 coordinates be contained within a given rectangular geographic bounding
-box."><span class="description">Add a constraint to the query that requires a particular key's
-coordinates be contained within a given rectangular geographic bounding
-box.</span><pre>withinGeoBox()</pre></a></li>
-<li class="method public "><a href="#method_withinKilometers" title="withinKilometers() :: Add a proximity based constraint for finding objects with key point
-values near the point given and within the maximum distance given."><span class="description">Add a proximity based constraint for finding objects with key point
-values near the point given and within the maximum distance given.</span><pre>withinKilometers()</pre></a></li>
-<li class="method public "><a href="#method_withinMiles" title="withinMiles() :: Add a proximity based constraint for finding objects with key point
-values near the point given and within the maximum distance given."><span class="description">Add a proximity based constraint for finding objects with key point
-values near the point given and within the maximum distance given.</span><pre>withinMiles()</pre></a></li>
-<li class="method public "><a href="#method_withinRadians" title="withinRadians() :: Add a proximity based constraint for finding objects with key point
-values near the point given and within the maximum distance given."><span class="description">Add a proximity based constraint for finding objects with key point
-values near the point given and within the maximum distance given.</span><pre>withinRadians()</pre></a></li>
-</ul>
-</li></ul>
+box.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key of the ParseGeoPoint</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseGeoPoint.html">\Parse\ParseGeoPoint</a></td>
+                                <td>$southwest </td>
+                                <td><p>The lower-left corner of the box.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseGeoPoint.html">\Parse\ParseGeoPoint</a></td>
+                                <td>$northeast </td>
+                                <td><p>The upper-right corner of the box.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns this query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_containedIn" name="method_containedIn" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">containedIn()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">containedIn(string  <span class="argument">$key</span>, array  <span class="argument">$values</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s value to
+be contained in the provided list of values.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to check.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$values </td>
+                                <td><p>The values that will match.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_each" name="method_each" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">each()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">each(callable  <span class="argument">$callback</span>, boolean  <span class="argument">$useMasterKey = false</span>, integer  <span class="argument">$batchSize = 100</span>) </pre>
+                <p><em>Iterates over each result of a query, calling a callback for each one. The
+items are processed in an unspecified order. The query may not have any
+sort order, and may not use limit or skip.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>callable</td>
+                                <td>$callback </td>
+                                <td><p>Callback that will be called with each result</p>
+<pre><code>                       of the query.</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$useMasterKey </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$batchSize </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd><p>If query has sort, skip, or limit.</p></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_notContainedIn" name="method_notContainedIn" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">notContainedIn()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">notContainedIn(string  <span class="argument">$key</span>, array  <span class="argument">$values</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s value to
+not be contained in the provided list of values.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to check.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$values </td>
+                                <td><p>The values that will not match.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_matchesQuery" name="method_matchesQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">matchesQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">matchesQuery(string  <span class="argument">$key</span>, \Parse\ParseQuery  <span class="argument">$query</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint that requires that a key&#039;s value matches a ParseQuery
+constraint.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key that the contains the object to match</p>
+<pre><code>                     the query.</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></td>
+                                <td>$query </td>
+                                <td><p>The query that should match.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_doesNotMatchQuery" name="method_doesNotMatchQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">doesNotMatchQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">doesNotMatchQuery(string  <span class="argument">$key</span>, \Parse\ParseQuery  <span class="argument">$query</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint that requires that a key&#039;s value not matches a ParseQuery
+constraint.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key that the contains the object not to</p>
+<pre><code>                     match the query.</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></td>
+                                <td>$query </td>
+                                <td><p>The query that should not match.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_matchesKeyInQuery" name="method_matchesKeyInQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">matchesKeyInQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">matchesKeyInQuery(string  <span class="argument">$key</span>, string  <span class="argument">$queryKey</span>, \Parse\ParseQuery  <span class="argument">$query</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint that requires that a key&#039;s value matches a value in an
+object returned by the given query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key that contains teh value that is being</p>
+<pre><code>                        matched.</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$queryKey </td>
+                                <td><p>The key in objects returned by the query to</p>
+<pre><code>                        match against.</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></td>
+                                <td>$query </td>
+                                <td><p>The query to run.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_doesNotMatchKeyInQuery" name="method_doesNotMatchKeyInQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">doesNotMatchKeyInQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">doesNotMatchKeyInQuery(string  <span class="argument">$key</span>, string  <span class="argument">$queryKey</span>, \Parse\ParseQuery  <span class="argument">$query</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint that requires that a key&#039;s value not match a value in an
+object returned by the given query.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key that contains teh value that is being</p>
+<pre><code>                        excluded.</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$queryKey </td>
+                                <td><p>The key in objects returned by the query to</p>
+<pre><code>                        match against.</code></pre></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></td>
+                                <td>$query </td>
+                                <td><p>The query to run.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_orQueries" name="method_orQueries" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">orQueries()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">orQueries(array  <span class="argument">$queryObjects</span>) : \Parse\ParseQuery</pre>
+                <p><em>Constructs a ParseQuery object that is the OR of the passed in queries objects.</em></p>
+                <p>All queries must have same class name.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$queryObjects </td>
+                                <td><p>Array of ParseQuery objects to OR.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd><p>If all queries don't have same class.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>The query that is the OR of the passed in queries.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_containsAll" name="method_containsAll" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">containsAll()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">containsAll(string  <span class="argument">$key</span>, array  <span class="argument">$values</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint to the query that requires a particular key&#039;s value to
+contain each one of the provided list of values.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to check. This key's value must be an array.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$values </td>
+                                <td><p>The values that will match.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exists" name="method_exists" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exists()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exists(string  <span class="argument">$key</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint for finding objects that contain the given key.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key that should exist.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_doesNotExist" name="method_doesNotExist" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">doesNotExist()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">doesNotExist(string  <span class="argument">$key</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add a constraint for finding objects that not contain the given key.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key that should not exist.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_select" name="method_select" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">select()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">select(mixed  <span class="argument">$key</span>) : \Parse\ParseQuery</pre>
+                <p><em>Restrict the fields of the returned Parse Objects to include only the
+provided keys. If this is called multiple times, then all of the keys
+specified in each of the calls will be included.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key </td>
+                                <td><p>The name(s) of the key(s) to include. It could be</p>
+<pre><code>              string, or an Array of string.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_includeKey" name="method_includeKey" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">includeKey()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">includeKey(mixed  <span class="argument">$key</span>) : \Parse\ParseQuery</pre>
+                <p><em>Include nested Parse Objects for the provided key.  You can use dot
+notation to specify which fields in the included object are also fetch.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$key </td>
+                                <td><p>The name(s) of the key(s) to include. It could be</p>
+<pre><code>               string, or an Array of string.</code></pre></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_relatedTo" name="method_relatedTo" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">relatedTo()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">relatedTo(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : \Parse\ParseQuery</pre>
+                <p><em>Add constraint for parse relation.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>Returns the query, so you can chain this call.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ParseQuery.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/ParseQuery.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Parse.html">\Parse</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on July 29th, 2014 at 10:34.
+                </section>
+            </section>
+        </section>
+    </footer>
 </div>
-<div class="span8">
-<a id="\Parse\ParseQuery"></a><ul class="breadcrumb">
-<li>
-<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Parse.html">Parse</a></li>
-<li class="active">
-<span class="divider">\</span><a href="../classes/Parse.ParseQuery.html">ParseQuery</a>
-</li>
-</ul>
-<div class="element class">
-<p class="short_description">ParseQuery - Handles querying data from Parse</p>
-<div class="details"><div class="long_description"></div></div>
-</div>
-</div>
-</div>
-</div>
+
 </body>
 </html>

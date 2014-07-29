@@ -1,92 +1,603 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>Parse PHP SDK API Reference » \Parse\ParseRelation</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Parse PHP SDK API Reference</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Parse PHP SDK API Reference</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Packages</a></li>
-<li><a href="../packages/Parse.html"><i class="icon-folder-open"></i> Parse</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">38</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">0</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Parse PHP SDK API Reference</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Parse.html">\Parse</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">38</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<div class="btn-toolbar">
-<div class="btn-group visibility" data-toggle="buttons-checkbox">
-<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
-</div>
-<div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-</div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
-<i title="Methods" class="icon-custom icon-method"></i> Methods
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1347936516"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1347936516" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-642765465"></a>
+                                <a href="../namespaces/Parse.html" style="margin-left: 30px; padding-left: 0">Parse</a>
+            </div>
+            <div id="namespace-642765465" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct() :: Creates a new Relation for the given parent object, key and class name of target objects."><span class="description">Creates a new Relation for the given parent object, key and class name of target objects.</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_add" title="add() :: Adds a ParseObject or an array of ParseObjects to the relation."><span class="description">Adds a ParseObject or an array of ParseObjects to the relation.</span><pre>add()</pre></a></li>
-<li class="method public "><a href="#method_getQuery" title="getQuery() :: Gets a query that can be used to query the objects in this relation."><span class="description">Gets a query that can be used to query the objects in this relation.</span><pre>getQuery()</pre></a></li>
-<li class="method public "><a href="#method_getTargetClass" title="getTargetClass() :: Returns the target classname for the relation."><span class="description">Returns the target classname for the relation.</span><pre>getTargetClass()</pre></a></li>
-<li class="method public "><a href="#method_remove" title="remove() :: Removes a ParseObject or an array of ParseObjects from this relation."><span class="description">Removes a ParseObject or an array of ParseObjects from this relation.</span><pre>remove()</pre></a></li>
-<li class="method public "><a href="#method_setParent" title="setParent() :: Set the parent object for the relation."><span class="description">Set the parent object for the relation.</span><pre>setParent()</pre></a></li>
-<li class="method public "><a href="#method_setTargetClass" title="setTargetClass() :: Set the target classname for the relation."><span class="description">Set the target classname for the relation.</span><pre>setTargetClass()</pre></a></li>
-</ul>
-</li></ul>
+                                                    <li class="interface"><a href="../classes/Parse.ParseStorageInterface.html">ParseStorageInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Parse.ParseACL.html">ParseACL</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseAggregateException.html">ParseAggregateException</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseAnalytics.html">ParseAnalytics</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseBytes.html">ParseBytes</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseClient.html">ParseClient</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseCloud.html">ParseCloud</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseException.html">ParseException</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseFile.html">ParseFile</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseGeoPoint.html">ParseGeoPoint</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseInstallation.html">ParseInstallation</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseMemoryStorage.html">ParseMemoryStorage</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseObject.html">ParseObject</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParsePush.html">ParsePush</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseQuery.html">ParseQuery</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseRelation.html">ParseRelation</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseRole.html">ParseRole</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseSessionStorage.html">ParseSessionStorage</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseUser.html">ParseUser</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Parse.html">\Parse</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Parse</small>ParseRelation</h1>
+                    <p><em>ParseRelation - A class that is used to access all of the children of a many-to-many relationship. Each instance
+of ParseRelation is associated with a particular parent object and key.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Parse.ParseRelation.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Parse.ParseRelation.html#method_add" class="">add()</a><br />
+                                                                    <a href="../classes/Parse.ParseRelation.html#method_remove" class="">remove()</a><br />
+                                                                    <a href="../classes/Parse.ParseRelation.html#method_getTargetClass" class="">getTargetClass()</a><br />
+                                                                    <a href="../classes/Parse.ParseRelation.html#method_setTargetClass" class="">setTargetClass()</a><br />
+                                                                    <a href="../classes/Parse.ParseRelation.html#method_setParent" class="">setParent()</a><br />
+                                                                    <a href="../classes/Parse.ParseRelation.html#method_getQuery" class="">getQuery()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/ParseRelation.html"><div class="path-wrapper">ParseRelation.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Parse</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Parse\ParseRelation</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Mohamed Madbouli <a href="mailto:mohamedmadbouli@fb.com">mohamedmadbouli@fb.com</a></p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(\Parse\ParseObject  <span class="argument">$parent</span>, string  <span class="argument">$key</span>, string  <span class="argument">$targetClassName = null</span>) </pre>
+                <p><em>Creates a new Relation for the given parent object, key and class name of target objects.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a></td>
+                                <td>$parent </td>
+                                <td><p>The parent of this relation.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key of the relation in the parent object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$targetClassName </td>
+                                <td><p>The className of the target objects.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add" name="method_add" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add(mixed  <span class="argument">$objects</span>) </pre>
+                <p><em>Adds a ParseObject or an array of ParseObjects to the relation.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$objects </td>
+                                <td><p>The item or items to add.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove" name="method_remove" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove(mixed  <span class="argument">$objects</span>) </pre>
+                <p><em>Removes a ParseObject or an array of ParseObjects from this relation.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$objects </td>
+                                <td><p>The item or items to remove.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTargetClass" name="method_getTargetClass" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTargetClass()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTargetClass() : string</pre>
+                <p><em>Returns the target classname for the relation.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTargetClass" name="method_setTargetClass" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTargetClass()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTargetClass(  <span class="argument">$className</span>) </pre>
+                <p><em>Set the target classname for the relation.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$className </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setParent" name="method_setParent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setParent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setParent(  <span class="argument">$parent</span>) </pre>
+                <p><em>Set the parent object for the relation.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$parent </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getQuery" name="method_getQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getQuery() : \Parse\ParseQuery</pre>
+                <p><em>Gets a query that can be used to query the objects in this relation.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                            &mdash; <p>That restricts the results to objects in this relations.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ParseRelation.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/ParseRelation.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Parse.html">\Parse</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on July 29th, 2014 at 10:34.
+                </section>
+            </section>
+        </section>
+    </footer>
 </div>
-<div class="span8">
-<a id="\Parse\ParseRelation"></a><ul class="breadcrumb">
-<li>
-<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Parse.html">Parse</a></li>
-<li class="active">
-<span class="divider">\</span><a href="../classes/Parse.ParseRelation.html">ParseRelation</a>
-</li>
-</ul>
-<div class="element class">
-<p class="short_description">ParseRelation - A class that is used to access all of the children of a many-to-many relationship. Each instance
-of ParseRelation is associated with a particular parent object and key.</p>
-<div class="details"><div class="long_description"></div></div>
-</div>
-</div>
-</div>
-</div>
+
 </body>
 </html>

@@ -1,119 +1,1507 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>Parse PHP SDK API Reference » \Parse\ParseObject</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Parse PHP SDK API Reference</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">Parse PHP SDK API Reference</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Packages</a></li>
-<li><a href="../packages/Parse.html"><i class="icon-folder-open"></i> Parse</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">38</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">0</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Parse PHP SDK API Reference</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Parse.html">\Parse</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">38</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<div class="btn-toolbar">
-<div class="btn-group visibility" data-toggle="buttons-checkbox">
-<button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button>
-</div>
-<div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-</div>
-<ul class="side-nav nav nav-list"><li class="nav-header">
-<i title="Methods" class="icon-custom icon-method"></i> Methods
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-748387985"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-748387985" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-670947812"></a>
+                                <a href="../namespaces/Parse.html" style="margin-left: 30px; padding-left: 0">Parse</a>
+            </div>
+            <div id="namespace-670947812" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method public "><a href="#method___construct" title="__construct() :: Create a Parse Object"><span class="description">Create a Parse Object</span><pre>__construct()</pre></a></li>
-<li class="method public "><a href="#method_add" title="add() :: Add a value to an array property."><span class="description">Add a value to an array property.</span><pre>add()</pre></a></li>
-<li class="method public "><a href="#method_addUnique" title="addUnique() :: Add unique values to an array property."><span class="description">Add unique values to an array property.</span><pre>addUnique()</pre></a></li>
-<li class="method public "><a href="#method_clear" title="clear() :: Clear all keys on this object by creating delete operations
-for each key."><span class="description">Clear all keys on this object by creating delete operations
-for each key.</span><pre>clear()</pre></a></li>
-<li class="method public "><a href="#method_create" title="create() :: Static method which returns a new Parse Object for a given class"><span class="description">Static method which returns a new Parse Object for a given class</span><pre>create()</pre></a></li>
-<li class="method public "><a href="#method_delete" title="delete() :: Delete a key from an object."><span class="description">Delete a key from an object.</span><pre>delete()</pre></a></li>
-<li class="method public "><a href="#method_destroy" title="destroy() :: Delete object."><span class="description">Delete object.</span><pre>destroy()</pre></a></li>
-<li class="method public "><a href="#method_destroyAll" title="destroyAll() :: Delete an array of objects."><span class="description">Delete an array of objects.</span><pre>destroyAll()</pre></a></li>
-<li class="method public "><a href="#method_fetch" title="fetch() :: Fetch the whole object from the server and update the local object."><span class="description">Fetch the whole object from the server and update the local object.</span><pre>fetch()</pre></a></li>
-<li class="method public "><a href="#method_get" title="get() :: Get current value for an object property."><span class="description">Get current value for an object property.</span><pre>get()</pre></a></li>
-<li class="method public "><a href="#method_getACL" title="getACL() :: Get ACL assigned to the object."><span class="description">Get ACL assigned to the object.</span><pre>getACL()</pre></a></li>
-<li class="method public "><a href="#method_getClassName" title="getClassName() :: Get the Parse Class Name for the object."><span class="description">Get the Parse Class Name for the object.</span><pre>getClassName()</pre></a></li>
-<li class="method public "><a href="#method_getCreatedAt" title="getCreatedAt() :: Get the createdAt for the object, or null if unsaved."><span class="description">Get the createdAt for the object, or null if unsaved.</span><pre>getCreatedAt()</pre></a></li>
-<li class="method public "><a href="#method_getObjectId" title="getObjectId() :: Get the objectId for the object, or null if unsaved."><span class="description">Get the objectId for the object, or null if unsaved.</span><pre>getObjectId()</pre></a></li>
-<li class="method public "><a href="#method_getRelation" title="getRelation() :: Access or create a Relation value for a key."><span class="description">Access or create a Relation value for a key.</span><pre>getRelation()</pre></a></li>
-<li class="method public "><a href="#method_getUpdatedAt" title="getUpdatedAt() :: Get the updatedAt for the object, or null if unsaved."><span class="description">Get the updatedAt for the object, or null if unsaved.</span><pre>getUpdatedAt()</pre></a></li>
-<li class="method public "><a href="#method_has" title="has() :: Check if the object has a given key"><span class="description">Check if the object has a given key</span><pre>has()</pre></a></li>
-<li class="method public "><a href="#method_increment" title="increment() :: Increment a numeric key by a certain value."><span class="description">Increment a numeric key by a certain value.</span><pre>increment()</pre></a></li>
-<li class="method public "><a href="#method_isDataAvailable" title="isDataAvailable() :: Returns true if the object has been fetched."><span class="description">Returns true if the object has been fetched.</span><pre>isDataAvailable()</pre></a></li>
-<li class="method public "><a href="#method_isDirty" title="isDirty() :: Check if the object or any of its child objects have unsaved operations."><span class="description">Check if the object or any of its child objects have unsaved operations.</span><pre>isDirty()</pre></a></li>
-<li class="method public "><a href="#method_isKeyDirty" title="isKeyDirty() :: Check if the a value associated with a key has been
-added/updated/removed and not saved yet."><span class="description">Check if the a value associated with a key has been
-added/updated/removed and not saved yet.</span><pre>isKeyDirty()</pre></a></li>
-<li class="method public "><a href="#method_query" title="query() :: Creates a ParseQuery for the subclass of ParseObject."><span class="description">Creates a ParseQuery for the subclass of ParseObject.</span><pre>query()</pre></a></li>
-<li class="method public "><a href="#method_registerSubclass" title="registerSubclass() :: Register a subclass.  Should be called before any other Parse functions."><span class="description">Register a subclass.  Should be called before any other Parse functions.</span><pre>registerSubclass()</pre></a></li>
-<li class="method public "><a href="#method_remove" title="remove() :: Remove a value from an array for an object key."><span class="description">Remove a value from an array for an object key.</span><pre>remove()</pre></a></li>
-<li class="method public "><a href="#method_revert" title="revert() :: Revert all unsaved operations."><span class="description">Revert all unsaved operations.</span><pre>revert()</pre></a></li>
-<li class="method public "><a href="#method_save" title="save() :: Save Object to Parse"><span class="description">Save Object to Parse</span><pre>save()</pre></a></li>
-<li class="method public "><a href="#method_saveAll" title="saveAll() :: Save all the objects in the provided array"><span class="description">Save all the objects in the provided array</span><pre>saveAll()</pre></a></li>
-<li class="method public "><a href="#method_set" title="set() :: Validate and set a value for an object key."><span class="description">Validate and set a value for an object key.</span><pre>set()</pre></a></li>
-<li class="method public "><a href="#method_setACL" title="setACL() :: Set ACL for this object."><span class="description">Set ACL for this object.</span><pre>setACL()</pre></a></li>
-<li class="method public "><a href="#method_setArray" title="setArray() :: Set an array value for an object key."><span class="description">Set an array value for an object key.</span><pre>setArray()</pre></a></li>
-<li class="method public "><a href="#method_setAssociativeArray" title="setAssociativeArray() :: Set an associative array value for an object key."><span class="description">Set an associative array value for an object key.</span><pre>setAssociativeArray()</pre></a></li>
-</ul>
-</li></ul>
+                                                    <li class="interface"><a href="../classes/Parse.ParseStorageInterface.html">ParseStorageInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Parse.ParseACL.html">ParseACL</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseAggregateException.html">ParseAggregateException</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseAnalytics.html">ParseAnalytics</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseBytes.html">ParseBytes</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseClient.html">ParseClient</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseCloud.html">ParseCloud</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseException.html">ParseException</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseFile.html">ParseFile</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseGeoPoint.html">ParseGeoPoint</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseInstallation.html">ParseInstallation</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseMemoryStorage.html">ParseMemoryStorage</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseObject.html">ParseObject</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParsePush.html">ParsePush</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseQuery.html">ParseQuery</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseRelation.html">ParseRelation</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseRole.html">ParseRole</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseSessionStorage.html">ParseSessionStorage</a></li>
+                                                    <li class="class"><a href="../classes/Parse.ParseUser.html">ParseUser</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Parse.html">\Parse</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Parse</small>ParseObject</h1>
+                    <p><em>ParseObject - Representation of an object stored on Parse.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Parse.ParseObject.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_get" class="">get()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_has" class="">has()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_isKeyDirty" class="">isKeyDirty()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_isDirty" class="">isDirty()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_set" class="">set()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_setArray" class="">setArray()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_setAssociativeArray" class="">setAssociativeArray()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_remove" class="">remove()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_revert" class="">revert()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_clear" class="">clear()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_getClassName" class="">getClassName()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_getObjectId" class="">getObjectId()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_getCreatedAt" class="">getCreatedAt()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_isDataAvailable" class="">isDataAvailable()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_getUpdatedAt" class="">getUpdatedAt()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_create" class="">create()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_fetch" class="">fetch()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_destroy" class="">destroy()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_destroyAll" class="">destroyAll()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_increment" class="">increment()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_add" class="">add()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_addUnique" class="">addUnique()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_delete" class="">delete()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_save" class="">save()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_saveAll" class="">saveAll()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_getRelation" class="">getRelation()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_setACL" class="">setACL()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_getACL" class="">getACL()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_registerSubclass" class="">registerSubclass()</a><br />
+                                                                    <a href="../classes/Parse.ParseObject.html#method_query" class="">query()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/ParseObject.html"><div class="path-wrapper">ParseObject.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Parse</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Parse\ParseObject</div>
+                            </dd>
+
+                                                                            <dt>Implements</dt>
+                                                        <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Fosco Marotto <a href="mailto:fjm@fb.com">fjm@fb.com</a></p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string  <span class="argument">$className = null</span>, mixed  <span class="argument">$objectId = null</span>, boolean  <span class="argument">$isPointer = false</span>) </pre>
+                <p><em>Create a Parse Object</em></p>
+                <p>Creates a pointer object if an objectId is provided,
+otherwise creates a new object.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$className </td>
+                                <td><p>Class Name for data on Parse.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$objectId </td>
+                                <td><p>Object Id for Existing object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isPointer </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get" name="method_get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get(string  <span class="argument">$key</span>) : mixed</pre>
+                <p><em>Get current value for an object property.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key to retrieve from the estimatedData array.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_has" name="method_has" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">has()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">has(string  <span class="argument">$key</span>) : boolean</pre>
+                <p><em>Check if the object has a given key</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key to check</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isKeyDirty" name="method_isKeyDirty" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isKeyDirty()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isKeyDirty(string  <span class="argument">$key</span>) : boolean</pre>
+                <p><em>Check if the a value associated with a key has been
+added/updated/removed and not saved yet.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isDirty" name="method_isDirty" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isDirty()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isDirty() : boolean</pre>
+                <p><em>Check if the object or any of its child objects have unsaved operations.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set" name="method_set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : null</pre>
+                <p><em>Validate and set a value for an object key.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key to set a value for on the object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>Value to set on the key.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setArray" name="method_setArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setArray(string  <span class="argument">$key</span>, array  <span class="argument">$value</span>) : null</pre>
+                <p><em>Set an array value for an object key.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key to set the value for on the object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$value </td>
+                                <td><p>Value to set on the key.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAssociativeArray" name="method_setAssociativeArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAssociativeArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAssociativeArray(string  <span class="argument">$key</span>, array  <span class="argument">$value</span>) : null</pre>
+                <p><em>Set an associative array value for an object key.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key to set the value for on the object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$value </td>
+                                <td><p>Value to set on the key.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove" name="method_remove" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : null</pre>
+                <p><em>Remove a value from an array for an object key.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key to remove the value from on the object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>Value to remove from the array.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_revert" name="method_revert" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">revert()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">revert() : null</pre>
+                <p><em>Revert all unsaved operations.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_clear" name="method_clear" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">clear()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">clear() : null</pre>
+                <p><em>Clear all keys on this object by creating delete operations
+for each key.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClassName" name="method_getClassName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClassName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClassName() : string</pre>
+                <p><em>Get the Parse Class Name for the object.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getObjectId" name="method_getObjectId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getObjectId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getObjectId() : string|null</pre>
+                <p><em>Get the objectId for the object, or null if unsaved.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string|null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCreatedAt" name="method_getCreatedAt" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getCreatedAt()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCreatedAt() : \DateTime|null</pre>
+                <p><em>Get the createdAt for the object, or null if unsaved.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \DateTime|null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isDataAvailable" name="method_isDataAvailable" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isDataAvailable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isDataAvailable() : boolean</pre>
+                <p><em>Returns true if the object has been fetched.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUpdatedAt" name="method_getUpdatedAt" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUpdatedAt()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUpdatedAt() : \DateTime|null</pre>
+                <p><em>Get the updatedAt for the object, or null if unsaved.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \DateTime|null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_create" name="method_create" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">create()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">create(string  <span class="argument">$className</span>, string  <span class="argument">$objectId = null</span>,   <span class="argument">$isPointer = false</span>) : Object</pre>
+                <p><em>Static method which returns a new Parse Object for a given class</em></p>
+                <p>Optionally creates a pointer object if the objectId is provided.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$className </td>
+                                <td><p>Class Name for data on Parse.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$objectId </td>
+                                <td><p>Unique identifier for existing object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$isPointer </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Object
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_fetch" name="method_fetch" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">fetch()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">fetch() : null</pre>
+                <p><em>Fetch the whole object from the server and update the local object.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_destroy" name="method_destroy" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">destroy()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">destroy(  <span class="argument">$useMasterKey = false</span>) : null</pre>
+                <p><em>Delete object.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$useMasterKey </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_destroyAll" name="method_destroyAll" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">destroyAll()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">destroyAll(array  <span class="argument">$objects</span>, boolean  <span class="argument">$useMasterKey = false</span>) : null</pre>
+                <p><em>Delete an array of objects.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$objects </td>
+                                <td><p>Objects to destroy.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$useMasterKey </td>
+                                <td><p>Whether to use the master key or not.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_increment" name="method_increment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">increment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">increment(string  <span class="argument">$key</span>, integer  <span class="argument">$value = 1</span>) : null</pre>
+                <p><em>Increment a numeric key by a certain value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key for numeric value on object to increment.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$value </td>
+                                <td><p>Value to increment by.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add" name="method_add" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : null</pre>
+                <p><em>Add a value to an array property.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key for array value on object to add a value to.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>Value to add.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addUnique" name="method_addUnique" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addUnique()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addUnique(string  <span class="argument">$key</span>, mixed  <span class="argument">$value</span>) : null</pre>
+                <p><em>Add unique values to an array property.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key for array value on object.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>Value list to add uniquely.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_delete" name="method_delete" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">delete()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">delete(string  <span class="argument">$key</span>) : null</pre>
+                <p><em>Delete a key from an object.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>Key to remove from object.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_save" name="method_save" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">save()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">save() : null</pre>
+                <p><em>Save Object to Parse</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_saveAll" name="method_saveAll" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">saveAll()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">saveAll(array  <span class="argument">$list</span>) : null</pre>
+                <p><em>Save all the objects in the provided array</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$list </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRelation" name="method_getRelation" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRelation()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRelation(string  <span class="argument">$key</span>) : \Parse\ParseRelation</pre>
+                <p><em>Access or create a Relation value for a key.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key </td>
+                                <td><p>The key to access the relation for.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseRelation.html">\Parse\ParseRelation</a>
+                                            &mdash; <p>The ParseRelation object if the relation already</p>
+<pre><code>                  exists for the key or can be created for this key.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setACL" name="method_setACL" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setACL()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setACL(\Parse\ParseACL  <span class="argument">$acl</span>) </pre>
+                <p><em>Set ACL for this object.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a></td>
+                                <td>$acl </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getACL" name="method_getACL" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getACL()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getACL() : \Parse\ParseACL</pre>
+                <p><em>Get ACL assigned to the object.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_registerSubclass" name="method_registerSubclass" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">registerSubclass()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">registerSubclass() </pre>
+                <p><em>Register a subclass.  Should be called before any other Parse functions.</em></p>
+                <p>Cannot be called on the base class ParseObject.</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_query" name="method_query" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">query()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">query() : \Parse\ParseQuery</pre>
+                <p><em>Creates a ParseQuery for the subclass of ParseObject.</em></p>
+                <p>Cannot be called on the base class ParseObject.</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ParseObject.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/ParseObject.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Parse.html">\Parse</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on July 29th, 2014 at 10:34.
+                </section>
+            </section>
+        </section>
+    </footer>
 </div>
-<div class="span8">
-<a id="\Parse\ParseObject"></a><ul class="breadcrumb">
-<li>
-<a href="../index.html"><i title="Classes" class="icon-custom icon-class"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/Parse.html">Parse</a></li>
-<li class="active">
-<span class="divider">\</span><a href="../classes/Parse.ParseObject.html">ParseObject</a>
-</li>
-</ul>
-<div class="element class">
-<p class="short_description">ParseObject - Representation of an object stored on Parse.</p>
-<div class="details"><div class="long_description"></div></div>
-</div>
-</div>
-</div>
-</div>
+
 </body>
 </html>
