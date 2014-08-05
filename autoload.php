@@ -22,7 +22,7 @@ spl_autoload_register(function ($class)
   $prefix = 'Parse\\';
 
   // base directory for the namespace prefix
-  $base_dir = defined('PARSE_SDK_DIR') ? PARSE_SDK_DIR : __DIR__ . '/Parse/';
+  $base_dir = defined('PARSE_SDK_DIR') ? PARSE_SDK_DIR : __DIR__ . '/src/Parse/';
 
   // does the class use the namespace prefix?
   $len = strlen( $prefix );
