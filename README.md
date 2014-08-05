@@ -25,7 +25,7 @@ and then require it from your PHP script:
 require 'vendor/autoload.php';
 ```
 
-Altermative Method
+Alternative Method
 ------------------
 
 If you don't want to use Composer, you can include the ```autoload.php```
