@@ -25,6 +25,17 @@ and then require it from your PHP script:
 require 'vendor/autoload.php';
 ```
 
+Alternative Method
+------------------
+
+If you don't want to use Composer, you can include the ```autoload.php```
+file in your code to automatically load the Parse SDK classes.
+
+```php
+require 'autoload.php';
+```
+
+
 Usage
 -----
 
