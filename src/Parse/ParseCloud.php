@@ -22,10 +22,14 @@ class ParseCloud
    */
   public static function run($name, $data = array(), $useMasterKey = false)
   {
+    $sessionToken = null;
+    if (ParseUser::getCurrentUser()) {
+      $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
+    }
     $response = ParseClient::_request(
       'POST',
       '/1/functions/' . $name,
-      null,
+      $sessionToken,
       json_encode(ParseClient::_encode($data, null, false)),
       $useMasterKey
     );
