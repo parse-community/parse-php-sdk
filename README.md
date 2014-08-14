@@ -35,6 +35,14 @@ file in your code to automatically load the Parse SDK classes.
 require 'autoload.php';
 ```
 
+Initialization
+---------------
+
+After including the required files from the SDK, you need to initalize the ParseClient using your Parse API keys:
+
+```php
+ParseClient::initialize( $app_id, $rest_key, $master_key );
+```
 
 Usage
 -----
