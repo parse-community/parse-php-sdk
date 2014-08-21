@@ -17,9 +17,9 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*",
-        "squizlabs/php_codesniffer": "1.*",
-        "phpdocumentor/phpdocumentor": "*"
+        "phpunit/phpunit": "~4.0",
+        "squizlabs/php_codesniffer": "~1.5",
+        "phpdocumentor/phpdocumentor": "~2.5"
     },
     "autoload": {
         "psr-4": {
