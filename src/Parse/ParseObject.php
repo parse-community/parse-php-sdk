@@ -213,7 +213,7 @@ class ParseObject implements Encodable
    * @return bool
    * @ignore
    */
-  private function _isDirty($considerChildren)
+  protected function _isDirty($considerChildren)
   {
     return
       (count($this->operationSet) || $this->objectId === null) ||
