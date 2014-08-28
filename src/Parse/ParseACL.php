@@ -493,7 +493,7 @@ class ParseACL implements Encodable{
   public function setRoleWriteAccess($role, $allowed)
   {
     $this->validateRoleState($role);
-    $this->setWriteAccessWithName($role->getName(), $allowed);
+    $this->setRoleWriteAccessWithName($role->getName(), $allowed);
   }
 
   /**
