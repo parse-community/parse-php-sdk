@@ -290,10 +290,12 @@ class ParseQuery
    * Execute a find query and return the results.
    *
    * @param boolean $useMasterKey
+   * @param boolean $decodeObjects If set to false, will just return the response
+   *                               from ParseClient::_request
    *
    * @return array
    */
-  public function find($useMasterKey = false)
+  public function find($useMasterKey = false, $decodeObjects = true)
   {
     $sessionToken = null;
     if (ParseUser::getCurrentUser()) {
@@ -303,6 +305,9 @@ class ParseQuery
     $result = ParseClient::_request('GET',
         '/1/classes/' . $this->className .
         '?' . $queryString, $sessionToken, null, $useMasterKey);
+    if (!$decodeObjects) {
+      return $result;
+    }
     $output = array();
     foreach ($result['results'] as $row) {
       $obj = ParseObject::create($this->className, $row['objectId']);
