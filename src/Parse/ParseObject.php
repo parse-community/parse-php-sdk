@@ -840,7 +840,7 @@ class ParseObject implements Encodable
    */
   public static function saveAll($list, $useMasterKey = false)
   {
-    static::deepSave($list);
+    static::deepSave($list, $useMasterKey);
   }
 
   /**
