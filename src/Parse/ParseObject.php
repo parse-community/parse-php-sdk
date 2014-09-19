@@ -916,7 +916,7 @@ class ParseObject implements Encodable
       if (count($requests) === 1) {
         $req = $requests[0];
         $result = ParseClient::_request($req['method'],
-          $req['path'], $sessionToken, json_encode($req['body']));
+          $req['path'], $sessionToken, json_encode($req['body']), $useMasterKey);
         $batch[0]->mergeAfterSave($result);
       } else {
         $result = ParseClient::_request('POST', '/1/batch', $sessionToken,
