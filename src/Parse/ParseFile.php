@@ -69,6 +69,32 @@ class ParseFile implements \Parse\Internal\Encodable
   }
 
   /**
+   * Send a REST request to delete the ParseFile
+   *
+   * @throws ParseException
+   */
+  public function delete()
+  {
+    if (!$this->url) {
+      throw new ParseException("Cannot delete file that has not been saved.");
+    }
+
+    $headers = ParseClient::_getRequestHeaders(null, true);
+    $url = ParseClient::HOST_NAME . '/1/files/' . $this->getName();
+    $rest = curl_init();
+    curl_setopt($rest, CURLOPT_URL, $url);
+    curl_setopt($rest, CURLOPT_CUSTOMREQUEST, "DELETE");
+    curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
+    $response = curl_exec($rest);
+    $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
+    if (curl_errno($rest)) {
+      throw new ParseException(curl_error($rest), curl_errno($rest));
+    }
+    curl_close($rest);
+  }
+
+  /**
    * Return the mimeType for the file, if set.
    *
    * @return string|null
@@ -206,6 +232,10 @@ class ParseFile implements \Parse\Internal\Encodable
     $response = curl_exec($rest);
     if (curl_errno($rest)) {
       throw new ParseException(curl_error($rest), curl_errno($rest));
+    }
+    $httpStatus = curl_getinfo($rest, CURLINFO_HTTP_CODE);
+    if ($httpStatus > 399) {
+      throw new ParseException("Download failed, file may have been deleted.", $httpStatus);
     }
     $this->mimeType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
     $this->data = $response;

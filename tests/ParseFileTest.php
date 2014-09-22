@@ -123,4 +123,20 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($contents, $contentsAgain);
   }
 
+  public function testFileDelete()
+  {
+    $data = "c-c-c-combo breaker";
+    $name = "php.txt";
+    $file = ParseFile::createFromData($data, $name);
+    $file->save();
+    $url = $file->getURL();
+    $fileAgain = ParseFile::_createFromServer($name, $url);
+    $contents = $fileAgain->getData();
+    $this->assertEquals($data, $contents);
+    $file->delete();
+    $fileAgain = ParseFile::_createFromServer($name, $url);
+    $this->setExpectedException('Parse\ParseException', 'Download failed');
+    $contents = $fileAgain->getData();
+  }
+
 }
