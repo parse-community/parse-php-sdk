@@ -87,7 +87,7 @@ class ParseRole extends ParseObject
     return $this->getRelation("roles");
   }
 
-  public function save()
+  public function save($useMasterKey = false)
   {
     if (!$this->getACL()) {
       throw new ParseException(
@@ -99,7 +99,7 @@ class ParseRole extends ParseObject
         "Roles must have a name."
       );
     }
-    return parent::save();
+    return parent::save($useMasterKey);
   }
 
 
