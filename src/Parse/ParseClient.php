@@ -357,4 +357,20 @@ final class ParseClient
     return $date;
   }
 
+  /**
+   * Get a date value in the format to use in Local Push Scheduling on Parse.
+   *
+   * All the SDKs do some slightly different date handling.
+   * Format from Parse doc: an ISO 8601 date without a time zone, i.e. 2014-10-16T12:00:00 .
+   *
+   * @param \DateTime $value DateTime value to format.
+   *
+   * @return string
+   */
+  public static function getLocalPushDateFormat($value)
+  {
+    $dateFormatString = 'Y-m-d\TH:i:s';
+    $date = date_format($value, $dateFormatString);
+    return $date;
+  }
 }
