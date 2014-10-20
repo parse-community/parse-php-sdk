@@ -14,5 +14,11 @@ class ParseInstallation extends ParseObject
 {
 
   public static $parseClassName = "_Installation";
+  function void query(){
+    /*******
+     *
+     * Something goes here
+     */
+  } 
 
 }
