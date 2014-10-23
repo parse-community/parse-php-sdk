@@ -31,7 +31,7 @@ class ParseFile implements \Parse\Internal\Encodable
   /**
    * Return the data for the file, downloading it if not already present.
    *
-   * @returns mixed
+   * @return mixed
    *
    * @throws ParseException
    */
@@ -50,7 +50,7 @@ class ParseFile implements \Parse\Internal\Encodable
   /**
    * Return the URL for the file, if saved.
    *
-   * @returns string|null
+   * @return string|null
    */
   public function getURL()
   {
@@ -112,7 +112,7 @@ class ParseFile implements \Parse\Internal\Encodable
    * @param string $name The file name on Parse, can be used to detect mimeType
    * @param string $mimeType Optional, The mime-type to use when saving the file
    *
-   * @returns ParseFile
+   * @return ParseFile
    */
   public static function createFromData($contents, $name, $mimeType = null)
   {
@@ -132,7 +132,7 @@ class ParseFile implements \Parse\Internal\Encodable
    * @param string $name Filename to use on Parse, can be used to detect mimeType
    * @param string $mimeType Optional, The mime-type to use when saving the file
    *
-   * @returns ParseFile
+   * @return ParseFile
    */
   public static function createFromFile($path, $name, $mimeType = null)
   {
