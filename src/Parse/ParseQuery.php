@@ -203,6 +203,24 @@ class ParseQuery
   }
 
   /**
+   * Add a constraint to the query that requires a particular key's value to
+   * match with the provided regex.
+   *
+   * @param string $key       The key to check.
+   * @param string $value     The regex that the value must match.
+   * @param string $modifiers The modifiers for the provided regex (ex : "i" for case-insensitive).
+   *
+   * @return ParseQuery Returns this query, so you can chain this call.
+   */
+  public function matches($key, $regex, $modifiers = null)
+  {
+      $this->addCondition($key, '$regex', $regex);
+      if ($modifiers)
+        $this->addCondition($key, '$options', $modifiers);
+      return $this;
+  }
+
+  /**
    * Returns an associative array of the query constraints.
    *
    * @return array
