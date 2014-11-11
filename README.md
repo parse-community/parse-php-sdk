@@ -157,7 +157,7 @@ $results = ParseCloud::run("aCloudFunction", array("from" => "php"));
 Analytics:
 
 ```php
-PFAnalytics::trackEvent("logoReaction", array(
+ParseAnalytics::track("logoReaction", array(
   "saw" => "elephant",
   "said" => "cute"
 ));
