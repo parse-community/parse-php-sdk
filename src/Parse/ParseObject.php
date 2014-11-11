@@ -88,7 +88,8 @@ class ParseObject implements Encodable
       throw new Exception(
         'You must specify a Parse class name or register the appropriate ' .
         'subclass when creating a new Object.  Use ParseObject::create to ' .
-        'create a subclass object.'
+        'create a subclass object. Perhaps you forgot to use ' .
+        'ParseClient::initialize before creating your Object?'
       );
     }
 
