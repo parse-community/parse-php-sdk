@@ -79,6 +79,12 @@ class ParseObject implements Encodable
   public function __construct($className = null, $objectId = null,
                               $isPointer = false)
   {
+    if (empty(self::$registeredSubclasses)) {
+      throw new Exception(
+        'You must initialize the ParseClient using ParseClient::initialize ' .
+        'and your Parse API keys before you can begin working with Objects.'
+      );
+    }
     $subclass = static::getSubclass();
     $class = get_called_class();
     if (!$className && $subclass !== false) {
