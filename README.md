@@ -25,6 +25,8 @@ and then require it from your PHP script:
 require 'vendor/autoload.php';
 ```
 
+Note: The Parse PHP SDK requires PHP 5.4 or newer.
+
 Alternative Method
 ------------------
 
