@@ -55,7 +55,7 @@ class SetOperation implements FieldOperation
     if ($this->isAssociativeArray) {
       $object = new \stdClass();
       foreach ($this->value as $key => $value) {
-        $object->$key = $value;
+        $object->$key = ParseClient::_encode($value, true);
       }
       return ParseClient::_encode($object, true);
     }
