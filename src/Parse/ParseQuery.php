@@ -758,6 +758,7 @@ class ParseQuery
     } else {
       $this->includes[] = $key;
     }
+    return $this;
   }
 
   /**
