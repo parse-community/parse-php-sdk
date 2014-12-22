@@ -1154,7 +1154,7 @@ class ParseObject implements Encodable
   public static function registerSubclass()
   {
     if (isset(static::$parseClassName)) {
-      if (!in_array(static::$parseClassName, self::$registeredSubclasses)) {
+      if (!array_key_exists(static::$parseClassName, self::$registeredSubclasses)) {
         self::$registeredSubclasses[static::$parseClassName] =
           get_called_class();
       }
