@@ -48,7 +48,7 @@ final class ParseClient
    * Constant for version string to include with requests.
    * @ignore
    */
-  const VERSION_STRING = 'php1.0.0';
+  const VERSION_STRING = 'php1.0.5';
 
   /**
    * Parse\Client::initialize, must be called before using Parse features.
