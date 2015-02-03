@@ -462,9 +462,11 @@ class ParseObject implements Encodable
   /**
    * Fetch the whole object from the server and update the local object.
    *
+   * @param bool $useMasterKey Whether to use the master key and override ACLs
+   *
    * @return null
    */
-  public function fetch()
+  public function fetch($useMasterKey = false)
   {
     $sessionToken = null;
     if (ParseUser::getCurrentUser()) {
@@ -473,7 +475,7 @@ class ParseObject implements Encodable
     $response = ParseClient::_request(
       'GET',
       '/1/classes/' . $this->className . '/' . $this->objectId,
-      $sessionToken
+      $sessionToken, null, $useMasterKey
     );
     $this->_mergeAfterFetch($response);
   }
