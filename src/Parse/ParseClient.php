@@ -35,6 +35,11 @@ final class ParseClient
   private static $masterKey;
 
   /**
+   * @var - Boolean for Enable/Disable curl exceptions.
+   */
+  private static $enableCurlExceptions;
+
+  /**
    * @var ParseStorageInterface Object for managing persistence
    */
   private static $storage;
@@ -48,13 +53,14 @@ final class ParseClient
   /**
    * Parse\Client::initialize, must be called before using Parse features.
    *
-   * @param string $app_id     Parse Application ID
-   * @param string $rest_key   Parse REST API Key
-   * @param string $master_key Parse Master Key
+   * @param string $app_id                Parse Application ID
+   * @param string $rest_key              Parse REST API Key
+   * @param string $master_key            Parse Master Key
+   * @param string $enableCurlExceptions  Enable or disable Parse curl exceptions
    *
    * @return null
    */
-  public static function initialize($app_id, $rest_key, $master_key)
+  public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true)
   {
     ParseUser::registerSubclass();
     ParseRole::registerSubclass();
@@ -62,6 +68,7 @@ final class ParseClient
     self::$applicationId = $app_id;
     self::$restKey = $rest_key;
     self::$masterKey = $master_key;
+    self::$enableCurlExceptions = $enableCurlExceptions;
     if (!static::$storage) {
       if (session_status() === PHP_SESSION_ACTIVE) {
         self::setStorage(new ParseSessionStorage());
@@ -247,7 +254,11 @@ final class ParseClient
     $status = curl_getinfo($rest, CURLINFO_HTTP_CODE);
     $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
     if (curl_errno($rest)) {
-      throw new ParseException(curl_error($rest), curl_errno($rest));
+      if (self::$enableCurlExceptions) {
+        throw new ParseException(curl_error($rest), curl_errno($rest));
+      } else {
+        return false;
+      }
     }
     curl_close($rest);
     if (strpos($contentType, 'text/html') !== false) {
@@ -280,7 +291,7 @@ final class ParseClient
   /**
    * ParseClient::getStorage, will return the storage object used for
    * persistence.
-
+   *
    * @return ParseStorageInterface
    */
   public static function getStorage()
