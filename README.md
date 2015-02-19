@@ -65,6 +65,7 @@ use Parse\ParseException;
 use Parse\ParseAnalytics;
 use Parse\ParseFile;
 use Parse\ParseCloud;
+use Parse\ParseClient;
 ```
 
 Objects:
