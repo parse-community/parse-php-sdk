@@ -210,6 +210,11 @@ class ParseUser extends ParseObject
     }
     $storage = ParseClient::getStorage();
     $userData = $storage->get("user");
+    
+    // fix __PHP_Incomplete_Class
+    if (!is_object($userData))
+      $userData = unserialize(serialize($userData));
+      
     if ($userData instanceof ParseUser) {
       static::$currentUser = $userData;
       return $userData;
