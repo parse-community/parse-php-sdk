@@ -7,12 +7,10 @@ use Parse\ParseException;
 /**
  * Class IncrementOperation - Operation to increment numeric object key.
  *
- * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class IncrementOperation implements FieldOperation
 {
-
   /**
    * @var int - Amount to increment by.
    */
@@ -25,7 +23,7 @@ class IncrementOperation implements FieldOperation
    */
   public function __construct($value = 1)
   {
-    $this->value = $value;
+      $this->value = $value;
   }
 
   /**
@@ -35,7 +33,7 @@ class IncrementOperation implements FieldOperation
    */
   public function getValue()
   {
-    return $this->value;
+      return $this->value;
   }
 
   /**
@@ -45,7 +43,7 @@ class IncrementOperation implements FieldOperation
    */
   public function _encode()
   {
-    return array('__op' => 'Increment', 'amount' => $this->value);
+      return ['__op' => 'Increment', 'amount' => $this->value];
   }
 
   /**
@@ -55,15 +53,17 @@ class IncrementOperation implements FieldOperation
    * @param mixed  $object   Value for this operation.
    * @param string $key      Key to set Value on.
    *
-   * @return int       New value after application.
    * @throws ParseException
+   *
+   * @return int       New value after application.
    */
   public function _apply($oldValue, $object, $key)
   {
-    if ($oldValue && !is_numeric($oldValue)) {
-      throw new ParseException('Cannot increment a non-number type.');
-    }
-    return $oldValue + $this->value;
+      if ($oldValue && !is_numeric($oldValue)) {
+          throw new ParseException('Cannot increment a non-number type.');
+      }
+
+      return $oldValue + $this->value;
   }
 
   /**
@@ -72,28 +72,28 @@ class IncrementOperation implements FieldOperation
    *
    * @param FieldOperation $previous Previous Operation.
    *
-   * @return FieldOperation
    * @throws ParseException
+   *
+   * @return FieldOperation
    */
   public function _mergeWithPrevious($previous)
   {
-    if (!$previous) {
-      return $this;
-    }
-    if ($previous instanceof DeleteOperation) {
-      return new SetOperation($this->value);
-    }
-    if ($previous instanceof SetOperation) {
-      return new SetOperation($previous->getValue() + $this->value);
-    }
-    if ($previous instanceof IncrementOperation) {
-      return new IncrementOperation(
+      if (!$previous) {
+          return $this;
+      }
+      if ($previous instanceof DeleteOperation) {
+          return new SetOperation($this->value);
+      }
+      if ($previous instanceof SetOperation) {
+          return new SetOperation($previous->getValue() + $this->value);
+      }
+      if ($previous instanceof IncrementOperation) {
+          return new IncrementOperation(
         $previous->getValue() + $this->value
       );
-    }
-    throw new ParseException(
+      }
+      throw new ParseException(
       'Operation is invalid after previous operation.'
     );
   }
-
 }

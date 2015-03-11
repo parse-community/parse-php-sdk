@@ -3,14 +3,12 @@
 namespace Parse;
 
 /**
- * ParsePush - Handles sending push notifications with Parse
+ * ParsePush - Handles sending push notifications with Parse.
  *
- * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class ParsePush
 {
-
   /**
    * Sends a push notification.
    *
@@ -27,36 +25,38 @@ class ParsePush
    * @param boolean $useMasterKey Whether to use the Master Key for the request
    *
    * @throws \Exception, ParseException
+   *
    * @return mixed
    */
   public static function send($data, $useMasterKey = false)
   {
-    if (isset($data['expiration_time'])
+      if (isset($data['expiration_time'])
       && isset($data['expiration_interval'])) {
-      throw new \Exception(
+          throw new \Exception(
         'Both expiration_time and expiration_interval can\'t be set.'
       );
-    }
-    if (isset($data['where'])) {
-      if ($data['where'] instanceof ParseQuery) {
-        $data['where'] = $data['where']->_getOptions()['where'];
-      } else {
-        throw new \Exception(
+      }
+      if (isset($data['where'])) {
+          if ($data['where'] instanceof ParseQuery) {
+              $data['where'] = $data['where']->_getOptions()['where'];
+          } else {
+              throw new \Exception(
           'Where parameter for Parse Push must be of type ParseQuery'
         );
+          }
       }
-    }
-    if (isset($data['push_time'])) {
-      //Local push date format is different from iso format generally used in Parse
+      if (isset($data['push_time'])) {
+          //Local push date format is different from iso format generally used in Parse
       //Schedule does not work if date format not correct
       $data['push_time'] = ParseClient::getLocalPushDateFormat($data['push_time']);
-    }
-    if (isset($data['expiration_time'])) {
-      $data['expiration_time'] = ParseClient::_encode(
+      }
+      if (isset($data['expiration_time'])) {
+          $data['expiration_time'] = ParseClient::_encode(
         $data['expiration_time'], false
       )['iso'];
-    }
-    return ParseClient::_request(
+      }
+
+      return ParseClient::_request(
       'POST',
       '/1/push',
       null,
@@ -64,5 +64,4 @@ class ParsePush
       $useMasterKey
     );
   }
-
 }

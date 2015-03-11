@@ -5,12 +5,10 @@ namespace Parse;
 /**
  * ParseGeoPoint - Representation of a Parse GeoPoint object.
  *
- * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class ParseGeoPoint implements \Parse\Internal\Encodable
 {
-
   /**
    * @var - Float value for latitude.
    */
@@ -28,8 +26,8 @@ class ParseGeoPoint implements \Parse\Internal\Encodable
    */
   public function __construct($lat, $lon)
   {
-    $this->setLatitude($lat);
-    $this->setLongitude($lon);
+      $this->setLatitude($lat);
+      $this->setLongitude($lon);
   }
 
   /**
@@ -39,7 +37,7 @@ class ParseGeoPoint implements \Parse\Internal\Encodable
    */
   public function getLatitude()
   {
-    return $this->latitude;
+      return $this->latitude;
   }
 
   /**
@@ -51,10 +49,10 @@ class ParseGeoPoint implements \Parse\Internal\Encodable
    */
   public function setLatitude($lat)
   {
-    if ($lat > 90.0 || $lat < -90.0) {
-      throw new ParseException("Latitude must be within range [-90.0, 90.0]");
-    }
-    $this->latitude = $lat;
+      if ($lat > 90.0 || $lat < -90.0) {
+          throw new ParseException("Latitude must be within range [-90.0, 90.0]");
+      }
+      $this->latitude = $lat;
   }
 
   /**
@@ -64,7 +62,7 @@ class ParseGeoPoint implements \Parse\Internal\Encodable
    */
   public function getLongitude()
   {
-    return $this->longitude;
+      return $this->longitude;
   }
 
   /**
@@ -76,26 +74,26 @@ class ParseGeoPoint implements \Parse\Internal\Encodable
    */
   public function setLongitude($lon)
   {
-    if ($lon > 180.0 || $lon < -180.0) {
-      throw new ParseException(
+      if ($lon > 180.0 || $lon < -180.0) {
+          throw new ParseException(
         "Longitude must be within range [-180.0, 180.0]"
       );
-    }
-    $this->longitude = $lon;
+      }
+      $this->longitude = $lon;
   }
 
   /**
-   * Encode to associative array representation
+   * Encode to associative array representation.
    *
    * @return array
    * @ignore
    */
   public function _encode()
   {
-    return array(
-      '__type' => 'GeoPoint',
-      'latitude' => $this->latitude,
-      'longitude' => $this->longitude
-    );
+      return [
+      '__type'    => 'GeoPoint',
+      'latitude'  => $this->latitude,
+      'longitude' => $this->longitude,
+    ];
   }
 }

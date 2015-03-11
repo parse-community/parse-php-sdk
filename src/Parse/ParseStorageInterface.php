@@ -5,12 +5,10 @@ namespace Parse;
 /**
  * ParseStorageInterface - Specifies an interface for implementing persistence.
  *
- * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 interface ParseStorageInterface
 {
-
   /**
    * Sets a key-value pair in storage.
    *
@@ -68,5 +66,4 @@ interface ParseStorageInterface
    * @return array
    */
   public function getAll();
-
-} 
+}
