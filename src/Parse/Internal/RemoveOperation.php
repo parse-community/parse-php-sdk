@@ -8,14 +8,12 @@ use Parse\ParseObject;
 
 /**
  * Class RemoveOperation - FieldOperation for removing object(s) from array
- * fields
+ * fields.
  *
- * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class RemoveOperation implements FieldOperation
 {
-
   /**
    * @var - Array with objects to remove.
    */
@@ -30,10 +28,10 @@ class RemoveOperation implements FieldOperation
    */
   public function __construct($objects)
   {
-    if (!is_array($objects)) {
-      throw new ParseException("RemoveOperation requires an array.");
-    }
-    $this->objects = $objects;
+      if (!is_array($objects)) {
+          throw new ParseException("RemoveOperation requires an array.");
+      }
+      $this->objects = $objects;
   }
 
   /**
@@ -43,7 +41,7 @@ class RemoveOperation implements FieldOperation
    */
   public function getValue()
   {
-    return $this->objects;
+      return $this->objects;
   }
 
   /**
@@ -53,8 +51,8 @@ class RemoveOperation implements FieldOperation
    */
   public function _encode()
   {
-    return array('__op' => 'Remove',
-                 'objects' => ParseClient::_encode($this->objects, true));
+      return ['__op'         => 'Remove',
+                 'objects'   => ParseClient::_encode($this->objects, true), ];
   }
 
   /**
@@ -62,29 +60,31 @@ class RemoveOperation implements FieldOperation
    *
    * @param FieldOperation $previous Previous operation.
    *
-   * @return FieldOperation Merged operation.
    * @throws ParseException
+   *
+   * @return FieldOperation Merged operation.
    */
   public function _mergeWithPrevious($previous)
   {
-    if (!$previous) {
-      return $this;
-    }
-    if ($previous instanceof DeleteOperation) {
-      return $previous;
-    }
-    if ($previous instanceof SetOperation) {
-      return new SetOperation(
+      if (!$previous) {
+          return $this;
+      }
+      if ($previous instanceof DeleteOperation) {
+          return $previous;
+      }
+      if ($previous instanceof SetOperation) {
+          return new SetOperation(
         $this->_apply($previous->getValue(), $this->objects, null)
       );
-    }
-    if ($previous instanceof RemoveOperation) {
-      $oldList = $previous->getValue();
-      return new RemoveOperation(
-        array_merge((array)$oldList, (array)$this->objects)
+      }
+      if ($previous instanceof RemoveOperation) {
+          $oldList = $previous->getValue();
+
+          return new RemoveOperation(
+        array_merge((array) $oldList, (array) $this->objects)
       );
-    }
-    throw new ParseException(
+      }
+      throw new ParseException(
       'Operation is invalid after previous operation.'
     );
   }
@@ -100,28 +100,28 @@ class RemoveOperation implements FieldOperation
    */
   public function _apply($oldValue, $obj, $key)
   {
-    if (empty($oldValue)) {
-      return array();
-    }
-    $newValue = array();
-    foreach ($oldValue as $oldObject) {
-      foreach ($this->objects as $newObject) {
-        if ($oldObject instanceof ParseObject) {
-          if ($newObject instanceof ParseObject
+      if (empty($oldValue)) {
+          return [];
+      }
+      $newValue = [];
+      foreach ($oldValue as $oldObject) {
+          foreach ($this->objects as $newObject) {
+              if ($oldObject instanceof ParseObject) {
+                  if ($newObject instanceof ParseObject
             && !$oldObject->isDirty()
             && $oldObject->getObjectId() == $newObject->getObjectId()) {
-            // found the object, won't add it.
-          } else {
-            $newValue[] = $oldObject;
+                      // found the object, won't add it.
+                  } else {
+                      $newValue[] = $oldObject;
+                  }
+              } else {
+                  if ($oldObject !== $newObject) {
+                      $newValue[] = $oldObject;
+                  }
+              }
           }
-        } else {
-          if ($oldObject !== $newObject) {
-            $newValue[] = $oldObject;
-          }
-        }
       }
-    }
-    return $newValue;
-  }
 
+      return $newValue;
+  }
 }

@@ -8,12 +8,10 @@ use Parse\ParseException;
 /**
  * Class AddUniqueOperation - Operation to add unique objects to an array key.
  *
- * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class AddUniqueOperation implements FieldOperation
 {
-
   /**
    * @var - Array containing objects to add.
    */
@@ -28,10 +26,10 @@ class AddUniqueOperation implements FieldOperation
    */
   public function __construct($objects)
   {
-    if (!is_array($objects)) {
-      throw new ParseException("AddUniqueOperation requires an array.");
-    }
-    $this->objects = $objects;
+      if (!is_array($objects)) {
+          throw new ParseException("AddUniqueOperation requires an array.");
+      }
+      $this->objects = $objects;
   }
 
   /**
@@ -41,7 +39,7 @@ class AddUniqueOperation implements FieldOperation
    */
   public function getValue()
   {
-    return $this->objects;
+      return $this->objects;
   }
 
   /**
@@ -51,8 +49,8 @@ class AddUniqueOperation implements FieldOperation
    */
   public function _encode()
   {
-    return array('__op' => 'AddUnique',
-      'objects' => ParseClient::_encode($this->objects, true));
+      return ['__op' => 'AddUnique',
+      'objects'      => ParseClient::_encode($this->objects, true), ];
   }
 
   /**
@@ -60,28 +58,31 @@ class AddUniqueOperation implements FieldOperation
    *
    * @param FieldOperation $previous Previous Operation.
    *
-   * @return FieldOperation Merged Operation.
    * @throws ParseException
+   *
+   * @return FieldOperation Merged Operation.
    */
   public function _mergeWithPrevious($previous)
   {
-    if (!$previous) {
-      return $this;
-    }
-    if ($previous instanceof DeleteOperation) {
-      return new SetOperation($this->objects);
-    }
-    if ($previous instanceof SetOperation) {
-      $oldValue = $previous->getValue();
-      $result = $this->_apply($oldValue, null, null);
-      return new SetOperation($result);
-    }
-    if ($previous instanceof AddUniqueOperation) {
-      $oldList = $previous->getValue();
-      $result = $this->_apply($oldList, null, null);
-      return new AddUniqueOperation($result);
-    }
-    throw new ParseException(
+      if (!$previous) {
+          return $this;
+      }
+      if ($previous instanceof DeleteOperation) {
+          return new SetOperation($this->objects);
+      }
+      if ($previous instanceof SetOperation) {
+          $oldValue = $previous->getValue();
+          $result = $this->_apply($oldValue, null, null);
+
+          return new SetOperation($result);
+      }
+      if ($previous instanceof AddUniqueOperation) {
+          $oldList = $previous->getValue();
+          $result = $this->_apply($oldList, null, null);
+
+          return new AddUniqueOperation($result);
+      }
+      throw new ParseException(
       'Operation is invalid after previous operation.'
     );
   }
@@ -97,40 +98,41 @@ class AddUniqueOperation implements FieldOperation
    */
   public function _apply($oldValue, $obj, $key)
   {
-    if (!$oldValue) {
-      return $this->objects;
-    }
-    if (!is_array($oldValue)) {
-      $oldValue = (array)$oldValue;
-    }
-    foreach ($this->objects as $object) {
-      if ($object instanceof ParseObject && $object->getObjectId()) {
-        if (!$this->isParseObjectInArray($object, $oldValue)) {
-          $oldValue[] = $object;
-        }
-      } else if (is_object($object)) {
-        if (!in_array($object, $oldValue, true)) {
-          $oldValue[] = $object;
-        }
-      } else {
-        if (!in_array($object, $oldValue, true)) {
-          $oldValue[] = $object;
-        }
+      if (!$oldValue) {
+          return $this->objects;
       }
-    }
-    return $oldValue;
+      if (!is_array($oldValue)) {
+          $oldValue = (array) $oldValue;
+      }
+      foreach ($this->objects as $object) {
+          if ($object instanceof ParseObject && $object->getObjectId()) {
+              if (!$this->isParseObjectInArray($object, $oldValue)) {
+                  $oldValue[] = $object;
+              }
+          } elseif (is_object($object)) {
+              if (!in_array($object, $oldValue, true)) {
+                  $oldValue[] = $object;
+              }
+          } else {
+              if (!in_array($object, $oldValue, true)) {
+                  $oldValue[] = $object;
+              }
+          }
+      }
+
+      return $oldValue;
   }
 
-  private function isParseObjectInArray($parseObject, $oldValue)
-  {
-    foreach ($oldValue as $object) {
-      if ($object instanceof ParseObject && $object->getObjectId() != null) {
-        if ($object->getObjectId() == $parseObject->getObjectId()) {
-          return true;
+    private function isParseObjectInArray($parseObject, $oldValue)
+    {
+        foreach ($oldValue as $object) {
+            if ($object instanceof ParseObject && $object->getObjectId() != null) {
+                if ($object->getObjectId() == $parseObject->getObjectId()) {
+                    return true;
+                }
+            }
         }
-      }
-    }
-    return false;
-  }
 
+        return false;
+    }
 }
