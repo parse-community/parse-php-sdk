@@ -532,7 +532,7 @@ class ParseObject implements Encodable
   private function mergeFromServer($data, $completeData = true)
   {
     $this->hasBeenFetched = ($this->hasBeenFetched || $completeData) ? true : false;
-    $this->mergeMagicFields($data);
+    $this->_mergeMagicFields($data);
     foreach ($data as $key => $value) {
       if ($key === '__type' && $value === 'className') {
         continue;
@@ -567,7 +567,7 @@ class ParseObject implements Encodable
    *
    * @return null
    */
-  private function mergeMagicFields(&$data)
+  public function _mergeMagicFields(&$data)
   {
     if (isset($data['objectId'])) {
       $this->objectId = $data['objectId'];

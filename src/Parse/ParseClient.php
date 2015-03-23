@@ -45,6 +45,11 @@ final class ParseClient
   private static $storage;
 
   /**
+   * @var - Boolean for enabling revocable sessions.
+   */
+  private static $forceRevocableSession = false;
+
+  /**
    * Constant for version string to include with requests.
    * @ignore
    */
@@ -56,7 +61,7 @@ final class ParseClient
    * @param string $app_id                Parse Application ID
    * @param string $rest_key              Parse REST API Key
    * @param string $master_key            Parse Master Key
-   * @param string $enableCurlExceptions  Enable or disable Parse curl exceptions
+   * @param boolean $enableCurlExceptions  Enable or disable Parse curl exceptions
    *
    * @return null
    */
@@ -65,6 +70,7 @@ final class ParseClient
     ParseUser::registerSubclass();
     ParseRole::registerSubclass();
     ParseInstallation::registerSubclass();
+    ParseSession::registerSubclass();
     self::$applicationId = $app_id;
     self::$restKey = $rest_key;
     self::$masterKey = $master_key;
@@ -341,6 +347,9 @@ final class ParseClient
     } else {
       $headers[] = 'X-Parse-REST-API-Key: ' . self::$restKey;
     }
+    if (self::$forceRevocableSession) {
+      $headers[] = 'X-Parse-Revocable-Session: 1';
+    }
     /**
      * Set an empty Expect header to stop the 100-continue behavior for post
      *   data greater than 1024 bytes.
@@ -384,4 +393,16 @@ final class ParseClient
     $date = date_format($value, $dateFormatString);
     return $date;
   }
+
+  /**
+   * Allows an existing application to start using revocable sessions, without forcing
+   * all requests for the app to use them.  After calling this method, login & signup requests
+   * will be returned a unique and revocable session token.
+   *
+   */
+  public static function enableRevocableSessions()
+  {
+    self::$forceRevocableSession = true;
+  }
+
 }
