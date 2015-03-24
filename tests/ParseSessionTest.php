@@ -32,7 +32,7 @@ class ParseSessionTest extends PHPUnit_Framework_TestCase
     ParseSession::_unregisterSubclass();
   }
 
-  public function testGetCurrentSession()
+  public function testRevocableSession()
   {
     ParseClient::enableRevocableSessions();
     $user = new ParseUser();
@@ -42,6 +42,20 @@ class ParseSessionTest extends PHPUnit_Framework_TestCase
     $session = ParseSession::getCurrentSession();
     $this->assertEquals($user->getSessionToken(), $session->getSessionToken());
     $this->assertTrue($session->isCurrentSessionRevocable());
+
+    ParseUser::logOut();
+
+    ParseUser::logIn("username", "password");
+    $session = ParseSession::getCurrentSession();
+    $this->assertEquals(ParseUser::getCurrentUser()->getSessionToken(), $session->getSessionToken());
+    $this->assertTrue($session->isCurrentSessionRevocable());
+
+    $sessionToken = $session->getSessionToken();
+
+    ParseUser::logOut();
+
+    $this->setExpectedException('Parse\ParseException', 'invalid session token');
+    ParseUser::become($sessionToken);
   }
 
 }

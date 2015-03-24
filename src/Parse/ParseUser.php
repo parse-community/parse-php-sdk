@@ -169,9 +169,10 @@ class ParseUser extends ParseObject
    */
   public static function logOut()
   {
-    if (ParseUser::getCurrentUser()) {
+    $user = ParseUser::getCurrentUser();
+    if ($user) {
       try {
-        $result = ParseClient::_request('GET', '/1/logout');
+        ParseClient::_request('POST', '/1/logout', $user->getSessionToken());
       } catch (ParseException $ex) {
         // If this fails, we're going to ignore it.
       }

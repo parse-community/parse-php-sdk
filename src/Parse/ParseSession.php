@@ -6,7 +6,7 @@ use Parse\ParseObject;
 use Parse\ParseUser;
 
 /**
- * ParseSession - Representation of an expiring user session
+ * ParseSession - Representation of an expiring user session.
  *
  * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
@@ -31,15 +31,15 @@ class ParseSession extends ParseObject
   /**
    * Retrieves the Session object for the currently logged in user.
    *
-   * @param boolean $useMasterKey If the Master Key should be used to override security
+   * @param boolean $useMasterKey If the Master Key should be used to override security.
    *
    * @return ParseSession
    */
   public static function getCurrentSession($useMasterKey = false)
   {
-    $session = new ParseSession();
     $token = ParseUser::getCurrentUser()->getSessionToken();
     $response = ParseClient::_request('GET', '/1/sessions/me', $token, null, $useMasterKey);
+    $session = new ParseSession();
     $session->_mergeAfterFetch($response);
     $session->handleSaveResult();
     return $session;

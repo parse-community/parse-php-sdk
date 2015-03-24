@@ -399,6 +399,7 @@ final class ParseClient
    * all requests for the app to use them.  After calling this method, login & signup requests
    * will be returned a unique and revocable session token.
    *
+   * @return null
    */
   public static function enableRevocableSessions()
   {
