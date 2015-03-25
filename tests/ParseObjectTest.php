@@ -271,7 +271,7 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
   public function testInvalidClassName()
   {
     $obj = ParseObject::create('Foo^bar');
-    $this->setExpectedException('Parse\ParseException', 'Bad Request');
+    $this->setExpectedException('Parse\ParseException', 'bad characters in classname');
     $obj->save();
   }
 

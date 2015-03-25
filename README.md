@@ -13,7 +13,7 @@ Installation
 ```json
 {
   "require": {
-    "parse/php-sdk" : "1.0.*"
+    "parse/php-sdk" : "1.1.*"
   }
 }
 ```

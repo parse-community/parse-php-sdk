@@ -211,7 +211,7 @@ class IncrementTest extends PHPUnit_Framework_TestCase
     $obj->save();
     $objAgain->increment('randomkey');
     $this->setExpectedException('Parse\ParseException',
-      "can't increment a field that isn't a number"
+      "invalid type for key"
     );
     $objAgain->save();
   }

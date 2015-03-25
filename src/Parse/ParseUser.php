@@ -162,13 +162,20 @@ class ParseUser extends ParseObject
 
   /**
    * Log out the current user.  This will clear the storage and future calls
-   *   to current will return null
+   *   to current will return null.
+   * This will make a network request to /1/logout to invalidate the session
    *
    * @return null
    */
   public static function logOut()
   {
-    if (ParseUser::getCurrentUser()) {
+    $user = ParseUser::getCurrentUser();
+    if ($user) {
+      try {
+        ParseClient::_request('POST', '/1/logout', $user->getSessionToken());
+      } catch (ParseException $ex) {
+        // If this fails, we're going to ignore it.
+      }
       static::$currentUser = null;
     }
     ParseClient::getStorage()->remove('user');
