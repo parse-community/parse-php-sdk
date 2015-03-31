@@ -5,10 +5,12 @@ namespace Parse;
 /**
  * ParseUser - Representation of a user object stored on Parse.
  *
+ * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class ParseUser extends ParseObject
 {
+
   public static $parseClassName = "_User";
 
   /**
@@ -28,7 +30,7 @@ class ParseUser extends ParseObject
    */
   public function getUsername()
   {
-      return $this->get("username");
+    return $this->get("username");
   }
 
   /**
@@ -40,7 +42,7 @@ class ParseUser extends ParseObject
    */
   public function setUsername($username)
   {
-      return $this->set("username", $username);
+    return $this->set("username", $username);
   }
 
   /**
@@ -52,7 +54,7 @@ class ParseUser extends ParseObject
    */
   public function setPassword($password)
   {
-      return $this->set("password", $password);
+    return $this->set("password", $password);
   }
 
   /**
@@ -62,7 +64,7 @@ class ParseUser extends ParseObject
    */
   public function getEmail()
   {
-      return $this->get("email");
+    return $this->get("email");
   }
 
   /**
@@ -74,7 +76,7 @@ class ParseUser extends ParseObject
    */
   public function setEmail($email)
   {
-      return $this->set("email", $email);
+    return $this->set("email", $email);
   }
 
   /**
@@ -84,31 +86,31 @@ class ParseUser extends ParseObject
    */
   public function isAuthenticated()
   {
-      return $this->_sessionToken !== null;
+    return $this->_sessionToken !== null;
   }
 
   /**
    * Signs up the current user, or throw if invalid.
    * This will create a new ParseUser on the server, and also persist the
-   * session so that you can access the user using ParseUser::getCurrentUser();.
+   * session so that you can access the user using ParseUser::getCurrentUser();
    */
   public function signUp()
   {
-      if (!$this->get('username')) {
-          throw new ParseException("Cannot sign up user with an empty name");
-      }
-      if (!$this->get('password')) {
-          throw new ParseException(
+    if (!$this->get('username')) {
+      throw new ParseException("Cannot sign up user with an empty name");
+    }
+    if (!$this->get('password')) {
+      throw new ParseException(
         "Cannot sign up user with an empty password."
       );
-      }
-      if ($this->getObjectId()) {
-          throw new ParseException(
+    }
+    if ($this->getObjectId()) {
+      throw new ParseException(
         "Cannot sign up an already existing user."
       );
-      }
-      parent::save();
-      $this->handleSaveResult(true);
+    }
+    parent::save();
+    $this->handleSaveResult(true);
   }
 
   /**
@@ -117,28 +119,27 @@ class ParseUser extends ParseObject
    * @param string $username
    * @param string $password
    *
-   * @throws ParseException
-   *
    * @return ParseUser
+   *
+   * @throws ParseException
    */
   public static function logIn($username, $password)
   {
-      if (!$username) {
-          throw new ParseException("Cannot log in user with an empty name");
-      }
-      if (!$password) {
-          throw new ParseException(
+    if (!$username) {
+      throw new ParseException("Cannot log in user with an empty name");
+    }
+    if (!$password) {
+      throw new ParseException(
         "Cannot log in user with an empty password."
       );
-      }
-      $data = ["username" => $username, "password" => $password];
-      $result = ParseClient::_request("GET", "/1/login", "", $data);
-      $user = new ParseUser();
-      $user->_mergeAfterFetch($result);
-      $user->handleSaveResult(true);
-      ParseClient::getStorage()->set("user", $user);
-
-      return $user;
+    }
+    $data = array("username" => $username, "password" => $password);
+    $result = ParseClient::_request("GET", "/1/login", "", $data);
+    $user = new ParseUser();
+    $user->_mergeAfterFetch($result);
+    $user->handleSaveResult(true);
+    ParseClient::getStorage()->set("user", $user);
+    return $user;
   }
 
   /**
@@ -151,34 +152,33 @@ class ParseUser extends ParseObject
    */
   public static function become($sessionToken)
   {
-      $result = ParseClient::_request('GET', '/1/users/me', $sessionToken);
-      $user = new ParseUser();
-      $user->_mergeAfterFetch($result);
-      $user->handleSaveResult(true);
-      ParseClient::getStorage()->set("user", $user);
-
-      return $user;
+    $result = ParseClient::_request('GET', '/1/users/me', $sessionToken);
+    $user = new ParseUser();
+    $user->_mergeAfterFetch($result);
+    $user->handleSaveResult(true);
+    ParseClient::getStorage()->set("user", $user);
+    return $user;
   }
 
   /**
    * Log out the current user.  This will clear the storage and future calls
    *   to current will return null.
-   * This will make a network request to /1/logout to invalidate the session.
+   * This will make a network request to /1/logout to invalidate the session
    *
    * @return null
    */
   public static function logOut()
   {
-      $user = ParseUser::getCurrentUser();
-      if ($user) {
-          try {
-              ParseClient::_request('POST', '/1/logout', $user->getSessionToken());
-          } catch (ParseException $ex) {
-              // If this fails, we're going to ignore it.
-          }
-          static::$currentUser = null;
+    $user = ParseUser::getCurrentUser();
+    if ($user) {
+      try {
+        ParseClient::_request('POST', '/1/logout', $user->getSessionToken());
+      } catch (ParseException $ex) {
+        // If this fails, we're going to ignore it.
       }
-      ParseClient::getStorage()->remove('user');
+      static::$currentUser = null;
+    }
+    ParseClient::getStorage()->remove('user');
   }
 
   /**
@@ -190,18 +190,18 @@ class ParseUser extends ParseObject
    */
   private function handleSaveResult($makeCurrent = false)
   {
-      if (isset($this->serverData['password'])) {
-          unset($this->serverData['password']);
-      }
-      if (isset($this->serverData['sessionToken'])) {
-          $this->_sessionToken = $this->serverData['sessionToken'];
-          unset($this->serverData['sessionToken']);
-      }
-      if ($makeCurrent) {
-          static::$currentUser = $this;
-          static::saveCurrentUser();
-      }
-      $this->rebuildEstimatedData();
+    if (isset($this->serverData['password'])) {
+      unset($this->serverData['password']);
+    }
+    if (isset($this->serverData['sessionToken'])) {
+      $this->_sessionToken = $this->serverData['sessionToken'];
+      unset($this->serverData['sessionToken']);
+    }
+    if ($makeCurrent) {
+      static::$currentUser = $this;
+      static::saveCurrentUser();
+    }
+    $this->rebuildEstimatedData();
   }
 
   /**
@@ -212,31 +212,28 @@ class ParseUser extends ParseObject
    */
   public static function getCurrentUser()
   {
-      if (static::$currentUser instanceof ParseUser) {
-          return static::$currentUser;
+    if (static::$currentUser instanceof ParseUser) {
+      return static::$currentUser;
+    }
+    $storage = ParseClient::getStorage();
+    $userData = $storage->get("user");
+    if ($userData instanceof ParseUser) {
+      static::$currentUser = $userData;
+      return $userData;
+    }
+    if (isset($userData["id"]) && isset($userData["_sessionToken"])) {
+      $user = ParseUser::create("_User", $userData["id"]);
+      unset($userData["id"]);
+      $user->_sessionToken = $userData["_sessionToken"];
+      unset($userData["_sessionToken"]);
+      foreach ($userData as $key => $value) {
+        $user->set($key, $value);
       }
-      $storage = ParseClient::getStorage();
-      $userData = $storage->get("user");
-      if ($userData instanceof ParseUser) {
-          static::$currentUser = $userData;
-
-          return $userData;
-      }
-      if (isset($userData["id"]) && isset($userData["_sessionToken"])) {
-          $user = ParseUser::create("_User", $userData["id"]);
-          unset($userData["id"]);
-          $user->_sessionToken = $userData["_sessionToken"];
-          unset($userData["_sessionToken"]);
-          foreach ($userData as $key => $value) {
-              $user->set($key, $value);
-          }
-          $user->_opSetQueue = [];
-          static::$currentUser = $user;
-
-          return $user;
-      }
-
-      return;
+      $user->_opSetQueue = array();
+      static::$currentUser = $user;
+      return $user;
+    }
+    return null;
   }
 
   /**
@@ -246,18 +243,18 @@ class ParseUser extends ParseObject
    */
   protected static function saveCurrentUser()
   {
-      $storage = ParseClient::getStorage();
-      $storage->set('user', ParseUser::getCurrentUser());
+    $storage = ParseClient::getStorage();
+    $storage->set('user', ParseUser::getCurrentUser());
   }
 
   /**
-   * Returns the session token, if available.
+   * Returns the session token, if available
    *
    * @return string|null
    */
   public function getSessionToken()
   {
-      return $this->_sessionToken;
+    return $this->_sessionToken;
   }
 
   /**
@@ -267,31 +264,30 @@ class ParseUser extends ParseObject
    */
   public function isCurrent()
   {
-      if (ParseUser::getCurrentUser() && $this->getObjectId()) {
-          if ($this->getObjectId() == ParseUser::getCurrentUser()->getObjectId()) {
-              return true;
-          }
+    if (ParseUser::getCurrentUser() && $this->getObjectId()) {
+      if ($this->getObjectId() == ParseUser::getCurrentUser()->getObjectId()) {
+        return true;
       }
-
-      return false;
+    }
+    return false;
   }
 
   /**
    * Save the current user object, unless it is not signed up.
    *
-   * @throws ParseException
-   *
    * @return null
+   *
+   * @throws ParseException
    */
   public function save($useMasterKey = false)
   {
-      if ($this->getObjectId()) {
-          parent::save($useMasterKey);
-      } else {
-          throw new ParseException(
+    if ($this->getObjectId()) {
+      parent::save($useMasterKey);
+    } else {
+      throw new ParseException(
         "You must call signUp to create a new User."
       );
-      }
+    }
   }
 
   /**
@@ -305,8 +301,8 @@ class ParseUser extends ParseObject
    */
   public static function requestPasswordReset($email)
   {
-      $json = json_encode(['email' => $email]);
-      ParseClient::_request('POST', '/1/requestPasswordReset', null, $json);
+    $json = json_encode(array('email' => $email));
+    ParseClient::_request('POST', '/1/requestPasswordReset', null, $json);
   }
 
   /**
@@ -314,6 +310,7 @@ class ParseUser extends ParseObject
    */
   public static function _clearCurrentUserVariable()
   {
-      static::$currentUser = null;
+    static::$currentUser = null;
   }
+
 }

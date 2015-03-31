@@ -2,16 +2,21 @@
 
 namespace Parse;
 
+use Parse\ParseObject;
+use Parse\ParseUser;
+
 /**
  * ParseSession - Representation of an expiring user session.
  *
+ * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class ParseSession extends ParseObject
 {
+
   public static $parseClassName = "_Session";
 
-    private $_sessionToken = null;
+  private $_sessionToken = null;
 
   /**
    * Returns the session token string.
@@ -20,7 +25,7 @@ class ParseSession extends ParseObject
    */
   public function getSessionToken()
   {
-      return $this->_sessionToken;
+    return $this->_sessionToken;
   }
 
   /**
@@ -32,14 +37,14 @@ class ParseSession extends ParseObject
    */
   public static function getCurrentSession($useMasterKey = false)
   {
-      $token = ParseUser::getCurrentUser()->getSessionToken();
-      $response = ParseClient::_request('GET', '/1/sessions/me', $token, null, $useMasterKey);
-      $session = new ParseSession();
-      $session->_mergeAfterFetch($response);
-      $session->handleSaveResult();
-
-      return $session;
+    $token = ParseUser::getCurrentUser()->getSessionToken();
+    $response = ParseClient::_request('GET', '/1/sessions/me', $token, null, $useMasterKey);
+    $session = new ParseSession();
+    $session->_mergeAfterFetch($response);
+    $session->handleSaveResult();
+    return $session;
   }
+
 
   /**
    * Determines whether the current session token is revocable.
@@ -50,10 +55,10 @@ class ParseSession extends ParseObject
    */
   public static function isCurrentSessionRevocable()
   {
-      $user = ParseUser::getCurrentUser();
-      if ($user) {
-          return self::_isRevocable($user->getSessionToken());
-      }
+    $user = ParseUser::getCurrentUser();
+    if ($user) {
+      return self::_isRevocable($user->getSessionToken());
+    }
   }
 
   /**
@@ -65,7 +70,7 @@ class ParseSession extends ParseObject
    */
   public static function _isRevocable($token)
   {
-      return strpos($token, "r:") === 0;
+    return strpos($token, "r:") === 0;
   }
 
   /**
@@ -75,10 +80,11 @@ class ParseSession extends ParseObject
    */
   private function handleSaveResult()
   {
-      if (isset($this->serverData['sessionToken'])) {
-          $this->_sessionToken = $this->serverData['sessionToken'];
-          unset($this->serverData['sessionToken']);
-      }
-      $this->rebuildEstimatedData();
+    if (isset($this->serverData['sessionToken'])) {
+      $this->_sessionToken = $this->serverData['sessionToken'];
+      unset($this->serverData['sessionToken']);
+    }
+    $this->rebuildEstimatedData();
   }
+
 }

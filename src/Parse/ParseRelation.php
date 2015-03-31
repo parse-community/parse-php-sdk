@@ -1,17 +1,18 @@
 <?php
 
 namespace Parse;
-
 use Parse\Internal\ParseRelationOperation;
 
 /**
  * ParseRelation - A class that is used to access all of the children of a many-to-many relationship. Each instance
  * of ParseRelation is associated with a particular parent object and key.
  *
+ * @package  Parse
  * @author   Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
-class ParseRelation
-{
+
+class ParseRelation {
+
   /**
    * @var ParseObject - The parent of this relation.
    */
@@ -34,9 +35,9 @@ class ParseRelation
    */
   public function __construct($parent, $key, $targetClassName = null)
   {
-      $this->parent = $parent;
-      $this->key = $key;
-      $this->targetClassName = $targetClassName;
+    $this->parent = $parent;
+    $this->key = $key;
+    $this->targetClassName = $targetClassName;
   }
 
   /**
@@ -49,18 +50,18 @@ class ParseRelation
    */
   private function ensureParentAndKey($parent, $key)
   {
-      if (!$this->parent) {
-          $this->parent = $parent;
-      }
-      if (!$this->key) {
-          $this->key = $key;
-      }
-      if ($this->parent != $parent) {
-          throw new \Exception('Internal Error. Relation retrieved from two different Objects.');
-      }
-      if ($this->key != $key) {
-          throw new \Exception('Internal Error. Relation retrieved from two different keys.');
-      }
+    if (!$this->parent) {
+      $this->parent = $parent;
+    }
+    if (!$this->key) {
+      $this->key = $key;
+    }
+    if ($this->parent != $parent) {
+      throw new \Exception('Internal Error. Relation retrieved from two different Objects.');
+    }
+    if ($this->key != $key) {
+      throw new \Exception('Internal Error. Relation retrieved from two different keys.');
+    }
   }
 
   /**
@@ -70,12 +71,12 @@ class ParseRelation
    */
   public function add($objects)
   {
-      if (!is_array($objects)) {
-          $objects = [$objects];
-      }
-      $operation = new ParseRelationOperation($objects, null);
-      $this->targetClassName = $operation->_getTargetClass();
-      $this->parent->_performOperation($this->key, $operation);
+    if (!is_array($objects)) {
+      $objects = [$objects];
+    }
+    $operation = new ParseRelationOperation($objects, null);
+    $this->targetClassName = $operation->_getTargetClass();
+    $this->parent->_performOperation($this->key, $operation);
   }
 
   /**
@@ -85,12 +86,12 @@ class ParseRelation
    */
   public function remove($objects)
   {
-      if (!is_array($objects)) {
-          $objects = [$objects];
-      }
-      $operation = new ParseRelationOperation(null, $objects);
-      $this->targetClassName = $operation->_getTargetClass();
-      $this->parent->_performOperation($this->key, $operation);
+    if (!is_array($objects)) {
+      $objects = [$objects];
+    }
+    $operation = new ParseRelationOperation(null, $objects);
+    $this->targetClassName = $operation->_getTargetClass();
+    $this->parent->_performOperation($this->key, $operation);
   }
 
   /**
@@ -100,7 +101,7 @@ class ParseRelation
    */
   public function getTargetClass()
   {
-      return $this->targetClassName;
+    return $this->targetClassName;
   }
 
   /**
@@ -110,7 +111,7 @@ class ParseRelation
    */
   public function setTargetClass($className)
   {
-      $this->targetClassName = $className;
+    $this->targetClassName = $className;
   }
 
   /**
@@ -118,9 +119,8 @@ class ParseRelation
    *
    * @param $parent
    */
-  public function setParent($parent)
-  {
-      $this->parent = $parent;
+  public function setParent($parent) {
+    $this->parent = $parent;
   }
 
   /**
@@ -130,10 +130,9 @@ class ParseRelation
    */
   public function getQuery()
   {
-      $query = new ParseQuery($this->targetClassName);
-      $query->relatedTo('object', $this->parent->_toPointer());
-      $query->relatedTo('key', $this->key);
-
-      return $query;
+    $query = new ParseQuery($this->targetClassName);
+    $query->relatedTo('object', $this->parent->_toPointer());
+    $query->relatedTo('key', $this->key);
+    return $query;
   }
 }

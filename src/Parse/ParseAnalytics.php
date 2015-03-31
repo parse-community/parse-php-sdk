@@ -2,15 +2,17 @@
 
 namespace Parse;
 
-use Exception;
+use \Exception;
 
 /**
- * ParseAnalytics - Handles sending app-open and custom analytics events.
+ * ParseAnalytics - Handles sending app-open and custom analytics events
  *
+ * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class ParseAnalytics
 {
+
   /**
    * Tracks the occurrence of a custom event with additional dimensions.
    * Parse will store a data point at the time of invocation with the given
@@ -37,24 +39,22 @@ class ParseAnalytics
    * @param array  $dimensions The dictionary of segment information
    *
    * @throws \Exception
-   *
    * @return mixed
    */
-  public static function track($name, $dimensions = [])
+  public static function track($name, $dimensions = array())
   {
-      $name = trim($name);
-      if (strlen($name) === 0) {
-          throw new Exception('A name for the custom event must be provided.');
+    $name = trim($name);
+    if (strlen($name) === 0) {
+      throw new Exception('A name for the custom event must be provided.');
+    }
+    foreach ($dimensions as $key => $value) {
+      if (!is_string($key) || !is_string($value)) {
+        throw new Exception('Dimensions expected string keys and values.');
       }
-      foreach ($dimensions as $key => $value) {
-          if (!is_string($key) || !is_string($value)) {
-              throw new Exception('Dimensions expected string keys and values.');
-          }
-      }
-
-      return ParseClient::_request(
+    }
+    return ParseClient::_request(
       'POST',
-      '/1/events/'.$name,
+      '/1/events/' . $name,
       null,
       static::_toSaveJSON($dimensions)
     );
@@ -65,11 +65,12 @@ class ParseAnalytics
    */
   public static function _toSaveJSON($data)
   {
-      return json_encode(
-      [
-        'dimensions' => $data,
-      ],
+    return json_encode(
+      array(
+        'dimensions' => $data
+      ),
       JSON_FORCE_OBJECT
     );
   }
+
 }

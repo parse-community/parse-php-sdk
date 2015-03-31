@@ -5,10 +5,12 @@ namespace Parse\Internal;
 /**
  * Class FieldOperation - Interface for all Parse Field Operations.
  *
+ * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 interface FieldOperation extends Encodable
 {
+
   /**
    * Applies the current operation and returns the result.
    *
@@ -29,4 +31,5 @@ interface FieldOperation extends Encodable
    * @return FieldOperation Merged operation result.
    */
   public function _mergeWithPrevious($previous);
+
 }

@@ -3,25 +3,27 @@
 namespace Parse;
 
 /**
- * ParseAggregateException - Multiple error condition.
+ * ParseAggregateException - Multiple error condition
  *
+ * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class ParseAggregateException extends ParseException
 {
+
   private $errors;
 
   /**
-   * Constructs a Parse\ParseAggregateException.
+   * Constructs a Parse\ParseAggregateException
    *
    * @param string     $message  Message for the Exception.
    * @param array      $errors   Collection of error values.
    * @param \Exception $previous Previous exception.
    */
-  public function __construct($message, $errors = [], $previous = null)
+  public function __construct($message, $errors = array(), $previous = null)
   {
-      parent::__construct($message, 600, $previous);
-      $this->errors = $errors;
+    parent::__construct($message, 600, $previous);
+    $this->errors = $errors;
   }
 
   /**
@@ -31,6 +33,7 @@ class ParseAggregateException extends ParseException
    */
   public function getErrors()
   {
-      return $this->errors;
+    return $this->errors;
   }
+
 }
