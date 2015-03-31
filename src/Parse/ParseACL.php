@@ -111,7 +111,7 @@ class ParseACL implements Encodable
     /**
      * Set shared for ParseACL.
      *
-     * @param  bool $shared
+     * @param bool $shared
      */
     public function _setShared($shared)
     {

@@ -858,7 +858,7 @@ class ParseObject implements Encodable
      * Save Object and unsaved children within.
      *
      * @param $target
-     * @param bool   $useMasterKey Whether to use the Master Key.
+     * @param bool $useMasterKey Whether to use the Master Key.
      *
      * @throws ParseException
      *
@@ -1120,7 +1120,6 @@ class ParseObject implements Encodable
      * @throws \Exception
      *
      * @return array
-     *
      */
     public function _toPointer()
     {
@@ -1190,7 +1189,6 @@ class ParseObject implements Encodable
     /**
      * Un-register a subclass.
      * Cannot be called on the base class ParseObject.
-     *
      */
     public static function _unregisterSubclass()
     {
