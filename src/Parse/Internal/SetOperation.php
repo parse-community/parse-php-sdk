@@ -7,12 +7,10 @@ use Parse\ParseClient;
 /**
  * Class SetOperation - Operation to set a value for an object key.
  *
- * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class SetOperation implements FieldOperation
 {
-
   /**
    * @var - Value to set for this operation.
    */
@@ -31,8 +29,8 @@ class SetOperation implements FieldOperation
    */
   public function __construct($value, $isAssociativeArray = false)
   {
-    $this->value = $value;
-    $this->isAssociativeArray = $isAssociativeArray;
+      $this->value = $value;
+      $this->isAssociativeArray = $isAssociativeArray;
   }
 
   /**
@@ -42,7 +40,7 @@ class SetOperation implements FieldOperation
    */
   public function getValue()
   {
-    return $this->value;
+      return $this->value;
   }
 
   /**
@@ -52,14 +50,16 @@ class SetOperation implements FieldOperation
    */
   public function _encode()
   {
-    if ($this->isAssociativeArray) {
-      $object = new \stdClass();
-      foreach ($this->value as $key => $value) {
-        $object->$key = ParseClient::_encode($value, true);
+      if ($this->isAssociativeArray) {
+          $object = new \stdClass();
+          foreach ($this->value as $key => $value) {
+              $object->$key = ParseClient::_encode($value, true);
+          }
+
+          return ParseClient::_encode($object, true);
       }
-      return ParseClient::_encode($object, true);
-    }
-    return ParseClient::_encode($this->value, true);
+
+      return ParseClient::_encode($this->value, true);
   }
 
   /**
@@ -73,7 +73,7 @@ class SetOperation implements FieldOperation
    */
   public function _apply($oldValue, $object, $key)
   {
-    return $this->value;
+      return $this->value;
   }
 
   /**
@@ -86,7 +86,6 @@ class SetOperation implements FieldOperation
    */
   public function _mergeWithPrevious($previous)
   {
-    return $this;
+      return $this;
   }
-
 }

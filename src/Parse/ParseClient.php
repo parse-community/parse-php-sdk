@@ -5,16 +5,15 @@ namespace Parse;
 use Parse\Internal\Encodable;
 
 /**
- * ParseClient - Main class for Parse initialization and communication
+ * ParseClient - Main class for Parse initialization and communication.
  *
- * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 final class ParseClient
 {
-
   /**
    * Constant for the API Server Host Address.
+   *
    * @ignore
    */
   const HOST_NAME = 'https://api.parse.com';
@@ -51,6 +50,7 @@ final class ParseClient
 
   /**
    * Constant for version string to include with requests.
+   *
    * @ignore
    */
   const VERSION_STRING = 'php1.1.0';
@@ -67,21 +67,21 @@ final class ParseClient
    */
   public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true)
   {
-    ParseUser::registerSubclass();
-    ParseRole::registerSubclass();
-    ParseInstallation::registerSubclass();
-    ParseSession::registerSubclass();
-    self::$applicationId = $app_id;
-    self::$restKey = $rest_key;
-    self::$masterKey = $master_key;
-    self::$enableCurlExceptions = $enableCurlExceptions;
-    if (!static::$storage) {
-      if (session_status() === PHP_SESSION_ACTIVE) {
-        self::setStorage(new ParseSessionStorage());
-      } else {
-        self::setStorage(new ParseMemoryStorage());
+      ParseUser::registerSubclass();
+      ParseRole::registerSubclass();
+      ParseInstallation::registerSubclass();
+      ParseSession::registerSubclass();
+      self::$applicationId = $app_id;
+      self::$restKey = $rest_key;
+      self::$masterKey = $master_key;
+      self::$enableCurlExceptions = $enableCurlExceptions;
+      if (!static::$storage) {
+          if (session_status() === PHP_SESSION_ACTIVE) {
+              self::setStorage(new ParseSessionStorage());
+          } else {
+              self::setStorage(new ParseMemoryStorage());
+          }
       }
-    }
   }
 
   /**
@@ -90,42 +90,45 @@ final class ParseClient
    * @param mixed $value             Value to encode
    * @param bool  $allowParseObjects Allow nested objects
    *
+   * @throws \Exception
+   *
    * @return mixed Encoded results.
    *
-   * @throws \Exception
    * @ignore
    */
   public static function _encode($value, $allowParseObjects)
   {
-    if ($value instanceof \DateTime) {
-      return array(
-        '__type' => 'Date', 'iso' => self::getProperDateFormat($value)
-      );
-    }
-
-    if ($value instanceof \stdClass) {
-      return $value;
-    }
-
-    if ($value instanceof ParseObject) {
-      if (!$allowParseObjects) {
-        throw new \Exception('ParseObjects not allowed here.');
+      if ($value instanceof \DateTime) {
+          return [
+        '__type' => 'Date', 'iso' => self::getProperDateFormat($value),
+      ];
       }
-      return $value->_toPointer();
-    }
 
-    if ($value instanceof Encodable) {
-      return $value->_encode();
-    }
+      if ($value instanceof \stdClass) {
+          return $value;
+      }
 
-    if (is_array($value)) {
-      return self::_encodeArray($value, $allowParseObjects);
-    }
+      if ($value instanceof ParseObject) {
+          if (!$allowParseObjects) {
+              throw new \Exception('ParseObjects not allowed here.');
+          }
 
-    if (!is_scalar($value) && $value !== null) {
-      throw new \Exception('Invalid type encountered.');
-    }
-    return $value;
+          return $value->_toPointer();
+      }
+
+      if ($value instanceof Encodable) {
+          return $value->_encode();
+      }
+
+      if (is_array($value)) {
+          return self::_encodeArray($value, $allowParseObjects);
+      }
+
+      if (!is_scalar($value) && $value !== null) {
+          throw new \Exception('Invalid type encountered.');
+      }
+
+      return $value;
   }
 
   /**
@@ -138,61 +141,62 @@ final class ParseClient
    */
   public static function _decode($data)
   {
-    // The json decoded response from Parse will make JSONObjects into stdClass
+      // The json decoded response from Parse will make JSONObjects into stdClass
     //   objects.  We'll change it to an associative array here.
     if ($data instanceof \stdClass) {
-      $tmp = (array)$data;
-      if (!empty($tmp)) {
-        return self::_decode(get_object_vars($data));
-      }
+        $tmp = (array) $data;
+        if (!empty($tmp)) {
+            return self::_decode(get_object_vars($data));
+        }
     }
 
-    if (!$data && !is_array($data)) {
-      return null;
-    }
-
-    if (is_array($data)) {
-      $typeString = (isset($data['__type']) ? $data['__type'] : null);
-
-      if ($typeString === 'Date') {
-        return new \DateTime($data['iso']);
+      if (!$data && !is_array($data)) {
+          return;
       }
 
-      if ($typeString === 'Bytes') {
-        return base64_decode($data['base64']);
+      if (is_array($data)) {
+          $typeString = (isset($data['__type']) ? $data['__type'] : null);
+
+          if ($typeString === 'Date') {
+              return new \DateTime($data['iso']);
+          }
+
+          if ($typeString === 'Bytes') {
+              return base64_decode($data['base64']);
+          }
+
+          if ($typeString === 'Pointer') {
+              return ParseObject::create($data['className'], $data['objectId']);
+          }
+
+          if ($typeString === 'File') {
+              return ParseFile::_createFromServer($data['name'], $data['url']);
+          }
+
+          if ($typeString === 'GeoPoint') {
+              return new ParseGeoPoint($data['latitude'], $data['longitude']);
+          }
+
+          if ($typeString === 'Object') {
+              $output = ParseObject::create($data['className']);
+              $output->_mergeAfterFetch($data);
+
+              return $output;
+          }
+
+          if ($typeString === 'Relation') {
+              return $data;
+          }
+
+          $newDict = [];
+          foreach ($data as $key => $value) {
+              $newDict[$key] = static::_decode($value);
+          }
+
+          return $newDict;
       }
 
-      if ($typeString === 'Pointer') {
-        return ParseObject::create($data['className'], $data['objectId']);
-      }
-
-      if ($typeString === 'File') {
-        return ParseFile::_createFromServer($data['name'], $data['url']);
-      }
-
-      if ($typeString === 'GeoPoint') {
-        return new ParseGeoPoint($data['latitude'], $data['longitude']);
-      }
-
-      if ($typeString === 'Object') {
-        $output = ParseObject::create($data['className']);
-        $output->_mergeAfterFetch($data);
-        return $output;
-      }
-
-      if ($typeString === 'Relation') {
-        return $data;
-      }
-
-      $newDict = array();
-      foreach ($data as $key => $value) {
-        $newDict[$key] = static::_decode($value);
-      }
-      return $newDict;
-
-    }
-
-    return $data;
+      return $data;
   }
 
   /**
@@ -206,11 +210,12 @@ final class ParseClient
    */
   public static function _encodeArray($value, $allowParseObjects)
   {
-    $output = array();
-    foreach ($value as $key => $item) {
-      $output[$key] = self::_encode($item, $allowParseObjects);
-    }
-    return $output;
+      $output = [];
+      foreach ($value as $key => $item) {
+          $output[$key] = self::_encode($item, $allowParseObjects);
+      }
+
+      return $output;
   }
 
   /**
@@ -222,63 +227,64 @@ final class ParseClient
    * @param null   $data         Data to provide with the request.
    * @param bool   $useMasterKey Whether to use the Master Key.
    *
-   * @return mixed          Result from Parse API Call.
    * @throws \Exception
+   *
+   * @return mixed          Result from Parse API Call.
    * @ignore
    */
   public static function _request($method, $relativeUrl, $sessionToken = null,
                                   $data = null, $useMasterKey = false)
   {
-    if ($data === '[]') {
-      $data = '{}';
-    }
-    self::assertParseInitialized();
-    $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
-
-    $url = self::HOST_NAME . $relativeUrl;
-    if ($method === 'GET' && !empty($data)) {
-      $url .= '?' . http_build_query($data);
-    }
-    $rest = curl_init();
-    curl_setopt($rest, CURLOPT_URL, $url);
-    curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
-    if ($method === 'POST') {
-      $headers[] = 'Content-Type: application/json';
-      curl_setopt($rest, CURLOPT_POST, 1);
-      curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
-    }
-    if ($method === 'PUT') {
-      $headers[] = 'Content-Type: application/json';
-      curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
-      curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
-    }
-    if ($method === 'DELETE') {
-      curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
-    }
-    curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
-    $response = curl_exec($rest);
-    $status = curl_getinfo($rest, CURLINFO_HTTP_CODE);
-    $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
-    if (curl_errno($rest)) {
-      if (self::$enableCurlExceptions) {
-        throw new ParseException(curl_error($rest), curl_errno($rest));
-      } else {
-        return false;
+      if ($data === '[]') {
+          $data = '{}';
       }
-    }
-    curl_close($rest);
-    if (strpos($contentType, 'text/html') !== false) {
-      throw new ParseException('Bad Request', -1);
-    }
+      self::assertParseInitialized();
+      $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
 
-    $decoded = json_decode($response, true);
-    if (isset($decoded['error'])) {
-      throw new ParseException($decoded['error'],
+      $url = self::HOST_NAME.$relativeUrl;
+      if ($method === 'GET' && !empty($data)) {
+          $url .= '?'.http_build_query($data);
+      }
+      $rest = curl_init();
+      curl_setopt($rest, CURLOPT_URL, $url);
+      curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
+      if ($method === 'POST') {
+          $headers[] = 'Content-Type: application/json';
+          curl_setopt($rest, CURLOPT_POST, 1);
+          curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
+      }
+      if ($method === 'PUT') {
+          $headers[] = 'Content-Type: application/json';
+          curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
+          curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
+      }
+      if ($method === 'DELETE') {
+          curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
+      }
+      curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
+      $response = curl_exec($rest);
+      $status = curl_getinfo($rest, CURLINFO_HTTP_CODE);
+      $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
+      if (curl_errno($rest)) {
+          if (self::$enableCurlExceptions) {
+              throw new ParseException(curl_error($rest), curl_errno($rest));
+          } else {
+              return false;
+          }
+      }
+      curl_close($rest);
+      if (strpos($contentType, 'text/html') !== false) {
+          throw new ParseException('Bad Request', -1);
+      }
+
+      $decoded = json_decode($response, true);
+      if (isset($decoded['error'])) {
+          throw new ParseException($decoded['error'],
         isset($decoded['code']) ? $decoded['code'] : 0
       );
-    }
-    return $decoded;
+      }
 
+      return $decoded;
   }
 
   /**
@@ -291,7 +297,7 @@ final class ParseClient
    */
   public static function setStorage(ParseStorageInterface $storageObject)
   {
-    self::$storage = $storageObject;
+      self::$storage = $storageObject;
   }
 
   /**
@@ -302,7 +308,7 @@ final class ParseClient
    */
   public static function getStorage()
   {
-    return self::$storage;
+      return self::$storage;
   }
 
   /**
@@ -316,17 +322,17 @@ final class ParseClient
    */
   public static function _unsetStorage()
   {
-    self::$storage = null;
+      self::$storage = null;
   }
 
-  private static function assertParseInitialized()
-  {
-    if (self::$applicationId === null) {
-      throw new \Exception(
+    private static function assertParseInitialized()
+    {
+        if (self::$applicationId === null) {
+            throw new \Exception(
         'You must call Parse::initialize() before making any requests.'
       );
+        }
     }
-  }
 
   /**
    * @param $sessionToken
@@ -337,26 +343,27 @@ final class ParseClient
    */
   public static function _getRequestHeaders($sessionToken, $useMasterKey)
   {
-    $headers = array('X-Parse-Application-Id: ' . self::$applicationId,
-      'X-Parse-Client-Version: ' . self::VERSION_STRING);
-    if ($sessionToken) {
-      $headers[] = 'X-Parse-Session-Token: ' . $sessionToken;
-    }
-    if ($useMasterKey) {
-      $headers[] = 'X-Parse-Master-Key: ' . self::$masterKey;
-    } else {
-      $headers[] = 'X-Parse-REST-API-Key: ' . self::$restKey;
-    }
-    if (self::$forceRevocableSession) {
-      $headers[] = 'X-Parse-Revocable-Session: 1';
-    }
-    /**
+      $headers = ['X-Parse-Application-Id: '.self::$applicationId,
+      'X-Parse-Client-Version: '.self::VERSION_STRING, ];
+      if ($sessionToken) {
+          $headers[] = 'X-Parse-Session-Token: '.$sessionToken;
+      }
+      if ($useMasterKey) {
+          $headers[] = 'X-Parse-Master-Key: '.self::$masterKey;
+      } else {
+          $headers[] = 'X-Parse-REST-API-Key: '.self::$restKey;
+      }
+      if (self::$forceRevocableSession) {
+          $headers[] = 'X-Parse-Revocable-Session: 1';
+      }
+    /*
      * Set an empty Expect header to stop the 100-continue behavior for post
      *   data greater than 1024 bytes.
      *   http://pilif.github.io/2007/02/the-return-of-except-100-continue/
      */
     $headers[] = 'Expect: ';
-    return $headers;
+
+      return $headers;
   }
 
   /**
@@ -371,10 +378,11 @@ final class ParseClient
    */
   public static function getProperDateFormat($value)
   {
-    $dateFormatString = 'Y-m-d\TH:i:s.u';
-    $date = date_format($value, $dateFormatString);
-    $date = substr($date, 0, -3) . 'Z';
-    return $date;
+      $dateFormatString = 'Y-m-d\TH:i:s.u';
+      $date = date_format($value, $dateFormatString);
+      $date = substr($date, 0, -3).'Z';
+
+      return $date;
   }
 
   /**
@@ -389,9 +397,10 @@ final class ParseClient
    */
   public static function getLocalPushDateFormat($value)
   {
-    $dateFormatString = 'Y-m-d\TH:i:s';
-    $date = date_format($value, $dateFormatString);
-    return $date;
+      $dateFormatString = 'Y-m-d\TH:i:s';
+      $date = date_format($value, $dateFormatString);
+
+      return $date;
   }
 
   /**
@@ -403,7 +412,6 @@ final class ParseClient
    */
   public static function enableRevocableSessions()
   {
-    self::$forceRevocableSession = true;
+      self::$forceRevocableSession = true;
   }
-
 }
