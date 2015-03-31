@@ -5,12 +5,10 @@ namespace Parse;
 /**
  * ParseUser - Representation of a user object stored on Parse.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseUser extends ParseObject
 {
-
     public static $parseClassName = "_User";
 
     /**
@@ -92,7 +90,7 @@ class ParseUser extends ParseObject
     /**
      * Signs up the current user, or throw if invalid.
      * This will create a new ParseUser on the server, and also persist the
-     * session so that you can access the user using ParseUser::getCurrentUser();
+     * session so that you can access the user using ParseUser::getCurrentUser();.
      */
     public function signUp()
     {
@@ -119,9 +117,9 @@ class ParseUser extends ParseObject
      * @param string $username
      * @param string $password
      *
-     * @return ParseUser
-     *
      * @throws ParseException
+     *
+     * @return ParseUser
      */
     public static function logIn($username, $password)
     {
@@ -133,12 +131,13 @@ class ParseUser extends ParseObject
                 "Cannot log in user with an empty password."
             );
         }
-        $data = array("username" => $username, "password" => $password);
+        $data = ["username" => $username, "password" => $password];
         $result = ParseClient::_request("GET", "/1/login", "", $data);
         $user = new ParseUser();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
         ParseClient::getStorage()->set("user", $user);
+
         return $user;
     }
 
@@ -157,13 +156,14 @@ class ParseUser extends ParseObject
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
         ParseClient::getStorage()->set("user", $user);
+
         return $user;
     }
 
     /**
      * Log out the current user.    This will clear the storage and future calls
      *     to current will return null.
-     * This will make a network request to /1/logout to invalidate the session
+     * This will make a network request to /1/logout to invalidate the session.
      *
      * @return null
      */
@@ -219,6 +219,7 @@ class ParseUser extends ParseObject
         $userData = $storage->get("user");
         if ($userData instanceof ParseUser) {
             static::$currentUser = $userData;
+
             return $userData;
         }
         if (isset($userData["id"]) && isset($userData["_sessionToken"])) {
@@ -229,11 +230,13 @@ class ParseUser extends ParseObject
             foreach ($userData as $key => $value) {
                 $user->set($key, $value);
             }
-            $user->_opSetQueue = array();
+            $user->_opSetQueue = [];
             static::$currentUser = $user;
+
             return $user;
         }
-        return null;
+
+        return;
     }
 
     /**
@@ -248,7 +251,7 @@ class ParseUser extends ParseObject
     }
 
     /**
-     * Returns the session token, if available
+     * Returns the session token, if available.
      *
      * @return string|null
      */
@@ -269,15 +272,16 @@ class ParseUser extends ParseObject
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * Save the current user object, unless it is not signed up.
      *
-     * @return null
-     *
      * @throws ParseException
+     *
+     * @return null
      */
     public function save($useMasterKey = false)
     {
@@ -301,7 +305,7 @@ class ParseUser extends ParseObject
      */
     public static function requestPasswordReset($email)
     {
-        $json = json_encode(array('email' => $email));
+        $json = json_encode(['email' => $email]);
         ParseClient::_request('POST', '/1/requestPasswordReset', null, $json);
     }
 
@@ -312,5 +316,4 @@ class ParseUser extends ParseObject
     {
         static::$currentUser = null;
     }
-
 }

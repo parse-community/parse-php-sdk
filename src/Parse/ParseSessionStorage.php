@@ -5,12 +5,10 @@ namespace Parse;
 /**
  * ParseSessionStorage - Uses PHP session support for persistent storage.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseSessionStorage implements ParseStorageInterface
 {
-
     /**
      * @var string Parse will store its values in a specific key.
      */
@@ -24,7 +22,7 @@ class ParseSessionStorage implements ParseStorageInterface
             );
         }
         if (!isset($_SESSION[$this->storageKey])) {
-            $_SESSION[$this->storageKey] = array();
+            $_SESSION[$this->storageKey] = [];
         }
     }
 
@@ -43,12 +41,13 @@ class ParseSessionStorage implements ParseStorageInterface
         if (isset($_SESSION[$this->storageKey][$key])) {
             return $_SESSION[$this->storageKey][$key];
         }
-        return null;
+
+        return;
     }
 
     public function clear()
     {
-        $_SESSION[$this->storageKey] = array();
+        $_SESSION[$this->storageKey] = [];
     }
 
     public function save()
@@ -66,5 +65,4 @@ class ParseSessionStorage implements ParseStorageInterface
     {
         return $_SESSION[$this->storageKey];
     }
-
 }

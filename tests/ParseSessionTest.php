@@ -1,16 +1,13 @@
 <?php
 
 use Parse\ParseClient;
-use Parse\ParseObject;
-use Parse\ParseQuery;
-use Parse\ParseUser;
 use Parse\ParseSession;
+use Parse\ParseUser;
 
 require_once 'ParseTestHelper.php';
 
 class ParseSessionTest extends PHPUnit_Framework_TestCase
 {
-
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -57,5 +54,4 @@ class ParseSessionTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('Parse\ParseException', 'invalid session token');
         ParseUser::become($sessionToken);
     }
-
 }

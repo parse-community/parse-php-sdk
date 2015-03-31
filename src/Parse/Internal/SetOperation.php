@@ -7,12 +7,10 @@ use Parse\ParseClient;
 /**
  * Class SetOperation - Operation to set a value for an object key.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class SetOperation implements FieldOperation
 {
-
     /**
      * @var - Value to set for this operation.
      */
@@ -26,8 +24,8 @@ class SetOperation implements FieldOperation
     /**
      * Create a SetOperation with a value.
      *
-     * @param mixed $value Value to set for this operation.
-     * @param bool $isAssociativeArray If the value should be forced as object.
+     * @param mixed $value              Value to set for this operation.
+     * @param bool  $isAssociativeArray If the value should be forced as object.
      */
     public function __construct($value, $isAssociativeArray = false)
     {
@@ -57,17 +55,19 @@ class SetOperation implements FieldOperation
             foreach ($this->value as $key => $value) {
                 $object->$key = ParseClient::_encode($value, true);
             }
+
             return ParseClient::_encode($object, true);
         }
+
         return ParseClient::_encode($this->value, true);
     }
 
     /**
      * Apply the current operation and return the result.
      *
-     * @param mixed    $oldValue Value prior to this operation.
-     * @param mixed    $object     Value for this operation.
-     * @param string $key            Key to set this value on.
+     * @param mixed  $oldValue Value prior to this operation.
+     * @param mixed  $object   Value for this operation.
+     * @param string $key      Key to set this value on.
      *
      * @return mixed
      */
@@ -88,5 +88,4 @@ class SetOperation implements FieldOperation
     {
         return $this;
     }
-
 }

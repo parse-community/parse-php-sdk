@@ -5,12 +5,10 @@ namespace Parse\Internal;
 /**
  * Class DeleteOperation - FieldOperation to remove a key from an object.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class DeleteOperation implements FieldOperation
 {
-
     /**
      * Returns an associative array encoding of the current operation.
      *
@@ -18,21 +16,21 @@ class DeleteOperation implements FieldOperation
      */
     public function _encode()
     {
-        return array('__op' => 'Delete');
+        return ['__op' => 'Delete'];
     }
 
     /**
      * Applies the current operation and returns the result.
      *
-     * @param mixed    $oldValue Value prior to this operation.
-     * @param mixed    $object     Unused for this operation type.
-     * @param string $key            Key to remove from the target object.
+     * @param mixed  $oldValue Value prior to this operation.
+     * @param mixed  $object   Unused for this operation type.
+     * @param string $key      Key to remove from the target object.
      *
      * @return null
      */
     public function _apply($oldValue, $object, $key)
     {
-        return null;
+        return;
     }
 
     /**
@@ -46,5 +44,4 @@ class DeleteOperation implements FieldOperation
     {
         return $this;
     }
-
 }

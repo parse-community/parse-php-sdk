@@ -1,16 +1,14 @@
 <?php
 
-use Parse\ParseClient;
+use Parse\ParseException;
+use Parse\ParseGeoPoint;
 use Parse\ParseObject;
 use Parse\ParseQuery;
-use Parse\ParseGeoPoint;
-use Parse\ParseException;
 
 require_once 'ParseTestHelper.php';
 
 class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
 {
-
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -56,7 +54,7 @@ class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
         $query->withinGeoBox('location', $northeastOfSF, $southwestOfSF);
         try {
             $results = $query->find();
-            $this->assertTrue(FALSE, 'Query should fail because it crosses dateline');
+            $this->assertTrue(false, 'Query should fail because it crosses dateline');
         } catch (ParseException $e) {
         }
 
@@ -68,7 +66,7 @@ class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
         $query->withinGeoBox('location', $southeastOfSF, $northwestOfSF);
         try {
             $query->find();
-            $this->assertTrue(FALSE, 'Query should fail because it crosses dateline');
+            $this->assertTrue(false, 'Query should fail because it crosses dateline');
         } catch (ParseException $e) {
         }
 
@@ -77,7 +75,7 @@ class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
         $query->withinGeoBox('location', $northwestOfSF, $southeastOfSF);
         try {
             $query->find();
-            $this->assertTrue(FALSE, 'Query should fail because it makes no sense');
+            $this->assertTrue(false, 'Query should fail because it makes no sense');
         } catch (ParseException $e) {
         }
     }
@@ -124,7 +122,7 @@ class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
         $query->ascending('order');
         try {
             $query->find();
-            $this->assertTrue(FALSE, 'Query should fail for crossing the date line.');
+            $this->assertTrue(false, 'Query should fail for crossing the date line.');
         } catch (ParseException $e) {
         }
     }
@@ -148,9 +146,8 @@ class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
         $query->withinGeoBox('location', $southwest, $northeast);
         try {
             $query->find();
-            $this->assertTrue(FALSE, 'Query should fail for being too large.');
+            $this->assertTrue(false, 'Query should fail for being too large.');
         } catch (ParseException $e) {
         }
     }
 }
-

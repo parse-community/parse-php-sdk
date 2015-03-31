@@ -3,24 +3,22 @@
 namespace Parse;
 
 /**
- * ParseCloud - Facilitates calling Parse Cloud functions
+ * ParseCloud - Facilitates calling Parse Cloud functions.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseCloud
 {
-
     /**
-     * Makes a call to a Cloud function
+     * Makes a call to a Cloud function.
      *
-     * @param string $name Cloud function name
-     * @param array    $data Parameters to pass
+     * @param string  $name         Cloud function name
+     * @param array   $data         Parameters to pass
      * @param boolean $useMasterKey Whether to use the Master Key
      *
      * @return mixed
      */
-    public static function run($name, $data = array(), $useMasterKey = false)
+    public static function run($name, $data = [], $useMasterKey = false)
     {
         $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
@@ -28,12 +26,12 @@ class ParseCloud
         }
         $response = ParseClient::_request(
             'POST',
-            '/1/functions/' . $name,
+            '/1/functions/'.$name,
             $sessionToken,
             json_encode(ParseClient::_encode($data, null, false)),
             $useMasterKey
         );
+
         return ParseClient::_decode($response['result']);
     }
-
 }

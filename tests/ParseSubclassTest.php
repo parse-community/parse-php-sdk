@@ -1,7 +1,5 @@
 <?php
 
-use Parse\ParseQuery;
-use Parse\ParsePush;
 use Parse\ParseInstallation;
 use Parse\ParseObject;
 
@@ -9,7 +7,6 @@ require_once 'ParseTestHelper.php';
 
 class ParseSubclassTest extends PHPUnit_Framework_TestCase
 {
-
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -33,5 +30,4 @@ class ParseSubclassTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($install instanceof ParseInstallation);
         $this->assertTrue(is_subclass_of($install, 'Parse\ParseObject'));
     }
-
 }

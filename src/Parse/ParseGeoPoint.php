@@ -5,12 +5,10 @@ namespace Parse;
 /**
  * ParseGeoPoint - Representation of a Parse GeoPoint object.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseGeoPoint implements \Parse\Internal\Encodable
 {
-
     /**
      * @var - Float value for latitude.
      */
@@ -85,17 +83,17 @@ class ParseGeoPoint implements \Parse\Internal\Encodable
     }
 
     /**
-     * Encode to associative array representation
+     * Encode to associative array representation.
      *
      * @return array
      * @ignore
      */
     public function _encode()
     {
-        return array(
-            '__type' => 'GeoPoint',
-            'latitude' => $this->latitude,
-            'longitude' => $this->longitude
-        );
+        return [
+            '__type'    => 'GeoPoint',
+            'latitude'  => $this->latitude,
+            'longitude' => $this->longitude,
+        ];
     }
 }

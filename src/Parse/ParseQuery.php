@@ -3,14 +3,12 @@
 namespace Parse;
 
 /**
- * ParseQuery - Handles querying data from Parse
+ * ParseQuery - Handles querying data from Parse.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseQuery
 {
-
     /**
      * @var - Class Name for data stored on Parse.
      */
@@ -18,19 +16,19 @@ class ParseQuery
     /**
      * @var array - Where constraints.
      */
-    private $where = array();
+    private $where = [];
     /**
      * @var array - Order By keys.
      */
-    private $orderBy = array();
+    private $orderBy = [];
     /**
      * @var array - Include nested objects.
      */
-    private $includes = array();
+    private $includes = [];
     /**
      * @var array - Include certain keys only.
      */
-    private $selectedKeys = array();
+    private $selectedKeys = [];
     /**
      * @var int - Skip from the beginning of the search results.
      */
@@ -55,14 +53,14 @@ class ParseQuery
     }
 
     /**
-     * Execute a query to retrieve a specific object
+     * Execute a query to retrieve a specific object.
      *
-     * @param string $objectId Unique object id to retrieve.
-     * @param bool $useMasterKey If the query should use the master key
-     *
-     * @return array
+     * @param string $objectId     Unique object id to retrieve.
+     * @param bool   $useMasterKey If the query should use the master key
      *
      * @throws ParseException
+     *
+     * @return array
      */
     public function get($objectId, $useMasterKey = false)
     {
@@ -71,14 +69,15 @@ class ParseQuery
         if (empty($result)) {
             throw new ParseException("Object not found.", 101);
         }
+
         return $result;
     }
 
     /**
      * Set a constraint for a field matching a given value.
      *
-     * @param string $key     Key to set up an equals constraint.
-     * @param mixed    $value Value the key must equal.
+     * @param string $key   Key to set up an equals constraint.
+     * @param mixed  $value Value the key must equal.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
@@ -89,6 +88,7 @@ class ParseQuery
         } else {
             $this->where[$key] = $value;
         }
+
         return $this;
     }
 
@@ -98,7 +98,7 @@ class ParseQuery
     private function addCondition($key, $condition, $value)
     {
         if (!isset($this->where[$key])) {
-            $this->where[$key] = array();
+            $this->where[$key] = [];
         }
         $this->where[$key][$condition] = ParseClient::_encode($value, true);
     }
@@ -107,14 +107,15 @@ class ParseQuery
      * Add a constraint to the query that requires a particular key's value to
      * be not equal to the provided value.
      *
-     * @param string $key     The key to check.
-     * @param mixed    $value The value that must not be equalled.
+     * @param string $key   The key to check.
+     * @param mixed  $value The value that must not be equalled.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
     public function notEqualTo($key, $value)
     {
         $this->addCondition($key, '$ne', $value);
+
         return $this;
     }
 
@@ -122,14 +123,15 @@ class ParseQuery
      * Add a constraint to the query that requires a particular key's value to
      * be less than the provided value.
      *
-     * @param string $key     The key to check.
-     * @param mixed    $value The value that provides an Upper bound.
+     * @param string $key   The key to check.
+     * @param mixed  $value The value that provides an Upper bound.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
     public function lessThan($key, $value)
     {
         $this->addCondition($key, '$lt', $value);
+
         return $this;
     }
 
@@ -137,14 +139,15 @@ class ParseQuery
      * Add a constraint to the query that requires a particular key's value to
      * be greater than the provided value.
      *
-     * @param string $key     The key to check.
-     * @param mixed    $value The value that provides an Lower bound.
+     * @param string $key   The key to check.
+     * @param mixed  $value The value that provides an Lower bound.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
     public function greaterThan($key, $value)
     {
         $this->addCondition($key, '$gt', $value);
+
         return $this;
     }
 
@@ -152,14 +155,15 @@ class ParseQuery
      * Add a constraint to the query that requires a particular key's value to
      * be greater than or equal to the provided value.
      *
-     * @param string $key     The key to check.
-     * @param mixed    $value The value that provides an Lower bound.
+     * @param string $key   The key to check.
+     * @param mixed  $value The value that provides an Lower bound.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
     public function greaterThanOrEqualTo($key, $value)
     {
         $this->addCondition($key, '$gte', $value);
+
         return $this;
     }
 
@@ -167,38 +171,41 @@ class ParseQuery
      * Add a constraint to the query that requires a particular key's value to
      * be less than or equal to the provided value.
      *
-     * @param string $key     The key to check.
-     * @param mixed    $value The value that provides an Upper bound.
+     * @param string $key   The key to check.
+     * @param mixed  $value The value that provides an Upper bound.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
     public function lessThanOrEqualTo($key, $value)
     {
         $this->addCondition($key, '$lte', $value);
+
         return $this;
     }
 
     /**
-         * Converts a string into a regex that matches it.
-         * Surrounding with \Q .. \E does this, we just need to escape \E's in
-         * the text separately.
-         */
-    private function quote($s) {
-            return "\\Q" . str_replace("\\E", "\\E\\\\E\\Q", $s) . "\\E";
+     * Converts a string into a regex that matches it.
+     * Surrounding with \Q .. \E does this, we just need to escape \E's in
+     * the text separately.
+     */
+    private function quote($s)
+    {
+        return "\\Q".str_replace("\\E", "\\E\\\\E\\Q", $s)."\\E";
     }
 
     /**
      * Add a constraint to the query that requires a particular key's value to
      * start with the provided value.
      *
-     * @param string $key     The key to check.
-     * @param mixed    $value The substring that the value must start with.
+     * @param string $key   The key to check.
+     * @param mixed  $value The substring that the value must start with.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
     public function startsWith($key, $value)
     {
         $this->addCondition($key, '$regex', "^".$this->quote($value));
+
         return $this;
     }
 
@@ -210,15 +217,15 @@ class ParseQuery
      */
     public function _getOptions()
     {
-        $opts = array();
+        $opts = [];
         if (!empty($this->where)) {
             $opts['where'] = $this->where;
         }
         if (count($this->includes)) {
-            $opts['include'] = join(',', $this->includes);
+            $opts['include'] = implode(',', $this->includes);
         }
         if (count($this->selectedKeys)) {
-            $opts['keys'] = join(',', $this->selectedKeys);
+            $opts['keys'] = implode(',', $this->selectedKeys);
         }
         if ($this->limit >= 0) {
             $opts['limit'] = $this->limit;
@@ -227,11 +234,12 @@ class ParseQuery
             $opts['skip'] = $this->skip;
         }
         if ($this->orderBy) {
-            $opts['order'] = join(',', $this->orderBy);
+            $opts['order'] = implode(',', $this->orderBy);
         }
         if ($this->count) {
             $opts['count'] = $this->count;
         }
+
         return $opts;
     }
 
@@ -249,12 +257,13 @@ class ParseQuery
         if (count($result)) {
             return $result[0];
         } else {
-            return array();
+            return [];
         }
     }
 
     /**
      * Build query string from query constraints.
+     *
      * @param array $queryOptions Associative array of the query constraints.
      *
      * @return string Query string.
@@ -265,6 +274,7 @@ class ParseQuery
             $queryOptions["where"] = ParseClient::_encode($queryOptions["where"], true);
             $queryOptions["where"] = json_encode($queryOptions["where"]);
         }
+
         return http_build_query($queryOptions);
     }
 
@@ -281,8 +291,9 @@ class ParseQuery
         $this->count = 1;
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request('GET',
-                '/1/classes/' . $this->className .
-                '?' . $queryString, null, null, $useMasterKey);
+                '/1/classes/'.$this->className.
+                '?'.$queryString, null, null, $useMasterKey);
+
         return $result['count'];
     }
 
@@ -301,14 +312,15 @@ class ParseQuery
         }
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request('GET',
-                '/1/classes/' . $this->className .
-                '?' . $queryString, $sessionToken, null, $useMasterKey);
-        $output = array();
+                '/1/classes/'.$this->className.
+                '?'.$queryString, $sessionToken, null, $useMasterKey);
+        $output = [];
         foreach ($result['results'] as $row) {
             $obj = ParseObject::create($this->className, $row['objectId']);
             $obj->_mergeAfterFetchWithSelectedKeys($row, $this->selectedKeys);
             $output[] = $obj;
         }
+
         return $output;
     }
 
@@ -322,11 +334,12 @@ class ParseQuery
     public function skip($n)
     {
         $this->skip = $n;
+
         return $this;
     }
 
     /**
-     * Set the limit parameter as a query constraint
+     * Set the limit parameter as a query constraint.
      *
      * @param int $n Number of objects to return from the query.
      *
@@ -335,19 +348,22 @@ class ParseQuery
     public function limit($n)
     {
         $this->limit = $n;
+
         return $this;
     }
 
     /**
      * Set the query orderBy to ascending for the given key(s). It overwrites the
      * existing order criteria.
+     *
      * @param mixed $key Key(s) to sort by, which is a string or an array of strings.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
     public function ascending($key)
     {
-        $this->orderBy = array();
+        $this->orderBy = [];
+
         return $this->addAscending($key);
     }
 
@@ -366,19 +382,22 @@ class ParseQuery
         } else {
             $this->orderBy[] = $key;
         }
+
         return $this;
     }
 
     /**
      * Set the query orderBy to descending for a given key(s). It overwrites the
      * existing order criteria.
+     *
      * @param mixed $key Key(s) to sort by, which is a string or an array of strings.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
     public function descending($key)
     {
-        $this->orderBy = array();
+        $this->orderBy = [];
+
         return $this->addDescending($key);
     }
 
@@ -394,12 +413,13 @@ class ParseQuery
     {
         if (is_array($key)) {
             $key = array_map(function ($element) {
-                return '-' . $element;
+                return '-'.$element;
             }, $key);
             $this->orderBy = array_merge($this->orderBy, $key);
         } else {
-            $this->orderBy[] = "-" . $key;
+            $this->orderBy[] = "-".$key;
         }
+
         return $this;
     }
 
@@ -407,7 +427,7 @@ class ParseQuery
      * Add a proximity based constraint for finding objects with key point
      * values near the point given.
      *
-     * @param string                $key     The key that the ParseGeoPoint is stored in.
+     * @param string        $key   The key that the ParseGeoPoint is stored in.
      * @param ParseGeoPoint $point The reference ParseGeoPoint that is used.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
@@ -415,6 +435,7 @@ class ParseQuery
     public function near($key, $point)
     {
         $this->addCondition($key, '$nearSphere', $point);
+
         return $this;
     }
 
@@ -422,9 +443,9 @@ class ParseQuery
      * Add a proximity based constraint for finding objects with key point
      * values near the point given and within the maximum distance given.
      *
-     * @param string                $key                 The key of the ParseGeoPoint
-     * @param ParseGeoPoint $point             The ParseGeoPoint that is used.
-     * @param int                     $maxDistance Maximum distance (in radians)
+     * @param string        $key         The key of the ParseGeoPoint
+     * @param ParseGeoPoint $point       The ParseGeoPoint that is used.
+     * @param int           $maxDistance Maximum distance (in radians)
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
@@ -432,6 +453,7 @@ class ParseQuery
     {
         $this->near($key, $point);
         $this->addCondition($key, '$maxDistance', $maxDistance);
+
         return $this;
     }
 
@@ -440,9 +462,9 @@ class ParseQuery
      * values near the point given and within the maximum distance given.
      * Radius of earth used is 3958.5 miles.
      *
-     * @param string                $key                 The key of the ParseGeoPoint
-     * @param ParseGeoPoint $point             The ParseGeoPoint that is used.
-     * @param int                     $maxDistance Maximum distance (in miles)
+     * @param string        $key         The key of the ParseGeoPoint
+     * @param ParseGeoPoint $point       The ParseGeoPoint that is used.
+     * @param int           $maxDistance Maximum distance (in miles)
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
@@ -450,6 +472,7 @@ class ParseQuery
     {
         $this->near($key, $point);
         $this->addCondition($key, '$maxDistance', $maxDistance / 3958.8);
+
         return $this;
     }
 
@@ -458,9 +481,9 @@ class ParseQuery
      * values near the point given and within the maximum distance given.
      * Radius of earth used is 6371.0 kilometers.
      *
-     * @param string                $key                 The key of the ParseGeoPoint
-     * @param ParseGeoPoint $point             The ParseGeoPoint that is used.
-     * @param int                     $maxDistance Maximum distance (in kilometers)
+     * @param string        $key         The key of the ParseGeoPoint
+     * @param ParseGeoPoint $point       The ParseGeoPoint that is used.
+     * @param int           $maxDistance Maximum distance (in kilometers)
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
@@ -468,6 +491,7 @@ class ParseQuery
     {
         $this->near($key, $point);
         $this->addCondition($key, '$maxDistance', $maxDistance / 6371.0);
+
         return $this;
     }
 
@@ -476,7 +500,7 @@ class ParseQuery
      * coordinates be contained within a given rectangular geographic bounding
      * box.
      *
-     * @param string                $key             The key of the ParseGeoPoint
+     * @param string        $key       The key of the ParseGeoPoint
      * @param ParseGeoPoint $southwest The lower-left corner of the box.
      * @param ParseGeoPoint $northeast The upper-right corner of the box.
      *
@@ -486,6 +510,7 @@ class ParseQuery
     {
         $this->addCondition($key, '$within',
                 ['$box' => [$southwest, $northeast]]);
+
         return $this;
     }
 
@@ -493,14 +518,15 @@ class ParseQuery
      * Add a constraint to the query that requires a particular key's value to
      * be contained in the provided list of values.
      *
-     * @param string $key        The key to check.
-     * @param array    $values The values that will match.
+     * @param string $key    The key to check.
+     * @param array  $values The values that will match.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
      */
     public function containedIn($key, $values)
     {
         $this->addCondition($key, '$in', $values);
+
         return $this;
     }
 
@@ -509,10 +535,10 @@ class ParseQuery
      * items are processed in an unspecified order. The query may not have any
      * sort order, and may not use limit or skip.
      *
-     * @param callable $callback    Callback that will be called with each result
-     *                                                        of the query.
-     * @param boolean    $useMasterKey
-     * @param int            $batchSize
+     * @param callable $callback     Callback that will be called with each result
+     *                               of the query.
+     * @param boolean  $useMasterKey
+     * @param int      $batchSize
      *
      * @throws \Exception If query has sort, skip, or limit.
      */
@@ -547,14 +573,15 @@ class ParseQuery
      * Add a constraint to the query that requires a particular key's value to
      * not be contained in the provided list of values.
      *
-     * @param string $key        The key to check.
-     * @param array    $values The values that will not match.
+     * @param string $key    The key to check.
+     * @param array  $values The values that will not match.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
      */
     public function notContainedIn($key, $values)
     {
         $this->addCondition($key, '$nin', $values);
+
         return $this;
     }
 
@@ -562,8 +589,8 @@ class ParseQuery
      * Add a constraint that requires that a key's value matches a ParseQuery
      * constraint.
      *
-     * @param string         $key     The key that the contains the object to match
-     *                                                    the query.
+     * @param string     $key   The key that the contains the object to match
+     *                          the query.
      * @param ParseQuery $query The query that should match.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
@@ -573,6 +600,7 @@ class ParseQuery
         $queryParam = $query->_getOptions();
         $queryParam["className"] = $query->className;
         $this->addCondition($key, '$inQuery', $queryParam);
+
         return $this;
     }
 
@@ -580,8 +608,8 @@ class ParseQuery
      * Add a constraint that requires that a key's value not matches a ParseQuery
      * constraint.
      *
-     * @param string         $key     The key that the contains the object not to
-     *                                                    match the query.
+     * @param string     $key   The key that the contains the object not to
+     *                          match the query.
      * @param ParseQuery $query The query that should not match.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
@@ -591,6 +619,7 @@ class ParseQuery
         $queryParam = $query->_getOptions();
         $queryParam["className"] = $query->className;
         $this->addCondition($key, '$notInQuery', $queryParam);
+
         return $this;
     }
 
@@ -598,11 +627,11 @@ class ParseQuery
      * Add a constraint that requires that a key's value matches a value in an
      * object returned by the given query.
      *
-     * @param string         $key            The key that contains teh value that is being
-     *                                                         matched.
-     * @param string         $queryKey The key in objects returned by the query to
-     *                                                         match against.
-     * @param ParseQuery $query        The query to run.
+     * @param string     $key      The key that contains teh value that is being
+     *                             matched.
+     * @param string     $queryKey The key in objects returned by the query to
+     *                             match against.
+     * @param ParseQuery $query    The query to run.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
      */
@@ -612,6 +641,7 @@ class ParseQuery
         $queryParam["className"] = $query->className;
         $this->addCondition($key, '$select',
                 ['key' => $queryKey, 'query' => $queryParam]);
+
         return $this;
     }
 
@@ -619,11 +649,11 @@ class ParseQuery
      * Add a constraint that requires that a key's value not match a value in an
      * object returned by the given query.
      *
-     * @param string         $key            The key that contains teh value that is being
-     *                                                         excluded.
-     * @param string         $queryKey The key in objects returned by the query to
-     *                                                         match against.
-     * @param ParseQuery $query        The query to run.
+     * @param string     $key      The key that contains teh value that is being
+     *                             excluded.
+     * @param string     $queryKey The key in objects returned by the query to
+     *                             match against.
+     * @param ParseQuery $query    The query to run.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
      */
@@ -633,6 +663,7 @@ class ParseQuery
         $queryParam["className"] = $query->className;
         $this->addCondition($key, '$dontSelect',
                 ['key' => $queryKey, 'query' => $queryParam]);
+
         return $this;
     }
 
@@ -642,9 +673,9 @@ class ParseQuery
      *
      * @param array $queryObjects Array of ParseQuery objects to OR.
      *
-     * @return ParseQuery The query that is the OR of the passed in queries.
-     *
      * @throws \Exception If all queries don't have same class.
+     *
+     * @return ParseQuery The query that is the OR of the passed in queries.
      */
     public static function orQueries($queryObjects)
     {
@@ -660,6 +691,7 @@ class ParseQuery
         }
         $query = new ParseQuery($className);
         $query->_or($queryObjects);
+
         return $query;
     }
 
@@ -673,11 +705,12 @@ class ParseQuery
      */
     private function _or($queries)
     {
-        $this->where['$or'] = array();
+        $this->where['$or'] = [];
         $length = count($queries);
         for ($i = 0; $i < $length; $i++) {
             $this->where['$or'][] = $queries[$i]->where;
         }
+
         return $this;
     }
 
@@ -685,14 +718,15 @@ class ParseQuery
      * Add a constraint to the query that requires a particular key's value to
      * contain each one of the provided list of values.
      *
-     * @param string $key        The key to check. This key's value must be an array.
-     * @param array    $values The values that will match.
+     * @param string $key    The key to check. This key's value must be an array.
+     * @param array  $values The values that will match.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
      */
     public function containsAll($key, $values)
     {
         $this->addCondition($key, '$all', $values);
+
         return $this;
     }
 
@@ -706,6 +740,7 @@ class ParseQuery
     public function exists($key)
     {
         $this->addCondition($key, '$exists', true);
+
         return $this;
     }
 
@@ -719,6 +754,7 @@ class ParseQuery
     public function doesNotExist($key)
     {
         $this->addCondition($key, '$exists', false);
+
         return $this;
     }
 
@@ -728,7 +764,7 @@ class ParseQuery
      * specified in each of the calls will be included.
      *
      * @param mixed $key The name(s) of the key(s) to include. It could be
-     *                                     string, or an Array of string.
+     *                   string, or an Array of string.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
      */
@@ -739,6 +775,7 @@ class ParseQuery
         } else {
             $this->selectedKeys[] = $key;
         }
+
         return $this;
     }
 
@@ -747,7 +784,7 @@ class ParseQuery
      * notation to specify which fields in the included object are also fetch.
      *
      * @param mixed $key The name(s) of the key(s) to include. It could be
-     *                                        string, or an Array of string.
+     *                   string, or an Array of string.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
      */
@@ -758,19 +795,22 @@ class ParseQuery
         } else {
             $this->includes[] = $key;
         }
+
         return $this;
     }
 
     /**
      * Add constraint for parse relation.
+     *
      * @param string $key
-     * @param mixed    $value
+     * @param mixed  $value
      *
      * @return ParseQuery Returns the query, so you can chain this call.
      */
     public function relatedTo($key, $value)
     {
         $this->addCondition('$relatedTo', $key, $value);
+
         return $this;
     }
 }

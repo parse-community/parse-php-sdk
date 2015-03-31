@@ -2,18 +2,13 @@
 
 namespace Parse;
 
-use Parse\ParseObject;
-use Parse\ParseUser;
-
 /**
  * ParseSession - Representation of an expiring user session.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseSession extends ParseObject
 {
-
     public static $parseClassName = "_Session";
 
     private $_sessionToken = null;
@@ -42,9 +37,9 @@ class ParseSession extends ParseObject
         $session = new ParseSession();
         $session->_mergeAfterFetch($response);
         $session->handleSaveResult();
+
         return $session;
     }
-
 
     /**
      * Determines whether the current session token is revocable.
@@ -86,5 +81,4 @@ class ParseSession extends ParseObject
         }
         $this->rebuildEstimatedData();
     }
-
 }

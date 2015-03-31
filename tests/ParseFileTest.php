@@ -6,8 +6,8 @@ use Parse\ParseQuery;
 
 require_once 'ParseTestHelper.php';
 
-class ParseFileTest extends \PHPUnit_Framework_TestCase {
-
+class ParseFileTest extends \PHPUnit_Framework_TestCase
+{
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -138,5 +138,4 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase {
         $this->setExpectedException('Parse\ParseException', 'Download failed');
         $contents = $fileAgain->getData();
     }
-
 }

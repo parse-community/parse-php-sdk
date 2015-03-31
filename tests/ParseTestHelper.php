@@ -1,12 +1,11 @@
 <?php
 
 use Parse\ParseClient;
-use Parse\ParseQuery;
 use Parse\ParseObject;
+use Parse\ParseQuery;
 
 class ParseTestHelper
 {
-
     public static function setUp()
     {
         ini_set('error_reporting', E_ALL);
@@ -21,15 +20,13 @@ class ParseTestHelper
 
     public static function tearDown()
     {
-
     }
 
     public static function clearClass($class)
     {
         $query = new ParseQuery($class);
-        $query->each(function(ParseObject $obj) {
+        $query->each(function (ParseObject $obj) {
             $obj->destroy(true);
         }, true);
     }
-
 }

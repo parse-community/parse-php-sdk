@@ -1,6 +1,5 @@
 <?php
 
-use Parse\ParseClient;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
@@ -9,7 +8,6 @@ require_once 'ParseTestHelper.php';
 
 class ParseUserTest extends PHPUnit_Framework_TestCase
 {
-
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -146,7 +144,7 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(
             'Parse\ParseAggregateException', 'Errors during batch save.'
         );
-        ParseObject::saveAll(array($item1, $item2, $user));
+        ParseObject::saveAll([$item1, $item2, $user]);
     }
 
     public function testCurrentUser()
@@ -283,16 +281,16 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
     {
         ParseTestHelper::clearClass(ParseUser::$parseClassName);
         ParseTestHelper::clearClass("TestObject");
-        $userList = array();
+        $userList = [];
         for ($i = 0; $i < 4; $i++) {
             $user = new ParseUser();
-            $user->setUsername('user_num_' . $i);
+            $user->setUsername('user_num_'.$i);
             $user->setPassword('password');
-            $user->set('email', 'asdf_' . $i . '@example.com');
+            $user->set('email', 'asdf_'.$i.'@example.com');
             $user->signUp();
             $userList[] = $user;
         }
-        $messageList = array();
+        $messageList = [];
         for ($i = 0; $i < 5; $i++) {
             $message = ParseObject::create('TestObject');
             $toUser = ($i + 1) % 4;
@@ -303,7 +301,7 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
             $messageList[] = $message;
         }
 
-        $inList = array($userList[0], $userList[3], $userList[3]);
+        $inList = [$userList[0], $userList[3], $userList[3]];
         $query = new ParseQuery("TestObject");
         $query->containedIn('from', $inList);
         $results = $query->find();
@@ -426,5 +424,4 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $userAgain = ParseUser::getCurrentUser();
         $this->assertFalse($userAgain->isKeyDirty('bleep'));
     }
-
 }

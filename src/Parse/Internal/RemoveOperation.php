@@ -8,14 +8,12 @@ use Parse\ParseObject;
 
 /**
  * Class RemoveOperation - FieldOperation for removing object(s) from array
- * fields
+ * fields.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class RemoveOperation implements FieldOperation
 {
-
     /**
      * @var - Array with objects to remove.
      */
@@ -53,8 +51,8 @@ class RemoveOperation implements FieldOperation
      */
     public function _encode()
     {
-        return array('__op' => 'Remove',
-                                 'objects' => ParseClient::_encode($this->objects, true));
+        return ['__op'                     => 'Remove',
+                                 'objects' => ParseClient::_encode($this->objects, true), ];
     }
 
     /**
@@ -62,8 +60,9 @@ class RemoveOperation implements FieldOperation
      *
      * @param FieldOperation $previous Previous operation.
      *
-     * @return FieldOperation Merged operation.
      * @throws ParseException
+     *
+     * @return FieldOperation Merged operation.
      */
     public function _mergeWithPrevious($previous)
     {
@@ -80,8 +79,9 @@ class RemoveOperation implements FieldOperation
         }
         if ($previous instanceof RemoveOperation) {
             $oldList = $previous->getValue();
+
             return new RemoveOperation(
-                array_merge((array)$oldList, (array)$this->objects)
+                array_merge((array) $oldList, (array) $this->objects)
             );
         }
         throw new ParseException(
@@ -92,18 +92,18 @@ class RemoveOperation implements FieldOperation
     /**
      * Applies current operation, returns resulting value.
      *
-     * @param mixed    $oldValue Value prior to this operation.
-     * @param mixed    $obj            Value being applied.
-     * @param string $key            Key this operation affects.
+     * @param mixed  $oldValue Value prior to this operation.
+     * @param mixed  $obj      Value being applied.
+     * @param string $key      Key this operation affects.
      *
      * @return array
      */
     public function _apply($oldValue, $obj, $key)
     {
         if (empty($oldValue)) {
-            return array();
+            return [];
         }
-        $newValue = array();
+        $newValue = [];
         foreach ($oldValue as $oldObject) {
             foreach ($this->objects as $newObject) {
                 if ($oldObject instanceof ParseObject) {
@@ -121,7 +121,7 @@ class RemoveOperation implements FieldOperation
                 }
             }
         }
+
         return $newValue;
     }
-
 }

@@ -1,13 +1,13 @@
 <?php
 
+use Parse\ParseBytes;
 use Parse\ParseObject;
 use Parse\ParseQuery;
-use Parse\ParseBytes;
 
 require_once 'ParseTestHelper.php';
 
-class ParseBytesTest extends \PHPUnit_Framework_TestCase {
-
+class ParseBytesTest extends \PHPUnit_Framework_TestCase
+{
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -47,5 +47,4 @@ class ParseBytesTest extends \PHPUnit_Framework_TestCase {
         $objAgain = $query->get($obj->getObjectId());
         $this->assertEquals("Grantland", $objAgain->get("byteColumn"));
     }
-
 }

@@ -1,16 +1,14 @@
 <?php
 
-use Parse\ParseClient;
+use Parse\ParseACL;
+use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
-use Parse\ParseException;
-use Parse\ParseACL;
 
 require_once 'ParseTestHelper.php';
 
 class ParseQueryTest extends PHPUnit_Framework_TestCase
 {
-
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -29,13 +27,13 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     /**
      * This function used as a helper function in test functions to save objects.
      *
-     * @param int            $numberOfObjects Number of objects you want to save.
-     * @param callable $callback                Function which takes int as a parameter.
-     *                                                                    and should return ParseObject.
+     * @param int      $numberOfObjects Number of objects you want to save.
+     * @param callable $callback        Function which takes int as a parameter.
+     *                                  and should return ParseObject.
      */
     public function saveObjects($numberOfObjects, $callback)
     {
-        $allObjects = array();
+        $allObjects = [];
         for ($i = 0; $i < $numberOfObjects; $i++) {
             $allObjects[] = $callback($i);
         }
@@ -46,7 +44,8 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     {
         $this->saveObjects($numberOfObjects, function ($i) {
             $obj = ParseObject::create('TestObject');
-            $obj->set('foo', 'bar' . $i);
+            $obj->set('foo', 'bar'.$i);
+
             return $obj;
         });
     }
@@ -103,7 +102,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $query->notEqualTo('foo', 'bar9');
         $results = $query->find();
         $this->assertEquals(count($results), 9,
-                'Did not find 9 objects, found ' . count($results));
+                'Did not find 9 objects, found '.count($results));
     }
 
     public function testLessThan()
@@ -285,11 +284,12 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     public function testObjectIdEqualTo()
     {
         ParseTestHelper::clearClass("BoxedNumber");
-        $boxedNumberArray = array();
+        $boxedNumberArray = [];
         $this->saveObjects(5, function ($i) use (&$boxedNumberArray) {
             $boxedNumber = new ParseObject("BoxedNumber");
             $boxedNumber->set("number", $i);
             $boxedNumberArray[] = $boxedNumber;
+
             return $boxedNumber;
         });
         $query = new ParseQuery("BoxedNumber");
@@ -307,6 +307,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects(5, function ($i) {
             $boxedNumber = new ParseObject("BoxedNumber");
             $boxedNumber->set("number", $i);
+
             return $boxedNumber;
         });
         $query = new ParseQuery("BoxedNumber");
@@ -394,6 +395,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects(2, function ($i) {
             $testObject = ParseObject::create("TestObject");
             $testObject->set("foo", "bar");
+
             return $testObject;
         });
         $query = new ParseQuery("TestObject");
@@ -407,14 +409,16 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     {
         ParseTestHelper::clearClass("Container");
         ParseTestHelper::clearClass("Item");
-        $items = array();
+        $items = [];
         $this->saveObjects(2, function ($i) use (&$items) {
             $items[] = ParseObject::create("Item");
+
             return $items[$i];
         });
         $this->saveObjects(2, function ($i) use ($items) {
             $container = ParseObject::create("Container");
             $container->set("item", $items[$i]);
+
             return $container;
         });
         $query = new ParseQuery("Container");
@@ -463,6 +467,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects(3, function ($i) {
             $boxedNumber = ParseObject::create("BoxedNumber");
             $boxedNumber->set("x", $i + 1);
+
             return $boxedNumber;
         });
         $query = new ParseQuery("BoxedNumber");
@@ -487,6 +492,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects(3, function ($i) use ($numbers) {
             $boxedNumber = ParseObject::create("BoxedNumber");
             $boxedNumber->set("number", $numbers[$i]);
+
             return $boxedNumber;
         });
         $query = new ParseQuery("BoxedNumber");
@@ -507,6 +513,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects(3, function ($i) use ($numbers) {
             $boxedNumber = ParseObject::create("BoxedNumber");
             $boxedNumber->set("number", $numbers[$i]);
+
             return $boxedNumber;
         });
         $query = new ParseQuery("BoxedNumber");
@@ -528,6 +535,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
             $child->set("x", $i);
             $parent->set("x", 10 + $i);
             $parent->set("child", $child);
+
             return $parent;
         });
     }
@@ -588,6 +596,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
             $restaurant = ParseObject::create("Restaurant");
             $restaurant->set("ratings", $restaurantRatings[$i]);
             $restaurant->set("location", $restaurantLocations[$i]);
+
             return $restaurant;
         });
 
@@ -595,6 +604,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
             $person = ParseObject::create("Person");
             $person->set("hometown", $personHomeTown[$i]);
             $person->set("name", $personName[$i]);
+
             return $person;
         });
     }
@@ -661,6 +671,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
             $parent = new ParseObject("Parent");
             $parent->set("y", $i);
             $parent->set("child", $child);
+
             return $parent;
         });
         $subQuery = new ParseQuery("Child");
@@ -684,12 +695,13 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects($total, function ($i) {
             $obj = new ParseObject("Object");
             $obj->set("x", $i + 1);
+
             return $obj;
         });
         $query = new ParseQuery("Object");
         $query->lessThanOrEqualTo("x", $count);
 
-        $values = array();
+        $values = [];
         $query->each(function ($obj) use (&$values) {
             $values[] = $obj->get("x");
         }, 10);
@@ -712,6 +724,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects($total, function ($i) {
             $obj = new ParseObject("Object");
             $obj->set("x", $i + 1);
+
             return $obj;
         });
         $query = new ParseQuery("Object");
@@ -729,6 +742,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects($total, function ($i) {
             $obj = new ParseObject("Object");
             $obj->set("x", $i + 1);
+
             return $obj;
         });
         $query = new ParseQuery("Object");
@@ -746,6 +760,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects($total, function ($i) {
             $obj = new ParseObject("Object");
             $obj->set("x", $i + 1);
+
             return $obj;
         });
         $query = new ParseQuery("Object");
@@ -793,17 +808,17 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     public function testContainsAllDateArrayQueries()
     {
         ParseTestHelper::clearClass("DateSet");
-        $dates1 = array(
+        $dates1 = [
                 new DateTime("2013-02-01T00:00:00Z"),
                 new DateTime("2013-02-02T00:00:00Z"),
                 new DateTime("2013-02-03T00:00:00Z"),
-                new DateTime("2013-02-04T00:00:00Z")
-        );
-        $dates2 = array(
+                new DateTime("2013-02-04T00:00:00Z"),
+        ];
+        $dates2 = [
                 new DateTime("2013-02-01T00:00:00Z"),
                 new DateTime("2013-02-03T00:00:00Z"),
-                new DateTime("2013-02-04T00:00:00Z")
-        );
+                new DateTime("2013-02-04T00:00:00Z"),
+        ];
 
         $obj1 = ParseObject::create("DateSet");
         $obj1->setArray("dates", $dates1);
@@ -813,11 +828,11 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $obj2->save();
 
         $query = new ParseQuery("DateSet");
-        $query->containsAll("dates", array(
+        $query->containsAll("dates", [
                 new DateTime("2013-02-01T00:00:00Z"),
                 new DateTime("2013-02-02T00:00:00Z"),
-                new DateTime("2013-02-03T00:00:00Z")
-        ));
+                new DateTime("2013-02-03T00:00:00Z"),
+        ]);
         $result = $query->find();
         $this->assertEquals(1, count($result),
                 'Did not return correct number of objects.');
@@ -826,10 +841,11 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     public function testContainsAllObjectArrayQueries()
     {
         ParseTestHelper::clearClass("MessageSet");
-        $messageList = array();
+        $messageList = [];
         $this->saveObjects(4, function ($i) use (&$messageList) {
             $messageList[] = ParseObject::create("TestObject");
             $messageList[$i]->set("i", $i);
+
             return $messageList[$i];
         });
         $messageSet1 = ParseObject::create("MessageSet");
@@ -837,12 +853,12 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $messageSet1->save();
         $messageSet2 = ParseObject::create("MessageSet");
         $messageSet2->setArray("message",
-                array($messageList[0], $messageList[1], $messageList[3])
+                [$messageList[0], $messageList[1], $messageList[3]]
         );
         $messageSet2->save();
 
         $query = new ParseQuery("MessageSet");
-        $query->containsAll("messages", array($messageList[0], $messageList[2]));
+        $query->containsAll("messages", [$messageList[0], $messageList[2]]);
         $results = $query->find();
         $this->assertEquals(1, count($results),
                 'Did not return correct number of objects.');
@@ -850,17 +866,18 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
 
     public function testContainedInObjectArrayQueries()
     {
-        $messageList = array();
+        $messageList = [];
         $this->saveObjects(4, function ($i) use (&$messageList) {
             $message = ParseObject::create("TestObject");
             if ($i > 0) {
                 $message->set("prior", $messageList[$i - 1]);
             }
             $messageList[] = $message;
+
             return $message;
         });
         $query = new ParseQuery("TestObject");
-        $query->containedIn("prior", array($messageList[0], $messageList[2]));
+        $query->containedIn("prior", [$messageList[0], $messageList[2]]);
         $results = $query->find();
         $this->assertEquals(2, count($results),
                 'Did not return correct number of objects.');
@@ -872,6 +889,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects(10, function ($i) {
             $boxedNumber = ParseObject::create("BoxedNumber");
             $boxedNumber->set("number", $i);
+
             return $boxedNumber;
         });
         $query = new ParseQuery("BoxedNumber");
@@ -887,6 +905,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects(10, function ($i) {
             $boxedNumber = ParseObject::create("BoxedNumber");
             $boxedNumber->set("number", $i);
+
             return $boxedNumber;
         });
         $query = new ParseQuery("BoxedNumber");
@@ -899,18 +918,19 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     public function testObjectIdContainedInQueries()
     {
         ParseTestHelper::clearClass("BoxedNumber");
-        $objects = array();
+        $objects = [];
         $this->saveObjects(5, function ($i) use (&$objects) {
             $boxedNumber = ParseObject::create("BoxedNumber");
             $boxedNumber->set("number", $i);
             $objects[] = $boxedNumber;
+
             return $boxedNumber;
         });
         $query = new ParseQuery("BoxedNumber");
         $query->containedIn("objectId", [$objects[2]->getObjectId(),
                         $objects[3]->getObjectId(),
                         $objects[0]->getObjectId(),
-                        "NONSENSE"]
+                        "NONSENSE", ]
         );
         $query->ascending("number");
         $results = $query->find();
@@ -926,13 +946,14 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
 
     public function testStartsWith()
     {
-        $someAscii = "\\E' !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU" .
+        $someAscii = "\\E' !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU".
                 "VWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'";
         $prefixes = ['zax', 'start', '', ''];
         $suffixes = ['qub', '', 'end', ''];
         $this->saveObjects(4, function ($i) use ($prefixes, $suffixes, $someAscii) {
             $obj = ParseObject::create("TestObject");
-            $obj->set("myString", $prefixes[$i] . $someAscii . $suffixes[$i]);
+            $obj->set("myString", $prefixes[$i].$someAscii.$suffixes[$i]);
+
             return $obj;
         });
         $query = new ParseQuery("TestObject");
@@ -1050,11 +1071,12 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     public function testOrderByUpdatedAtAsc()
     {
         $numbers = [3, 1, 2];
-        $objects = array();
+        $objects = [];
         $this->saveObjects(3, function ($i) use ($numbers, &$objects) {
             $obj = ParseObject::create("TestObject");
             $obj->set('number', $numbers[$i]);
             $objects[] = $obj;
+
             return $obj;
         });
         $objects[1]->set('number', 4);
@@ -1074,11 +1096,12 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     public function testOrderByUpdatedAtDesc()
     {
         $numbers = [3, 1, 2];
-        $objects = array();
+        $objects = [];
         $this->saveObjects(3, function ($i) use ($numbers, &$objects) {
             $obj = ParseObject::create("TestObject");
             $obj->set('number', $numbers[$i]);
             $objects[] = $obj;
+
             return $obj;
         });
         $objects[1]->set('number', 4);
@@ -1108,7 +1131,6 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
                 'Did not return the correct object.');
         $this->setExpectedException('\Exception', 'Call fetch()');
         $result->get('bar');
-
     }
 
     public function testGetWithoutError()
@@ -1135,7 +1157,6 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
                 'Did not return the correct object.');
         $this->assertEquals(1, $result->get('bar'),
                 'Did not return the correct object.');
-
     }
 
     public function testExists()
@@ -1147,6 +1168,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
             } else {
                 $obj->set('x', $i);
             }
+
             return $obj;
         });
         $query = new ParseQuery("TestObject");
@@ -1165,6 +1187,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
             } else {
                 $obj->set('x', $i);
             }
+
             return $obj;
         });
         $query = new ParseQuery("TestObject");
@@ -1186,6 +1209,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
                 $item->set('e', $i);
                 $obj->set('e', $item);
             }
+
             return $obj;
         });
         $query = new ParseQuery("TestObject");
@@ -1207,6 +1231,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
                 $item->set('x', $i);
                 $obj->set('x', $i);
             }
+
             return $obj;
         });
         $query = new ParseQuery("TestObject");
@@ -1282,11 +1307,12 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     {
         ParseTestHelper::clearClass("Child");
         ParseTestHelper::clearClass("Parent");
-        $children = array();
+        $children = [];
         $this->saveObjects(5, function ($i) use (&$children) {
             $child = ParseObject::create("Child");
             $child->set('x', $i);
             $children[] = $child;
+
             return $child;
         });
         $parent = ParseObject::create("Parent");
@@ -1361,6 +1387,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
             if ($i & 1) {
                 $parent->set('child', $child);
             }
+
             return $parent;
         });
 
@@ -1412,15 +1439,17 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     {
         ParseTestHelper::clearClass("Item");
         ParseTestHelper::clearClass("Container");
-        $items = array();
+        $items = [];
         $this->saveObjects(2, function ($i) use (&$items) {
             $items[] = ParseObject::create("Item");
             $items[$i]->set('x', $i);
+
             return $items[$i];
         });
         $this->saveObjects(2, function ($i) use ($items) {
             $container = ParseObject::create("Container");
             $container->set('item', $items[$i]);
+
             return $container;
         });
         $query = new ParseQuery("Container");
@@ -1435,6 +1464,7 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $this->saveObjects(10, function ($i) {
             $obj = ParseObject::create('TestObject');
             $obj->set('num', $i);
+
             return $obj;
         });
         $query = new ParseQuery('TestObject');
@@ -1447,15 +1477,17 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
     public function provideTimeTestObjects()
     {
         ParseTestHelper::clearClass("TimeObject");
-        $items = array();
+        $items = [];
         $this->saveObjects(3, function ($i) use (&$items) {
             $timeObject = ParseObject::create('TimeObject');
-            $timeObject->set('name', 'item' . $i);
+            $timeObject->set('name', 'item'.$i);
             $timeObject->set('time', new DateTime());
             sleep(1);
             $items[] = $timeObject;
+
             return $timeObject;
         });
+
         return $items;
     }
 
@@ -1516,5 +1548,4 @@ class ParseQueryTest extends PHPUnit_Framework_TestCase
         $count = $query->count(true);
         $this->assertEquals(1, $count);
     }
-
 }

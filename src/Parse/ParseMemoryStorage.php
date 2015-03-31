@@ -6,16 +6,14 @@ namespace Parse;
  * ParseMemoryStorage - Uses non-persisted memory for storage.
  * This is used by default if a PHP Session is not active.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseMemoryStorage implements ParseStorageInterface
 {
-
     /**
      * @var array
      */
-    private $storage = array();
+    private $storage = [];
 
     public function set($key, $value)
     {
@@ -32,12 +30,13 @@ class ParseMemoryStorage implements ParseStorageInterface
         if (isset($this->storage[$key])) {
             return $this->storage[$key];
         }
-        return null;
+
+        return;
     }
 
     public function clear()
     {
-        $this->storage = array();
+        $this->storage = [];
     }
 
     public function save()
@@ -55,5 +54,4 @@ class ParseMemoryStorage implements ParseStorageInterface
     {
         return $this->storage;
     }
-
 }

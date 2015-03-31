@@ -5,12 +5,10 @@ namespace Parse;
 /**
  * ParseBytes - Representation of a Byte array for storage on a Parse Object.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseBytes implements Internal\Encodable
 {
-
     /**
      * @var - byte array
      */
@@ -27,11 +25,12 @@ class ParseBytes implements Internal\Encodable
     {
         $bytes = new ParseBytes();
         $bytes->setByteArray($byteArray);
+
         return $bytes;
     }
 
     /**
-     * Create a ParseBytes object with a given base 64 encoded data string
+     * Create a ParseBytes object with a given base 64 encoded data string.
      *
      * @param string $base64Data
      *
@@ -41,6 +40,7 @@ class ParseBytes implements Internal\Encodable
     {
         $bytes = new ParseBytes();
         $bytes->setBase64Data($base64Data);
+
         return $bytes;
     }
 
@@ -56,7 +56,7 @@ class ParseBytes implements Internal\Encodable
     }
 
     /**
-     * Encode to associative array representation
+     * Encode to associative array representation.
      *
      * @return array
      * @ignore
@@ -67,9 +67,10 @@ class ParseBytes implements Internal\Encodable
         foreach ($this->byteArray as $byte) {
             $data .= chr($byte);
         }
-        return array(
+
+        return [
             '__type' => 'Bytes',
-            'base64' => base64_encode($data)
-        );
+            'base64' => base64_encode($data),
+        ];
     }
 }

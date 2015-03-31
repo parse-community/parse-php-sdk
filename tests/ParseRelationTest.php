@@ -2,9 +2,11 @@
 
 use Parse\ParseObject;
 use Parse\ParseQuery;
+
 require_once 'ParseTestHelper.php';
 
-class ParseRelationTest extends PHPUnit_Framework_TestCase {
+class ParseRelationTest extends PHPUnit_Framework_TestCase
+{
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -18,13 +20,13 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase {
     /**
      * This function used as a helper function in test functions to save objects.
      *
-     * @param int            $numberOfObjects Number of objects you want to save.
-     * @param callable $callback                Function which takes int as a parameter.
-     *                                                                    and should return ParseObject.
+     * @param int      $numberOfObjects Number of objects you want to save.
+     * @param callable $callback        Function which takes int as a parameter.
+     *                                  and should return ParseObject.
      */
     public function saveObjects($numberOfObjects, $callback)
     {
-        $allObjects = array();
+        $allObjects = [];
         for ($i = 0; $i < $numberOfObjects; $i++) {
             $allObjects[] = $callback($i);
         }
@@ -33,11 +35,12 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase {
 
     public function testParseRelations()
     {
-        $children = array();
+        $children = [];
         $this->saveObjects(10, function ($i) use (&$children) {
             $child = ParseObject::create('ChildObject');
             $child->set('x', $i);
             $children[] = $child;
+
             return $child;
         });
         $parent = ParseObject::create('ParentObject');
@@ -64,7 +67,6 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase {
         $parent->set('bar', 3);
         $parent->save();
 
-
         $results = $relation->getQuery()->find();
         $this->assertEquals(2, count($results));
         $this->assertFalse($parent->isDirty());
@@ -74,7 +76,7 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase {
                 $children[5],
                 $children[6],
                 $children[7],
-                $children[8]
+                $children[8],
         ]);
         $parent->save();
 
@@ -93,16 +95,16 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase {
         $results = $query->find();
         $this->assertEquals(1, count($results));
         $this->assertEquals($children[4]->getObjectId(), $results[0]->getObjectId());
-
     }
 
     public function testQueriesOnRelationFields()
     {
-        $children = array();
+        $children = [];
         $this->saveObjects(10, function ($i) use (&$children) {
             $child = ParseObject::create('ChildObject');
             $child->set('x', $i);
             $children[] = $child;
+
             return $child;
         });
 
@@ -112,7 +114,7 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase {
         $relation->add([
                 $children[0],
                 $children[1],
-                $children[2]
+                $children[2],
         ]);
         $parent->save();
         $parent2 = ParseObject::create('ParentObject');
@@ -121,7 +123,7 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase {
         $relation2->add([
                 $children[4],
                 $children[5],
-                $children[6]
+                $children[6],
         ]);
         $parent2->save();
         $query = new ParseQuery('ParentObject');
@@ -129,7 +131,5 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase {
         $results = $query->find();
         $this->assertEquals(1, count($results));
         $this->assertEquals($results[0]->getObjectId(), $parent2->getObjectId());
-
     }
-
 }

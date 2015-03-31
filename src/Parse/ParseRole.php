@@ -2,23 +2,19 @@
 
 namespace Parse;
 
-use Parse\ParseObject;
-
 /**
  * ParseRole - Representation of an access Role.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseRole extends ParseObject
 {
-
     public static $parseClassName = "_Role";
 
     /**
      * Create a ParseRole object with a given name and ACL.
      *
-     * @param string     $name
+     * @param string   $name
      * @param ParseACL $acl
      *
      * @return ParseRole
@@ -28,6 +24,7 @@ class ParseRole extends ParseObject
         $role = ParseObject::create(static::$parseClassName);
         $role->setName($name);
         $role->setACL($acl);
+
         return $role;
     }
 
@@ -60,6 +57,7 @@ class ParseRole extends ParseObject
                 "A role's name must be a string."
             );
         }
+
         return $this->set("name", $name);
     }
 
@@ -99,9 +97,7 @@ class ParseRole extends ParseObject
                 "Roles must have a name."
             );
         }
+
         return parent::save($useMasterKey);
     }
-
-
-
 }

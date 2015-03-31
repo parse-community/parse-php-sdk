@@ -2,26 +2,23 @@
 
 namespace Parse;
 
-use Parse\Internal\Encodable;
-use Parse\Internal\RemoveOperation;
-use Parse\Internal\FieldOperation;
-use Parse\Internal\SetOperation;
+use Exception;
 use Parse\Internal\AddOperation;
 use Parse\Internal\AddUniqueOperation;
-use Parse\Internal\IncrementOperation;
 use Parse\Internal\DeleteOperation;
-
-use \Exception;
+use Parse\Internal\Encodable;
+use Parse\Internal\FieldOperation;
+use Parse\Internal\IncrementOperation;
+use Parse\Internal\RemoveOperation;
+use Parse\Internal\SetOperation;
 
 /**
  * ParseObject - Representation of an object stored on Parse.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseObject implements Encodable
 {
-
     /**
      * @var array - Data as it exists on the server.
      */
@@ -62,17 +59,17 @@ class ParseObject implements Encodable
     /**
      * @var array - Holds the registered subclasses and Parse class names.
      */
-    private static $registeredSubclasses = array();
+    private static $registeredSubclasses = [];
 
     /**
-     * Create a Parse Object
+     * Create a Parse Object.
      *
      * Creates a pointer object if an objectId is provided,
      * otherwise creates a new object.
      *
      * @param string $className Class Name for data on Parse.
-     * @param mixed    $objectId    Object Id for Existing object.
-     * @param bool     $isPointer
+     * @param mixed  $objectId  Object Id for Existing object.
+     * @param bool   $isPointer
      *
      * @throws Exception
      */
@@ -81,7 +78,7 @@ class ParseObject implements Encodable
     {
         if (empty(self::$registeredSubclasses)) {
             throw new Exception(
-                'You must initialize the ParseClient using ParseClient::initialize ' .
+                'You must initialize the ParseClient using ParseClient::initialize '.
                 'and your Parse API keys before you can begin working with Objects.'
             );
         }
@@ -92,17 +89,17 @@ class ParseObject implements Encodable
         }
         if ($class !== __CLASS__ && $className !== $subclass) {
             throw new Exception(
-                'You must specify a Parse class name or register the appropriate ' .
-                'subclass when creating a new Object.    Use ParseObject::create to ' .
+                'You must specify a Parse class name or register the appropriate '.
+                'subclass when creating a new Object.    Use ParseObject::create to '.
                 'create a subclass object.'
             );
         }
 
         $this->className = $className;
-        $this->serverData = array();
-        $this->operationSet = array();
-        $this->estimatedData = array();
-        $this->dataAvailability = array();
+        $this->serverData = [];
+        $this->operationSet = [];
+        $this->estimatedData = [];
+        $this->dataAvailability = [];
         if ($objectId || $isPointer) {
             $this->objectId = $objectId;
             $this->hasBeenFetched = false;
@@ -122,11 +119,12 @@ class ParseObject implements Encodable
     /**
      * Setter to catch property calls and protect certain fields.
      *
-     * @param string $key     Key to set a value on.
-     * @param mixed    $value Value to assign.
+     * @param string $key   Key to set a value on.
+     * @param mixed  $value Value to assign.
+     *
+     * @throws Exception
      *
      * @return null
-     * @throws Exception
      * @ignore
      */
     public function __set($key, $value)
@@ -160,9 +158,9 @@ class ParseObject implements Encodable
      *
      * @param string $key Key to retrieve from the estimatedData array.
      *
-     * @return mixed
-     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function get($key)
     {
@@ -173,11 +171,12 @@ class ParseObject implements Encodable
         if (isset($this->estimatedData[$key])) {
             return $this->estimatedData[$key];
         }
-        return null;
+
+        return;
     }
 
     /**
-     * Check if the object has a given key
+     * Check if the object has a given key.
      *
      * @param string $key Key to check
      *
@@ -193,6 +192,7 @@ class ParseObject implements Encodable
      * added/updated/removed and not saved yet.
      *
      * @param string $key
+     *
      * @return bool
      */
     public function isKeyDirty($key)
@@ -236,17 +236,19 @@ class ParseObject implements Encodable
                 }
             }
         });
+
         return $result;
     }
 
     /**
      * Validate and set a value for an object key.
      *
-     * @param string $key     Key to set a value for on the object.
-     * @param mixed    $value Value to set on the key.
+     * @param string $key   Key to set a value for on the object.
+     * @param mixed  $value Value to set on the key.
+     *
+     * @throws Exception
      *
      * @return null
-     * @throws Exception
      */
     public function set($key, $value)
     {
@@ -264,11 +266,12 @@ class ParseObject implements Encodable
     /**
      * Set an array value for an object key.
      *
-     * @param string $key Key to set the value for on the object.
-     * @param array $value Value to set on the key.
+     * @param string $key   Key to set the value for on the object.
+     * @param array  $value Value to set on the key.
+     *
+     * @throws Exception
      *
      * @return null
-     * @throws Exception
      */
     public function setArray($key, $value)
     {
@@ -286,11 +289,12 @@ class ParseObject implements Encodable
     /**
      * Set an associative array value for an object key.
      *
-     * @param string $key Key to set the value for on the object.
-     * @param array $value Value to set on the key.
+     * @param string $key   Key to set the value for on the object.
+     * @param array  $value Value to set on the key.
+     *
+     * @throws Exception
      *
      * @return null
-     * @throws Exception
      */
     public function setAssociativeArray($key, $value)
     {
@@ -308,11 +312,12 @@ class ParseObject implements Encodable
     /**
      * Remove a value from an array for an object key.
      *
-     * @param string $key Key to remove the value from on the object.
-     * @param mixed $value Value to remove from the array.
+     * @param string $key   Key to remove the value from on the object.
+     * @param mixed  $value Value to remove from the array.
+     *
+     * @throws Exception
      *
      * @return null
-     * @throws Exception
      */
     public function remove($key, $value)
     {
@@ -332,7 +337,7 @@ class ParseObject implements Encodable
      */
     public function revert()
     {
-        $this->operationSet = array();
+        $this->operationSet = [];
         $this->rebuildEstimatedData();
     }
 
@@ -352,7 +357,7 @@ class ParseObject implements Encodable
     /**
      * Perform an operation on an object property.
      *
-     * @param string                 $key             Key to perform an operation upon.
+     * @param string         $key       Key to perform an operation upon.
      * @param FieldOperation $operation Operation to perform.
      *
      * @return null
@@ -367,7 +372,7 @@ class ParseObject implements Encodable
         $newValue = $operation->_apply($oldValue, $this, $key);
         if ($newValue !== null) {
             $this->estimatedData[$key] = $newValue;
-        } else if (isset($this->estimatedData[$key])) {
+        } elseif (isset($this->estimatedData[$key])) {
             unset($this->estimatedData[$key]);
         }
 
@@ -424,7 +429,6 @@ class ParseObject implements Encodable
     private function _isDataAvailable($key)
     {
         return $this->isDataAvailable() || isset($this->dataAvailability[$key]);
-
     }
 
     /**
@@ -442,8 +446,8 @@ class ParseObject implements Encodable
      * Optionally creates a pointer object if the objectId is provided.
      *
      * @param string $className Class Name for data on Parse.
-     * @param string $objectId    Unique identifier for existing object.
-     * @param bool     $isPointer If the object is a pointer.
+     * @param string $objectId  Unique identifier for existing object.
+     * @param bool   $isPointer If the object is a pointer.
      *
      * @return Object
      */
@@ -474,7 +478,7 @@ class ParseObject implements Encodable
         }
         $response = ParseClient::_request(
             'GET',
-            '/1/classes/' . $this->className . '/' . $this->objectId,
+            '/1/classes/'.$this->className.'/'.$this->objectId,
             $sessionToken, null, $useMasterKey
         );
         $this->_mergeAfterFetch($response);
@@ -483,8 +487,8 @@ class ParseObject implements Encodable
     /**
      * Merges data received from the server.
      *
-     * @param array $result             Data retrieved from the server.
-     * @param bool    $completeData Fetch all data or not.
+     * @param array $result       Data retrieved from the server.
+     * @param bool  $completeData Fetch all data or not.
      *
      * @return null
      * @ignore
@@ -498,8 +502,8 @@ class ParseObject implements Encodable
                 unset($this->operationSet[$key]);
             }
         }
-        $this->serverData = array();
-        $this->dataAvailability = array();
+        $this->serverData = [];
+        $this->dataAvailability = [];
         $this->mergeFromServer($result, $completeData);
         $this->rebuildEstimatedData();
     }
@@ -507,9 +511,10 @@ class ParseObject implements Encodable
     /**
      * Merges data received from the server with a given selected keys.
      *
-     * @param array    $result             Data retrieved from the server.
-     * @param array    $selectedKeys Keys to be fetched. Null or empty means all
-     *                                                         data will be fetched.
+     * @param array $result       Data retrieved from the server.
+     * @param array $selectedKeys Keys to be fetched. Null or empty means all
+     *                            data will be fetched.
+     *
      * @return null
      * @ignore
      */
@@ -524,8 +529,8 @@ class ParseObject implements Encodable
     /**
      * Merges data received from the server.
      *
-     * @param array $data Data retrieved from server.
-     * @param bool $completeData Fetch all data or not.
+     * @param array $data         Data retrieved from server.
+     * @param bool  $completeData Fetch all data or not.
      *
      * @return null
      */
@@ -553,7 +558,6 @@ class ParseObject implements Encodable
             }
             $this->serverData[$key] = $decodedValue;
             $this->dataAvailability[$key] = true;
-
         }
         if (!$this->updatedAt && $this->createdAt) {
             $this->updatedAt = $this->createdAt;
@@ -586,7 +590,6 @@ class ParseObject implements Encodable
             $this->serverData['ACL'] = $acl;
             unset($data['ACL']);
         }
-
     }
 
     /**
@@ -597,7 +600,7 @@ class ParseObject implements Encodable
      */
     protected function rebuildEstimatedData()
     {
-        $this->estimatedData = array();
+        $this->estimatedData = [];
         foreach ($this->serverData as $key => $value) {
             $this->estimatedData[$key] = $value;
         }
@@ -605,10 +608,10 @@ class ParseObject implements Encodable
     }
 
     /**
-     * Apply operations to a target object
+     * Apply operations to a target object.
      *
      * @param array $operations Operations set to apply.
-     * @param array &$target        Target data to affect.
+     * @param array &$target    Target data to affect.
      *
      * @return null
      */
@@ -646,18 +649,19 @@ class ParseObject implements Encodable
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
         ParseClient::_request(
-            'DELETE', '/1/classes/' . $this->className .
-            '/' . $this->objectId, $sessionToken, null, $useMasterKey
+            'DELETE', '/1/classes/'.$this->className.
+            '/'.$this->objectId, $sessionToken, null, $useMasterKey
         );
     }
 
     /**
      * Delete an array of objects.
      *
-     * @param array     $objects            Objects to destroy.
+     * @param array   $objects      Objects to destroy.
      * @param boolean $useMasterKey Whether to use the master key or not.
      *
      * @throws ParseAggregateException
+     *
      * @return null
      */
     public static function destroyAll(array $objects, $useMasterKey = false)
@@ -685,7 +689,8 @@ class ParseObject implements Encodable
                 );
             }
         }
-        return null;
+
+        return;
     }
 
     private static function destroyBatch(array $objects, $useMasterKey = false)
@@ -693,11 +698,11 @@ class ParseObject implements Encodable
         $data = [];
         $errors = [];
         foreach ($objects as $object) {
-            $data[] = array(
+            $data[] = [
                 "method" => "DELETE",
-                "path" => "/1/classes/" . $object->getClassName() .
-                    "/" . $object->getObjectId()
-            );
+                "path"   => "/1/classes/".$object->getClassName().
+                    "/".$object->getObjectId(),
+            ];
         }
         $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
@@ -705,7 +710,7 @@ class ParseObject implements Encodable
         }
         $result = ParseClient::_request(
             "POST", "/1/batch", $sessionToken,
-            json_encode(array("requests" => $data)),
+            json_encode(["requests" => $data]),
             $useMasterKey
         );
         foreach ($objects as $key => $object) {
@@ -713,20 +718,21 @@ class ParseObject implements Encodable
                 $error = $result[$key]['error']['error'];
                 $code = isset($result[$key]['error']['code']) ?
                     $result[$key]['error']['code'] : -1;
-                $errors[] = array(
+                $errors[] = [
                     'error' => $error,
-                    'code' => $code
-                );
+                    'code'  => $code,
+                ];
             }
         }
+
         return $errors;
     }
 
     /**
      * Increment a numeric key by a certain value.
      *
-     * @param string $key     Key for numeric value on object to increment.
-     * @param int        $value Value to increment by.
+     * @param string $key   Key for numeric value on object to increment.
+     * @param int    $value Value to increment by.
      *
      * @return null
      */
@@ -738,8 +744,8 @@ class ParseObject implements Encodable
     /**
      * Add a value to an array property.
      *
-     * @param string $key     Key for array value on object to add a value to.
-     * @param mixed    $value Value to add.
+     * @param string $key   Key for array value on object to add a value to.
+     * @param mixed  $value Value to add.
      *
      * @return null
      */
@@ -751,8 +757,8 @@ class ParseObject implements Encodable
     /**
      * Add unique values to an array property.
      *
-     * @param string $key     Key for array value on object.
-     * @param mixed    $value Value list to add uniquely.
+     * @param string $key   Key for array value on object.
+     * @param mixed  $value Value list to add uniquely.
      *
      * @return null
      */
@@ -781,7 +787,7 @@ class ParseObject implements Encodable
      */
     public function _encode()
     {
-        $out = array();
+        $out = [];
         if ($this->objectId) {
             $out['objectId'] = $this->objectId;
         }
@@ -797,8 +803,8 @@ class ParseObject implements Encodable
         foreach ($this->estimatedData as $key => $value) {
             if (is_object($value) && $value instanceof \Parse\Internal\Encodable) {
                 $out[$key] = $value->_encode();
-            } else if (is_array($value)) {
-                $out[$key] = array();
+            } elseif (is_array($value)) {
+                $out[$key] = [];
                 foreach ($value as $item) {
                     if (is_object($item) && $item instanceof \Parse\Internal\Encodable) {
                         $out[$key][] = $item->_encode();
@@ -810,6 +816,7 @@ class ParseObject implements Encodable
                 $out[$key] = $value;
             }
         }
+
         return json_encode($out);
     }
 
@@ -824,9 +831,9 @@ class ParseObject implements Encodable
     }
 
     /**
-     * Save Object to Parse
+     * Save Object to Parse.
      *
-     * @param bool     $useMasterKey Whether to use the Master Key.
+     * @param bool $useMasterKey Whether to use the Master Key.
      *
      * @return null
      */
@@ -839,10 +846,10 @@ class ParseObject implements Encodable
     }
 
     /**
-     * Save all the objects in the provided array
+     * Save all the objects in the provided array.
      *
      * @param array $list
-     * @param bool     $useMasterKey Whether to use the Master Key.
+     * @param bool  $useMasterKey Whether to use the Master Key.
      *
      * @return null
      */
@@ -855,16 +862,16 @@ class ParseObject implements Encodable
      * Save Object and unsaved children within.
      *
      * @param $target
-     * @param bool     $useMasterKey Whether to use the Master Key.
-     *
-     * @return null
+     * @param bool $useMasterKey Whether to use the Master Key.
      *
      * @throws ParseException
+     *
+     * @return null
      */
     private static function deepSave($target, $useMasterKey = false)
     {
-        $unsavedChildren = array();
-        $unsavedFiles = array();
+        $unsavedChildren = [];
+        $unsavedFiles = [];
         static::findUnsavedChildren($target, $unsavedChildren, $unsavedFiles);
         $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
@@ -875,7 +882,7 @@ class ParseObject implements Encodable
             $file->save();
         }
 
-        $objects = array();
+        $objects = [];
         // Get the set of unique objects among the children.
         foreach ($unsavedChildren as &$obj) {
             if (!in_array($obj, $objects, true)) {
@@ -885,9 +892,8 @@ class ParseObject implements Encodable
         $remaining = $objects;
 
         while (count($remaining) > 0) {
-
-            $batch = array();
-            $newRemaining = array();
+            $batch = [];
+            $newRemaining = [];
 
             foreach ($remaining as $key => &$object) {
                 if (count($batch) > 40) {
@@ -906,19 +912,19 @@ class ParseObject implements Encodable
                 throw new Exception("Tried to save a batch with a cycle.");
             }
 
-            $requests = array();
+            $requests = [];
             foreach ($batch as $obj) {
                 $json = $obj->getSaveJSON();
                 $method = 'POST';
-                $path = '/1/classes/' . $obj->getClassName();
+                $path = '/1/classes/'.$obj->getClassName();
                 if ($obj->getObjectId()) {
-                    $path .= '/' . $obj->getObjectId();
+                    $path .= '/'.$obj->getObjectId();
                     $method = 'PUT';
                 }
-                $requests[] = array('method' => $method,
-                    'path' => $path,
-                    'body' => $json
-                );
+                $requests[] = ['method' => $method,
+                    'path'              => $path,
+                    'body'              => $json,
+                ];
             }
 
             if (count($requests) === 1) {
@@ -928,29 +934,29 @@ class ParseObject implements Encodable
                 $batch[0]->mergeAfterSave($result);
             } else {
                 $result = ParseClient::_request('POST', '/1/batch', $sessionToken,
-                    json_encode(array("requests" => $requests)), $useMasterKey);
+                    json_encode(["requests" => $requests]), $useMasterKey);
 
-                $errorCollection = array();
+                $errorCollection = [];
 
                 foreach ($batch as $key => &$obj) {
                     if (isset($result[$key]['success'])) {
                         $obj->mergeAfterSave($result[$key]['success']);
-                    } else if (isset($result[$key]['error'])) {
+                    } elseif (isset($result[$key]['error'])) {
                         $response = $result[$key];
                         $error = $response['error']['error'];
                         $code = isset($response['error']['code']) ?
                             $response['error']['code'] : -1;
-                        $errorCollection[] = array(
-                            'error' => $error,
-                            'code' => $code,
-                            'object' => $obj
-                        );
+                        $errorCollection[] = [
+                            'error'  => $error,
+                            'code'   => $code,
+                            'object' => $obj,
+                        ];
                     } else {
-                        $errorCollection[] = array(
-                            'error' => 'Unknown error in batch save.',
-                            'code' => -1,
-                            'object' => $obj
-                        );
+                        $errorCollection[] = [
+                            'error'  => 'Unknown error in batch save.',
+                            'code'   => -1,
+                            'object' => $obj,
+                        ];
                     }
                 }
                 if (count($errorCollection)) {
@@ -965,9 +971,9 @@ class ParseObject implements Encodable
     /**
      * Find unsaved children inside an object.
      *
-     * @param ParseObject $object                     Object to search.
-     * @param array             &$unsavedChildren Array to populate with children.
-     * @param array             &$unsavedFiles        Array to populate with files.
+     * @param ParseObject $object           Object to search.
+     * @param array       &$unsavedChildren Array to populate with children.
+     * @param array       &$unsavedFiles    Array to populate with files.
      */
     private static function findUnsavedChildren($object,
                                                                                              &$unsavedChildren, &$unsavedFiles)
@@ -980,7 +986,7 @@ class ParseObject implements Encodable
                 if ($obj->_isDirty(false)) {
                     $unsavedChildren[] = $obj;
                 }
-            } else if ($obj instanceof ParseFile) {
+            } elseif ($obj instanceof ParseFile) {
                 if (!$obj->getURL()) {
                     $unsavedFiles[] = $obj;
                 }
@@ -992,19 +998,19 @@ class ParseObject implements Encodable
     /**
      * Traverse object to find children.
      *
-     * @param boolean                     $deep                Should this call traverse deeply
-     * @param ParseObject|array &$object         Object to traverse.
-     * @param callable                    $mapFunction Function to call for every item.
-     * @param array                         $seen                Objects already seen.
+     * @param boolean           $deep        Should this call traverse deeply
+     * @param ParseObject|array &$object     Object to traverse.
+     * @param callable          $mapFunction Function to call for every item.
+     * @param array             $seen        Objects already seen.
      *
      * @return mixed The result of calling mapFunction on the root object.
      */
     private static function traverse($deep, &$object, $mapFunction,
-                                                                        $seen = array())
+                                                                        $seen = [])
     {
         if ($object instanceof ParseObject) {
             if (in_array($object, $seen, true)) {
-                return null;
+                return;
             }
             $seen[] = $object;
             if ($deep) {
@@ -1012,6 +1018,7 @@ class ParseObject implements Encodable
                     $deep, $object->estimatedData, $mapFunction, $seen
                 );
             }
+
             return $mapFunction($object);
         }
         if ($object instanceof ParseRelation || $object instanceof ParseFile) {
@@ -1021,8 +1028,10 @@ class ParseObject implements Encodable
             foreach ($object as $key => $value) {
                 self::traverse($deep, $value, $mapFunction, $seen);
             }
+
             return $mapFunction($object);
         }
+
         return $mapFunction($object);
     }
 
@@ -1056,17 +1065,19 @@ class ParseObject implements Encodable
             if ($obj instanceof ParseObject) {
                 if (!$obj->getObjectId()) {
                     $result = false;
+
                     return;
                 }
             }
         });
+
         return $result;
     }
 
     /**
      * Merge server data after a save completes.
      *
-     * @param array $result            Data retrieved from server.
+     * @param array $result Data retrieved from server.
      *
      * @return null
      */
@@ -1074,7 +1085,7 @@ class ParseObject implements Encodable
     {
         $this->applyOperations($this->operationSet, $this->serverData);
         $this->mergeFromServer($result);
-        $this->operationSet = array();
+        $this->operationSet = [];
         $this->rebuildEstimatedData();
     }
 
@@ -1082,8 +1093,9 @@ class ParseObject implements Encodable
      * Access or create a Relation value for a key.
      *
      * @param string $key The key to access the relation for.
+     *
      * @return ParseRelation The ParseRelation object if the relation already
-     *                                             exists for the key or can be created for this key.
+     *                       exists for the key or can be created for this key.
      */
     public function getRelation($key)
     {
@@ -1094,15 +1106,17 @@ class ParseObject implements Encodable
                 $relation->setTargetClass($object->getTargetClass());
             }
         }
+
         return $relation;
     }
 
     /**
      * Gets a Pointer referencing this Object.
      *
+     * @throws \Exception
+     *
      * @return array
      *
-     * @throws \Exception
      * @ignore
      */
     public function _toPointer()
@@ -1110,10 +1124,11 @@ class ParseObject implements Encodable
         if (!$this->objectId) {
             throw new \Exception("Can't serialize an unsaved Parse.Object");
         }
-        return array(
-                '__type' => "Pointer",
+
+        return [
+                '__type'    => "Pointer",
                 'className' => $this->className,
-                'objectId' => $this->objectId);
+                'objectId'  => $this->objectId, ];
     }
 
     /**
@@ -1139,18 +1154,20 @@ class ParseObject implements Encodable
     private function getACLWithCopy($mayCopy)
     {
         if (!isset($this->estimatedData['ACL'])) {
-            return null;
+            return;
         }
         $acl = $this->estimatedData['ACL'];
         if ($mayCopy && $acl->_isShared()) {
             return clone $acl;
         }
+
         return $acl;
     }
 
     /**
      * Register a subclass.    Should be called before any other Parse functions.
      * Cannot be called on the base class ParseObject.
+     *
      * @throws \Exception
      */
     public static function registerSubclass()
@@ -1170,6 +1187,7 @@ class ParseObject implements Encodable
     /**
      * Un-register a subclass.
      * Cannot be called on the base class ParseObject.
+     *
      * @ignore
      */
     public static function _unregisterSubclass()
@@ -1182,9 +1200,9 @@ class ParseObject implements Encodable
      * Creates a ParseQuery for the subclass of ParseObject.
      * Cannot be called on the base class ParseObject.
      *
-     * @return ParseQuery
-     *
      * @throws \Exception
+     *
+     * @return ParseQuery
      */
     public static function query()
     {
@@ -1197,5 +1215,4 @@ class ParseObject implements Encodable
             return new ParseQuery($subclass);
         }
     }
-
 }

@@ -8,12 +8,10 @@ use Parse\ParseException;
 /**
  * Class AddUniqueOperation - Operation to add unique objects to an array key.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class AddUniqueOperation implements FieldOperation
 {
-
     /**
      * @var - Array containing objects to add.
      */
@@ -51,8 +49,8 @@ class AddUniqueOperation implements FieldOperation
      */
     public function _encode()
     {
-        return array('__op' => 'AddUnique',
-            'objects' => ParseClient::_encode($this->objects, true));
+        return ['__op' => 'AddUnique',
+            'objects'  => ParseClient::_encode($this->objects, true), ];
     }
 
     /**
@@ -60,8 +58,9 @@ class AddUniqueOperation implements FieldOperation
      *
      * @param FieldOperation $previous Previous Operation.
      *
-     * @return FieldOperation Merged Operation.
      * @throws ParseException
+     *
+     * @return FieldOperation Merged Operation.
      */
     public function _mergeWithPrevious($previous)
     {
@@ -74,11 +73,13 @@ class AddUniqueOperation implements FieldOperation
         if ($previous instanceof SetOperation) {
             $oldValue = $previous->getValue();
             $result = $this->_apply($oldValue, null, null);
+
             return new SetOperation($result);
         }
         if ($previous instanceof AddUniqueOperation) {
             $oldList = $previous->getValue();
             $result = $this->_apply($oldList, null, null);
+
             return new AddUniqueOperation($result);
         }
         throw new ParseException(
@@ -89,9 +90,9 @@ class AddUniqueOperation implements FieldOperation
     /**
      * Apply the current operation and return the result.
      *
-     * @param mixed    $oldValue Value prior to this operation.
-     * @param array    $obj            Value being applied.
-     * @param string $key            Key this operation affects.
+     * @param mixed  $oldValue Value prior to this operation.
+     * @param array  $obj      Value being applied.
+     * @param string $key      Key this operation affects.
      *
      * @return array
      */
@@ -101,14 +102,14 @@ class AddUniqueOperation implements FieldOperation
             return $this->objects;
         }
         if (!is_array($oldValue)) {
-            $oldValue = (array)$oldValue;
+            $oldValue = (array) $oldValue;
         }
         foreach ($this->objects as $object) {
             if ($object instanceof ParseObject && $object->getObjectId()) {
                 if (!$this->isParseObjectInArray($object, $oldValue)) {
                     $oldValue[] = $object;
                 }
-            } else if (is_object($object)) {
+            } elseif (is_object($object)) {
                 if (!in_array($object, $oldValue, true)) {
                     $oldValue[] = $object;
                 }
@@ -118,6 +119,7 @@ class AddUniqueOperation implements FieldOperation
                 }
             }
         }
+
         return $oldValue;
     }
 
@@ -130,7 +132,7 @@ class AddUniqueOperation implements FieldOperation
                 }
             }
         }
+
         return false;
     }
-
 }

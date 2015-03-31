@@ -12,11 +12,10 @@ use Parse\Internal\Encodable;
  * example, any user could read a particular object but only a particular set
  * of users could write to that object.
  *
- * @package    Parse
  * @author     Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
-class ParseACL implements Encodable{
-
+class ParseACL implements Encodable
+{
     /*
      * @ignore
      */
@@ -24,7 +23,7 @@ class ParseACL implements Encodable{
     /**
      * @var array -
      */
-    private $permissionsById = array();
+    private $permissionsById = [];
     /**
      * @var bool -
      */
@@ -58,6 +57,7 @@ class ParseACL implements Encodable{
         $acl = new ParseACL();
         $acl->setUserReadAccess($user, true);
         $acl->setUserWriteAccess($user, true);
+
         return $acl;
     }
 
@@ -66,8 +66,9 @@ class ParseACL implements Encodable{
      *
      * @param array $data represents permissions.
      *
-     * @return ParseACL
      * @throws \Exception
+     *
+     * @return ParseACL
      * @ignore
      */
     public static function _createACLFromJSON($data)
@@ -89,6 +90,7 @@ class ParseACL implements Encodable{
                 $acl->setAccess($accessType, $id, $value);
             }
         }
+
         return $acl;
     }
 
@@ -104,7 +106,7 @@ class ParseACL implements Encodable{
     }
 
     /**
-     * Set shared for ParseACL
+     * Set shared for ParseACL.
      *
      * @param bool $shared
      * @ignore
@@ -122,6 +124,7 @@ class ParseACL implements Encodable{
         if (empty($this->permissionsById)) {
             return new \stdClass();
         }
+
         return $this->permissionsById;
     }
 
@@ -130,8 +133,8 @@ class ParseACL implements Encodable{
      * the user has permission for accessing or not.
      *
      * @param string $accessType Access name.
-     * @param string $userId         User id.
-     * @param bool     $allowed        If user allowed to access or not.
+     * @param string $userId     User id.
+     * @param bool   $allowed    If user allowed to access or not.
      *
      * @throws ParseException
      */
@@ -141,7 +144,7 @@ class ParseACL implements Encodable{
             $userId = $userId->getObjectId();
         }
         if ($userId instanceof ParseRole) {
-            $userId = "role:" . $userId->getName();
+            $userId = "role:".$userId->getName();
         }
         if (!is_string($userId)) {
             throw new ParseException(
@@ -152,7 +155,7 @@ class ParseACL implements Encodable{
             if (!$allowed) {
                 return;
             }
-            $this->permissionsById[$userId] = array();
+            $this->permissionsById[$userId] = [];
         }
         if ($allowed) {
             $this->permissionsById[$userId][$accessType] = true;
@@ -168,7 +171,7 @@ class ParseACL implements Encodable{
      * Get if the given userId has a permission for the given access type or not.
      *
      * @param string $accessType Access name.
-     * @param string $userId         User id.
+     * @param string $userId     User id.
      *
      * @return bool
      */
@@ -180,14 +183,15 @@ class ParseACL implements Encodable{
         if (!isset($this->permissionsById[$userId][$accessType])) {
             return false;
         }
+
         return $this->permissionsById[$userId][$accessType];
     }
 
     /**
      * Set whether the given user id is allowed to read this object.
      *
-     * @param string $userId    User id.
-     * @param bool     $allowed If user allowed to read or not.
+     * @param string $userId  User id.
+     * @param bool   $allowed If user allowed to read or not.
      *
      * @throws \Exception
      */
@@ -207,23 +211,24 @@ class ParseACL implements Encodable{
      *
      * @param string $userId User id.
      *
-     * @return bool
-     *
      * @throws \Exception
+     *
+     * @return bool
      */
     public function getReadAccess($userId)
     {
         if (!$userId) {
             throw new \Exception("cannot getReadAccess for null userId");
         }
+
         return $this->getAccess('read', $userId);
     }
 
     /**
      * Set whether the given user id is allowed to write this object.
      *
-     * @param string $userId    User id.
-     * @param bool     $allowed If user allowed to write or not.
+     * @param string $userId  User id.
+     * @param bool   $allowed If user allowed to write or not.
      *
      * @throws \Exception
      */
@@ -243,18 +248,18 @@ class ParseACL implements Encodable{
      *
      * @param string $userId User id.
      *
-     * @return bool
-     *
      * @throws \Exception
+     *
+     * @return bool
      */
     public function getWriteAccess($userId)
     {
         if (!$userId) {
             throw new \Exception("cannot getWriteAccess for null userId");
         }
+
         return $this->getAccess('write', $userId);
     }
-
 
     /**
      * Set whether the public is allowed to read this object.
@@ -300,7 +305,7 @@ class ParseACL implements Encodable{
      * Set whether the given user is allowed to read this object.
      *
      * @param ParseUser $user
-     * @param bool            $allowed
+     * @param bool      $allowed
      *
      * @throws \Exception
      */
@@ -320,15 +325,16 @@ class ParseACL implements Encodable{
      *
      * @param ParseUser $user
      *
-     * @return bool
-     *
      * @throws \Exception
+     *
+     * @return bool
      */
     public function getUserReadAccess($user)
     {
         if (!$user->getObjectId()) {
             throw new \Exception("cannot getReadAccess for a user with null id");
         }
+
         return $this->getReadAccess($user->getObjectId());
     }
 
@@ -336,7 +342,7 @@ class ParseACL implements Encodable{
      * Set whether the given user is allowed to write this object.
      *
      * @param ParseUser $user
-     * @param bool            $allowed
+     * @param bool      $allowed
      *
      * @throws \Exception
      */
@@ -356,15 +362,16 @@ class ParseACL implements Encodable{
      *
      * @param ParseUser $user
      *
-     * @return bool
-     *
      * @throws \Exception
+     *
+     * @return bool
      */
     public function getUserWriteAccess($user)
     {
         if (!$user->getObjectId()) {
             throw new \Exception("cannot getWriteAccess for a user with null id");
         }
+
         return $this->getWriteAccess($user->getObjectId());
     }
 
@@ -379,7 +386,7 @@ class ParseACL implements Encodable{
      */
     public function getRoleReadAccessWithName($roleName)
     {
-        return $this->getReadAccess('role:' . $roleName);
+        return $this->getReadAccess('role:'.$roleName);
     }
 
     /**
@@ -387,12 +394,11 @@ class ParseACL implements Encodable{
      * are allowed to read this object.
      *
      * @param string $roleName The name of the role.
-     *
-     * @param bool     $allowed Whether the given role can read this object.
+     * @param bool   $allowed  Whether the given role can read this object.
      */
     public function setRoleReadAccessWithName($roleName, $allowed)
     {
-        $this->setReadAccess('role:' . $roleName, $allowed);
+        $this->setReadAccess('role:'.$roleName, $allowed);
     }
 
     /**
@@ -406,7 +412,7 @@ class ParseACL implements Encodable{
      */
     public function getRoleWriteAccessWithName($roleName)
     {
-        return $this->getWriteAccess('role:' . $roleName);
+        return $this->getWriteAccess('role:'.$roleName);
     }
 
     /**
@@ -414,11 +420,11 @@ class ParseACL implements Encodable{
      * are allowed to write this object.
      *
      * @param string $roleName The name of the role.
-     * @param bool     $allowed    Whether the given role can write this object.
+     * @param bool   $allowed  Whether the given role can write this object.
      */
     public function setRoleWriteAccessWithName($roleName, $allowed)
     {
-        $this->setWriteAccess('role:' . $roleName, $allowed);
+        $this->setWriteAccess('role:'.$roleName, $allowed);
     }
 
     /**
@@ -449,6 +455,7 @@ class ParseACL implements Encodable{
     public function getRoleReadAccess($role)
     {
         $this->validateRoleState($role);
+
         return $this->getRoleReadAccessWithName($role->getName());
     }
 
@@ -457,8 +464,8 @@ class ParseACL implements Encodable{
      * object. The role must already be saved on the server and its data must
      * have been fetched in order to use this method.
      *
-     * @param ParseRole $role        The role to assign access.
-     * @param bool            $allowed Whether the given role can read this object.
+     * @param ParseRole $role    The role to assign access.
+     * @param bool      $allowed Whether the given role can read this object.
      */
     public function setRoleReadAccess($role, $allowed)
     {
@@ -479,6 +486,7 @@ class ParseACL implements Encodable{
     public function getRoleWriteAccess($role)
     {
         $this->validateRoleState($role);
+
         return $this->getRoleWriteAccessWithName($role->getName());
     }
 
@@ -487,8 +495,8 @@ class ParseACL implements Encodable{
      * object. The role must already be saved on the server and its data must
      * have been fetched in order to use this method.
      *
-     * @param ParseRole $role        The role to assign access.
-     * @param bool            $allowed Whether the given role can read this object.
+     * @param ParseRole $role    The role to assign access.
+     * @param bool      $allowed Whether the given role can read this object.
      */
     public function setRoleWriteAccess($role, $allowed)
     {
@@ -500,18 +508,18 @@ class ParseACL implements Encodable{
      * Sets a default ACL that will be applied to all ParseObjects when they
      * are created.
      *
-     * @param ParseACL $acl                                    The ACL to use as a template for all ParseObjects
-     *                                                                             created after setDefaultACL has been called. This
-     *                                                                             value will be copied and used as a template for the
-     *                                                                             creation of new ACLs, so changes to the instance
-     *                                                                             after setDefaultACL() has been called will not be
-     *                                                                             reflected in new ParseObjects.
-     * @param bool $withAccessForCurrentUser If true, the ParseACL that is applied to
-     *                                                                             newly-created ParseObjects will provide read
-     *                                                                             and write access to the ParseUser#getCurrentUser()
-     *                                                                             at the time of creation. If false, the provided
-     *                                                                             ACL will be used without modification. If acl is
-     *                                                                             null, this value is ignored.
+     * @param ParseACL $acl                      The ACL to use as a template for all ParseObjects
+     *                                           created after setDefaultACL has been called. This
+     *                                           value will be copied and used as a template for the
+     *                                           creation of new ACLs, so changes to the instance
+     *                                           after setDefaultACL() has been called will not be
+     *                                           reflected in new ParseObjects.
+     * @param bool     $withAccessForCurrentUser If true, the ParseACL that is applied to
+     *                                           newly-created ParseObjects will provide read
+     *                                           and write access to the ParseUser#getCurrentUser()
+     *                                           at the time of creation. If false, the provided
+     *                                           ACL will be used without modification. If acl is
+     *                                           null, this value is ignored.
      */
     public static function setDefaultACL($acl, $withAccessForCurrentUser)
     {
@@ -546,9 +554,10 @@ class ParseACL implements Encodable{
                 self::$defaultACLWithCurrentUser->setUserWriteAccess(ParseUser::getCurrentUser(), true);
                 self::$lastCurrentUser = clone ParseUser::getCurrentUser();
             }
+
             return self::$defaultACLWithCurrentUser;
         }
+
         return self::$defaultACL;
     }
-
 }

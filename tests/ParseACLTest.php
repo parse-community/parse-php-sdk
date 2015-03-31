@@ -1,13 +1,14 @@
 <?php
 
-use Parse\ParseUser;
-use Parse\ParseObject;
 use Parse\ParseACL;
+use Parse\ParseObject;
 use Parse\ParseQuery;
+use Parse\ParseUser;
+
 require_once 'ParseTestHelper.php';
 
-class ParseACLTest extends \PHPUnit_Framework_TestCase {
-
+class ParseACLTest extends \PHPUnit_Framework_TestCase
+{
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -73,7 +74,6 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1, count($query->find()));
         $object->save();
         $object->destroy();
-
     }
 
     public function testACLMakingAnObjectPubliclyReadable()
@@ -227,7 +227,6 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase {
         $object->set('foo', 'bar');
         $object->save();
         $object->destroy();
-
     }
 
     public function testACLSaveAllWithPermissions()
@@ -260,7 +259,6 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase {
         $query = new ParseQuery('Object');
         $query->equalTo('foo', 'bar');
         $this->assertEquals(2, count($query->find()));
-
     }
 
     public function testACLModifyingAfterLoad()
@@ -285,8 +283,6 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($objectAgain->getACL()->getUserWriteAccess($user));
         $this->assertTrue($objectAgain->getACL()->getPublicReadAccess());
         $this->assertFalse($objectAgain->getACL()->getPublicWriteAccess());
-
-
     }
 
     public function testACLRequiresObjectId()
@@ -334,7 +330,6 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase {
             $this->fail('Exception should have thrown');
         } catch (Exception $e) {
         }
-
     }
 
     public function testIncludedObjectsGetACLs()
@@ -385,7 +380,5 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase {
         $objectAgain = $query->first()->get('test');
         $this->assertTrue($objectAgain->getACL()->getPublicReadAccess());
         $this->assertFalse($objectAgain->getACL()->getPublicWriteAccess());
-
     }
-
 }

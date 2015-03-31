@@ -1,15 +1,13 @@
 <?php
 
-use Parse\ParseClient;
+use Parse\ParseGeoPoint;
 use Parse\ParseObject;
 use Parse\ParseQuery;
-use Parse\ParseGeoPoint;
 
 require_once 'ParseTestHelper.php';
 
 class ParseGeoPointTest extends PHPUnit_Framework_TestCase
 {
-
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -116,7 +114,6 @@ class ParseGeoPointTest extends PHPUnit_Framework_TestCase
         $results = $query->find();
         $this->assertEquals(1, count($results));
         $this->assertEquals(0, $results[0]->get('id'));
-
     }
 
     public function testGeoMaxDistanceWithUnits()

@@ -1,15 +1,15 @@
 <?php
 
-use Parse\ParseUser;
-use Parse\ParseObject;
 use Parse\ParseACL;
+use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseRole;
+use Parse\ParseUser;
 
 require_once 'ParseTestHelper.php';
 
-class ParseRoleTest extends \PHPUnit_Framework_TestCase {
-
+class ParseRoleTest extends \PHPUnit_Framework_TestCase
+{
     public static function setUpBeforeClass()
     {
         ParseTestHelper::setUp();
@@ -122,14 +122,18 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase {
             $query->get($eden['garden']->getObjectId());
             $this->fail("Get should have failed.");
         } catch (\Parse\ParseException $ex) {
-            if ($ex->getMessage() != "Object not found.") throw $ex;
+            if ($ex->getMessage() != "Object not found.") {
+                throw $ex;
+            }
         }
         ParseUser::logIn("eve", "eve");
         try {
             $query->get($eden['garden']->getObjectId());
             $this->fail("Get should have failed.");
         } catch (\Parse\ParseException $ex) {
-            if ($ex->getMessage() != "Object not found.") throw $ex;
+            if ($ex->getMessage() != "Object not found.") {
+                throw $ex;
+            }
         }
         ParseUser::logIn("snake", "snake");
         $query->get($eden['garden']->getObjectId());
@@ -149,16 +153,15 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase {
         $roleAgain->save();
     }
 
-
     /**
-     * Utilities
+     * Utilities.
      */
-
     public function aclPrivateTo($someone)
     {
         $acl = new ParseACL();
         $acl->setReadAccess($someone, true);
         $acl->setWriteAccess($someone, true);
+
         return $acl;
     }
 
@@ -167,6 +170,7 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase {
         $acl = new ParseACL();
         $acl->setPublicReadAccess(true);
         $acl->setPublicWriteAccess(true);
+
         return $acl;
     }
 
@@ -175,12 +179,13 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase {
         $user = new ParseUser();
         $user->setUsername($username);
         $user->setPassword($username);
+
         return $user;
     }
 
     public function createEden()
     {
-        $eden = array();
+        $eden = [];
         $eden['adam'] = $this->createUser('adam');
         $eden['eve'] = $this->createUser('eve');
         $eden['snake'] = $this->createUser('snake');
@@ -211,7 +216,5 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase {
         ParseObject::saveAll([$eden['apple'], $eden['garden']]);
 
         return $eden;
-
     }
-
 }

@@ -1,15 +1,12 @@
 <?php
 
 use Parse\ParseClient;
-use Parse\ParseObject;
-use Parse\ParseQuery;
 use Parse\ParseMemoryStorage;
 
 require_once 'ParseTestHelper.php';
 
 class ParseMemoryStorageTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var ParseMemoryStorage
      */
@@ -67,5 +64,4 @@ class ParseMemoryStorageTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $result['foo3']);
         $this->assertEquals(3, count($result));
     }
-
 }

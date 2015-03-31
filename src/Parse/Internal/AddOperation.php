@@ -6,14 +6,12 @@ use Parse\ParseClient;
 use Parse\ParseException;
 
 /**
- * Class AddOperation - FieldOperation for adding object(s) to array fields
+ * Class AddOperation - FieldOperation for adding object(s) to array fields.
  *
- * @package    Parse
  * @author     Fosco Marotto <fjm@fb.com>
  */
 class AddOperation implements FieldOperation
 {
-
     /**
      * @var - Array with objects to add.
      */
@@ -51,8 +49,8 @@ class AddOperation implements FieldOperation
      */
     public function _encode()
     {
-        return array('__op' => 'Add',
-            'objects' => ParseClient::_encode($this->objects, true));
+        return ['__op' => 'Add',
+            'objects'  => ParseClient::_encode($this->objects, true), ];
     }
 
     /**
@@ -60,8 +58,9 @@ class AddOperation implements FieldOperation
      *
      * @param FieldOperation $previous Previous operation.
      *
-     * @return FieldOperation Merged operation.
      * @throws ParseException
+     *
+     * @return FieldOperation Merged operation.
      */
     public function _mergeWithPrevious($previous)
     {
@@ -73,14 +72,16 @@ class AddOperation implements FieldOperation
         }
         if ($previous instanceof SetOperation) {
             $oldList = $previous->getValue();
+
             return new SetOperation(
-                array_merge((array)$oldList, (array)$this->objects)
+                array_merge((array) $oldList, (array) $this->objects)
             );
         }
         if ($previous instanceof AddOperation) {
             $oldList = $previous->getValue();
+
             return new SetOperation(
-                array_merge((array)$oldList, (array)$this->objects)
+                array_merge((array) $oldList, (array) $this->objects)
             );
         }
         throw new ParseException(
@@ -91,9 +92,9 @@ class AddOperation implements FieldOperation
     /**
      * Applies current operation, returns resulting value.
      *
-     * @param mixed    $oldValue Value prior to this operation.
-     * @param mixed    $obj            Value being applied.
-     * @param string $key            Key this operation affects.
+     * @param mixed  $oldValue Value prior to this operation.
+     * @param mixed  $obj      Value being applied.
+     * @param string $key      Key this operation affects.
      *
      * @return array
      */
@@ -102,7 +103,7 @@ class AddOperation implements FieldOperation
         if (!$oldValue) {
             return $this->objects;
         }
-        return array_merge((array)$oldValue, (array)$this->objects);
-    }
 
+        return array_merge((array) $oldValue, (array) $this->objects);
+    }
 }

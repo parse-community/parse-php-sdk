@@ -1,8 +1,7 @@
 <?php
 
-use Parse\ParseClient;
-use Parse\ParseObject;
 use Parse\ParseException;
+use Parse\ParseObject;
 use Parse\ParseQuery;
 
 require_once 'ParseTestHelper.php';
@@ -227,7 +226,7 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $obj->increment('randomkeyagain');
         $obj->save();
         $this->setExpectedException('Parse\ParseException',
-            'invalid type for key randomkeyagain, ' .
+            'invalid type for key randomkeyagain, '.
             'expected number, but got string'
         );
         $objAgain->save();

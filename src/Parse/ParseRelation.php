@@ -1,18 +1,17 @@
 <?php
 
 namespace Parse;
+
 use Parse\Internal\ParseRelationOperation;
 
 /**
  * ParseRelation - A class that is used to access all of the children of a many-to-many relationship. Each instance
  * of ParseRelation is associated with a particular parent object and key.
  *
- * @package    Parse
  * @author     Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
-
-class ParseRelation {
-
+class ParseRelation
+{
     /**
      * @var ParseObject - The parent of this relation.
      */
@@ -29,9 +28,9 @@ class ParseRelation {
     /**
      * Creates a new Relation for the given parent object, key and class name of target objects.
      *
-     * @param ParseObject $parent                    The parent of this relation.
-     * @param string            $key                         The key of the relation in the parent object.
-     * @param string            $targetClassName The className of the target objects.
+     * @param ParseObject $parent          The parent of this relation.
+     * @param string      $key             The key of the relation in the parent object.
+     * @param string      $targetClassName The className of the target objects.
      */
     public function __construct($parent, $key, $targetClassName = null)
     {
@@ -119,7 +118,8 @@ class ParseRelation {
      *
      * @param $parent
      */
-    public function setParent($parent) {
+    public function setParent($parent)
+    {
         $this->parent = $parent;
     }
 
@@ -133,6 +133,7 @@ class ParseRelation {
         $query = new ParseQuery($this->targetClassName);
         $query->relatedTo('object', $this->parent->_toPointer());
         $query->relatedTo('key', $this->key);
+
         return $query;
     }
 }

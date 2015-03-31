@@ -1,6 +1,5 @@
 <?php
 
-use Parse\ParseClient;
 use Parse\ParseAnalytics;
 
 require_once 'ParseTestHelper.php';
@@ -21,9 +20,9 @@ class ParseAnalyticsTest extends PHPUnit_Framework_TestCase
     {
         // We'll test that the event encodes properly, and that the analytics call
         // doesn't throw an exception.
-        $json = ParseAnalytics::_toSaveJSON($params ?: array());
+        $json = ParseAnalytics::_toSaveJSON($params ?: []);
         $this->assertEquals($expectedJSON, $json);
-        ParseAnalytics::track($event, $params ?: array());
+        ParseAnalytics::track($event, $params ?: []);
     }
 
     public function testTrackEvent()
@@ -59,21 +58,20 @@ class ParseAnalyticsTest extends PHPUnit_Framework_TestCase
     public function testTrackEventDimensions()
     {
         $expected = '{"dimensions":{"foo":"bar","bar":"baz"}}';
-        $params = array(
+        $params = [
             'foo' => 'bar',
-            'bar' => 'baz'
-        );
+            'bar' => 'baz',
+        ];
         $this->assertAnalyticsValidation('testDimensions', $params, $expected);
 
         $date = date(DATE_RFC3339);
-        $expected = '{"dimensions":{"foo":"bar","bar":"baz","someDate":"' .
-            $date . '"}}';
-        $params = array(
-            'foo' => 'bar',
-            'bar' => 'baz',
-            'someDate' => $date
-        );
+        $expected = '{"dimensions":{"foo":"bar","bar":"baz","someDate":"'.
+            $date.'"}}';
+        $params = [
+            'foo'      => 'bar',
+            'bar'      => 'baz',
+            'someDate' => $date,
+        ];
         $this->assertAnalyticsValidation('testDate', $params, $expected);
     }
-
 }
