@@ -5,13 +5,13 @@ For us to accept contributions you will have to first have signed the
 [Contributor License Agreement].
 
 When committing, keep all lines to less than 80 characters, and try to
-follow the existing style.  Before creating a pull request, squash your commits
+follow the existing style. Before creating a pull request, squash your commits
 into a single commit. Please provide ample explanation in the commit message.
 
 Installation
 ------------
 
-Testing the Parse PHP SDK involves some set-up.  You'll need to create a Parse
+Testing the Parse PHP SDK involves some set-up. You'll need to create a Parse
 App just for testing, and deploy some cloud code to it.
 
 * [Get Composer], the PHP package manager.
