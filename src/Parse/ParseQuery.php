@@ -290,9 +290,11 @@ class ParseQuery
         $this->limit = 0;
         $this->count = 1;
         $queryString = $this->buildQueryString($this->_getOptions());
-        $result = ParseClient::_request('GET',
-                '/1/classes/'.$this->className.
-                '?'.$queryString, null, null, $useMasterKey);
+        $result = ParseClient::_request(
+            'GET',
+            '/1/classes/'.$this->className.
+            '?'.$queryString, null, null, $useMasterKey
+        );
 
         return $result['count'];
     }
@@ -311,9 +313,11 @@ class ParseQuery
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
         $queryString = $this->buildQueryString($this->_getOptions());
-        $result = ParseClient::_request('GET',
-                '/1/classes/'.$this->className.
-                '?'.$queryString, $sessionToken, null, $useMasterKey);
+        $result = ParseClient::_request(
+            'GET',
+            '/1/classes/'.$this->className.
+            '?'.$queryString, $sessionToken, null, $useMasterKey
+        );
         $output = [];
         foreach ($result['results'] as $row) {
             $obj = ParseObject::create($this->className, $row['objectId']);
@@ -412,9 +416,11 @@ class ParseQuery
     public function addDescending($key)
     {
         if (is_array($key)) {
-            $key = array_map(function ($element) {
-                return '-'.$element;
-            }, $key);
+            $key = array_map(
+                function ($element) {
+                    return '-'.$element;
+                }, $key
+            );
             $this->orderBy = array_merge($this->orderBy, $key);
         } else {
             $this->orderBy[] = "-".$key;
@@ -508,8 +514,10 @@ class ParseQuery
      */
     public function withinGeoBox($key, $southwest, $northeast)
     {
-        $this->addCondition($key, '$within',
-                ['$box' => [$southwest, $northeast]]);
+        $this->addCondition(
+            $key, '$within',
+            ['$box' => [$southwest, $northeast]]
+        );
 
         return $this;
     }
@@ -546,7 +554,8 @@ class ParseQuery
     {
         if ($this->orderBy || $this->skip || ($this->limit >= 0)) {
             throw new \Exception(
-                    "Cannot iterate on a query with sort, skip, or limit.");
+                "Cannot iterate on a query with sort, skip, or limit."
+            );
         }
         $query = new ParseQuery($this->className);
         $query->where = $this->where;
@@ -639,8 +648,10 @@ class ParseQuery
     {
         $queryParam = $query->_getOptions();
         $queryParam["className"] = $query->className;
-        $this->addCondition($key, '$select',
-                ['key' => $queryKey, 'query' => $queryParam]);
+        $this->addCondition(
+            $key, '$select',
+            ['key' => $queryKey, 'query' => $queryParam]
+        );
 
         return $this;
     }
@@ -661,8 +672,10 @@ class ParseQuery
     {
         $queryParam = $query->_getOptions();
         $queryParam["className"] = $query->className;
-        $this->addCondition($key, '$dontSelect',
-                ['key' => $queryKey, 'query' => $queryParam]);
+        $this->addCondition(
+            $key, '$dontSelect',
+            ['key' => $queryKey, 'query' => $queryParam]
+        );
 
         return $this;
     }

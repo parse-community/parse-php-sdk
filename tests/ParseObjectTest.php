@@ -32,8 +32,10 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
         $obj->save();
         $obj->set('foo', 'changed');
         $obj->save();
-        $this->assertEquals($obj->foo, 'changed',
-            'Update should have succeeded');
+        $this->assertEquals(
+            $obj->foo, 'changed',
+            'Update should have succeeded'
+        );
     }
 
     public function testSaveCycle()
@@ -59,10 +61,14 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
 
         $query = new ParseQuery('TestObject');
         $returnedObject = $query->get($obj->getObjectId());
-        $this->assertTrue($returnedObject instanceof ParseObject,
-            'Returned object was not a ParseObject');
-        $this->assertEquals('bar', $returnedObject->foo,
-            'Value of foo was not saved.');
+        $this->assertTrue(
+            $returnedObject instanceof ParseObject,
+            'Returned object was not a ParseObject'
+        );
+        $this->assertEquals(
+            'bar', $returnedObject->foo,
+            'Value of foo was not saved.'
+        );
     }
 
     public function testFetch()
@@ -277,8 +283,10 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
     {
         $obj = ParseObject::create("TestItem");
         $obj->set('foo^bar', 'baz');
-        $this->setExpectedException('Parse\ParseException',
-            'invalid field name');
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'invalid field name'
+        );
         $obj->save();
     }
 
@@ -733,8 +741,10 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
         $obj->save();
         $query = new ParseQuery('TestObject');
         $returnedObject = $query->get($obj->getObjectId());
-        $this->assertTrue(is_array($returnedObject->get('baz')),
-            'Value was not stored as an array.');
+        $this->assertTrue(
+            is_array($returnedObject->get('baz')),
+            'Value was not stored as an array.'
+        );
         $this->assertEquals(0, count($returnedObject->get('baz')));
     }
 
@@ -883,10 +893,12 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
             is_object($saveOpAssoc->_encode()), "Value should be object."
         );
         $obj->save();
-        $obj->setAssociativeArray('obj', [
+        $obj->setAssociativeArray(
+            'obj', [
             'foo' => 'bar',
             'baz' => 'yay',
-        ]);
+            ]
+        );
         $obj->save();
         $query = new ParseQuery('TestObject');
         $objAgain = $query->get($obj->getObjectId());

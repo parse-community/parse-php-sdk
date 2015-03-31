@@ -175,7 +175,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $query = new ParseQuery('TestObject');
         $query->equalTo('objectId', $obj->getObjectId());
         $result = $query->first();
-        $this->assertEquals($result->get('yo'), 1,
+        $this->assertEquals(
+            $result->get('yo'), 1,
             'Error in increment on empty field of fresh object'
         );
     }
@@ -194,7 +195,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $queryAgain = new ParseQuery('TestObject');
         $queryAgain->equalTo('objectId', $objAgain->getObjectId());
         $objectAgainTwo = $queryAgain->first();
-        $this->assertEquals($objectAgainTwo->get('yo'), 2,
+        $this->assertEquals(
+            $objectAgainTwo->get('yo'), 2,
             'Error in increment on empty field'
         );
     }
@@ -209,7 +211,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $obj->set('randomkey', 'bar');
         $obj->save();
         $objAgain->increment('randomkey');
-        $this->setExpectedException('Parse\ParseException',
+        $this->setExpectedException(
+            'Parse\ParseException',
             "invalid type for key"
         );
         $objAgain->save();
@@ -225,7 +228,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $objAgain->set('randomkeyagain', 'bar');
         $obj->increment('randomkeyagain');
         $obj->save();
-        $this->setExpectedException('Parse\ParseException',
+        $this->setExpectedException(
+            'Parse\ParseException',
             'invalid type for key randomkeyagain, '.
             'expected number, but got string'
         );

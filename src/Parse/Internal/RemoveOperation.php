@@ -109,7 +109,8 @@ class RemoveOperation implements FieldOperation
                 if ($oldObject instanceof ParseObject) {
                     if ($newObject instanceof ParseObject
                         && !$oldObject->isDirty()
-                        && $oldObject->getObjectId() == $newObject->getObjectId()) {
+                        && $oldObject->getObjectId() == $newObject->getObjectId()
+                    ) {
                         // found the object, won't add it.
                     } else {
                         $newValue[] = $oldObject;

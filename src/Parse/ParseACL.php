@@ -81,11 +81,13 @@ class ParseACL implements Encodable
             foreach ($permissions as $accessType => $value) {
                 if ($accessType !== 'read' && $accessType !== 'write') {
                     throw new \Exception(
-                            'Tried to create an ACL with an invalid permission type.');
+                        'Tried to create an ACL with an invalid permission type.'
+                    );
                 }
                 if (!is_bool($value)) {
                     throw new \Exception(
-                            'Tried to create an ACL with an invalid permission value.');
+                        'Tried to create an ACL with an invalid permission value.'
+                    );
                 }
                 $acl->setAccess($accessType, $id, $value);
             }
@@ -108,7 +110,7 @@ class ParseACL implements Encodable
     /**
      * Set shared for ParseACL.
      *
-     * @param bool $shared
+     * @param  bool $shared
      * @ignore
      */
     public function _setShared($shared)
@@ -438,7 +440,8 @@ class ParseACL implements Encodable
     {
         if (!$role->getObjectId()) {
             throw new \Exception(
-                    "Roles must be saved to the server before they can be used in an ACL.");
+                "Roles must be saved to the server before they can be used in an ACL."
+            );
         }
     }
 

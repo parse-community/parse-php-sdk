@@ -233,8 +233,8 @@ final class ParseClient
      * @ignore
      */
     public static function _request($method, $relativeUrl, $sessionToken = null,
-                                                                    $data = null, $useMasterKey = false)
-    {
+        $data = null, $useMasterKey = false
+    ) {
         if ($data === '[]') {
             $data = '{}';
         }
@@ -279,7 +279,8 @@ final class ParseClient
 
         $decoded = json_decode($response, true);
         if (isset($decoded['error'])) {
-            throw new ParseException($decoded['error'],
+            throw new ParseException(
+                $decoded['error'],
                 isset($decoded['code']) ? $decoded['code'] : 0
             );
         }

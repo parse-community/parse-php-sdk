@@ -126,10 +126,13 @@ class ParseRelationOperation implements    FieldOperation
             return new ParseRelation($object, $key, $this->targetClassName);
         } elseif ($oldValue instanceof ParseRelation) {
             if ($this->targetClassName != null
-                    && $oldValue->getTargetClass() !== $this->targetClassName) {
-                throw new \Exception('Related object object must be of class '
-                                .$this->targetClassName.', but '.$oldValue->getTargetClass()
-                                .' was passed in.');
+                && $oldValue->getTargetClass() !== $this->targetClassName
+            ) {
+                throw new \Exception(
+                    'Related object object must be of class '
+                    .$this->targetClassName.', but '.$oldValue->getTargetClass()
+                    .' was passed in.'
+                );
             }
 
             return $oldValue;
@@ -155,34 +158,50 @@ class ParseRelationOperation implements    FieldOperation
         }
         if ($previous instanceof ParseRelationOperation) {
             if ($previous->targetClassName != null
-                    && $previous->targetClassName != $this->targetClassName
+                && $previous->targetClassName != $this->targetClassName
             ) {
-                throw new \Exception('Related object object must be of class '
-                        .$this->targetClassName.', but '.$previous->targetClassName
-                        .' was passed in.');
+                throw new \Exception(
+                    'Related object object must be of class '
+                    .$this->targetClassName.', but '.$previous->targetClassName
+                    .' was passed in.'
+                );
             }
             $newRelationToAdd = self::convertToOneDimensionalArray(
-                    $this->relationsToAdd);
+                $this->relationsToAdd
+            );
             $newRelationToRemove = self::convertToOneDimensionalArray(
-                    $this->relationsToRemove);
+                $this->relationsToRemove
+            );
 
-            $previous->addObjects($newRelationToAdd,
-                    $previous->relationsToAdd);
-            $previous->removeObjects($newRelationToAdd,
-                    $previous->relationsToRemove);
+            $previous->addObjects(
+                $newRelationToAdd,
+                $previous->relationsToAdd
+            );
+            $previous->removeObjects(
+                $newRelationToAdd,
+                $previous->relationsToRemove
+            );
 
-            $previous->removeObjects($newRelationToRemove,
-                    $previous->relationsToAdd);
-            $previous->addObjects($newRelationToRemove,
-                    $previous->relationsToRemove);
+            $previous->removeObjects(
+                $newRelationToRemove,
+                $previous->relationsToAdd
+            );
+            $previous->addObjects(
+                $newRelationToRemove,
+                $previous->relationsToRemove
+            );
 
             $newRelationToAdd = self::convertToOneDimensionalArray(
-                    $previous->relationsToAdd);
+                $previous->relationsToAdd
+            );
             $newRelationToRemove = self::convertToOneDimensionalArray(
-                    $previous->relationsToRemove);
+                $previous->relationsToRemove
+            );
 
-            return new ParseRelationOperation($newRelationToAdd,
-                    $newRelationToRemove);
+            return new ParseRelationOperation(
+                $newRelationToAdd,
+                $newRelationToRemove
+            );
         }
         throw new \Exception('Operation is invalid after previous operation.');
     }

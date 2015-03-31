@@ -218,7 +218,8 @@ class ParseFile implements \Parse\Internal\Encodable
 
         $decoded = json_decode($response, true);
         if (isset($decoded['error'])) {
-            throw new ParseException($decoded['error'],
+            throw new ParseException(
+                $decoded['error'],
                 isset($decoded['code']) ? $decoded['code'] : 0
             );
         }
