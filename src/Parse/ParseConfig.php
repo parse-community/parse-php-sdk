@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseConfig - For accessing Parse Config settings.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseConfig
 {

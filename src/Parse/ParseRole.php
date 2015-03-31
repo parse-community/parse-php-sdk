@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseRole - Representation of an access Role.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseRole extends ParseObject
 {

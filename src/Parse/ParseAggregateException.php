@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseAggregateException - Multiple error condition.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseAggregateException extends ParseException
 {

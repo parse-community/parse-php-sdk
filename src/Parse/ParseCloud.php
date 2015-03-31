@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseCloud - Facilitates calling Parse Cloud functions.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseCloud
 {

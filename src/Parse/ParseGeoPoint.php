@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseGeoPoint - Representation of a Parse GeoPoint object.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseGeoPoint implements \Parse\Internal\Encodable
 {

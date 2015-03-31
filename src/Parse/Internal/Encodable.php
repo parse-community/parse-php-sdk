@@ -6,7 +6,7 @@ namespace Parse\Internal;
  * Class Encodable - Interface for Parse Classes which provide an encode
  * method.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 interface Encodable
 {

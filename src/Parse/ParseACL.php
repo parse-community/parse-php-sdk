@@ -12,7 +12,7 @@ use Parse\Internal\Encodable;
  * example, any user could read a particular object but only a particular set
  * of users could write to that object.
  *
- * @author     Mohamed Madbouli <mohamedmadbouli@fb.com>
+ * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
 class ParseACL implements Encodable
 {

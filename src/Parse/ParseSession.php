@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseSession - Representation of an expiring user session.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseSession extends ParseObject
 {

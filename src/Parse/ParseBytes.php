@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseBytes - Representation of a Byte array for storage on a Parse Object.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseBytes implements Internal\Encodable
 {

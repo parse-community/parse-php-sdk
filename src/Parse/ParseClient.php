@@ -7,7 +7,7 @@ use Parse\Internal\Encodable;
 /**
  * ParseClient - Main class for Parse initialization and communication.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 final class ParseClient
 {

@@ -15,7 +15,7 @@ use Parse\Internal\SetOperation;
 /**
  * ParseObject - Representation of an object stored on Parse.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseObject implements Encodable
 {

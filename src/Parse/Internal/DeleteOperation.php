@@ -5,7 +5,7 @@ namespace Parse\Internal;
 /**
  * Class DeleteOperation - FieldOperation to remove a key from an object.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class DeleteOperation implements FieldOperation
 {

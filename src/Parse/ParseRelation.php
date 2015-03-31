@@ -8,7 +8,7 @@ use Parse\Internal\ParseRelationOperation;
  * ParseRelation - A class that is used to access all of the children of a many-to-many relationship. Each instance
  * of ParseRelation is associated with a particular parent object and key.
  *
- * @author     Mohamed Madbouli <mohamedmadbouli@fb.com>
+ * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
 class ParseRelation
 {

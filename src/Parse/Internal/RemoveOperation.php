@@ -10,7 +10,7 @@ use Parse\ParseObject;
  * Class RemoveOperation - FieldOperation for removing object(s) from array
  * fields.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class RemoveOperation implements FieldOperation
 {

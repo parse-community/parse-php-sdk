@@ -9,7 +9,7 @@ use Parse\ParseRelation;
 /**
  * ParseRelationOperation - A class that is used to manage ParseRelation changes such as object add or remove.
  *
- * @author     Mohamed Madbouli <mohamedmadbouli@fb.com>
+ * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
 class ParseRelationOperation implements    FieldOperation
 {

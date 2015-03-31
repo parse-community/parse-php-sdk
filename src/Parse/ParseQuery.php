@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseQuery - Handles querying data from Parse.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseQuery
 {

@@ -7,7 +7,7 @@ use Parse\ParseException;
 /**
  * Class IncrementOperation - Operation to increment numeric object key.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class IncrementOperation implements FieldOperation
 {

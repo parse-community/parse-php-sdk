@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParsePush - Handles sending push notifications with Parse.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParsePush
 {

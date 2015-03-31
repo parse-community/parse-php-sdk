@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseUser - Representation of a user object stored on Parse.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseUser extends ParseObject
 {

@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseSessionStorage - Uses PHP session support for persistent storage.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseSessionStorage implements ParseStorageInterface
 {

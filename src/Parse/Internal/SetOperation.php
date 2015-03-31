@@ -7,7 +7,7 @@ use Parse\ParseClient;
 /**
  * Class SetOperation - Operation to set a value for an object key.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class SetOperation implements FieldOperation
 {

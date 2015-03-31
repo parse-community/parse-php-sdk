@@ -8,7 +8,7 @@ use Parse\ParseException;
 /**
  * Class AddOperation - FieldOperation for adding object(s) to array fields.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class AddOperation implements FieldOperation
 {

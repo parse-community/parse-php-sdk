@@ -5,7 +5,7 @@ namespace Parse\Internal;
 /**
  * Class FieldOperation - Interface for all Parse Field Operations.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 interface FieldOperation extends Encodable
 {

@@ -7,7 +7,7 @@ use Exception;
 /**
  * ParseAnalytics - Handles sending app-open and custom analytics events.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseAnalytics
 {
