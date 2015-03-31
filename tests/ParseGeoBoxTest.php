@@ -9,10 +9,10 @@ require_once 'ParseTestHelper.php';
 
 class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
 {
-  public static function setUpBeforeClass()
-  {
-      ParseTestHelper::setUp();
-  }
+    public static function setUpBeforeClass()
+    {
+        ParseTestHelper::setUp();
+    }
 
     public function setUp()
     {
@@ -42,15 +42,15 @@ class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
         $southwestOfSF = new ParseGeoPoint(37.708813, -122.526398);
         $northeastOfSF = new ParseGeoPoint(37.822802, -122.373962);
 
-    // Try a correct query
-    $query = new ParseQuery('TestObject');
+        // Try a correct query
+        $query = new ParseQuery('TestObject');
         $query->withinGeoBox('location', $southwestOfSF, $northeastOfSF);
         $objectsInSF = $query->find();
         $this->assertEquals(1, count($objectsInSF));
         $this->assertEquals('caltrain', $objectsInSF[0]->get('name'));
 
-    // Switch order of args, should fail because it crosses the dateline
-    $query = new ParseQuery('TestObject');
+        // Switch order of args, should fail because it crosses the dateline
+        $query = new ParseQuery('TestObject');
         $query->withinGeoBox('location', $northeastOfSF, $southwestOfSF);
         try {
             $results = $query->find();
@@ -61,8 +61,8 @@ class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
         $northwestOfSF = new ParseGeoPoint(37.822802, -122.526398);
         $southeastOfSF = new ParseGeoPoint(37.708813, -122.373962);
 
-    // Switch just longitude, should fail because it crosses the dateline
-    $query = new ParseQuery('TestObject');
+        // Switch just longitude, should fail because it crosses the dateline
+        $query = new ParseQuery('TestObject');
         $query->withinGeoBox('location', $southeastOfSF, $northwestOfSF);
         try {
             $query->find();
@@ -70,8 +70,8 @@ class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
         } catch (ParseException $e) {
         }
 
-    // Switch just the latitude, should fail because it doesnt make sense
-    $query = new ParseQuery('TestObject');
+        // Switch just the latitude, should fail because it doesnt make sense
+        $query = new ParseQuery('TestObject');
         $query->withinGeoBox('location', $northwestOfSF, $southeastOfSF);
         try {
             $query->find();
@@ -138,11 +138,11 @@ class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
         $southwest = new ParseGeoPoint(-89, -179);
         $northeast = new ParseGeoPoint(89, 179);
 
-    // This is an interesting test case because mongo can actually handle this
-    // kind of query, but
-    // if one actually happens, it's probably that the developer switches the
-    // two points.
-    $query = new ParseQuery('TestObject');
+        // This is an interesting test case because mongo can actually handle this
+        // kind of query, but
+        // if one actually happens, it's probably that the developer switches the
+        // two points.
+        $query = new ParseQuery('TestObject');
         $query->withinGeoBox('location', $southwest, $northeast);
         try {
             $query->find();

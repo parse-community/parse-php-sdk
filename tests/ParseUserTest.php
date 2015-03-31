@@ -8,11 +8,11 @@ require_once 'ParseTestHelper.php';
 
 class ParseUserTest extends PHPUnit_Framework_TestCase
 {
-  public static function setUpBeforeClass()
-  {
-      ParseTestHelper::setUp();
-      ParseTestHelper::clearClass(ParseUser::$parseClassName);
-  }
+    public static function setUpBeforeClass()
+    {
+        ParseTestHelper::setUp();
+        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+    }
 
     public function tearDown()
     {
@@ -89,8 +89,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
         $this->setExpectedException(
-      'Parse\ParseException', 'UserCannotBeAlteredWithoutSession'
-    );
+            'Parse\ParseException', 'UserCannotBeAlteredWithoutSession'
+        );
         $user->setUsername('changed');
         $user->save();
     }
@@ -110,8 +110,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
         $this->setExpectedException(
-      'Parse\ParseException', 'UserCannotBeAlteredWithoutSession'
-    );
+            'Parse\ParseException', 'UserCannotBeAlteredWithoutSession'
+        );
         $user->destroy();
     }
 
@@ -142,8 +142,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $item2->set('num', 2);
         $user->setUsername('changed');
         $this->setExpectedException(
-      'Parse\ParseAggregateException', 'Errors during batch save.'
-    );
+            'Parse\ParseAggregateException', 'Errors during batch save.'
+        );
         ParseObject::saveAll([$item1, $item2, $user]);
     }
 
@@ -229,8 +229,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
     public function testPasswordResetFails()
     {
         $this->setExpectedException(
-      'Parse\ParseException', 'no user found with email'
-    );
+            'Parse\ParseException', 'no user found with email'
+        );
         ParseUser::requestPasswordReset('non_existent@example.com');
     }
 
@@ -256,8 +256,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($userAgain->getObjectId(), $user->getObjectId());
         $this->assertEquals(
-      $userAgain->get('child')->getObjectId(), $child->getObjectId()
-    );
+            $userAgain->get('child')->getObjectId(), $child->getObjectId()
+        );
     }
 
     public function testUserQueries()

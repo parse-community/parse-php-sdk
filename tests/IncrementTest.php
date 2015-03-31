@@ -8,10 +8,10 @@ require_once 'ParseTestHelper.php';
 
 class IncrementTest extends PHPUnit_Framework_TestCase
 {
-  public static function setUpBeforeClass()
-  {
-      ParseTestHelper::setUp();
-  }
+    public static function setUpBeforeClass()
+    {
+        ParseTestHelper::setUp();
+    }
 
     public function tearDown()
     {
@@ -146,8 +146,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $obj->set('foo', 'bar');
         $obj->save();
         $this->setExpectedException(
-      'Parse\ParseException', 'Cannot increment a non-number type'
-    );
+            'Parse\ParseException', 'Cannot increment a non-number type'
+        );
         $obj->increment('foo');
         $obj->save();
     }
@@ -163,8 +163,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $query->equalTo('objectId', $obj->getObjectId());
         $result = $query->first();
         $this->assertEquals(
-      $result->get('yo'), 1, 'Error in increment on deleted field'
-    );
+            $result->get('yo'), 1, 'Error in increment on deleted field'
+        );
     }
 
     public function testIncrementEmptyFieldOnFreshObject()
@@ -176,8 +176,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $query->equalTo('objectId', $obj->getObjectId());
         $result = $query->first();
         $this->assertEquals($result->get('yo'), 1,
-      'Error in increment on empty field of fresh object'
-    );
+            'Error in increment on empty field of fresh object'
+        );
     }
 
     public function testIncrementEmptyField()
@@ -195,8 +195,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $queryAgain->equalTo('objectId', $objAgain->getObjectId());
         $objectAgainTwo = $queryAgain->first();
         $this->assertEquals($objectAgainTwo->get('yo'), 2,
-      'Error in increment on empty field'
-    );
+            'Error in increment on empty field'
+        );
     }
 
     public function testIncrementEmptyFieldAndTypeConflict()
@@ -210,8 +210,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $obj->save();
         $objAgain->increment('randomkey');
         $this->setExpectedException('Parse\ParseException',
-      "invalid type for key"
-    );
+            "invalid type for key"
+        );
         $objAgain->save();
     }
 
@@ -226,9 +226,9 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $obj->increment('randomkeyagain');
         $obj->save();
         $this->setExpectedException('Parse\ParseException',
-      'invalid type for key randomkeyagain, '.
-      'expected number, but got string'
-    );
+            'invalid type for key randomkeyagain, '.
+            'expected number, but got string'
+        );
         $objAgain->save();
     }
 }

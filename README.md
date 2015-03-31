@@ -7,14 +7,14 @@ from your PHP app or script.
 Installation
 ------------
 
-[Get Composer], the PHP package manager.  Then create a composer.json file in
+[Get Composer], the PHP package manager. Then create a composer.json file in
  your projects root folder, containing:
 
 ```json
 {
-  "require": {
-    "parse/php-sdk" : "1.1.*"
-  }
+    "require": {
+        "parse/php-sdk" : "1.1.*"
+    }
 }
 ```
 
@@ -51,7 +51,7 @@ Usage
 
 Check out the [Parse PHP Guide] for the full documentation.
 
-Add the "use" declarations where you'll be using the classes.  For all of the
+Add the "use" declarations where you'll be using the classes. For all of the
 sample code in this file:
 
 ```php
@@ -80,7 +80,7 @@ $object->set("elephant", "php");
 $object->set("today", new DateTime());
 $object->setArray("mylist", [1, 2, 3]);
 $object->setAssociativeArray(
-  "languageTypes", array("php" => "awesome", "ruby" => "wtf")
+    "languageTypes", array("php" => "awesome", "ruby" => "wtf")
 );
 
 // Save:
@@ -95,16 +95,16 @@ $user = new ParseUser();
 $user->setUsername("foo");
 $user->setPassword("Q2w#4!o)df");
 try {
-  $user->signUp();
+    $user->signUp();
 } catch (ParseException $ex) {
-  // error in $ex->getMessage();
+    // error in $ex->getMessage();
 }
 
 // Login
 try {
-  $user = ParseUser::logIn("foo", "Q2w#4!o)df");
+    $user = ParseUser::logIn("foo", "Q2w#4!o)df");
 } catch(ParseException $ex) {
-  // error in $ex->getMessage();
+    // error in $ex->getMessage();
 }
 
 // Current user
@@ -147,7 +147,7 @@ $first = $query->first();
 // Process ALL (without limit) results with "each".
 // Will throw if sort, skip, or limit is used.
 $query->each(function($obj) {
-  echo $obj->getObjectId();
+    echo $obj->getObjectId();
 });
 ```
 
@@ -161,8 +161,8 @@ Analytics:
 
 ```php
 ParseAnalytics::track("logoReaction", array(
-  "saw" => "elephant",
-  "said" => "cute"
+    "saw" => "elephant",
+    "said" => "cute"
 ));
 ```
 
@@ -178,7 +178,7 @@ $contents = $file->getData();
 
 // Upload from a local file:
 $file = ParseFile::createFromFile(
-  "/tmp/foo.bar", "Parse.txt", "text/plain"
+    "/tmp/foo.bar", "Parse.txt", "text/plain"
 );
 
 // Upload from variable contents (string, binary)
@@ -192,16 +192,16 @@ $data = array("alert" => "Hi!");
 
 // Push to Channels
 ParsePush::send(array(
-  "channels" => ["PHPFans"],
-  "data" => $data
+    "channels" => ["PHPFans"],
+    "data" => $data
 ));
 
 // Push to Query
 $query = ParseInstallation::query();
 $query->equalTo("design", "rad");
 ParsePush::send(array(
-  "where" => $query,
-  "data" => $data
+    "where" => $query,
+    "data" => $data
 ));
 ```
 
@@ -209,7 +209,7 @@ Contributing / Testing
 ----------------------
 
 See the CONTRIBUTORS.md file for information on testing and contributing to
-the Parse PHP SDK.  We welcome fixes and enhancements.
+the Parse PHP SDK. We welcome fixes and enhancements.
 
 [Get Composer]: https://getcomposer.org/download/
 [Parse PHP Guide]: https://www.parse.com/docs/php_guide

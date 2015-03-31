@@ -5,20 +5,20 @@ namespace Parse;
 /**
  * ParseConfig - For accessing Parse Config settings.
  *
- * @author   Fosco Marotto <fjm@fb.com>
+ * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseConfig
 {
-  private $currentConfig;
+    private $currentConfig;
 
-  /**
-   * Creates.
-   */
-  public function __construct()
-  {
-      $result = ParseClient::_request("GET", "/1/config");
-      $this->setConfig($result['params']);
-  }
+    /**
+     * Creates.
+     */
+    public function __construct()
+    {
+        $result = ParseClient::_request("GET", "/1/config");
+        $this->setConfig($result['params']);
+    }
 
     public function get($key)
     {

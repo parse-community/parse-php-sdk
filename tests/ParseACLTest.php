@@ -9,10 +9,10 @@ require_once 'ParseTestHelper.php';
 
 class ParseACLTest extends \PHPUnit_Framework_TestCase
 {
-  public static function setUpBeforeClass()
-  {
-      ParseTestHelper::setUp();
-  }
+    public static function setUpBeforeClass()
+    {
+        ParseTestHelper::setUp();
+    }
 
     public function setUp()
     {

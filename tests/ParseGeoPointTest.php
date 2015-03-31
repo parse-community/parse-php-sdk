@@ -8,10 +8,10 @@ require_once 'ParseTestHelper.php';
 
 class ParseGeoPointTest extends PHPUnit_Framework_TestCase
 {
-  public static function setUpBeforeClass()
-  {
-      ParseTestHelper::setUp();
-  }
+    public static function setUpBeforeClass()
+    {
+        ParseTestHelper::setUp();
+    }
 
     public function setUp()
     {
@@ -32,19 +32,19 @@ class ParseGeoPointTest extends PHPUnit_Framework_TestCase
         $obj->set('name', 'Ferndale');
         $obj->save();
 
-    // Non geo query
-    $query = new ParseQuery('TestObject');
+        // Non geo query
+        $query = new ParseQuery('TestObject');
         $query->equalTo('name', 'Ferndale');
         $results = $query->find();
         $this->assertEquals(1, count($results));
 
-    // Round trip encoding
-    $actualPoint = $results[0]->get('location');
+        // Round trip encoding
+        $actualPoint = $results[0]->get('location');
         $this->assertEquals(44.0, $actualPoint->getLatitude(), '', 0.0001);
         $this->assertEquals(-11.0, $actualPoint->getLongitude(), '', 0.0001);
 
-    // nearsphere
-    $point->setLatitude(66.0);
+        // nearsphere
+        $point->setLatitude(66.0);
         $query = new ParseQuery('TestObject');
         $query->near('location', $point);
         $results = $query->find();
@@ -82,34 +82,34 @@ class ParseGeoPointTest extends PHPUnit_Framework_TestCase
             $obj->save();
         }
 
-    // baseline all
-    $query = new ParseQuery('TestObject');
+        // baseline all
+        $query = new ParseQuery('TestObject');
         $point = new ParseGeoPoint(1.0, -1.0);
         $query->near('location', $point);
         $results = $query->find();
         $this->assertEquals(3, count($results));
 
-    // all
-    $query = new ParseQuery('TestObject');
+        // all
+        $query = new ParseQuery('TestObject');
         $query->withinRadians('location', $point, 3.14 * 2);
         $results = $query->find();
         $this->assertEquals(3, count($results));
 
-    // all
-    $query = new ParseQuery('TestObject');
+        // all
+        $query = new ParseQuery('TestObject');
         $query->withinRadians('location', $point, 3.14);
         $results = $query->find();
         $this->assertEquals(3, count($results));
 
-    // 2
-    $query = new ParseQuery('TestObject');
+        // 2
+        $query = new ParseQuery('TestObject');
         $query->withinRadians('location', $point, 3.14 * 0.5);
         $results = $query->find();
         $this->assertEquals(2, count($results));
         $this->assertEquals(1, $results[1]->get('id'));
 
-    // 1
-    $query = new ParseQuery('TestObject');
+        // 1
+        $query = new ParseQuery('TestObject');
         $query->withinRadians('location', $point, 3.14 * 0.25);
         $results = $query->find();
         $this->assertEquals(1, count($results));
@@ -119,84 +119,84 @@ class ParseGeoPointTest extends PHPUnit_Framework_TestCase
     public function testGeoMaxDistanceWithUnits()
     {
         ParseTestHelper::clearClass("PlaceObject");
-    // [SAC] 38.52 -121.50 Sacramento,CA
-    $sacramento = new ParseGeoPoint(38.52, -121.50);
+        // [SAC] 38.52 -121.50 Sacramento,CA
+        $sacramento = new ParseGeoPoint(38.52, -121.50);
         $obj = ParseObject::create('PlaceObject');
         $obj->set('location', $sacramento);
         $obj->set('name', 'Sacramento');
         $obj->save();
 
-    // [HNL] 21.35 -157.93 Honolulu Int,HI
-    $honolulu = new ParseGeoPoint(21.35, -157.93);
+        // [HNL] 21.35 -157.93 Honolulu Int,HI
+        $honolulu = new ParseGeoPoint(21.35, -157.93);
         $obj = ParseObject::create('PlaceObject');
         $obj->set('location', $honolulu);
         $obj->set('name', 'Honolulu');
         $obj->save();
 
-    // [51Q] 37.75 -122.68 San Francisco,CA
-    $sanfran = new ParseGeoPoint(37.75, -122.68);
+        // [51Q] 37.75 -122.68 San Francisco,CA
+        $sanfran = new ParseGeoPoint(37.75, -122.68);
         $obj = ParseObject::create('PlaceObject');
         $obj->set('location', $sanfran);
         $obj->set('name', 'San Francisco');
         $obj->save();
 
-    // test point SFO
-    $point = new ParseGeoPoint(37.6189722, -122.3748889);
+        // test point SFO
+        $point = new ParseGeoPoint(37.6189722, -122.3748889);
 
-    // Kilometers
-    // baseline all
-    $query = new ParseQuery('PlaceObject');
+        // Kilometers
+        // baseline all
+        $query = new ParseQuery('PlaceObject');
         $query->near('location', $point);
         $results = $query->find();
         $this->assertEquals(3, count($results));
 
-    // max with all
-    $query = new ParseQuery('PlaceObject');
+        // max with all
+        $query = new ParseQuery('PlaceObject');
         $query->withinKilometers('location', $point, 4000.0);
         $results = $query->find();
         $this->assertEquals(3, count($results));
 
-    // drop hawaii
-    $query = new ParseQuery('PlaceObject');
+        // drop hawaii
+        $query = new ParseQuery('PlaceObject');
         $query->withinKilometers('location', $point, 3700.0);
         $results = $query->find();
         $this->assertEquals(2, count($results));
 
-    // drop sacramento
-    $query = new ParseQuery('PlaceObject');
+        // drop sacramento
+        $query = new ParseQuery('PlaceObject');
         $query->withinKilometers('location', $point, 100.0);
         $results = $query->find();
         $this->assertEquals(1, count($results));
         $this->assertEquals('San Francisco', $results[0]->get('name'));
 
-    // drop SF
-    $query = new ParseQuery('PlaceObject');
+        // drop SF
+        $query = new ParseQuery('PlaceObject');
         $query->withinKilometers('location', $point, 10.0);
         $results = $query->find();
         $this->assertEquals(0, count($results));
 
-    // Miles
-    // max with all
-    $query = new ParseQuery('PlaceObject');
+        // Miles
+        // max with all
+        $query = new ParseQuery('PlaceObject');
         $query->withinMiles('location', $point, 2500.0);
         $results = $query->find();
         $this->assertEquals(3, count($results));
 
-    // drop hawaii
-    $query = new ParseQuery('PlaceObject');
+        // drop hawaii
+        $query = new ParseQuery('PlaceObject');
         $query->withinMiles('location', $point, 2200.0);
         $results = $query->find();
         $this->assertEquals(2, count($results));
 
-    // drop sacramento
-    $query = new ParseQuery('PlaceObject');
+        // drop sacramento
+        $query = new ParseQuery('PlaceObject');
         $query->withinMiles('location', $point, 75.0);
         $results = $query->find();
         $this->assertEquals(1, count($results));
         $this->assertEquals('San Francisco', $results[0]->get('name'));
 
-    // drop SF
-    $query = new ParseQuery('PlaceObject');
+        // drop SF
+        $query = new ParseQuery('PlaceObject');
         $query->withinMiles('location', $point, 10.0);
         $results = $query->find();
         $this->assertEquals(0, count($results));

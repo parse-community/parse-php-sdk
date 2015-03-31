@@ -7,10 +7,10 @@ require_once 'ParseTestHelper.php';
 
 class ParseSessionStorageTest extends PHPUnit_Framework_TestCase
 {
-  /**
-   * @var ParseSessionStorage
-   */
-  private static $parseStorage;
+    /**
+     * @var ParseSessionStorage
+     */
+    private static $parseStorage;
 
     public static function setUpBeforeClass()
     {

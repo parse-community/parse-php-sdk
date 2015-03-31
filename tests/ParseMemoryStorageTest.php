@@ -7,10 +7,10 @@ require_once 'ParseTestHelper.php';
 
 class ParseMemoryStorageTest extends PHPUnit_Framework_TestCase
 {
-  /**
-   * @var ParseMemoryStorage
-   */
-  private static $parseStorage;
+    /**
+     * @var ParseMemoryStorage
+     */
+    private static $parseStorage;
 
     public static function setUpBeforeClass()
     {
@@ -27,8 +27,8 @@ class ParseMemoryStorageTest extends PHPUnit_Framework_TestCase
     public function testIsUsingDefaultStorage()
     {
         $this->assertTrue(
-      self::$parseStorage instanceof Parse\ParseMemoryStorage
-    );
+            self::$parseStorage instanceof Parse\ParseMemoryStorage
+        );
     }
 
     public function testSetAndGet()

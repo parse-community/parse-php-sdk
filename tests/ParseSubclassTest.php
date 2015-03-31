@@ -7,10 +7,10 @@ require_once 'ParseTestHelper.php';
 
 class ParseSubclassTest extends PHPUnit_Framework_TestCase
 {
-  public static function setUpBeforeClass()
-  {
-      ParseTestHelper::setUp();
-  }
+    public static function setUpBeforeClass()
+    {
+        ParseTestHelper::setUp();
+    }
 
     public function tearDown()
     {

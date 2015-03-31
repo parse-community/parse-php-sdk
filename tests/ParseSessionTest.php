@@ -8,12 +8,12 @@ require_once 'ParseTestHelper.php';
 
 class ParseSessionTest extends PHPUnit_Framework_TestCase
 {
-  public static function setUpBeforeClass()
-  {
-      ParseTestHelper::setUp();
-      ParseTestHelper::clearClass(ParseUser::$parseClassName);
-      ParseTestHelper::clearClass(ParseSession::$parseClassName);
-  }
+    public static function setUpBeforeClass()
+    {
+        ParseTestHelper::setUp();
+        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        ParseTestHelper::clearClass(ParseSession::$parseClassName);
+    }
 
     public function tearDown()
     {

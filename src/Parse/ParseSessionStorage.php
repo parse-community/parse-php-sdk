@@ -5,21 +5,21 @@ namespace Parse;
 /**
  * ParseSessionStorage - Uses PHP session support for persistent storage.
  *
- * @author   Fosco Marotto <fjm@fb.com>
+ * @author     Fosco Marotto <fjm@fb.com>
  */
 class ParseSessionStorage implements ParseStorageInterface
 {
-  /**
-   * @var string Parse will store its values in a specific key.
-   */
-  private $storageKey = 'parseData';
+    /**
+     * @var string Parse will store its values in a specific key.
+     */
+    private $storageKey = 'parseData';
 
     public function __construct()
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             throw new ParseException(
-        'PHP session_start() must be called first.'
-      );
+                'PHP session_start() must be called first.'
+            );
         }
         if (!isset($_SESSION[$this->storageKey])) {
             $_SESSION[$this->storageKey] = [];
@@ -52,8 +52,8 @@ class ParseSessionStorage implements ParseStorageInterface
 
     public function save()
     {
-        // No action required.  PHP handles persistence for $_SESSION.
-    return;
+        // No action required.    PHP handles persistence for $_SESSION.
+        return;
     }
 
     public function getKeys()

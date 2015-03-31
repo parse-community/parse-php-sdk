@@ -10,10 +10,10 @@ require_once 'ParseTestHelper.php';
 
 class ParseRoleTest extends \PHPUnit_Framework_TestCase
 {
-  public static function setUpBeforeClass()
-  {
-      ParseTestHelper::setUp();
-  }
+    public static function setUpBeforeClass()
+    {
+        ParseTestHelper::setUp();
+    }
 
     public function setUp()
     {
@@ -153,17 +153,17 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         $roleAgain->save();
     }
 
-  /**
-   * Utilities.
-   */
-  public function aclPrivateTo($someone)
-  {
-      $acl = new ParseACL();
-      $acl->setReadAccess($someone, true);
-      $acl->setWriteAccess($someone, true);
+    /**
+     * Utilities.
+     */
+    public function aclPrivateTo($someone)
+    {
+        $acl = new ParseACL();
+        $acl->setReadAccess($someone, true);
+        $acl->setWriteAccess($someone, true);
 
-      return $acl;
-  }
+        return $acl;
+    }
 
     public function aclPublic()
     {
@@ -196,8 +196,8 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         $eden['humans']->getUsers()->add($eden['adam']);
         $eden['humans']->getUsers()->add($eden['eve']);
         $eden['creatures'] = ParseRole::createRole(
-      "creatures", $this->aclPublic()
-    );
+            "creatures", $this->aclPublic()
+        );
         $eden['creatures']->getUsers()->add($eden['snake']);
         ParseObject::saveAll([$eden['humans'], $eden['creatures']]);
         $eden['edenkin'] = ParseRole::createRole("edenkin", $this->aclPublic());
