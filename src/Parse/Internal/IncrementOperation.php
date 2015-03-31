@@ -12,7 +12,9 @@ use Parse\ParseException;
 class IncrementOperation implements FieldOperation
 {
     /**
-     * @var int - Amount to increment by.
+     * Amount to increment by.
+     *
+     * @var int
      */
     private $value;
 

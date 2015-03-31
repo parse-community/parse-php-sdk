@@ -10,11 +10,16 @@ namespace Parse;
 class ParseGeoPoint implements \Parse\Internal\Encodable
 {
     /**
-     * @var - Float value for latitude.
+     * The latitude.
+     *
+     * @var float
      */
     private $latitude;
+
     /**
-     * @var - Float value for longitude.
+     * The longitude.
+     *
+     * @var float
      */
     private $longitude;
 

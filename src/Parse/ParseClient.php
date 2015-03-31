@@ -17,37 +17,51 @@ final class ParseClient
     const HOST_NAME = 'https://api.parse.com';
 
     /**
-     * @var - String for applicationId.
+     * The application id.
+     *
+     * @var string
      */
     private static $applicationId;
 
     /**
-     * @var - String for REST API Key.
+     * The REST API Key.
+     *
+     * @var string
      */
     private static $restKey;
 
     /**
-     * @var - String for Master Key.
+     * The Master Key.
+     *
+     * @var string
      */
     private static $masterKey;
 
     /**
-     * @var - Boolean for Enable/Disable curl exceptions.
+     * Enable/Disable curl exceptions.
+     *
+     * @var bool
      */
     private static $enableCurlExceptions;
 
     /**
-     * @var ParseStorageInterface Object for managing persistence
+     * The object for managing persistence.
+     *
+     * @var ParseStorageInterface
      */
     private static $storage;
 
     /**
-     * @var - Boolean for enabling revocable sessions.
+     * Are revocable sessions enabled?
+     *
+     * @var bool
      */
     private static $forceRevocableSession = false;
 
     /**
      * Constant for version string to include with requests.
+     *
+     * @var string
      */
     const VERSION_STRING = 'php1.1.0';
 

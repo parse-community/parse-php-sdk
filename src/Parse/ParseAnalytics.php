@@ -43,9 +43,11 @@ class ParseAnalytics
     public static function track($name, $dimensions = [])
     {
         $name = trim($name);
+
         if (strlen($name) === 0) {
             throw new Exception('A name for the custom event must be provided.');
         }
+
         foreach ($dimensions as $key => $value) {
             if (!is_string($key) || !is_string($value)) {
                 throw new Exception('Dimensions expected string keys and values.');

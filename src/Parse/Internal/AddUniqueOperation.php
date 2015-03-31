@@ -13,7 +13,9 @@ use Parse\ParseException;
 class AddUniqueOperation implements FieldOperation
 {
     /**
-     * @var - Array containing objects to add.
+     * Array containing objects to add.
+     *
+     * @var array
      */
     private $objects;
 

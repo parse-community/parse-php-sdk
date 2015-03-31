@@ -12,12 +12,16 @@ class ParseUser extends ParseObject
     public static $parseClassName = "_User";
 
     /**
-     * @var ParseUser The currently logged-in user.
+     * The currently logged-in user.
+     *
+     * @var ParseUser
      */
     private static $currentUser = null;
 
     /**
-     * @var string The sessionToken for an authenticated user.
+     * The sessionToken for an authenticated user.
+     *
+     * @var string
      */
     protected $_sessionToken = null;
 

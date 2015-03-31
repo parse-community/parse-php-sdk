@@ -10,7 +10,9 @@ namespace Parse;
 class ParseSessionStorage implements ParseStorageInterface
 {
     /**
-     * @var string Parse will store its values in a specific key.
+     * Parse will store its values in a specific key.
+     *
+     * @var string
      */
     private $storageKey = 'parseData';
 

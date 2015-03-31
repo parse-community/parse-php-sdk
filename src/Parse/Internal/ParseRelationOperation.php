@@ -14,15 +14,23 @@ use Parse\ParseRelation;
 class ParseRelationOperation implements    FieldOperation
 {
     /**
-     * @var string - The className of the target objects.
+     * The className of the target objects.
+     *
+     * @var string
      */
     private $targetClassName;
+
     /**
-     * @var array - Array of objects to add to this relation.
+     * Array of objects to add to this relation.
+     *
+     * @var array
      */
     private $relationsToAdd = [];
+
     /**
-     * @var array - Array of objects to remove from this relation.
+     * Array of objects to remove from this relation.
+     *
+     * @var array
      */
     private $relationsToRemove = [];
 

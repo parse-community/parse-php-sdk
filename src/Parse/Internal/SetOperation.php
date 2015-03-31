@@ -12,12 +12,16 @@ use Parse\ParseClient;
 class SetOperation implements FieldOperation
 {
     /**
-     * @var - Value to set for this operation.
+     * Value to set for this operation.
+     *
+     * @var mixed
      */
     private $value;
 
     /**
-     * @var - If the value should be forced as object.
+     * If the value should be forced as object.
+     *
+     * @var bool
      */
     private $isAssociativeArray;
 

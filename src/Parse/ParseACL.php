@@ -19,32 +19,32 @@ class ParseACL implements Encodable
     const PUBLIC_KEY = '*';
 
     /**
-     * @var array -
+     * @var array
      */
     private $permissionsById = [];
 
     /**
-     * @var bool -
+     * @var bool
      */
     private $shared = false;
 
     /**
-     * @var ParseUser -
+     * @var ParseUser
      */
     private static $lastCurrentUser = null;
 
     /**
-     * @var ParseACL -
+     * @var ParseACL
      */
     private static $defaultACLWithCurrentUser = null;
 
     /**
-     * @var ParseACL -
+     * @var ParseACL
      */
     private static $defaultACL = null;
 
     /**
-     * @var bool -
+     * @var bool
      */
     private static $defaultACLUsesCurrentUser = false;
 

@@ -20,44 +20,72 @@ use Parse\Internal\SetOperation;
 class ParseObject implements Encodable
 {
     /**
-     * @var array - Data as it exists on the server.
+     * Data as it exists on the server.
+     *
+     * @var array
      */
     protected $serverData;
+
     /**
-     * @var array - Set of unsaved operations.
+     * Set of unsaved operations.
+     *
+     * @var array
      */
     protected $operationSet;
+
     /**
-     * @var array - Estimated value of applying operationSet to serverData.
+     * Estimated value of applying operationSet to serverData.
+     *
+     * @var array
      */
     private $estimatedData;
+
     /**
-     * @var array - Determine if data available for a given key or not.
+     * Determine if data available for a given key or not.
+     *
+     * @var array
      */
     private $dataAvailability;
+
     /**
-     * @var - Class Name for data on Parse.
+     * Class name for data on Parse.
+     *
+     * @var string
      */
     private $className;
+
     /**
-     * @var string - Unique identifier on Parse.
+     * Unique identifier on Parse.
+     *
+     * @var string
      */
     private $objectId;
+
     /**
-     * @var \DateTime - Timestamp when object was created.
+     * Timestamp when object was created.
+     *
+     * @var \DateTime
      */
     private $createdAt;
+
     /**
-     * @var \DateTime - Timestamp when object was last updated.
+     * Timestamp when object was last updated.
+     *
+     * @var \DateTime
      */
     private $updatedAt;
+
     /**
-     * @var bool - Whether the object has been fully fetched from Parse.
+     * Whether the object has been fully fetched from Parse.
+     *
+     * @var bool
      */
     private $hasBeenFetched;
 
     /**
-     * @var array - Holds the registered subclasses and Parse class names.
+     * Holds the registered subclasses and Parse class names.
+     *
+     * @var array
      */
     private static $registeredSubclasses = [];
 

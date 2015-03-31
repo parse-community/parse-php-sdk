@@ -13,15 +13,23 @@ use Parse\Internal\ParseRelationOperation;
 class ParseRelation
 {
     /**
-     * @var ParseObject - The parent of this relation.
+     * The parent of this relation.
+     *
+     * @var ParseObject
      */
     private $parent;
+
     /**
-     * @var string - The key of the relation in the parent object.
+     * The key of the relation in the parent object.
+     *
+     * @var string
      */
     private $key;
+
     /**
-     * @var string - The className of the target objects.
+     * The className of the target objects.
+     *
+     * @var string
      */
     private $targetClassName;
 

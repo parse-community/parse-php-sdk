@@ -10,19 +10,30 @@ namespace Parse;
 class ParseFile implements \Parse\Internal\Encodable
 {
     /**
-     * @var - Filename
+     * The filename.
+     *
+     * @var string
      */
     private $name;
+
     /**
-     * @var - URL of File data stored on Parse.
+     * The URL of file data stored on Parse.
+     *
+     * @var string
      */
     private $url;
+
     /**
-     * @var - Data
+     * The data.
+     *
+     * @var string
      */
     private $data;
+
     /**
-     * @var - Mime type
+     * The mime type.
+     *
+     * @var string
      */
     private $mimeType;
 

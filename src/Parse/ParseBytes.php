@@ -10,7 +10,9 @@ namespace Parse;
 class ParseBytes implements Internal\Encodable
 {
     /**
-     * @var - byte array
+     * Byte array.
+     *
+     * @var array
      */
     private $byteArray;
 

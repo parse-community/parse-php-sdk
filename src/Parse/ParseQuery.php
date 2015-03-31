@@ -10,35 +10,58 @@ namespace Parse;
 class ParseQuery
 {
     /**
-     * @var - Class Name for data stored on Parse.
+     * Class name for data stored on Parse.
+     *
+     * @var string
      */
     private $className;
+
     /**
-     * @var array - Where constraints.
+     * Where constraints.
+     *
+     * @var array
      */
     private $where = [];
+
     /**
-     * @var array - Order By keys.
+     * Order By keys.
+     *
+     * @var array
      */
     private $orderBy = [];
+
     /**
-     * @var array - Include nested objects.
+     * Include nested objects.
+     *
+     * @var array
      */
     private $includes = [];
+
     /**
-     * @var array - Include certain keys only.
+     * Include certain keys only.
+     *
+     * @var array
      */
     private $selectedKeys = [];
+
     /**
-     * @var int - Skip from the beginning of the search results.
+     * Skip from the beginning of the search results.
+     *
+     * @var int
      */
     private $skip = 0;
+
     /**
-     * @var - Determines if the query is a count query or a results query.
+     * Determines if the query is a count query or a results query.
+     *
+     * @var int
      */
     private $count;
+
     /**
-     * @var int - Limit of results, defaults to 100 when not explicitly set.
+     * Limit of results, defaults to 100 when not explicitly set.
+     *
+     * @var int
      */
     private $limit = -1;
 

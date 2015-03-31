@@ -15,7 +15,9 @@ use Parse\ParseObject;
 class RemoveOperation implements FieldOperation
 {
     /**
-     * @var - Array with objects to remove.
+     * Array with objects to remove.
+     *
+     * @var array
      */
     private $objects;
 
