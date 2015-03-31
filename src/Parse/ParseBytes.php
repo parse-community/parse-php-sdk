@@ -59,7 +59,6 @@ class ParseBytes implements Internal\Encodable
      * Encode to associative array representation.
      *
      * @return array
-     * @ignore
      */
     public function _encode()
     {

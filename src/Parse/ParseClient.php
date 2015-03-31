@@ -13,8 +13,6 @@ final class ParseClient
 {
     /**
      * Constant for the API Server Host Address.
-     *
-     * @ignore
      */
     const HOST_NAME = 'https://api.parse.com';
 
@@ -50,8 +48,6 @@ final class ParseClient
 
     /**
      * Constant for version string to include with requests.
-     *
-     * @ignore
      */
     const VERSION_STRING = 'php1.1.0';
 
@@ -93,8 +89,6 @@ final class ParseClient
      * @throws \Exception
      *
      * @return mixed Encoded results.
-     *
-     * @ignore
      */
     public static function _encode($value, $allowParseObjects)
     {
@@ -137,7 +131,6 @@ final class ParseClient
      * @param mixed $data The value to decode
      *
      * @return mixed
-     * @ignore
      */
     public static function _decode($data)
     {
@@ -206,7 +199,6 @@ final class ParseClient
      * @param bool  $allowParseObjects Allow nested objects.
      *
      * @return array Encoded results.
-     * @ignore
      */
     public static function _encodeArray($value, $allowParseObjects)
     {
@@ -230,7 +222,6 @@ final class ParseClient
      * @throws \Exception
      *
      * @return mixed Result from Parse API Call.
-     * @ignore
      */
     public static function _request($method, $relativeUrl, $sessionToken = null,
         $data = null, $useMasterKey = false
@@ -319,7 +310,6 @@ final class ParseClient
      *     use the first assigned storage object.
      *
      * @return null
-     * @ignore
      */
     public static function _unsetStorage()
     {
@@ -340,7 +330,6 @@ final class ParseClient
      * @param $useMasterKey
      *
      * @return array
-     * @ignore
      */
     public static function _getRequestHeaders($sessionToken, $useMasterKey)
     {

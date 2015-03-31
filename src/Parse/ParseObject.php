@@ -125,7 +125,6 @@ class ParseObject implements Encodable
      * @throws Exception
      *
      * @return null
-     * @ignore
      */
     public function __set($key, $value)
     {
@@ -146,7 +145,6 @@ class ParseObject implements Encodable
      * @param string $key Key to retrieve from the Object.
      *
      * @return mixed
-     * @ignore
      */
     public function __get($key)
     {
@@ -218,7 +216,6 @@ class ParseObject implements Encodable
      * @param $considerChildren
      *
      * @return bool
-     * @ignore
      */
     protected function _isDirty($considerChildren)
     {
@@ -364,7 +361,6 @@ class ParseObject implements Encodable
      * @param FieldOperation $operation Operation to perform.
      *
      * @return null
-     * @ignore
      */
     public function _performOperation($key, FieldOperation $operation)
     {
@@ -494,7 +490,6 @@ class ParseObject implements Encodable
      * @param bool  $completeData Fetch all data or not.
      *
      * @return null
-     * @ignore
      */
     public function _mergeAfterFetch($result, $completeData = true)
     {
@@ -519,7 +514,6 @@ class ParseObject implements Encodable
      *                            data will be fetched.
      *
      * @return null
-     * @ignore
      */
     public function _mergeAfterFetchWithSelectedKeys($result, $selectedKeys)
     {
@@ -786,7 +780,6 @@ class ParseObject implements Encodable
      * Return a JSON encoded value of the object.
      *
      * @return string
-     * @ignore
      */
     public function _encode()
     {
@@ -1128,7 +1121,6 @@ class ParseObject implements Encodable
      *
      * @return array
      *
-     * @ignore
      */
     public function _toPointer()
     {
@@ -1199,7 +1191,6 @@ class ParseObject implements Encodable
      * Un-register a subclass.
      * Cannot be called on the base class ParseObject.
      *
-     * @ignore
      */
     public static function _unregisterSubclass()
     {

@@ -148,7 +148,6 @@ class ParseFile implements \Parse\Internal\Encodable
      * @param $url
      *
      * @return ParseFile
-     * @ignore
      */
     public static function _createFromServer($name, $url)
     {
@@ -163,7 +162,6 @@ class ParseFile implements \Parse\Internal\Encodable
      * Encode to associative array representation.
      *
      * @return string
-     * @ignore
      */
     public function _encode()
     {

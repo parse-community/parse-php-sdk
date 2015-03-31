@@ -60,9 +60,6 @@ class ParseAnalytics
         );
     }
 
-    /**
-     * @ignore
-     */
     public static function _toSaveJSON($data)
     {
         return json_encode(

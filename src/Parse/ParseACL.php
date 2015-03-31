@@ -16,30 +16,33 @@ use Parse\Internal\Encodable;
  */
 class ParseACL implements Encodable
 {
-    /*
-     * @ignore
-     */
     const PUBLIC_KEY = '*';
+
     /**
      * @var array -
      */
     private $permissionsById = [];
+
     /**
      * @var bool -
      */
     private $shared = false;
+
     /**
      * @var ParseUser -
      */
     private static $lastCurrentUser = null;
+
     /**
      * @var ParseACL -
      */
     private static $defaultACLWithCurrentUser = null;
+
     /**
      * @var ParseACL -
      */
     private static $defaultACL = null;
+
     /**
      * @var bool -
      */
@@ -69,7 +72,6 @@ class ParseACL implements Encodable
      * @throws \Exception
      *
      * @return ParseACL
-     * @ignore
      */
     public static function _createACLFromJSON($data)
     {
@@ -100,7 +102,6 @@ class ParseACL implements Encodable
      * Return if ParseACL shared or not.
      *
      * @return bool
-     * @ignore
      */
     public function _isShared()
     {
@@ -111,16 +112,12 @@ class ParseACL implements Encodable
      * Set shared for ParseACL.
      *
      * @param  bool $shared
-     * @ignore
      */
     public function _setShared($shared)
     {
         $this->shared = $shared;
     }
 
-    /**
-     * @ignore
-     */
     public function _encode()
     {
         if (empty($this->permissionsById)) {
@@ -541,7 +538,6 @@ class ParseACL implements Encodable
      * Get the defaultACL.
      *
      * @return ParseACL
-     * @ignore
      */
     public static function _getDefaultACL()
     {

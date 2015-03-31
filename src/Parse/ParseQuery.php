@@ -213,7 +213,6 @@ class ParseQuery
      * Returns an associative array of the query constraints.
      *
      * @return array
-     * @ignore
      */
     public function _getOptions()
     {
@@ -714,7 +713,6 @@ class ParseQuery
      * @param array $queries The list of queries to OR.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
-     * @ignore
      */
     private function _or($queries)
     {

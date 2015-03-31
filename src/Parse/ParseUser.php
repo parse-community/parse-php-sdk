@@ -309,9 +309,6 @@ class ParseUser extends ParseObject
         ParseClient::_request('POST', '/1/requestPasswordReset', null, $json);
     }
 
-    /**
-     * @ignore
-     */
     public static function _clearCurrentUserVariable()
     {
         static::$currentUser = null;
