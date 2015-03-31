@@ -12,11 +12,10 @@ use Parse\Internal\Encodable;
  * example, any user could read a particular object but only a particular set
  * of users could write to that object.
  *
- * @package  Parse
  * @author   Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
-class ParseACL implements Encodable{
-
+class ParseACL implements Encodable
+{
   /*
    * @ignore
    */
@@ -24,7 +23,7 @@ class ParseACL implements Encodable{
   /**
    * @var array -
    */
-  private $permissionsById = array();
+  private $permissionsById = [];
   /**
    * @var bool -
    */
@@ -55,10 +54,11 @@ class ParseACL implements Encodable{
    */
   public static function createACLWithUser($user)
   {
-    $acl = new ParseACL();
-    $acl->setUserReadAccess($user, true);
-    $acl->setUserWriteAccess($user, true);
-    return $acl;
+      $acl = new ParseACL();
+      $acl->setUserReadAccess($user, true);
+      $acl->setUserWriteAccess($user, true);
+
+      return $acl;
   }
 
   /**
@@ -66,30 +66,32 @@ class ParseACL implements Encodable{
    *
    * @param array $data represents permissions.
    *
-   * @return ParseACL
    * @throws \Exception
+   *
+   * @return ParseACL
    * @ignore
    */
   public static function _createACLFromJSON($data)
   {
-    $acl = new ParseACL();
-    foreach ($data as $id => $permissions) {
-      if (!is_string($id)) {
-        throw new \Exception('Tried to create an ACL with an invalid userId.');
-      }
-      foreach ($permissions as $accessType => $value) {
-        if ($accessType !== 'read' && $accessType !== 'write') {
-          throw new \Exception(
+      $acl = new ParseACL();
+      foreach ($data as $id => $permissions) {
+          if (!is_string($id)) {
+              throw new \Exception('Tried to create an ACL with an invalid userId.');
+          }
+          foreach ($permissions as $accessType => $value) {
+              if ($accessType !== 'read' && $accessType !== 'write') {
+                  throw new \Exception(
               'Tried to create an ACL with an invalid permission type.');
-        }
-        if (!is_bool($value)) {
-          throw new \Exception(
+              }
+              if (!is_bool($value)) {
+                  throw new \Exception(
               'Tried to create an ACL with an invalid permission value.');
-        }
-        $acl->setAccess($accessType, $id, $value);
+              }
+              $acl->setAccess($accessType, $id, $value);
+          }
       }
-    }
-    return $acl;
+
+      return $acl;
   }
 
   /**
@@ -100,18 +102,18 @@ class ParseACL implements Encodable{
    */
   public function _isShared()
   {
-    return $this->shared;
+      return $this->shared;
   }
 
   /**
-   * Set shared for ParseACL
+   * Set shared for ParseACL.
    *
    * @param bool $shared
    * @ignore
    */
   public function _setShared($shared)
   {
-    $this->shared = $shared;
+      $this->shared = $shared;
   }
 
   /**
@@ -119,10 +121,11 @@ class ParseACL implements Encodable{
    */
   public function _encode()
   {
-    if (empty($this->permissionsById)) {
-      return new \stdClass();
-    }
-    return $this->permissionsById;
+      if (empty($this->permissionsById)) {
+          return new \stdClass();
+      }
+
+      return $this->permissionsById;
   }
 
   /**
@@ -137,31 +140,31 @@ class ParseACL implements Encodable{
    */
   private function setAccess($accessType, $userId, $allowed)
   {
-    if ($userId instanceof ParseUser) {
-      $userId = $userId->getObjectId();
-    }
-    if ($userId instanceof ParseRole) {
-      $userId = "role:" . $userId->getName();
-    }
-    if (!is_string($userId)) {
-      throw new ParseException(
+      if ($userId instanceof ParseUser) {
+          $userId = $userId->getObjectId();
+      }
+      if ($userId instanceof ParseRole) {
+          $userId = "role:".$userId->getName();
+      }
+      if (!is_string($userId)) {
+          throw new ParseException(
         "Invalid target for access control."
       );
-    }
-    if (!isset($this->permissionsById[$userId])) {
-      if (!$allowed) {
-        return;
       }
-      $this->permissionsById[$userId] = array();
-    }
-    if ($allowed) {
-      $this->permissionsById[$userId][$accessType] = true;
-    } else {
-      unset($this->permissionsById[$userId][$accessType]);
-      if (empty($this->permissionsById[$userId])) {
-        unset($this->permissionsById[$userId]);
+      if (!isset($this->permissionsById[$userId])) {
+          if (!$allowed) {
+              return;
+          }
+          $this->permissionsById[$userId] = [];
       }
-    }
+      if ($allowed) {
+          $this->permissionsById[$userId][$accessType] = true;
+      } else {
+          unset($this->permissionsById[$userId][$accessType]);
+          if (empty($this->permissionsById[$userId])) {
+              unset($this->permissionsById[$userId]);
+          }
+      }
   }
 
   /**
@@ -174,13 +177,14 @@ class ParseACL implements Encodable{
    */
   private function getAccess($accessType, $userId)
   {
-    if (!isset($this->permissionsById[$userId])) {
-      return false;
-    }
-    if (!isset($this->permissionsById[$userId][$accessType])) {
-      return false;
-    }
-    return $this->permissionsById[$userId][$accessType];
+      if (!isset($this->permissionsById[$userId])) {
+          return false;
+      }
+      if (!isset($this->permissionsById[$userId][$accessType])) {
+          return false;
+      }
+
+      return $this->permissionsById[$userId][$accessType];
   }
 
   /**
@@ -193,10 +197,10 @@ class ParseACL implements Encodable{
    */
   public function setReadAccess($userId, $allowed)
   {
-    if (!$userId) {
-      throw new \Exception("cannot setReadAccess for null userId");
-    }
-    $this->setAccess('read', $userId, $allowed);
+      if (!$userId) {
+          throw new \Exception("cannot setReadAccess for null userId");
+      }
+      $this->setAccess('read', $userId, $allowed);
   }
 
   /**
@@ -207,16 +211,17 @@ class ParseACL implements Encodable{
    *
    * @param string $userId User id.
    *
-   * @return bool
-   *
    * @throws \Exception
+   *
+   * @return bool
    */
   public function getReadAccess($userId)
   {
-    if (!$userId) {
-      throw new \Exception("cannot getReadAccess for null userId");
-    }
-    return $this->getAccess('read', $userId);
+      if (!$userId) {
+          throw new \Exception("cannot getReadAccess for null userId");
+      }
+
+      return $this->getAccess('read', $userId);
   }
 
   /**
@@ -229,10 +234,10 @@ class ParseACL implements Encodable{
    */
   public function setWriteAccess($userId, $allowed)
   {
-    if (!$userId) {
-      throw new \Exception("cannot setWriteAccess for null userId");
-    }
-    $this->setAccess('write', $userId, $allowed);
+      if (!$userId) {
+          throw new \Exception("cannot setWriteAccess for null userId");
+      }
+      $this->setAccess('write', $userId, $allowed);
   }
 
   /**
@@ -243,18 +248,18 @@ class ParseACL implements Encodable{
    *
    * @param string $userId User id.
    *
-   * @return bool
-   *
    * @throws \Exception
+   *
+   * @return bool
    */
   public function getWriteAccess($userId)
   {
-    if (!$userId) {
-      throw new \Exception("cannot getWriteAccess for null userId");
-    }
-    return $this->getAccess('write', $userId);
-  }
+      if (!$userId) {
+          throw new \Exception("cannot getWriteAccess for null userId");
+      }
 
+      return $this->getAccess('write', $userId);
+  }
 
   /**
    * Set whether the public is allowed to read this object.
@@ -263,7 +268,7 @@ class ParseACL implements Encodable{
    */
   public function setPublicReadAccess($allowed)
   {
-    $this->setReadAccess(self::PUBLIC_KEY, $allowed);
+      $this->setReadAccess(self::PUBLIC_KEY, $allowed);
   }
 
   /**
@@ -273,7 +278,7 @@ class ParseACL implements Encodable{
    */
   public function getPublicReadAccess()
   {
-    return $this->getReadAccess(self::PUBLIC_KEY);
+      return $this->getReadAccess(self::PUBLIC_KEY);
   }
 
   /**
@@ -283,7 +288,7 @@ class ParseACL implements Encodable{
    */
   public function setPublicWriteAccess($allowed)
   {
-    $this->setWriteAccess(self::PUBLIC_KEY, $allowed);
+      $this->setWriteAccess(self::PUBLIC_KEY, $allowed);
   }
 
   /**
@@ -293,7 +298,7 @@ class ParseACL implements Encodable{
    */
   public function getPublicWriteAccess()
   {
-    return $this->getWriteAccess(self::PUBLIC_KEY);
+      return $this->getWriteAccess(self::PUBLIC_KEY);
   }
 
   /**
@@ -306,10 +311,10 @@ class ParseACL implements Encodable{
    */
   public function setUserReadAccess($user, $allowed)
   {
-    if (!$user->getObjectId()) {
-      throw new \Exception("cannot setReadAccess for a user with null id");
-    }
-    $this->setReadAccess($user->getObjectId(), $allowed);
+      if (!$user->getObjectId()) {
+          throw new \Exception("cannot setReadAccess for a user with null id");
+      }
+      $this->setReadAccess($user->getObjectId(), $allowed);
   }
 
   /**
@@ -320,16 +325,17 @@ class ParseACL implements Encodable{
    *
    * @param ParseUser $user
    *
-   * @return bool
-   *
    * @throws \Exception
+   *
+   * @return bool
    */
   public function getUserReadAccess($user)
   {
-    if (!$user->getObjectId()) {
-      throw new \Exception("cannot getReadAccess for a user with null id");
-    }
-    return $this->getReadAccess($user->getObjectId());
+      if (!$user->getObjectId()) {
+          throw new \Exception("cannot getReadAccess for a user with null id");
+      }
+
+      return $this->getReadAccess($user->getObjectId());
   }
 
   /**
@@ -342,10 +348,10 @@ class ParseACL implements Encodable{
    */
   public function setUserWriteAccess($user, $allowed)
   {
-    if (!$user->getObjectId()) {
-      throw new \Exception("cannot setWriteAccess for a user with null id");
-    }
-    $this->setWriteAccess($user->getObjectId(), $allowed);
+      if (!$user->getObjectId()) {
+          throw new \Exception("cannot setWriteAccess for a user with null id");
+      }
+      $this->setWriteAccess($user->getObjectId(), $allowed);
   }
 
   /**
@@ -356,16 +362,17 @@ class ParseACL implements Encodable{
    *
    * @param ParseUser $user
    *
-   * @return bool
-   *
    * @throws \Exception
+   *
+   * @return bool
    */
   public function getUserWriteAccess($user)
   {
-    if (!$user->getObjectId()) {
-      throw new \Exception("cannot getWriteAccess for a user with null id");
-    }
-    return $this->getWriteAccess($user->getObjectId());
+      if (!$user->getObjectId()) {
+          throw new \Exception("cannot getWriteAccess for a user with null id");
+      }
+
+      return $this->getWriteAccess($user->getObjectId());
   }
 
   /**
@@ -379,7 +386,7 @@ class ParseACL implements Encodable{
    */
   public function getRoleReadAccessWithName($roleName)
   {
-    return $this->getReadAccess('role:' . $roleName);
+      return $this->getReadAccess('role:'.$roleName);
   }
 
   /**
@@ -387,12 +394,11 @@ class ParseACL implements Encodable{
    * are allowed to read this object.
    *
    * @param string $roleName The name of the role.
-   *
    * @param bool   $allowed Whether the given role can read this object.
    */
   public function setRoleReadAccessWithName($roleName, $allowed)
   {
-    $this->setReadAccess('role:' . $roleName, $allowed);
+      $this->setReadAccess('role:'.$roleName, $allowed);
   }
 
   /**
@@ -406,7 +412,7 @@ class ParseACL implements Encodable{
    */
   public function getRoleWriteAccessWithName($roleName)
   {
-    return $this->getWriteAccess('role:' . $roleName);
+      return $this->getWriteAccess('role:'.$roleName);
   }
 
   /**
@@ -418,7 +424,7 @@ class ParseACL implements Encodable{
    */
   public function setRoleWriteAccessWithName($roleName, $allowed)
   {
-    $this->setWriteAccess('role:' . $roleName, $allowed);
+      $this->setWriteAccess('role:'.$roleName, $allowed);
   }
 
   /**
@@ -430,10 +436,10 @@ class ParseACL implements Encodable{
    */
   private static function validateRoleState($role)
   {
-    if (!$role->getObjectId()) {
-      throw new \Exception(
+      if (!$role->getObjectId()) {
+          throw new \Exception(
           "Roles must be saved to the server before they can be used in an ACL.");
-    }
+      }
   }
 
   /**
@@ -448,8 +454,9 @@ class ParseACL implements Encodable{
    */
   public function getRoleReadAccess($role)
   {
-    $this->validateRoleState($role);
-    return $this->getRoleReadAccessWithName($role->getName());
+      $this->validateRoleState($role);
+
+      return $this->getRoleReadAccessWithName($role->getName());
   }
 
   /**
@@ -462,8 +469,8 @@ class ParseACL implements Encodable{
    */
   public function setRoleReadAccess($role, $allowed)
   {
-    $this->validateRoleState($role);
-    $this->setRoleReadAccessWithName($role->getName(), $allowed);
+      $this->validateRoleState($role);
+      $this->setRoleReadAccessWithName($role->getName(), $allowed);
   }
 
   /**
@@ -478,8 +485,9 @@ class ParseACL implements Encodable{
    */
   public function getRoleWriteAccess($role)
   {
-    $this->validateRoleState($role);
-    return $this->getRoleWriteAccessWithName($role->getName());
+      $this->validateRoleState($role);
+
+      return $this->getRoleWriteAccessWithName($role->getName());
   }
 
   /**
@@ -492,8 +500,8 @@ class ParseACL implements Encodable{
    */
   public function setRoleWriteAccess($role, $allowed)
   {
-    $this->validateRoleState($role);
-    $this->setRoleWriteAccessWithName($role->getName(), $allowed);
+      $this->validateRoleState($role);
+      $this->setRoleWriteAccessWithName($role->getName(), $allowed);
   }
 
   /**
@@ -515,15 +523,15 @@ class ParseACL implements Encodable{
    */
   public static function setDefaultACL($acl, $withAccessForCurrentUser)
   {
-    self::$defaultACLWithCurrentUser = null;
-    self::$lastCurrentUser = null;
-    if ($acl) {
-      self::$defaultACL = clone $acl;
-      self::$defaultACL->_setShared(true);
-      self::$defaultACLUsesCurrentUser = $withAccessForCurrentUser;
-    } else {
-      self::$defaultACL = null;
-    }
+      self::$defaultACLWithCurrentUser = null;
+      self::$lastCurrentUser = null;
+      if ($acl) {
+          self::$defaultACL = clone $acl;
+          self::$defaultACL->_setShared(true);
+          self::$defaultACLUsesCurrentUser = $withAccessForCurrentUser;
+      } else {
+          self::$defaultACL = null;
+      }
   }
 
   /**
@@ -534,21 +542,22 @@ class ParseACL implements Encodable{
    */
   public static function _getDefaultACL()
   {
-    if (self::$defaultACLUsesCurrentUser && self::$defaultACL) {
-      $last = self::$lastCurrentUser ? clone self::$lastCurrentUser : null;
-      if (!ParseUser::getCurrentUser()) {
-        return self::$defaultACL;
-      }
-      if ($last != ParseUser::getCurrentUser()) {
-        self::$defaultACLWithCurrentUser = clone self::$defaultAC;
-        self::$defaultACLWithCurrentUser->_setShared(true);
-        self::$defaultACLWithCurrentUser->setUserReadAccess(ParseUser::getCurrentUser(), true);
-        self::$defaultACLWithCurrentUser->setUserWriteAccess(ParseUser::getCurrentUser(), true);
-        self::$lastCurrentUser = clone ParseUser::getCurrentUser();
-      }
-      return self::$defaultACLWithCurrentUser;
-    }
-    return self::$defaultACL;
-  }
+      if (self::$defaultACLUsesCurrentUser && self::$defaultACL) {
+          $last = self::$lastCurrentUser ? clone self::$lastCurrentUser : null;
+          if (!ParseUser::getCurrentUser()) {
+              return self::$defaultACL;
+          }
+          if ($last != ParseUser::getCurrentUser()) {
+              self::$defaultACLWithCurrentUser = clone self::$defaultAC;
+              self::$defaultACLWithCurrentUser->_setShared(true);
+              self::$defaultACLWithCurrentUser->setUserReadAccess(ParseUser::getCurrentUser(), true);
+              self::$defaultACLWithCurrentUser->setUserWriteAccess(ParseUser::getCurrentUser(), true);
+              self::$lastCurrentUser = clone ParseUser::getCurrentUser();
+          }
 
+          return self::$defaultACLWithCurrentUser;
+      }
+
+      return self::$defaultACL;
+  }
 }

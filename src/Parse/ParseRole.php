@@ -2,17 +2,13 @@
 
 namespace Parse;
 
-use Parse\ParseObject;
-
 /**
  * ParseRole - Representation of an access Role.
  *
- * @package  Parse
  * @author   Fosco Marotto <fjm@fb.com>
  */
 class ParseRole extends ParseObject
 {
-
   public static $parseClassName = "_Role";
 
   /**
@@ -25,10 +21,11 @@ class ParseRole extends ParseObject
    */
   public static function createRole($name, ParseACL $acl)
   {
-    $role = ParseObject::create(static::$parseClassName);
-    $role->setName($name);
-    $role->setACL($acl);
-    return $role;
+      $role = ParseObject::create(static::$parseClassName);
+      $role->setName($name);
+      $role->setACL($acl);
+
+      return $role;
   }
 
   /**
@@ -38,7 +35,7 @@ class ParseRole extends ParseObject
    */
   public function getName()
   {
-    return $this->get("name");
+      return $this->get("name");
   }
 
   /**
@@ -50,17 +47,18 @@ class ParseRole extends ParseObject
    */
   public function setName($name)
   {
-    if ($this->getObjectId()) {
-      throw new ParseException(
+      if ($this->getObjectId()) {
+          throw new ParseException(
         "A role's name can only be set before it has been saved."
       );
-    }
-    if (!is_string($name)) {
-      throw new ParseException(
+      }
+      if (!is_string($name)) {
+          throw new ParseException(
         "A role's name must be a string."
       );
-    }
-    return $this->set("name", $name);
+      }
+
+      return $this->set("name", $name);
   }
 
   /**
@@ -72,7 +70,7 @@ class ParseRole extends ParseObject
    */
   public function getUsers()
   {
-    return $this->getRelation("users");
+      return $this->getRelation("users");
   }
 
   /**
@@ -84,24 +82,22 @@ class ParseRole extends ParseObject
    */
   public function getRoles()
   {
-    return $this->getRelation("roles");
+      return $this->getRelation("roles");
   }
 
-  public function save($useMasterKey = false)
-  {
-    if (!$this->getACL()) {
-      throw new ParseException(
+    public function save($useMasterKey = false)
+    {
+        if (!$this->getACL()) {
+            throw new ParseException(
         "Roles must have an ACL."
       );
-    }
-    if (!$this->getName() || !is_string($this->getName())) {
-      throw new ParseException(
+        }
+        if (!$this->getName() || !is_string($this->getName())) {
+            throw new ParseException(
         "Roles must have a name."
       );
+        }
+
+        return parent::save($useMasterKey);
     }
-    return parent::save($useMasterKey);
-  }
-
-
-
 }
