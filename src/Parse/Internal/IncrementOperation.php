@@ -7,12 +7,14 @@ use Parse\ParseException;
 /**
  * Class IncrementOperation - Operation to increment numeric object key.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class IncrementOperation implements FieldOperation
 {
     /**
-     * @var int - Amount to increment by.
+     * Amount to increment by.
+     *
+     * @var int
      */
     private $value;
 

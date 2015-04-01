@@ -12,36 +12,39 @@ use Parse\Internal\Encodable;
  * example, any user could read a particular object but only a particular set
  * of users could write to that object.
  *
- * @author     Mohamed Madbouli <mohamedmadbouli@fb.com>
+ * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
 class ParseACL implements Encodable
 {
-    /*
-     * @ignore
-     */
     const PUBLIC_KEY = '*';
+
     /**
-     * @var array -
+     * @var array
      */
     private $permissionsById = [];
+
     /**
-     * @var bool -
+     * @var bool
      */
     private $shared = false;
+
     /**
-     * @var ParseUser -
+     * @var ParseUser
      */
     private static $lastCurrentUser = null;
+
     /**
-     * @var ParseACL -
+     * @var ParseACL
      */
     private static $defaultACLWithCurrentUser = null;
+
     /**
-     * @var ParseACL -
+     * @var ParseACL
      */
     private static $defaultACL = null;
+
     /**
-     * @var bool -
+     * @var bool
      */
     private static $defaultACLUsesCurrentUser = false;
 
@@ -69,7 +72,6 @@ class ParseACL implements Encodable
      * @throws \Exception
      *
      * @return ParseACL
-     * @ignore
      */
     public static function _createACLFromJSON($data)
     {
@@ -81,11 +83,13 @@ class ParseACL implements Encodable
             foreach ($permissions as $accessType => $value) {
                 if ($accessType !== 'read' && $accessType !== 'write') {
                     throw new \Exception(
-                            'Tried to create an ACL with an invalid permission type.');
+                        'Tried to create an ACL with an invalid permission type.'
+                    );
                 }
                 if (!is_bool($value)) {
                     throw new \Exception(
-                            'Tried to create an ACL with an invalid permission value.');
+                        'Tried to create an ACL with an invalid permission value.'
+                    );
                 }
                 $acl->setAccess($accessType, $id, $value);
             }
@@ -98,7 +102,6 @@ class ParseACL implements Encodable
      * Return if ParseACL shared or not.
      *
      * @return bool
-     * @ignore
      */
     public function _isShared()
     {
@@ -109,16 +112,12 @@ class ParseACL implements Encodable
      * Set shared for ParseACL.
      *
      * @param bool $shared
-     * @ignore
      */
     public function _setShared($shared)
     {
         $this->shared = $shared;
     }
 
-    /**
-     * @ignore
-     */
     public function _encode()
     {
         if (empty($this->permissionsById)) {
@@ -438,7 +437,8 @@ class ParseACL implements Encodable
     {
         if (!$role->getObjectId()) {
             throw new \Exception(
-                    "Roles must be saved to the server before they can be used in an ACL.");
+                "Roles must be saved to the server before they can be used in an ACL."
+            );
         }
     }
 
@@ -538,7 +538,6 @@ class ParseACL implements Encodable
      * Get the defaultACL.
      *
      * @return ParseACL
-     * @ignore
      */
     public static function _getDefaultACL()
     {

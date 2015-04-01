@@ -7,51 +7,61 @@ use Parse\Internal\Encodable;
 /**
  * ParseClient - Main class for Parse initialization and communication.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 final class ParseClient
 {
     /**
      * Constant for the API Server Host Address.
-     *
-     * @ignore
      */
     const HOST_NAME = 'https://api.parse.com';
 
     /**
-     * @var - String for applicationId.
+     * The application id.
+     *
+     * @var string
      */
     private static $applicationId;
 
     /**
-     * @var - String for REST API Key.
+     * The REST API Key.
+     *
+     * @var string
      */
     private static $restKey;
 
     /**
-     * @var - String for Master Key.
+     * The Master Key.
+     *
+     * @var string
      */
     private static $masterKey;
 
     /**
-     * @var - Boolean for Enable/Disable curl exceptions.
+     * Enable/Disable curl exceptions.
+     *
+     * @var bool
      */
     private static $enableCurlExceptions;
 
     /**
-     * @var ParseStorageInterface Object for managing persistence
+     * The object for managing persistence.
+     *
+     * @var ParseStorageInterface
      */
     private static $storage;
 
     /**
-     * @var - Boolean for enabling revocable sessions.
+     * Are revocable sessions enabled?
+     *
+     * @var bool
      */
     private static $forceRevocableSession = false;
 
     /**
      * Constant for version string to include with requests.
      *
-     * @ignore
+     * @var string
      */
     const VERSION_STRING = 'php1.1.0';
 
@@ -93,8 +103,6 @@ final class ParseClient
      * @throws \Exception
      *
      * @return mixed Encoded results.
-     *
-     * @ignore
      */
     public static function _encode($value, $allowParseObjects)
     {
@@ -137,7 +145,6 @@ final class ParseClient
      * @param mixed $data The value to decode
      *
      * @return mixed
-     * @ignore
      */
     public static function _decode($data)
     {
@@ -206,7 +213,6 @@ final class ParseClient
      * @param bool  $allowParseObjects Allow nested objects.
      *
      * @return array Encoded results.
-     * @ignore
      */
     public static function _encodeArray($value, $allowParseObjects)
     {
@@ -230,11 +236,10 @@ final class ParseClient
      * @throws \Exception
      *
      * @return mixed Result from Parse API Call.
-     * @ignore
      */
     public static function _request($method, $relativeUrl, $sessionToken = null,
-                                                                    $data = null, $useMasterKey = false)
-    {
+        $data = null, $useMasterKey = false
+    ) {
         if ($data === '[]') {
             $data = '{}';
         }
@@ -279,7 +284,8 @@ final class ParseClient
 
         $decoded = json_decode($response, true);
         if (isset($decoded['error'])) {
-            throw new ParseException($decoded['error'],
+            throw new ParseException(
+                $decoded['error'],
                 isset($decoded['code']) ? $decoded['code'] : 0
             );
         }
@@ -318,7 +324,6 @@ final class ParseClient
      *     use the first assigned storage object.
      *
      * @return null
-     * @ignore
      */
     public static function _unsetStorage()
     {
@@ -339,7 +344,6 @@ final class ParseClient
      * @param $useMasterKey
      *
      * @return array
-     * @ignore
      */
     public static function _getRequestHeaders($sessionToken, $useMasterKey)
     {

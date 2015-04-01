@@ -8,12 +8,14 @@ use Parse\ParseException;
 /**
  * Class AddUniqueOperation - Operation to add unique objects to an array key.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class AddUniqueOperation implements FieldOperation
 {
     /**
-     * @var - Array containing objects to add.
+     * Array containing objects to add.
+     *
+     * @var array
      */
     private $objects;
 

@@ -25,8 +25,10 @@ class ParseTestHelper
     public static function clearClass($class)
     {
         $query = new ParseQuery($class);
-        $query->each(function (ParseObject $obj) {
-            $obj->destroy(true);
-        }, true);
+        $query->each(
+            function (ParseObject $obj) {
+                $obj->destroy(true);
+            }, true
+        );
     }
 }

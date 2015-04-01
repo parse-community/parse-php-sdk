@@ -5,12 +5,14 @@ namespace Parse;
 /**
  * ParseBytes - Representation of a Byte array for storage on a Parse Object.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseBytes implements Internal\Encodable
 {
     /**
-     * @var - byte array
+     * Byte array.
+     *
+     * @var array
      */
     private $byteArray;
 
@@ -59,7 +61,6 @@ class ParseBytes implements Internal\Encodable
      * Encode to associative array representation.
      *
      * @return array
-     * @ignore
      */
     public function _encode()
     {

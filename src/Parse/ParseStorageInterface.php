@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseStorageInterface - Specifies an interface for implementing persistence.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 interface ParseStorageInterface
 {

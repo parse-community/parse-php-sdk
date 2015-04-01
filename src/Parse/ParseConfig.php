@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseConfig - For accessing Parse Config settings.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseConfig
 {
@@ -25,8 +25,6 @@ class ParseConfig
         if (isset($this->currentConfig[$key])) {
             return $this->currentConfig[$key];
         }
-
-        return;
     }
 
     public function escape($key)
@@ -34,8 +32,6 @@ class ParseConfig
         if (isset($this->currentConfig[$key])) {
             return htmlentities($this->currentConfig[$key]);
         }
-
-        return;
     }
 
     protected function setConfig($config)

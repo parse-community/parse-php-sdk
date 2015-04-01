@@ -8,20 +8,28 @@ use Parse\Internal\ParseRelationOperation;
  * ParseRelation - A class that is used to access all of the children of a many-to-many relationship. Each instance
  * of ParseRelation is associated with a particular parent object and key.
  *
- * @author     Mohamed Madbouli <mohamedmadbouli@fb.com>
+ * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
 class ParseRelation
 {
     /**
-     * @var ParseObject - The parent of this relation.
+     * The parent of this relation.
+     *
+     * @var ParseObject
      */
     private $parent;
+
     /**
-     * @var string - The key of the relation in the parent object.
+     * The key of the relation in the parent object.
+     *
+     * @var string
      */
     private $key;
+
     /**
-     * @var string - The className of the target objects.
+     * The className of the target objects.
+     *
+     * @var string
      */
     private $targetClassName;
 

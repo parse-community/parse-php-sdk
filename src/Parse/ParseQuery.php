@@ -5,40 +5,63 @@ namespace Parse;
 /**
  * ParseQuery - Handles querying data from Parse.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseQuery
 {
     /**
-     * @var - Class Name for data stored on Parse.
+     * Class name for data stored on Parse.
+     *
+     * @var string
      */
     private $className;
+
     /**
-     * @var array - Where constraints.
+     * Where constraints.
+     *
+     * @var array
      */
     private $where = [];
+
     /**
-     * @var array - Order By keys.
+     * Order By keys.
+     *
+     * @var array
      */
     private $orderBy = [];
+
     /**
-     * @var array - Include nested objects.
+     * Include nested objects.
+     *
+     * @var array
      */
     private $includes = [];
+
     /**
-     * @var array - Include certain keys only.
+     * Include certain keys only.
+     *
+     * @var array
      */
     private $selectedKeys = [];
+
     /**
-     * @var int - Skip from the beginning of the search results.
+     * Skip from the beginning of the search results.
+     *
+     * @var int
      */
     private $skip = 0;
+
     /**
-     * @var - Determines if the query is a count query or a results query.
+     * Determines if the query is a count query or a results query.
+     *
+     * @var int
      */
     private $count;
+
     /**
-     * @var int - Limit of results, defaults to 100 when not explicitly set.
+     * Limit of results, defaults to 100 when not explicitly set.
+     *
+     * @var int
      */
     private $limit = -1;
 
@@ -213,7 +236,6 @@ class ParseQuery
      * Returns an associative array of the query constraints.
      *
      * @return array
-     * @ignore
      */
     public function _getOptions()
     {
@@ -290,9 +312,11 @@ class ParseQuery
         $this->limit = 0;
         $this->count = 1;
         $queryString = $this->buildQueryString($this->_getOptions());
-        $result = ParseClient::_request('GET',
-                '/1/classes/'.$this->className.
-                '?'.$queryString, null, null, $useMasterKey);
+        $result = ParseClient::_request(
+            'GET',
+            '/1/classes/'.$this->className.
+            '?'.$queryString, null, null, $useMasterKey
+        );
 
         return $result['count'];
     }
@@ -311,9 +335,11 @@ class ParseQuery
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
         $queryString = $this->buildQueryString($this->_getOptions());
-        $result = ParseClient::_request('GET',
-                '/1/classes/'.$this->className.
-                '?'.$queryString, $sessionToken, null, $useMasterKey);
+        $result = ParseClient::_request(
+            'GET',
+            '/1/classes/'.$this->className.
+            '?'.$queryString, $sessionToken, null, $useMasterKey
+        );
         $output = [];
         foreach ($result['results'] as $row) {
             $obj = ParseObject::create($this->className, $row['objectId']);
@@ -412,9 +438,11 @@ class ParseQuery
     public function addDescending($key)
     {
         if (is_array($key)) {
-            $key = array_map(function ($element) {
-                return '-'.$element;
-            }, $key);
+            $key = array_map(
+                function ($element) {
+                    return '-'.$element;
+                }, $key
+            );
             $this->orderBy = array_merge($this->orderBy, $key);
         } else {
             $this->orderBy[] = "-".$key;
@@ -508,8 +536,10 @@ class ParseQuery
      */
     public function withinGeoBox($key, $southwest, $northeast)
     {
-        $this->addCondition($key, '$within',
-                ['$box' => [$southwest, $northeast]]);
+        $this->addCondition(
+            $key, '$within',
+            ['$box' => [$southwest, $northeast]]
+        );
 
         return $this;
     }
@@ -546,7 +576,8 @@ class ParseQuery
     {
         if ($this->orderBy || $this->skip || ($this->limit >= 0)) {
             throw new \Exception(
-                    "Cannot iterate on a query with sort, skip, or limit.");
+                "Cannot iterate on a query with sort, skip, or limit."
+            );
         }
         $query = new ParseQuery($this->className);
         $query->where = $this->where;
@@ -639,8 +670,10 @@ class ParseQuery
     {
         $queryParam = $query->_getOptions();
         $queryParam["className"] = $query->className;
-        $this->addCondition($key, '$select',
-                ['key' => $queryKey, 'query' => $queryParam]);
+        $this->addCondition(
+            $key, '$select',
+            ['key' => $queryKey, 'query' => $queryParam]
+        );
 
         return $this;
     }
@@ -661,8 +694,10 @@ class ParseQuery
     {
         $queryParam = $query->_getOptions();
         $queryParam["className"] = $query->className;
-        $this->addCondition($key, '$dontSelect',
-                ['key' => $queryKey, 'query' => $queryParam]);
+        $this->addCondition(
+            $key, '$dontSelect',
+            ['key' => $queryKey, 'query' => $queryParam]
+        );
 
         return $this;
     }
@@ -701,7 +736,6 @@ class ParseQuery
      * @param array $queries The list of queries to OR.
      *
      * @return ParseQuery Returns the query, so you can chain this call.
-     * @ignore
      */
     private function _or($queries)
     {

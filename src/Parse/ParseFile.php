@@ -5,24 +5,35 @@ namespace Parse;
 /**
  * ParseFile - Representation of a Parse File object.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseFile implements \Parse\Internal\Encodable
 {
     /**
-     * @var - Filename
+     * The filename.
+     *
+     * @var string
      */
     private $name;
+
     /**
-     * @var - URL of File data stored on Parse.
+     * The URL of file data stored on Parse.
+     *
+     * @var string
      */
     private $url;
+
     /**
-     * @var - Data
+     * The data.
+     *
+     * @var string
      */
     private $data;
+
     /**
-     * @var - Mime type
+     * The mime type.
+     *
+     * @var string
      */
     private $mimeType;
 
@@ -148,7 +159,6 @@ class ParseFile implements \Parse\Internal\Encodable
      * @param $url
      *
      * @return ParseFile
-     * @ignore
      */
     public static function _createFromServer($name, $url)
     {
@@ -163,7 +173,6 @@ class ParseFile implements \Parse\Internal\Encodable
      * Encode to associative array representation.
      *
      * @return string
-     * @ignore
      */
     public function _encode()
     {
@@ -218,7 +227,8 @@ class ParseFile implements \Parse\Internal\Encodable
 
         $decoded = json_decode($response, true);
         if (isset($decoded['error'])) {
-            throw new ParseException($decoded['error'],
+            throw new ParseException(
+                $decoded['error'],
                 isset($decoded['code']) ? $decoded['code'] : 0
             );
         }

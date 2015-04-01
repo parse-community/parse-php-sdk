@@ -10,12 +10,14 @@ use Parse\ParseObject;
  * Class RemoveOperation - FieldOperation for removing object(s) from array
  * fields.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class RemoveOperation implements FieldOperation
 {
     /**
-     * @var - Array with objects to remove.
+     * Array with objects to remove.
+     *
+     * @var array
      */
     private $objects;
 
@@ -109,7 +111,8 @@ class RemoveOperation implements FieldOperation
                 if ($oldObject instanceof ParseObject) {
                     if ($newObject instanceof ParseObject
                         && !$oldObject->isDirty()
-                        && $oldObject->getObjectId() == $newObject->getObjectId()) {
+                        && $oldObject->getObjectId() == $newObject->getObjectId()
+                    ) {
                         // found the object, won't add it.
                     } else {
                         $newValue[] = $oldObject;

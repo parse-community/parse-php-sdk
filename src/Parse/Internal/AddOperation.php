@@ -8,12 +8,14 @@ use Parse\ParseException;
 /**
  * Class AddOperation - FieldOperation for adding object(s) to array fields.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class AddOperation implements FieldOperation
 {
     /**
-     * @var - Array with objects to add.
+     * Array with objects to add.
+     *
+     * @var array
      */
     private $objects;
 

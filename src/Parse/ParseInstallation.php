@@ -5,7 +5,7 @@ namespace Parse;
 /**
  * ParseInstallation - Representation of an Installation stored on Parse.
  *
- * @author     Fosco Marotto <fjm@fb.com>
+ * @author Fosco Marotto <fjm@fb.com>
  */
 class ParseInstallation extends ParseObject
 {
