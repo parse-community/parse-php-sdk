@@ -16,7 +16,7 @@ class ParseUser extends ParseObject
      *
      * @var ParseUser
      */
-    private static $currentUser = null;
+    protected static $currentUser = null;
 
     /**
      * The sessionToken for an authenticated user.
@@ -137,7 +137,7 @@ class ParseUser extends ParseObject
         }
         $data = ["username" => $username, "password" => $password];
         $result = ParseClient::_request("GET", "/1/login", "", $data);
-        $user = new ParseUser();
+        $user = new static();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
         ParseClient::getStorage()->set("user", $user);
@@ -156,7 +156,7 @@ class ParseUser extends ParseObject
     public static function become($sessionToken)
     {
         $result = ParseClient::_request('GET', '/1/users/me', $sessionToken);
-        $user = new ParseUser();
+        $user = new static();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
         ParseClient::getStorage()->set("user", $user);
@@ -173,7 +173,7 @@ class ParseUser extends ParseObject
      */
     public static function logOut()
     {
-        $user = ParseUser::getCurrentUser();
+        $user = static::getCurrentUser();
         if ($user) {
             try {
                 ParseClient::_request('POST', '/1/logout', $user->getSessionToken());
@@ -192,7 +192,7 @@ class ParseUser extends ParseObject
      *
      * @return null
      */
-    private function handleSaveResult($makeCurrent = false)
+    protected function handleSaveResult($makeCurrent = false)
     {
         if (isset($this->serverData['password'])) {
             unset($this->serverData['password']);
@@ -227,7 +227,7 @@ class ParseUser extends ParseObject
             return $userData;
         }
         if (isset($userData["id"]) && isset($userData["_sessionToken"])) {
-            $user = ParseUser::create("_User", $userData["id"]);
+            $user = static::create("_User", $userData["id"]);
             unset($userData["id"]);
             $user->_sessionToken = $userData["_sessionToken"];
             unset($userData["_sessionToken"]);
@@ -251,7 +251,7 @@ class ParseUser extends ParseObject
     protected static function saveCurrentUser()
     {
         $storage = ParseClient::getStorage();
-        $storage->set('user', ParseUser::getCurrentUser());
+        $storage->set('user', static::getCurrentUser());
     }
 
     /**
@@ -271,8 +271,8 @@ class ParseUser extends ParseObject
      */
     public function isCurrent()
     {
-        if (ParseUser::getCurrentUser() && $this->getObjectId()) {
-            if ($this->getObjectId() == ParseUser::getCurrentUser()->getObjectId()) {
+        if (static::getCurrentUser() && $this->getObjectId()) {
+            if ($this->getObjectId() == static::getCurrentUser()->getObjectId()) {
                 return true;
             }
         }
