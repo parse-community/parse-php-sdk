@@ -935,4 +935,23 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
             $this->assertContains("invalid field name", $errors[1]['error']);
         }
     }
+
+    public function testFetchAll()
+    {
+        $obj1 = ParseObject::create("TestObject");
+        $obj2 = ParseObject::create("TestObject");
+        $obj3 = ParseObject::create("TestObject");
+        $obj1->set("foo", "bar");
+        $obj2->set("foo", "bar");
+        $obj3->set("foo", "bar");
+        ParseObject::saveAll([$obj1, $obj2, $obj3]);
+        $newObj1 = ParseObject::create("TestObject", $obj1->getObjectId());
+        $newObj2 = ParseObject::create("TestObject", $obj2->getObjectId());
+        $newObj3 = ParseObject::create("TestObject", $obj3->getObjectId());
+        $results = ParseObject::fetchAll([$newObj1, $newObj2, $newObj3]);
+        $this->assertEquals(3, count($results));
+        $this->assertEquals("bar", $results[0]->get("foo"));
+        $this->assertEquals("bar", $results[1]->get("foo"));
+        $this->assertEquals("bar", $results[2]->get("foo"));
+    }
 }

@@ -11,6 +11,7 @@ use Parse\Internal\FieldOperation;
 use Parse\Internal\IncrementOperation;
 use Parse\Internal\RemoveOperation;
 use Parse\Internal\SetOperation;
+use Zend\I18n\Exception\ParseException;
 
 /**
  * ParseObject - Representation of an object stored on Parse.
@@ -512,6 +513,58 @@ class ParseObject implements Encodable
     }
 
     /**
+     * Fetch an array of Parse objects from the server
+     *
+     * @param array $objects The ParseObjects to fetch
+     * @param boolean $useMasterKey Whether to override ACLs
+     *
+     * @return array
+     */
+    public static function fetchAll(array $objects, $useMasterKey = false) {
+        $objectIds = static::toObjectIdArray($objects);
+        if (!count($objectIds)) return $objects;
+        $className = $objects[0]->getClassName();
+        $query = new ParseQuery($className);
+        $query->containedIn("objectId", $objectIds);
+        $query->limit(count($objectIds));
+        $results = $query->find($useMasterKey);
+        return static::updateWithFetchedResults($objects, $results);
+    }
+
+    private static function toObjectIdArray(array $objects) {
+        $objectIds = [];
+        $count = count($objects);
+        if (!$count) return $objectIds;
+        $className = $objects[0]->getClassName();
+        for ($i = 0; $i < $count; $i++) {
+            $obj = $objects[$i];
+            if ($obj->getClassName() !== $className) {
+                throw new ParseException("All objects should be of the same class.");
+            } else if (!$obj->getObjectId()) {
+                throw new ParseException("All objects must have an ID.");
+            }
+            array_push($objectIds, $obj->getObjectId());
+        }
+        return $objectIds;
+    }
+
+    private static function updateWithFetchedResults(array $objects, array $fetched) {
+        $fetchedObjectsById = [];
+        foreach ($fetched as $object) {
+            $fetchedObjectsById[$object->getObjectId()] = $object;
+        }
+        $count = count($objects);
+        for ($i = 0; $i < $count; $i++) {
+            $obj = $objects[$i];
+            if (!isset($fetchedObjectsById[$obj->getObjectId()])) {
+                throw new ParseException("All objects must exist on the server.");
+            }
+            $obj->mergeFromObject($fetchedObjectsById[$obj->getObjectId()]);
+        }
+        return $objects;
+    }
+
+    /**
      * Merges data received from the server.
      *
      * @param array $result       Data retrieved from the server.
@@ -587,6 +640,17 @@ class ParseObject implements Encodable
         if (!$this->updatedAt && $this->createdAt) {
             $this->updatedAt = $this->createdAt;
         }
+    }
+
+    private function mergeFromObject($other) {
+        if (!$other) return;
+        $this->objectId = $other->getObjectId();
+        $this->createdAt = $other->getCreatedAt();
+        $this->updatedAt = $other->getUpdatedAt();
+        $this->serverData = $other->serverData;
+        $this->operationSet = [];
+        $this->hasBeenFetched = true;
+        $this->rebuildEstimatedData();
     }
 
     /**
