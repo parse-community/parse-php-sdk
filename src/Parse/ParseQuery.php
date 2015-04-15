@@ -309,13 +309,17 @@ class ParseQuery
      */
     public function count($useMasterKey = false)
     {
+        $sessionToken = null;
+        if (ParseUser::getCurrentUser()) {
+            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
+        }
         $this->limit = 0;
         $this->count = 1;
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request(
             'GET',
             '/1/classes/'.$this->className.
-            '?'.$queryString, null, null, $useMasterKey
+            '?'.$queryString, $sessionToken, null, $useMasterKey
         );
 
         return $result['count'];
