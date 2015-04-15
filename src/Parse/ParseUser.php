@@ -116,7 +116,7 @@ class ParseUser extends ParseObject
     }
 
     /**
-     * Logs in a and returns a valid ParseUser, or throws if invalid.
+     * Logs in and returns a valid ParseUser, or throws if invalid.
      *
      * @param string $username
      * @param string $password
@@ -142,6 +142,87 @@ class ParseUser extends ParseObject
         $user->handleSaveResult(true);
         ParseClient::getStorage()->set("user", $user);
 
+        return $user;
+    }
+
+    /**
+     * Logs in with Facebook details, or throws if invalid.
+     *
+     * @param string $id the Facebook user identifier
+     * @param string $access_token the access token for this session
+     * @param \DateTime $expiration_date defaults to 60 days
+     *
+     * @throws ParseException
+     *
+     * @return ParseUser
+     */
+    public static function logInWithFacebook($id, $access_token, $expiration_date = null)
+    {
+        if (!$id) {
+            throw new ParseException("Cannot log in Facebook user without an id.");
+        }
+        if (!$access_token) {
+            throw new ParseException(
+                "Cannot log in Facebook user without an access token."
+            );
+        }
+        if (!$expiration_date) {
+            $expiration_date = new DateTime();
+            $expiration_date->setTimestamp(time() + 86400 * 60);
+        }
+        $data = ["facebook" => [
+            "id" => $id, "access_token" => $access_token,
+            "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
+        ]];
+        $result = ParseClient::_request("POST", "/1/users", "", $data);
+        $user = new ParseUser();
+        $user->_mergeAfterFetch($result);
+        $user->handleSaveResult(true);
+        ParseClient::getStorage()->set("user", $user);
+        return $user;
+    }
+
+    /**
+     * Link the user with Facebook details.
+     *
+     * @param string $id the Facebook user identifier
+     * @param string $access_token the access token for this session
+     * @param \DateTime $expiration_date defaults to 60 days
+     * @param boolean $useMasterKey whether to override security
+     *
+     * @throws ParseException
+     *
+     * @return ParseUser
+     */
+    public function linkWithFacebook($id, $access_token, $expiration_date = null, $useMasterKey = false){
+        if (!$this->getObjectId()) {
+            throw new ParseException("Cannot link an unsaved user, use ParseUser::logInWithFacebook");
+        }
+        if (!$id) {
+            throw new ParseException("Cannot link Facebook user without an id.");
+        }
+        if (!$access_token) {
+            throw new ParseException(
+                "Cannot link Facebook user without an access token."
+            );
+        }
+        if (!$expiration_date) {
+            $expiration_date = new DateTime();
+            $expiration_date->setTimestamp(time() + 86400 * 60);
+        }
+        $data = ["authData" =>
+                    ["facebook" => [
+                        "id" => $id, "access_token" => $access_token,
+                        "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
+                    ]]
+                ];
+        $result = ParseClient::_request(
+            "PUT", "/1/users/" + $this->getObjectId(),
+            $this->getSessionToken(), $data, $useMasterKey
+        );
+        $user = new ParseUser();
+        $user->_mergeAfterFetch($result);
+        $user->handleSaveResult(true);
         return $user;
     }
 
