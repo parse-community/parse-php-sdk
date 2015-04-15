@@ -11,7 +11,6 @@ use Parse\Internal\FieldOperation;
 use Parse\Internal\IncrementOperation;
 use Parse\Internal\RemoveOperation;
 use Parse\Internal\SetOperation;
-use Zend\I18n\Exception\ParseException;
 
 /**
  * ParseObject - Representation of an object stored on Parse.
