@@ -1,7 +1,6 @@
 <?php
 
 namespace Parse;
-use Zend\I18n\Exception\ParseException;
 
 /**
  * ParseUser - Representation of a user object stored on Parse.
