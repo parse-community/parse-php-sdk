@@ -77,8 +77,14 @@ final class ParseClient
      */
     public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true)
     {
-        ParseUser::registerSubclass();
-        ParseRole::registerSubclass();
+        if (! ParseObject::hasRegisteredSubclass('_User')) {
+            ParseUser::registerSubclass();
+        }
+
+        if (! ParseObject::hasRegisteredSubclass('_Role')) {
+            ParseRole::registerSubclass();
+        }
+
         ParseInstallation::registerSubclass();
         ParseSession::registerSubclass();
         self::$applicationId = $app_id;
