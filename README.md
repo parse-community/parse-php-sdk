@@ -212,4 +212,4 @@ See the CONTRIBUTORS.md file for information on testing and contributing to
 the Parse PHP SDK. We welcome fixes and enhancements.
 
 [Get Composer]: https://getcomposer.org/download/
-[Parse PHP Guide]: https://www.parse.com/docs/php_guide
+[Parse PHP Guide]: https://www.parse.com/docs/php/guide
