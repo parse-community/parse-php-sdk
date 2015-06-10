@@ -765,7 +765,7 @@ class ParseObject implements Encodable
                 $currentcount++;
                 $currentBatch[] = $objects[$processed++];
                 if ($currentcount == $batchSize || $processed == $count) {
-                    $results = static::destroyBatch($currentBatch);
+                    $results = static::destroyBatch($currentBatch, $useMasterKey);
                     $errors = array_merge($errors, $results);
                     $currentBatch = [];
                     $currentcount = 0;
