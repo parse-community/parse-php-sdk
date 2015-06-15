@@ -115,7 +115,7 @@ final class ParseClient
      */
     public static function _encode($value, $allowParseObjects)
     {
-        if ($value instanceof \DateTime) {
+        if ($value instanceof \DateTime || $value instanceof \DateTimeImmutable) {
             return [
                 '__type' => 'Date', 'iso' => self::getProperDateFormat($value),
             ];
