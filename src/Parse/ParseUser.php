@@ -167,7 +167,7 @@ class ParseUser extends ParseObject
             );
         }
         if (!$expiration_date) {
-            $expiration_date = new DateTime();
+            $expiration_date = new \DateTime();
             $expiration_date->setTimestamp(time() + 86400 * 60);
         }
         $data = ["facebook" => [
