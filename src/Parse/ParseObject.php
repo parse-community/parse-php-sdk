@@ -767,6 +767,7 @@ class ParseObject implements Encodable
     public static function destroyAll(array $objects, $useMasterKey = false)
     {
         $errors = [];
+        $objects = array_values($objects); // To support non-ordered arrays
         $count = count($objects);
         if ($count) {
             $batchSize = 40;
