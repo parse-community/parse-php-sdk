@@ -180,6 +180,18 @@ class ParseObject implements Encodable
     }
 
     /**
+     * Magic handler to catch isset calls to object properties.
+     *
+     * @param string $key Key to check on the object.
+     *
+     * @return boolean
+     */
+    public function __isset($key)
+    {
+        return $this->has($key);
+    }
+
+    /**
      * Get current value for an object property.
      *
      * @param string $key Key to retrieve from the estimatedData array.
