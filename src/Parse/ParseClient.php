@@ -405,12 +405,14 @@ final class ParseClient
      * Format from Parse doc: an ISO 8601 date without a time zone, i.e. 2014-10-16T12:00:00 .
      *
      * @param \DateTime $value DateTime value to format.
+     * @param boolean $local Whether to return the local push time
      *
      * @return string
      */
-    public static function getLocalPushDateFormat($value)
+    public static function getPushDateFormat($value, $local = false)
     {
         $dateFormatString = 'Y-m-d\TH:i:s';
+        if (!$local) $dateFormatString .= '\Z';
         $date = date_format($value, $dateFormatString);
 
         return $date;
