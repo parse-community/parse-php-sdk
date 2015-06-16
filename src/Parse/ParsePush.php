@@ -49,7 +49,7 @@ class ParsePush
         if (isset($data['push_time'])) {
             //Local push date format is different from iso format generally used in Parse
             //Schedule does not work if date format not correct
-            $data['push_time'] = ParseClient::getLocalPushDateFormat($data['push_time']);
+            $data['push_time'] = ParseClient::getPushDateFormat($data['push_time'], isset($data['local_time']));
         }
         if (isset($data['expiration_time'])) {
             $data['expiration_time'] = ParseClient::_encode(
