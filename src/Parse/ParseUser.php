@@ -170,11 +170,13 @@ class ParseUser extends ParseObject
             $expiration_date = new \DateTime();
             $expiration_date->setTimestamp(time() + 86400 * 60);
         }
-        $data = ["facebook" => [
-            "id" => $id, "access_token" => $access_token,
-            "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
+        $data = ["authData" => [
+            "facebook" => [
+                "id" => $id, "access_token" => $access_token,
+                "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
+            ]
         ]];
-        $result = ParseClient::_request("POST", "/1/users", "", $data);
+        $result = ParseClient::_request("POST", "/1/users", "", json_encode($data));
         $user = new ParseUser();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
@@ -210,15 +212,15 @@ class ParseUser extends ParseObject
             $expiration_date = new DateTime();
             $expiration_date->setTimestamp(time() + 86400 * 60);
         }
-        $data = ["authData" =>
-                    ["facebook" => [
-                        "id" => $id, "access_token" => $access_token,
-                        "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
-                    ]]
-                ];
+        $data = ["authData" => [
+            "facebook" => [
+                "id" => $id, "access_token" => $access_token,
+                "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
+            ]
+        ]];
         $result = ParseClient::_request(
             "PUT", "/1/users/" + $this->getObjectId(),
-            $this->getSessionToken(), $data, $useMasterKey
+            $this->getSessionToken(), json_encode($data), $useMasterKey
         );
         $user = new ParseUser();
         $user->_mergeAfterFetch($result);
