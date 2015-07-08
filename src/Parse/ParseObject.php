@@ -507,7 +507,7 @@ class ParseObject implements Encodable
      *
      * @param bool $useMasterKey Whether to use the master key and override ACLs
      *
-     * @return null
+     * @return ParseObject Returns self, so you can chain this call.
      */
     public function fetch($useMasterKey = false)
     {
@@ -521,6 +521,8 @@ class ParseObject implements Encodable
             $sessionToken, null, $useMasterKey
         );
         $this->_mergeAfterFetch($response);
+        
+        return $this;
     }
 
     /**
