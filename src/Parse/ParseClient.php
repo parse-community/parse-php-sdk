@@ -84,11 +84,11 @@ final class ParseClient
         if (! ParseObject::hasRegisteredSubclass('_Role')) {
             ParseRole::registerSubclass();
         }
-        
+
         if (! ParseObject::hasRegisteredSubclass('_Installation')) {
             ParseInstallation::registerSubclass();
         }
-        
+
         ParseSession::registerSubclass();
         self::$applicationId = $app_id;
         self::$restKey = $rest_key;
@@ -166,7 +166,7 @@ final class ParseClient
             }
         }
 
-        if (!$data && !is_array($data)) {
+        if (!isset($data) && !is_array($data)) {
             return;
         }
 
