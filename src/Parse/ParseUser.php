@@ -177,7 +177,7 @@ class ParseUser extends ParseObject
             ]
         ]];
         $result = ParseClient::_request("POST", "/1/users", "", json_encode($data));
-        $user = new ParseUser();
+        $user = ParseObject::create('_User');
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
         ParseClient::getStorage()->set("user", $user);
