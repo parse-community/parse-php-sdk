@@ -126,6 +126,12 @@
     </li>
 
                                                                                                         <li class="method public">
+        <a href="#method__getOptions" title="_getOptions :: Returns an associative array of the query constraints.">
+            <span class="description">Returns an associative array of the query constraints.</span><pre>_getOptions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_addAscending" title="addAscending :: Set the query orderBy to ascending for the given key(s). It can also add
 secondary sort descriptors without overwriting the existing order.">
             <span class="description">Set the query orderBy to ascending for the given key(s). It can also add
@@ -236,8 +242,8 @@ sort order, and may not use limit or skip.</span><pre>each</pre>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_get" title="get :: Execute a query to retrieve a specific object">
-            <span class="description">Execute a query to retrieve a specific object</span><pre>get</pre>
+        <a href="#method_get" title="get :: Execute a query to retrieve a specific object.">
+            <span class="description">Execute a query to retrieve a specific object.</span><pre>get</pre>
         </a>
     </li>
 
@@ -258,9 +264,9 @@ be greater than or equal to the provided value.</span><pre>greaterThanOrEqualTo<
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_includeKey" title="includeKey :: Include nested Parse Objects for the provided key.  You can use dot
+        <a href="#method_includeKey" title="includeKey :: Include nested Parse Objects for the provided key.    You can use dot
 notation to specify which fields in the included object are also fetch.">
-            <span class="description">Include nested Parse Objects for the provided key.  You can use dot
+            <span class="description">Include nested Parse Objects for the provided key.    You can use dot
 notation to specify which fields in the included object are also fetch.</span><pre>includeKey</pre>
         </a>
     </li>
@@ -282,8 +288,8 @@ be less than or equal to the provided value.</span><pre>lessThanOrEqualTo</pre>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_limit" title="limit :: Set the limit parameter as a query constraint">
-            <span class="description">Set the limit parameter as a query constraint</span><pre>limit</pre>
+        <a href="#method_limit" title="limit :: Set the limit parameter as a query constraint.">
+            <span class="description">Set the limit parameter as a query constraint.</span><pre>limit</pre>
         </a>
     </li>
 
@@ -401,11 +407,11 @@ values near the point given and within the maximum distance given.</span><pre>wi
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -422,7 +428,7 @@ values near the point given and within the maximum distance given.</span><pre>wi
                 <h1>ParseQuery</h1>
                 <small style="display: block; text-align: right">
                                                         </small>
-                <p class="short_description">ParseQuery - Handles querying data from Parse</p>
+                <p class="short_description">ParseQuery - Handles querying data from Parse.</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -430,20 +436,20 @@ values near the point given and within the maximum distance given.</span><pre>wi
                     <table class="table table-bordered">
                                                                                     <tr>
                                     <th>
-                                        package
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Parse</p>
-                                    </td>
-                                </tr>
-                                                                                                                <tr>
-                                    <th>
                                         author
                                                                             </th>
                                     <td>
                                                                                     
                                                                                 <p>Fosco Marotto <a href="mailto:fjm@fb.com">fjm@fb.com</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                 </table>
@@ -455,6 +461,8 @@ values near the point given and within the maximum distance given.</span><pre>wi
                             <pre>__construct(mixed $className) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -477,6 +485,36 @@ values near the point given and within the maximum distance given.</span><pre>wi
                                                                             
                                                                     </div>
                             </div>
+
+                        </div>
+                                            <a id="method__getOptions"></a>
+                        <div class="element clickable method public  method__getOptions" data-toggle="collapse" data-target=".method__getOptions .collapse">
+                            <h2>Returns an associative array of the query constraints.</h2>
+                            <pre>_getOptions() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
                         </div>
                                             <a id="method_addAscending"></a>
                         <div class="element clickable method public  method_addAscending" data-toggle="collapse" data-target=".method_addAscending .collapse">
@@ -485,6 +523,8 @@ secondary sort descriptors without overwriting the existing order.</h2>
                             <pre>addAscending(mixed $key) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -502,6 +542,7 @@ secondary sort descriptors without overwriting the existing order.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_addDescending"></a>
                         <div class="element clickable method public  method_addDescending" data-toggle="collapse" data-target=".method_addDescending .collapse">
@@ -510,6 +551,8 @@ secondary sort descriptors without overwriting the existing order.</h2>
                             <pre>addDescending(mixed $key) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -527,6 +570,7 @@ secondary sort descriptors without overwriting the existing order.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_ascending"></a>
                         <div class="element clickable method public  method_ascending" data-toggle="collapse" data-target=".method_ascending .collapse">
@@ -535,6 +579,8 @@ existing order criteria.</h2>
                             <pre>ascending(mixed $key) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -552,6 +598,7 @@ existing order criteria.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_containedIn"></a>
                         <div class="element clickable method public  method_containedIn" data-toggle="collapse" data-target=".method_containedIn .collapse">
@@ -560,6 +607,8 @@ be contained in the provided list of values.</h2>
                             <pre>containedIn(string $key, array $values) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -581,6 +630,7 @@ be contained in the provided list of values.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_containsAll"></a>
                         <div class="element clickable method public  method_containsAll" data-toggle="collapse" data-target=".method_containsAll .collapse">
@@ -589,6 +639,8 @@ contain each one of the provided list of values.</h2>
                             <pre>containsAll(string $key, array $values) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -610,6 +662,7 @@ contain each one of the provided list of values.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_count"></a>
                         <div class="element clickable method public  method_count" data-toggle="collapse" data-target=".method_count .collapse">
@@ -617,6 +670,8 @@ contain each one of the provided list of values.</h2>
                             <pre>count(boolean $useMasterKey = false) : integer</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -634,6 +689,7 @@ contain each one of the provided list of values.</h2>
                                         <code>integer</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_descending"></a>
                         <div class="element clickable method public  method_descending" data-toggle="collapse" data-target=".method_descending .collapse">
@@ -642,6 +698,8 @@ existing order criteria.</h2>
                             <pre>descending(mixed $key) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -659,6 +717,7 @@ existing order criteria.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_doesNotExist"></a>
                         <div class="element clickable method public  method_doesNotExist" data-toggle="collapse" data-target=".method_doesNotExist .collapse">
@@ -666,6 +725,8 @@ existing order criteria.</h2>
                             <pre>doesNotExist(string $key) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -683,6 +744,7 @@ existing order criteria.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_doesNotMatchKeyInQuery"></a>
                         <div class="element clickable method public  method_doesNotMatchKeyInQuery" data-toggle="collapse" data-target=".method_doesNotMatchKeyInQuery .collapse">
@@ -691,6 +753,8 @@ object returned by the given query.</h2>
                             <pre>doesNotMatchKeyInQuery(string $key, string $queryKey, \Parse\ParseQuery $query) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -718,6 +782,7 @@ object returned by the given query.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_doesNotMatchQuery"></a>
                         <div class="element clickable method public  method_doesNotMatchQuery" data-toggle="collapse" data-target=".method_doesNotMatchQuery .collapse">
@@ -726,6 +791,8 @@ constraint.</h2>
                             <pre>doesNotMatchQuery(string $key, \Parse\ParseQuery $query) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -748,6 +815,7 @@ constraint.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_each"></a>
                         <div class="element clickable method public  method_each" data-toggle="collapse" data-target=".method_each .collapse">
@@ -757,6 +825,8 @@ sort order, and may not use limit or skip.</h2>
                             <pre>each(callable $callback, boolean $useMasterKey = false, integer $batchSize = 100) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -784,7 +854,7 @@ sort order, and may not use limit or skip.</h2>
                                                                                     <div class="subelement argument">
                                                 <h4>$callback</h4>
                                                 <code>callable</code><p><p>Callback that will be called with each result</p>
-<pre><code>                       of the query.</code></pre></p>
+<pre><code>                          of the query.</code></pre></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$useMasterKey</h4>
@@ -797,6 +867,7 @@ sort order, and may not use limit or skip.</h2>
                                                                             
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_equalTo"></a>
                         <div class="element clickable method public  method_equalTo" data-toggle="collapse" data-target=".method_equalTo .collapse">
@@ -804,6 +875,8 @@ sort order, and may not use limit or skip.</h2>
                             <pre>equalTo(string $key, mixed $value) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -825,6 +898,7 @@ sort order, and may not use limit or skip.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_exists"></a>
                         <div class="element clickable method public  method_exists" data-toggle="collapse" data-target=".method_exists .collapse">
@@ -832,6 +906,8 @@ sort order, and may not use limit or skip.</h2>
                             <pre>exists(string $key) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -849,6 +925,7 @@ sort order, and may not use limit or skip.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_find"></a>
                         <div class="element clickable method public  method_find" data-toggle="collapse" data-target=".method_find .collapse">
@@ -856,6 +933,8 @@ sort order, and may not use limit or skip.</h2>
                             <pre>find(boolean $useMasterKey = false) : array</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -873,6 +952,7 @@ sort order, and may not use limit or skip.</h2>
                                         <code>array</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_first"></a>
                         <div class="element clickable method public  method_first" data-toggle="collapse" data-target=".method_first .collapse">
@@ -880,6 +960,8 @@ sort order, and may not use limit or skip.</h2>
                             <pre>first(boolean $useMasterKey = false) : array</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -897,13 +979,16 @@ sort order, and may not use limit or skip.</h2>
                                         <code>array</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_get"></a>
                         <div class="element clickable method public  method_get" data-toggle="collapse" data-target=".method_get .collapse">
-                            <h2>Execute a query to retrieve a specific object</h2>
+                            <h2>Execute a query to retrieve a specific object.</h2>
                             <pre>get(string $objectId, boolean $useMasterKey = false) : array</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -934,6 +1019,7 @@ sort order, and may not use limit or skip.</h2>
                                         <code>array</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_greaterThan"></a>
                         <div class="element clickable method public  method_greaterThan" data-toggle="collapse" data-target=".method_greaterThan .collapse">
@@ -942,6 +1028,8 @@ be greater than the provided value.</h2>
                             <pre>greaterThan(string $key, mixed $value) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -963,6 +1051,7 @@ be greater than the provided value.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_greaterThanOrEqualTo"></a>
                         <div class="element clickable method public  method_greaterThanOrEqualTo" data-toggle="collapse" data-target=".method_greaterThanOrEqualTo .collapse">
@@ -971,6 +1060,8 @@ be greater than or equal to the provided value.</h2>
                             <pre>greaterThanOrEqualTo(string $key, mixed $value) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -992,14 +1083,17 @@ be greater than or equal to the provided value.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_includeKey"></a>
                         <div class="element clickable method public  method_includeKey" data-toggle="collapse" data-target=".method_includeKey .collapse">
-                            <h2>Include nested Parse Objects for the provided key.  You can use dot
+                            <h2>Include nested Parse Objects for the provided key.    You can use dot
 notation to specify which fields in the included object are also fetch.</h2>
                             <pre>includeKey(mixed $key) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1011,13 +1105,14 @@ notation to specify which fields in the included object are also fetch.</h2>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
                                                 <code>mixed</code><p><p>The name(s) of the key(s) to include. It could be</p>
-<pre><code>               string, or an Array of string.</code></pre></p>
+<pre><code>              string, or an Array of string.</code></pre></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_lessThan"></a>
                         <div class="element clickable method public  method_lessThan" data-toggle="collapse" data-target=".method_lessThan .collapse">
@@ -1026,6 +1121,8 @@ be less than the provided value.</h2>
                             <pre>lessThan(string $key, mixed $value) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1047,6 +1144,7 @@ be less than the provided value.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_lessThanOrEqualTo"></a>
                         <div class="element clickable method public  method_lessThanOrEqualTo" data-toggle="collapse" data-target=".method_lessThanOrEqualTo .collapse">
@@ -1055,6 +1153,8 @@ be less than or equal to the provided value.</h2>
                             <pre>lessThanOrEqualTo(string $key, mixed $value) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1076,13 +1176,16 @@ be less than or equal to the provided value.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_limit"></a>
                         <div class="element clickable method public  method_limit" data-toggle="collapse" data-target=".method_limit .collapse">
-                            <h2>Set the limit parameter as a query constraint</h2>
+                            <h2>Set the limit parameter as a query constraint.</h2>
                             <pre>limit(integer $n) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1100,6 +1203,7 @@ be less than or equal to the provided value.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_matchesKeyInQuery"></a>
                         <div class="element clickable method public  method_matchesKeyInQuery" data-toggle="collapse" data-target=".method_matchesKeyInQuery .collapse">
@@ -1108,6 +1212,8 @@ object returned by the given query.</h2>
                             <pre>matchesKeyInQuery(string $key, string $queryKey, \Parse\ParseQuery $query) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1135,6 +1241,7 @@ object returned by the given query.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_matchesQuery"></a>
                         <div class="element clickable method public  method_matchesQuery" data-toggle="collapse" data-target=".method_matchesQuery .collapse">
@@ -1143,6 +1250,8 @@ constraint.</h2>
                             <pre>matchesQuery(string $key, \Parse\ParseQuery $query) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1165,6 +1274,7 @@ constraint.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_near"></a>
                         <div class="element clickable method public  method_near" data-toggle="collapse" data-target=".method_near .collapse">
@@ -1173,6 +1283,8 @@ values near the point given.</h2>
                             <pre>near(string $key, \Parse\ParseGeoPoint $point) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1194,6 +1306,7 @@ values near the point given.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_notContainedIn"></a>
                         <div class="element clickable method public  method_notContainedIn" data-toggle="collapse" data-target=".method_notContainedIn .collapse">
@@ -1202,6 +1315,8 @@ not be contained in the provided list of values.</h2>
                             <pre>notContainedIn(string $key, array $values) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1223,6 +1338,7 @@ not be contained in the provided list of values.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_notEqualTo"></a>
                         <div class="element clickable method public  method_notEqualTo" data-toggle="collapse" data-target=".method_notEqualTo .collapse">
@@ -1231,6 +1347,8 @@ be not equal to the provided value.</h2>
                             <pre>notEqualTo(string $key, mixed $value) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1252,6 +1370,7 @@ be not equal to the provided value.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_orQueries"></a>
                         <div class="element clickable method public  method_orQueries" data-toggle="collapse" data-target=".method_orQueries .collapse">
@@ -1259,6 +1378,8 @@ be not equal to the provided value.</h2>
                             <pre>orQueries(array $queryObjects) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>All queries must have same class name.</p></div>
@@ -1285,6 +1406,7 @@ be not equal to the provided value.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>The query that is the OR of the passed in queries.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_relatedTo"></a>
                         <div class="element clickable method public  method_relatedTo" data-toggle="collapse" data-target=".method_relatedTo .collapse">
@@ -1292,6 +1414,8 @@ be not equal to the provided value.</h2>
                             <pre>relatedTo(string $key, mixed $value) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1313,6 +1437,7 @@ be not equal to the provided value.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_select"></a>
                         <div class="element clickable method public  method_select" data-toggle="collapse" data-target=".method_select .collapse">
@@ -1322,6 +1447,8 @@ specified in each of the calls will be included.</h2>
                             <pre>select(mixed $key) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1340,6 +1467,7 @@ specified in each of the calls will be included.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_skip"></a>
                         <div class="element clickable method public  method_skip" data-toggle="collapse" data-target=".method_skip .collapse">
@@ -1347,6 +1475,8 @@ specified in each of the calls will be included.</h2>
                             <pre>skip(integer $n) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1364,6 +1494,7 @@ specified in each of the calls will be included.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_startsWith"></a>
                         <div class="element clickable method public  method_startsWith" data-toggle="collapse" data-target=".method_startsWith .collapse">
@@ -1372,6 +1503,8 @@ start with the provided value.</h2>
                             <pre>startsWith(string $key, mixed $value) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1393,6 +1526,7 @@ start with the provided value.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_withinGeoBox"></a>
                         <div class="element clickable method public  method_withinGeoBox" data-toggle="collapse" data-target=".method_withinGeoBox .collapse">
@@ -1402,6 +1536,8 @@ box.</h2>
                             <pre>withinGeoBox(string $key, \Parse\ParseGeoPoint $southwest, \Parse\ParseGeoPoint $northeast) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1427,6 +1563,7 @@ box.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_withinKilometers"></a>
                         <div class="element clickable method public  method_withinKilometers" data-toggle="collapse" data-target=".method_withinKilometers .collapse">
@@ -1435,6 +1572,8 @@ values near the point given and within the maximum distance given.</h2>
                             <pre>withinKilometers(string $key, \Parse\ParseGeoPoint $point, integer $maxDistance) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>Radius of earth used is 6371.0 kilometers.</p></div>
@@ -1460,6 +1599,7 @@ values near the point given and within the maximum distance given.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_withinMiles"></a>
                         <div class="element clickable method public  method_withinMiles" data-toggle="collapse" data-target=".method_withinMiles .collapse">
@@ -1468,6 +1608,8 @@ values near the point given and within the maximum distance given.</h2>
                             <pre>withinMiles(string $key, \Parse\ParseGeoPoint $point, integer $maxDistance) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>Radius of earth used is 3958.5 miles.</p></div>
@@ -1493,6 +1635,7 @@ values near the point given and within the maximum distance given.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_withinRadians"></a>
                         <div class="element clickable method public  method_withinRadians" data-toggle="collapse" data-target=".method_withinRadians .collapse">
@@ -1501,6 +1644,8 @@ values near the point given and within the maximum distance given.</h2>
                             <pre>withinRadians(string $key, \Parse\ParseGeoPoint $point, integer $maxDistance) : \Parse\ParseQuery</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1526,6 +1671,7 @@ values near the point given and within the maximum distance given.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
                         </div>
                     
                     
@@ -1549,7 +1695,9 @@ values near the point given and within the maximum distance given.</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 29 Jul 2014 10:51:46 -0700.<br/>
+            generated on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+Thu, 06 Aug 2015 21:21:48 +0000.<br/>
     </footer>
     </body>
 </html>

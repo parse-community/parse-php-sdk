@@ -120,8 +120,68 @@
             <i class="icon-custom icon-method"></i> Methods
             <ul>
                                                                                                     <li class="method public inherited">
-        <a href="#method___construct" title="__construct :: Create a Parse Object">
-            <span class="description">Create a Parse Object</span><pre>__construct</pre>
+        <a href="#method___construct" title="__construct :: Create a Parse Object.">
+            <span class="description">Create a Parse Object.</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___get" title="__get :: Getter to catch direct property calls and pass them to the get function.">
+            <span class="description">Getter to catch direct property calls and pass them to the get function.</span><pre>__get</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___isset" title="__isset :: Magic handler to catch isset calls to object properties.">
+            <span class="description">Magic handler to catch isset calls to object properties.</span><pre>__isset</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___set" title="__set :: Setter to catch property calls and protect certain fields.">
+            <span class="description">Setter to catch property calls and protect certain fields.</span><pre>__set</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method__encode" title="_encode :: Return a JSON encoded value of the object.">
+            <span class="description">Return a JSON encoded value of the object.</span><pre>_encode</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method__mergeAfterFetch" title="_mergeAfterFetch :: Merges data received from the server.">
+            <span class="description">Merges data received from the server.</span><pre>_mergeAfterFetch</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method__mergeAfterFetchWithSelectedKeys" title="_mergeAfterFetchWithSelectedKeys :: Merges data received from the server with a given selected keys.">
+            <span class="description">Merges data received from the server with a given selected keys.</span><pre>_mergeAfterFetchWithSelectedKeys</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method__mergeMagicFields" title="_mergeMagicFields :: Handle merging of special fields for the object.">
+            <span class="description">Handle merging of special fields for the object.</span><pre>_mergeMagicFields</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method__performOperation" title="_performOperation :: Perform an operation on an object property.">
+            <span class="description">Perform an operation on an object property.</span><pre>_performOperation</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method__toPointer" title="_toPointer :: Gets a Pointer referencing this Object.">
+            <span class="description">Gets a Pointer referencing this Object.</span><pre>_toPointer</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method__unregisterSubclass" title="_unregisterSubclass :: Un-register a subclass.">
+            <span class="description">Un-register a subclass.</span><pre>_unregisterSubclass</pre>
         </a>
     </li>
 
@@ -146,8 +206,10 @@ for each key.</span><pre>clear</pre>
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_create" title="create :: Static method which returns a new Parse Object for a given class">
-            <span class="description">Static method which returns a new Parse Object for a given class</span><pre>create</pre>
+        <a href="#method_create" title="create :: Static method which returns a new Parse Object for a given class
+Optionally creates a pointer object if the objectId is provided.">
+            <span class="description">Static method which returns a new Parse Object for a given class
+Optionally creates a pointer object if the objectId is provided.</span><pre>create</pre>
         </a>
     </li>
 
@@ -158,8 +220,8 @@ for each key.</span><pre>clear</pre>
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_destroy" title="destroy :: Delete object.">
-            <span class="description">Delete object.</span><pre>destroy</pre>
+        <a href="#method_destroy" title="destroy :: Delete the object from Parse.">
+            <span class="description">Delete the object from Parse.</span><pre>destroy</pre>
         </a>
     </li>
 
@@ -172,6 +234,12 @@ for each key.</span><pre>clear</pre>
                                                                                                         <li class="method public inherited">
         <a href="#method_fetch" title="fetch :: Fetch the whole object from the server and update the local object.">
             <span class="description">Fetch the whole object from the server and update the local object.</span><pre>fetch</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_fetchAll" title="fetchAll :: Fetch an array of Parse objects from the server">
+            <span class="description">Fetch an array of Parse objects from the server</span><pre>fetchAll</pre>
         </a>
     </li>
 
@@ -206,6 +274,14 @@ for each key.</span><pre>clear</pre>
     </li>
 
                                                                                                         <li class="method public inherited">
+        <a href="#method_getRegisteredSubclass" title="getRegisteredSubclass :: Get the registered subclass for a Parse class, or a generic ParseObject
+if no subclass is registered.">
+            <span class="description">Get the registered subclass for a Parse class, or a generic ParseObject
+if no subclass is registered.</span><pre>getRegisteredSubclass</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
         <a href="#method_getRelation" title="getRelation :: Access or create a Relation value for a key.">
             <span class="description">Access or create a Relation value for a key.</span><pre>getRelation</pre>
         </a>
@@ -218,8 +294,14 @@ for each key.</span><pre>clear</pre>
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_has" title="has :: Check if the object has a given key">
-            <span class="description">Check if the object has a given key</span><pre>has</pre>
+        <a href="#method_has" title="has :: Check if the object has a given key.">
+            <span class="description">Check if the object has a given key.</span><pre>has</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_hasRegisteredSubclass" title="hasRegisteredSubclass :: Check whether there is a subclass registered for a given parse class">
+            <span class="description">Check whether there is a subclass registered for a given parse class</span><pre>hasRegisteredSubclass</pre>
         </a>
     </li>
 
@@ -256,8 +338,8 @@ added/updated/removed and not saved yet.</span><pre>isKeyDirty</pre>
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_registerSubclass" title="registerSubclass :: Register a subclass.  Should be called before any other Parse functions.">
-            <span class="description">Register a subclass.  Should be called before any other Parse functions.</span><pre>registerSubclass</pre>
+        <a href="#method_registerSubclass" title="registerSubclass :: Register a subclass.    Should be called before any other Parse functions.">
+            <span class="description">Register a subclass.    Should be called before any other Parse functions.</span><pre>registerSubclass</pre>
         </a>
     </li>
 
@@ -274,14 +356,14 @@ added/updated/removed and not saved yet.</span><pre>isKeyDirty</pre>
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_save" title="save :: Save Object to Parse">
-            <span class="description">Save Object to Parse</span><pre>save</pre>
+        <a href="#method_save" title="save :: Save Object to Parse.">
+            <span class="description">Save Object to Parse.</span><pre>save</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public inherited">
-        <a href="#method_saveAll" title="saveAll :: Save all the objects in the provided array">
-            <span class="description">Save all the objects in the provided array</span><pre>saveAll</pre>
+        <a href="#method_saveAll" title="saveAll :: Save all the objects in the provided array.">
+            <span class="description">Save all the objects in the provided array.</span><pre>saveAll</pre>
         </a>
     </li>
 
@@ -313,11 +395,11 @@ added/updated/removed and not saved yet.</span><pre>isKeyDirty</pre>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -343,15 +425,6 @@ added/updated/removed and not saved yet.</span><pre>isKeyDirty</pre>
                     <table class="table table-bordered">
                                                                                     <tr>
                                     <th>
-                                        package
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Parse</p>
-                                    </td>
-                                </tr>
-                                                                                                                <tr>
-                                    <th>
                                         author
                                                                             </th>
                                     <td>
@@ -359,15 +432,26 @@ added/updated/removed and not saved yet.</span><pre>isKeyDirty</pre>
                                                                                 <p>Fosco Marotto <a href="mailto:fjm@fb.com">fjm@fb.com</a></p>
                                     </td>
                                 </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
                                                                                                                                                                                 </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
                                                                 <a id="method___construct"></a>
                         <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
-                            <h2>Create a Parse Object</h2>
+                            <h2>Create a Parse Object.</h2>
                             <pre>__construct(string $className = null, mixed $objectId = null, boolean $isPointer = false) </pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>Creates a pointer object if an objectId is provided,
@@ -408,6 +492,323 @@ otherwise creates a new object.</p></div>
                                                                             
                                                                     </div>
                             </div>
+
+                        </div>
+                                            <a id="method___get"></a>
+                        <div class="element clickable method public  method___get inherited" data-toggle="collapse" data-target=".method___get .collapse">
+                            <h2>Getter to catch direct property calls and pass them to the get function.</h2>
+                            <pre>__get(string $key) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>Key to retrieve from the Object.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___isset"></a>
+                        <div class="element clickable method public  method___isset inherited" data-toggle="collapse" data-target=".method___isset .collapse">
+                            <h2>Magic handler to catch isset calls to object properties.</h2>
+                            <pre>__isset(string $key) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>Key to check on the object.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___set"></a>
+                        <div class="element clickable method public  method___set inherited" data-toggle="collapse" data-target=".method___set .collapse">
+                            <h2>Setter to catch property calls and protect certain fields.</h2>
+                            <pre>__set(string $key, mixed $value) : null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>Key to set a value on.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>Value to assign.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__encode"></a>
+                        <div class="element clickable method public  method__encode inherited" data-toggle="collapse" data-target=".method__encode .collapse">
+                            <h2>Return a JSON encoded value of the object.</h2>
+                            <pre>_encode() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__mergeAfterFetch"></a>
+                        <div class="element clickable method public  method__mergeAfterFetch inherited" data-toggle="collapse" data-target=".method__mergeAfterFetch .collapse">
+                            <h2>Merges data received from the server.</h2>
+                            <pre>_mergeAfterFetch(array $result, boolean $completeData = true) : null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$result</h4>
+                                                <code>array</code><p><p>Data retrieved from the server.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$completeData</h4>
+                                                <code>boolean</code><p><p>Fetch all data or not.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__mergeAfterFetchWithSelectedKeys"></a>
+                        <div class="element clickable method public  method__mergeAfterFetchWithSelectedKeys inherited" data-toggle="collapse" data-target=".method__mergeAfterFetchWithSelectedKeys .collapse">
+                            <h2>Merges data received from the server with a given selected keys.</h2>
+                            <pre>_mergeAfterFetchWithSelectedKeys(array $result, array $selectedKeys) : null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$result</h4>
+                                                <code>array</code><p><p>Data retrieved from the server.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$selectedKeys</h4>
+                                                <code>array</code><p><p>Keys to be fetched. Null or empty means all</p>
+<pre><code>                       data will be fetched.</code></pre></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__mergeMagicFields"></a>
+                        <div class="element clickable method public  method__mergeMagicFields inherited" data-toggle="collapse" data-target=".method__mergeMagicFields .collapse">
+                            <h2>Handle merging of special fields for the object.</h2>
+                            <pre>_mergeMagicFields( &$data) : null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__performOperation"></a>
+                        <div class="element clickable method public  method__performOperation inherited" data-toggle="collapse" data-target=".method__performOperation .collapse">
+                            <h2>Perform an operation on an object property.</h2>
+                            <pre>_performOperation(string $key, \Parse\Internal\FieldOperation $operation) : null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>Key to perform an operation upon.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$operation</h4>
+                                                <code>\Parse\Internal\FieldOperation</code><p><p>Operation to perform.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__toPointer"></a>
+                        <div class="element clickable method public  method__toPointer inherited" data-toggle="collapse" data-target=".method__toPointer .collapse">
+                            <h2>Gets a Pointer referencing this Object.</h2>
+                            <pre>_toPointer() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__unregisterSubclass"></a>
+                        <div class="element clickable method public  method__unregisterSubclass inherited" data-toggle="collapse" data-target=".method__unregisterSubclass .collapse">
+                            <h2>Un-register a subclass.</h2>
+                            <pre>_unregisterSubclass() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Cannot be called on the base class ParseObject.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
                         </div>
                                             <a id="method_add"></a>
                         <div class="element clickable method public  method_add inherited" data-toggle="collapse" data-target=".method_add .collapse">
@@ -415,6 +816,8 @@ otherwise creates a new object.</p></div>
                             <pre>add(string $key, mixed $value) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -436,6 +839,7 @@ otherwise creates a new object.</p></div>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_addUnique"></a>
                         <div class="element clickable method public  method_addUnique inherited" data-toggle="collapse" data-target=".method_addUnique .collapse">
@@ -443,6 +847,8 @@ otherwise creates a new object.</p></div>
                             <pre>addUnique(string $key, mixed $value) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -464,6 +870,7 @@ otherwise creates a new object.</p></div>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_clear"></a>
                         <div class="element clickable method public  method_clear inherited" data-toggle="collapse" data-target=".method_clear .collapse">
@@ -472,6 +879,8 @@ for each key.</h2>
                             <pre>clear() : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -491,16 +900,20 @@ for each key.</h2>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_create"></a>
                         <div class="element clickable method public  method_create inherited" data-toggle="collapse" data-target=".method_create .collapse">
-                            <h2>Static method which returns a new Parse Object for a given class</h2>
-                            <pre>create(string $className, string $objectId = null,  $isPointer = false) : Object</pre>
+                            <h2>Static method which returns a new Parse Object for a given class
+Optionally creates a pointer object if the objectId is provided.</h2>
+                            <pre>create(string $className, string $objectId = null, boolean $isPointer = false) : Object</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>Optionally creates a pointer object if the objectId is provided.</p></div>
+                                    <div class="long_description"></div>
 
                                     <table class="table">
                                                                             </table>
@@ -516,13 +929,14 @@ for each key.</h2>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$isPointer</h4>
-                                                <code></code><p></p>
+                                                <code>boolean</code><p><p>If the object is a pointer.</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
                                         <code>Object</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_delete"></a>
                         <div class="element clickable method public  method_delete inherited" data-toggle="collapse" data-target=".method_delete .collapse">
@@ -530,6 +944,8 @@ for each key.</h2>
                             <pre>delete(string $key) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -547,37 +963,34 @@ for each key.</h2>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_destroy"></a>
                         <div class="element clickable method public  method_destroy inherited" data-toggle="collapse" data-target=".method_destroy .collapse">
-                            <h2>Delete object.</h2>
-                            <pre>destroy( $useMasterKey = false) : null</pre>
+                            <h2>Delete the object from Parse.</h2>
+                            <pre>destroy(boolean $useMasterKey = false) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
                                                                             </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$useMasterKey</h4>
-                                                <code></code><p></p>
+                                                <code>boolean</code><p><p>Whether to use the master key.</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_destroyAll"></a>
                         <div class="element clickable method public  method_destroyAll inherited" data-toggle="collapse" data-target=".method_destroyAll .collapse">
@@ -585,11 +998,22 @@ for each key.</h2>
                             <pre>destroyAll(array $objects, boolean $useMasterKey = false) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
 
                                     <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    throws
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
                                                                             </table>
 
                                                                             <h3>Arguments</h3>
@@ -606,32 +1030,65 @@ for each key.</h2>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_fetch"></a>
                         <div class="element clickable method public  method_fetch inherited" data-toggle="collapse" data-target=".method_fetch .collapse">
                             <h2>Fetch the whole object from the server and update the local object.</h2>
-                            <pre>fetch() : null</pre>
+                            <pre>fetch(boolean $useMasterKey = false) : \Parse\ParseObject</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
                                                                             </table>
 
-                                    
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the master key and override ACLs</p></p>
+                                            </div>
+                                                                            
                                                                             <h3>Response</h3>
-                                        <code>null</code><p></p>
+                                        <code><a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a></code><p><p>Returns self, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
+
+                        </div>
+                                            <a id="method_fetchAll"></a>
+                        <div class="element clickable method public  method_fetchAll inherited" data-toggle="collapse" data-target=".method_fetchAll .collapse">
+                            <h2>Fetch an array of Parse objects from the server</h2>
+                            <pre>fetchAll(array $objects, boolean $useMasterKey = false) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$objects</h4>
+                                                <code>array</code><p><p>The ParseObjects to fetch</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to override ACLs</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
                         </div>
                                             <a id="method_get"></a>
                         <div class="element clickable method public  method_get inherited" data-toggle="collapse" data-target=".method_get .collapse">
@@ -639,6 +1096,8 @@ for each key.</h2>
                             <pre>get(string $key) : mixed</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -665,6 +1124,7 @@ for each key.</h2>
                                         <code>mixed</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_getACL"></a>
                         <div class="element clickable method public  method_getACL inherited" data-toggle="collapse" data-target=".method_getACL .collapse">
@@ -672,6 +1132,8 @@ for each key.</h2>
                             <pre>getACL() : \Parse\ParseACL</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -691,6 +1153,7 @@ for each key.</h2>
                                         <code><a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a></code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_getClassName"></a>
                         <div class="element clickable method public  method_getClassName inherited" data-toggle="collapse" data-target=".method_getClassName .collapse">
@@ -698,6 +1161,8 @@ for each key.</h2>
                             <pre>getClassName() : string</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -717,6 +1182,7 @@ for each key.</h2>
                                         <code>string</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_getCreatedAt"></a>
                         <div class="element clickable method public  method_getCreatedAt inherited" data-toggle="collapse" data-target=".method_getCreatedAt .collapse">
@@ -724,6 +1190,8 @@ for each key.</h2>
                             <pre>getCreatedAt() : \DateTime|null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -743,6 +1211,7 @@ for each key.</h2>
                                         <code>\DateTime|null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_getObjectId"></a>
                         <div class="element clickable method public  method_getObjectId inherited" data-toggle="collapse" data-target=".method_getObjectId .collapse">
@@ -750,6 +1219,8 @@ for each key.</h2>
                             <pre>getObjectId() : string|null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -769,6 +1240,35 @@ for each key.</h2>
                                         <code>string|null</code><p></p>
                                                                     </div>
                             </div>
+
+                        </div>
+                                            <a id="method_getRegisteredSubclass"></a>
+                        <div class="element clickable method public  method_getRegisteredSubclass inherited" data-toggle="collapse" data-target=".method_getRegisteredSubclass .collapse">
+                            <h2>Get the registered subclass for a Parse class, or a generic ParseObject
+if no subclass is registered.</h2>
+                            <pre>getRegisteredSubclass( $parseClassName) : \Parse\ParseObject</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parseClassName</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a></code><p></p>
+                                                                    </div>
+                            </div>
+
                         </div>
                                             <a id="method_getRelation"></a>
                         <div class="element clickable method public  method_getRelation inherited" data-toggle="collapse" data-target=".method_getRelation .collapse">
@@ -776,6 +1276,8 @@ for each key.</h2>
                             <pre>getRelation(string $key) : \Parse\ParseRelation</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -794,6 +1296,7 @@ for each key.</h2>
 <pre><code>                  exists for the key or can be created for this key.</code></pre></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_getUpdatedAt"></a>
                         <div class="element clickable method public  method_getUpdatedAt inherited" data-toggle="collapse" data-target=".method_getUpdatedAt .collapse">
@@ -801,6 +1304,8 @@ for each key.</h2>
                             <pre>getUpdatedAt() : \DateTime|null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -820,13 +1325,16 @@ for each key.</h2>
                                         <code>\DateTime|null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_has"></a>
                         <div class="element clickable method public  method_has inherited" data-toggle="collapse" data-target=".method_has .collapse">
-                            <h2>Check if the object has a given key</h2>
+                            <h2>Check if the object has a given key.</h2>
                             <pre>has(string $key) : boolean</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -844,6 +1352,34 @@ for each key.</h2>
                                         <code>boolean</code><p></p>
                                                                     </div>
                             </div>
+
+                        </div>
+                                            <a id="method_hasRegisteredSubclass"></a>
+                        <div class="element clickable method public  method_hasRegisteredSubclass inherited" data-toggle="collapse" data-target=".method_hasRegisteredSubclass .collapse">
+                            <h2>Check whether there is a subclass registered for a given parse class</h2>
+                            <pre>hasRegisteredSubclass( $parseClassName) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parseClassName</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
                         </div>
                                             <a id="method_increment"></a>
                         <div class="element clickable method public  method_increment inherited" data-toggle="collapse" data-target=".method_increment .collapse">
@@ -851,6 +1387,8 @@ for each key.</h2>
                             <pre>increment(string $key, integer $value = 1) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -872,6 +1410,7 @@ for each key.</h2>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_isDataAvailable"></a>
                         <div class="element clickable method public  method_isDataAvailable inherited" data-toggle="collapse" data-target=".method_isDataAvailable .collapse">
@@ -879,6 +1418,8 @@ for each key.</h2>
                             <pre>isDataAvailable() : boolean</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -898,6 +1439,7 @@ for each key.</h2>
                                         <code>boolean</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_isDirty"></a>
                         <div class="element clickable method public  method_isDirty inherited" data-toggle="collapse" data-target=".method_isDirty .collapse">
@@ -905,6 +1447,8 @@ for each key.</h2>
                             <pre>isDirty() : boolean</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -924,6 +1468,7 @@ for each key.</h2>
                                         <code>boolean</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_isKeyDirty"></a>
                         <div class="element clickable method public  method_isKeyDirty inherited" data-toggle="collapse" data-target=".method_isKeyDirty .collapse">
@@ -932,6 +1477,8 @@ added/updated/removed and not saved yet.</h2>
                             <pre>isKeyDirty(string $key) : boolean</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -949,6 +1496,7 @@ added/updated/removed and not saved yet.</h2>
                                         <code>boolean</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_query"></a>
                         <div class="element clickable method public  method_query inherited" data-toggle="collapse" data-target=".method_query .collapse">
@@ -956,6 +1504,8 @@ added/updated/removed and not saved yet.</h2>
                             <pre>query() : \Parse\ParseQuery</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>Cannot be called on the base class ParseObject.</p></div>
@@ -984,13 +1534,16 @@ added/updated/removed and not saved yet.</h2>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_registerSubclass"></a>
                         <div class="element clickable method public  method_registerSubclass inherited" data-toggle="collapse" data-target=".method_registerSubclass .collapse">
-                            <h2>Register a subclass.  Should be called before any other Parse functions.</h2>
+                            <h2>Register a subclass.    Should be called before any other Parse functions.</h2>
                             <pre>registerSubclass() </pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"><p>Cannot be called on the base class ParseObject.</p></div>
@@ -1024,6 +1577,7 @@ added/updated/removed and not saved yet.</h2>
                                     
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_remove"></a>
                         <div class="element clickable method public  method_remove inherited" data-toggle="collapse" data-target=".method_remove .collapse">
@@ -1031,6 +1585,8 @@ added/updated/removed and not saved yet.</h2>
                             <pre>remove(string $key, mixed $value) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1061,6 +1617,7 @@ added/updated/removed and not saved yet.</h2>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_revert"></a>
                         <div class="element clickable method public  method_revert inherited" data-toggle="collapse" data-target=".method_revert .collapse">
@@ -1068,6 +1625,8 @@ added/updated/removed and not saved yet.</h2>
                             <pre>revert() : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1087,39 +1646,43 @@ added/updated/removed and not saved yet.</h2>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_save"></a>
                         <div class="element clickable method public  method_save inherited" data-toggle="collapse" data-target=".method_save .collapse">
-                            <h2>Save Object to Parse</h2>
-                            <pre>save() : null</pre>
+                            <h2>Save Object to Parse.</h2>
+                            <pre>save(boolean $useMasterKey = false) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
                                                                             </table>
 
-                                    
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
+                                            </div>
+                                                                            
                                                                             <h3>Response</h3>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_saveAll"></a>
                         <div class="element clickable method public  method_saveAll inherited" data-toggle="collapse" data-target=".method_saveAll .collapse">
-                            <h2>Save all the objects in the provided array</h2>
-                            <pre>saveAll(array $list) : null</pre>
+                            <h2>Save all the objects in the provided array.</h2>
+                            <pre>saveAll(array $list, boolean $useMasterKey = false) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1132,11 +1695,16 @@ added/updated/removed and not saved yet.</h2>
                                                 <h4>$list</h4>
                                                 <code>array</code><p></p>
                                             </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
+                                            </div>
                                                                             
                                                                             <h3>Response</h3>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_set"></a>
                         <div class="element clickable method public  method_set inherited" data-toggle="collapse" data-target=".method_set .collapse">
@@ -1144,6 +1712,8 @@ added/updated/removed and not saved yet.</h2>
                             <pre>set(string $key, mixed $value) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1174,6 +1744,7 @@ added/updated/removed and not saved yet.</h2>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_setACL"></a>
                         <div class="element clickable method public  method_setACL inherited" data-toggle="collapse" data-target=".method_setACL .collapse">
@@ -1181,6 +1752,8 @@ added/updated/removed and not saved yet.</h2>
                             <pre>setACL(\Parse\ParseACL $acl) </pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1203,6 +1776,7 @@ added/updated/removed and not saved yet.</h2>
                                                                             
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_setArray"></a>
                         <div class="element clickable method public  method_setArray inherited" data-toggle="collapse" data-target=".method_setArray .collapse">
@@ -1210,6 +1784,8 @@ added/updated/removed and not saved yet.</h2>
                             <pre>setArray(string $key, array $value) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1240,6 +1816,7 @@ added/updated/removed and not saved yet.</h2>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                                             <a id="method_setAssociativeArray"></a>
                         <div class="element clickable method public  method_setAssociativeArray inherited" data-toggle="collapse" data-target=".method_setAssociativeArray .collapse">
@@ -1247,6 +1824,8 @@ added/updated/removed and not saved yet.</h2>
                             <pre>setAssociativeArray(string $key, array $value) : null</pre>
                             <div class="labels">
                                 <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -1277,6 +1856,7 @@ added/updated/removed and not saved yet.</h2>
                                         <code>null</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                     
                     
@@ -1326,7 +1906,9 @@ added/updated/removed and not saved yet.</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 29 Jul 2014 10:51:46 -0700.<br/>
+            generated on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+Thu, 06 Aug 2015 21:21:48 +0000.<br/>
     </footer>
     </body>
 </html>

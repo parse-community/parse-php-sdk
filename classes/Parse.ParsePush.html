@@ -150,7 +150,7 @@
                 <h1>ParsePush</h1>
                 <small style="display: block; text-align: right">
                                                         </small>
-                <p class="short_description">ParsePush - Handles sending push notifications with Parse</p>
+                <p class="short_description">ParsePush - Handles sending push notifications with Parse.</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -158,20 +158,20 @@
                     <table class="table table-bordered">
                                                                                     <tr>
                                     <th>
-                                        package
-                                                                            </th>
-                                    <td>
-                                                                                    
-                                                                                <p>Parse</p>
-                                    </td>
-                                </tr>
-                                                                                                                <tr>
-                                    <th>
                                         author
                                                                             </th>
                                     <td>
                                                                                     
                                                                                 <p>Fosco Marotto <a href="mailto:fjm@fb.com">fjm@fb.com</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                 </table>
@@ -183,6 +183,8 @@
                             <pre>send(array $data, boolean $useMasterKey = false) : mixed</pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
+
+                            
                             <div class="row collapse">
                                 <div class="detail-description">
                                     <div class="long_description"></div>
@@ -202,16 +204,16 @@
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$data</h4>
-                                                <code>array</code><p><p>The data of the push notification.  Valid fields
-are:</p>
-<pre><code>channels - An Array of channels to push to.
-push_time - A Date object for when to send the push.
-expiration_time -  A Date object for when to expire
-    the push.
-expiration_interval - The seconds from now to expire the push.
-where - A ParseQuery over ParseInstallation that is used to match
-    a set of installations to push to.
-data - The data to send as part of the push</code></pre></p>
+                                                <code>array</code><p><p>The data of the push notification.    Valid fields</p>
+<pre><code>                         are:
+                         channels - An Array of channels to push to.
+                         push_time - A Date object for when to send the push.
+                         expiration_time -    A Date object for when to expire
+                         the push.
+                         expiration_interval - The seconds from now to expire the push.
+                         where - A ParseQuery over ParseInstallation that is used to match
+                         a set of installations to push to.
+                         data - The data to send as part of the push</code></pre></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$useMasterKey</h4>
@@ -222,6 +224,7 @@ data - The data to send as part of the push</code></pre></p>
                                         <code>mixed</code><p></p>
                                                                     </div>
                             </div>
+
                         </div>
                     
                     
@@ -245,7 +248,9 @@ data - The data to send as part of the push</code></pre></p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Tue, 29 Jul 2014 10:51:46 -0700.<br/>
+            generated on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+Thu, 06 Aug 2015 21:21:48 +0000.<br/>
     </footer>
     </body>
 </html>
