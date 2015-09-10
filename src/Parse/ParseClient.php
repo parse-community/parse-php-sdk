@@ -255,7 +255,7 @@ final class ParseClient
         self::assertParseInitialized();
         $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
 
-        $url = self::HOST_NAME.$relativeUrl;
+        $url = self::HOST_NAME . '/' . ltrim($relativeUrl, '/');
         if ($method === 'GET' && !empty($data)) {
             $url .= '?'.http_build_query($data);
         }
