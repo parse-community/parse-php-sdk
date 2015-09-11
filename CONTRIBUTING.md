@@ -22,12 +22,11 @@ App just for testing, and deploy some cloud code to it.
 * Run "parse deploy" in your cloud folder.
 * Paste your App ID, REST API Key, and Master Key in tests/ParseTestHelper.php
 
-You should now be able to execute, from the tests/ folder:
+You should now be able to execute, from project root folder:
 
-    ../vendor/bin/phpunit --stderr .
+    ./vendor/bin/phpunit --stderr .
 
 At present the full suite of tests takes around 20 minutes.
-
 
 [Get Composer]: https://getcomposer.org/download/
 [Contributor License Agreement]: https://developers.facebook.com/opensource/cla

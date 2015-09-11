@@ -1,26 +1,26 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseClient;
 use Parse\ParseSession;
 use Parse\ParseUser;
 
-require_once 'ParseTestHelper.php';
-
-class ParseSessionTest extends PHPUnit_Framework_TestCase
+class ParseSessionTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
-        ParseTestHelper::clearClass(ParseSession::$parseClassName);
+        Helper::setUp();
+        Helper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseSession::$parseClassName);
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
         ParseUser::logOut();
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
-        ParseTestHelper::clearClass(ParseSession::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseSession::$parseClassName);
     }
 
     public static function tearDownAfterClass()

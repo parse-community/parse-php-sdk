@@ -1,22 +1,22 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseFile;
 use Parse\ParseObject;
 use Parse\ParseQuery;
-
-require_once 'ParseTestHelper.php';
 
 class ParseFileTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
-        ParseTestHelper::clearClass("TestFileObject");
+        Helper::tearDown();
+        Helper::clearClass("TestFileObject");
     }
 
     public function testParseFileFactories()
@@ -33,7 +33,8 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("hi.txt", $file2->getName());
         $this->assertTrue(
             strpos(
-                $file3->getData(), 'i am looking for myself'
+                $file3->getData(),
+                'i am looking for myself'
             ) !== false
         );
     }

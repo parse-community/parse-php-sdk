@@ -1,22 +1,22 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-require_once 'ParseTestHelper.php';
-
-class IncrementTest extends PHPUnit_Framework_TestCase
+class IncrementTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function tearDown()
     {
-        ParseTestHelper::clearClass("TestObject");
-        ParseTestHelper::tearDown();
+        Helper::clearClass("TestObject");
+        Helper::tearDown();
     }
 
     public function testIncrementOnFreshObject()
@@ -146,7 +146,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $obj->set('foo', 'bar');
         $obj->save();
         $this->setExpectedException(
-            'Parse\ParseException', 'Cannot increment a non-number type'
+            'Parse\ParseException',
+            'Cannot increment a non-number type'
         );
         $obj->increment('foo');
         $obj->save();
@@ -163,7 +164,9 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $query->equalTo('objectId', $obj->getObjectId());
         $result = $query->first();
         $this->assertEquals(
-            $result->get('yo'), 1, 'Error in increment on deleted field'
+            $result->get('yo'),
+            1,
+            'Error in increment on deleted field'
         );
     }
 
@@ -176,7 +179,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $query->equalTo('objectId', $obj->getObjectId());
         $result = $query->first();
         $this->assertEquals(
-            $result->get('yo'), 1,
+            $result->get('yo'),
+            1,
             'Error in increment on empty field of fresh object'
         );
     }
@@ -196,7 +200,8 @@ class IncrementTest extends PHPUnit_Framework_TestCase
         $queryAgain->equalTo('objectId', $objAgain->getObjectId());
         $objectAgainTwo = $queryAgain->first();
         $this->assertEquals(
-            $objectAgainTwo->get('yo'), 2,
+            $objectAgainTwo->get('yo'),
+            2,
             'Error in increment on empty field'
         );
     }

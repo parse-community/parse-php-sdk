@@ -1,28 +1,28 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseACL;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
 
-require_once 'ParseTestHelper.php';
-
 class ParseACLTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function setUp()
     {
-        ParseTestHelper::clearClass("_User");
-        ParseTestHelper::clearClass("Object");
+        Helper::clearClass("_User");
+        Helper::clearClass("Object");
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     public function testACLAnObjectOwnedByOneUser()
@@ -334,8 +334,8 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function testIncludedObjectsGetACLs()
     {
-        ParseTestHelper::clearClass("Test");
-        ParseTestHelper::clearClass("Related");
+        Helper::clearClass("Test");
+        Helper::clearClass("Related");
         $object = ParseObject::create('Test');
         $acl = new ParseACL();
         $acl->setPublicReadAccess(true);
@@ -357,8 +357,8 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function testIncludedObjectsGetACLWithDefaultACL()
     {
-        ParseTestHelper::clearClass("Test");
-        ParseTestHelper::clearClass("Related");
+        Helper::clearClass("Test");
+        Helper::clearClass("Related");
         $defaultACL = new ParseACL();
         $defaultACL->setPublicReadAccess(true);
         $defaultACL->setPublicWriteAccess(true);

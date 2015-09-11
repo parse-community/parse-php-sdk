@@ -1,20 +1,20 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseInstallation;
 use Parse\ParseObject;
 
-require_once 'ParseTestHelper.php';
-
-class ParseSubclassTest extends PHPUnit_Framework_TestCase
+class ParseSubclassTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     public function testCreateFromSubclass()

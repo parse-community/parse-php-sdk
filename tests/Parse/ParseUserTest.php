@@ -1,24 +1,24 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
 
-require_once 'ParseTestHelper.php';
-
-class ParseUserTest extends PHPUnit_Framework_TestCase
+class ParseUserTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::setUp();
+        Helper::clearClass(ParseUser::$parseClassName);
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
         ParseUser::logOut();
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
     }
 
     public static function tearDownAfterClass()
@@ -89,7 +89,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
         $this->setExpectedException(
-            'Parse\ParseException', 'UserCannotBeAlteredWithoutSession'
+            'Parse\ParseException',
+            'UserCannotBeAlteredWithoutSession'
         );
         $user->setUsername('changed');
         $user->save();
@@ -110,7 +111,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
         $this->setExpectedException(
-            'Parse\ParseException', 'UserCannotBeAlteredWithoutSession'
+            'Parse\ParseException',
+            'UserCannotBeAlteredWithoutSession'
         );
         $user->destroy();
     }
@@ -142,7 +144,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $item2->set('num', 2);
         $user->setUsername('changed');
         $this->setExpectedException(
-            'Parse\ParseAggregateException', 'Errors during batch save.'
+            'Parse\ParseAggregateException',
+            'Errors during batch save.'
         );
         ParseObject::saveAll([$item1, $item2, $user]);
     }
@@ -229,7 +232,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
     public function testPasswordResetFails()
     {
         $this->setExpectedException(
-            'Parse\ParseException', 'no user found with email'
+            'Parse\ParseException',
+            'no user found with email'
         );
         ParseUser::requestPasswordReset('non_existent@example.com');
     }
@@ -256,13 +260,14 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($userAgain->getObjectId(), $user->getObjectId());
         $this->assertEquals(
-            $userAgain->get('child')->getObjectId(), $child->getObjectId()
+            $userAgain->get('child')->getObjectId(),
+            $child->getObjectId()
         );
     }
 
     public function testUserQueries()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
         $user = new ParseUser();
         $user->setUsername('asdf');
         $user->setPassword('zxcv');
@@ -279,8 +284,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
     public function testContainedInUserArrayQueries()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
-        ParseTestHelper::clearClass("TestObject");
+        Helper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass("TestObject");
         $userList = [];
         for ($i = 0; $i < 4; $i++) {
             $user = new ParseUser();
@@ -339,7 +344,7 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
     public function testCountUsers()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
         $ilya = new ParseUser();
         $ilya->setUsername('ilya');
         $ilya->setPassword('password');
@@ -362,7 +367,7 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
     public function testUserLoadedFromStorageFromSignUp()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
         $fosco = new ParseUser();
         $fosco->setUsername('fosco');
         $fosco->setPassword('password');
@@ -378,7 +383,7 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
     public function testUserLoadedFromStorageFromLogIn()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
         $fosco = new ParseUser();
         $fosco->setUsername('fosco');
         $fosco->setPassword('password');

@@ -1,16 +1,19 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseClient;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-class ParseTestHelper
+class Helper
 {
     public static function setUp()
     {
         ini_set('error_reporting', E_ALL);
         ini_set('display_errors', 1);
         date_default_timezone_set('UTC');
+
         ParseClient::initialize(
             'app-id-here',
             'rest-api-key-here',
@@ -28,7 +31,8 @@ class ParseTestHelper
         $query->each(
             function (ParseObject $obj) {
                 $obj->destroy(true);
-            }, true
+            },
+            true
         );
     }
 }
