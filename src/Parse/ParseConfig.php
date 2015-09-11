@@ -16,7 +16,7 @@ class ParseConfig
      */
     public function __construct()
     {
-        $result = ParseClient::_request("GET", "/1/config");
+        $result = ParseClient::_request('GET', 'config');
         $this->setConfig($result['params']);
     }
 
