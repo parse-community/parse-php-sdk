@@ -15,16 +15,25 @@ class ParseMemoryStorage implements ParseStorageInterface
      */
     private $storage = [];
 
+    /**
+     * {inheritDoc}
+     */
     public function set($key, $value)
     {
         $this->storage[$key] = $value;
     }
 
+    /**
+     * {inheritDoc}
+     */
     public function remove($key)
     {
         unset($this->storage[$key]);
     }
 
+    /**
+     * {inheritDoc}
+     */
     public function get($key)
     {
         if (isset($this->storage[$key])) {
@@ -34,22 +43,34 @@ class ParseMemoryStorage implements ParseStorageInterface
         return;
     }
 
+    /**
+     * {inheritDoc}
+     */
     public function clear()
     {
         $this->storage = [];
     }
 
+    /**
+     * {inheritDoc}
+     */
     public function save()
     {
         // No action required.
         return;
     }
 
+    /**
+     * {inheritDoc}
+     */
     public function getKeys()
     {
         return array_keys($this->storage);
     }
 
+    /**
+     * {inheritDoc}
+     */
     public function getAll()
     {
         return $this->storage;

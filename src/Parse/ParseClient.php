@@ -246,8 +246,12 @@ final class ParseClient
      *
      * @return mixed Result from Parse API Call.
      */
-    public static function _request($method, $relativeUrl, $sessionToken = null,
-        $data = null, $useMasterKey = false
+    public static function _request(
+        $method,
+        $relativeUrl,
+        $sessionToken = null,
+        $data = null,
+        $useMasterKey = false
     ) {
         if ($data === '[]') {
             $data = '{}';
@@ -412,7 +416,9 @@ final class ParseClient
     public static function getPushDateFormat($value, $local = false)
     {
         $dateFormatString = 'Y-m-d\TH:i:s';
-        if (!$local) $dateFormatString .= '\Z';
+        if (!$local) {
+            $dateFormatString .= '\Z';
+        }
         $date = date_format($value, $dateFormatString);
 
         return $date;

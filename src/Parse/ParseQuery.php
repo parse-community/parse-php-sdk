@@ -318,8 +318,11 @@ class ParseQuery
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request(
             'GET',
-            '/1/classes/'.$this->className.
-            '?'.$queryString, $sessionToken, null, $useMasterKey
+            '/1/classes/' . $this->className.
+            '?' . $queryString,
+            $sessionToken,
+            null,
+            $useMasterKey
         );
 
         return $result['count'];
@@ -341,8 +344,11 @@ class ParseQuery
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request(
             'GET',
-            '/1/classes/'.$this->className.
-            '?'.$queryString, $sessionToken, null, $useMasterKey
+            '/1/classes/' . $this->className.
+            '?' . $queryString,
+            $sessionToken,
+            null,
+            $useMasterKey
         );
         $output = [];
         foreach ($result['results'] as $row) {
@@ -445,7 +451,8 @@ class ParseQuery
             $key = array_map(
                 function ($element) {
                     return '-'.$element;
-                }, $key
+                },
+                $key
             );
             $this->orderBy = array_merge($this->orderBy, $key);
         } else {
@@ -541,7 +548,8 @@ class ParseQuery
     public function withinGeoBox($key, $southwest, $northeast)
     {
         $this->addCondition(
-            $key, '$within',
+            $key,
+            '$within',
             ['$box' => [$southwest, $northeast]]
         );
 
@@ -675,7 +683,8 @@ class ParseQuery
         $queryParam = $query->_getOptions();
         $queryParam["className"] = $query->className;
         $this->addCondition(
-            $key, '$select',
+            $key,
+            '$select',
             ['key' => $queryKey, 'query' => $queryParam]
         );
 
@@ -699,7 +708,8 @@ class ParseQuery
         $queryParam = $query->_getOptions();
         $queryParam["className"] = $query->className;
         $this->addCondition(
-            $key, '$dontSelect',
+            $key,
+            '$dontSelect',
             ['key' => $queryKey, 'query' => $queryParam]
         );
 

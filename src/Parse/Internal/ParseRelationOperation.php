@@ -11,7 +11,7 @@ use Parse\ParseRelation;
  *
  * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
  */
-class ParseRelationOperation implements    FieldOperation
+class ParseRelationOperation implements FieldOperation
 {
     /**
      * The className of the target objects.
