@@ -90,7 +90,7 @@ class ParseFile implements \Parse\Internal\Encodable
         }
 
         $headers = ParseClient::_getRequestHeaders(null, true);
-        $url = ParseClient::getAPIUrl() . '/files/' . $this->getName();
+        $url = ParseClient::getAPIUrl() . 'files/' . $this->getName();
         $rest = curl_init();
         curl_setopt($rest, CURLOPT_URL, $url);
         curl_setopt($rest, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -206,7 +206,7 @@ class ParseFile implements \Parse\Internal\Encodable
         $mimeType = $this->mimeType ?: $this->getMimeTypeForExtension($extension);
 
         $headers = ParseClient::_getRequestHeaders(null, false);
-        $url = ParseClient::getAPIUrl . '/files/' . $this->getName();
+        $url = ParseClient::getAPIUrl() . 'files/' . $this->getName();
         $rest = curl_init();
         curl_setopt($rest, CURLOPT_URL, $url);
         curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);

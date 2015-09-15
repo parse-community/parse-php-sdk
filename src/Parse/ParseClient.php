@@ -391,7 +391,7 @@ final class ParseClient
      */
     public static function getAPIUrl()
     {
-        return self::HOST_NAME . '/' . self::API_VERSION;
+        return self::HOST_NAME . '/' . self::API_VERSION . '/';
     }
 
     /**
