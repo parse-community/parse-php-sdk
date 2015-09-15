@@ -1,30 +1,30 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseACL;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseRole;
 use Parse\ParseUser;
 
-require_once 'ParseTestHelper.php';
-
 class ParseRoleTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function setUp()
     {
-        ParseTestHelper::clearClass("_User");
-        ParseTestHelper::clearClass("_Role");
-        ParseTestHelper::clearClass("Things");
+        Helper::clearClass("_User");
+        Helper::clearClass("_Role");
+        Helper::clearClass("Things");
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     public function testCreateRole()
@@ -196,7 +196,8 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         $eden['humans']->getUsers()->add($eden['adam']);
         $eden['humans']->getUsers()->add($eden['eve']);
         $eden['creatures'] = ParseRole::createRole(
-            "creatures", $this->aclPublic()
+            "creatures",
+            $this->aclPublic()
         );
         $eden['creatures']->getUsers()->add($eden['snake']);
         ParseObject::saveAll([$eden['humans'], $eden['creatures']]);

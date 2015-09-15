@@ -1,21 +1,21 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\Internal\SetOperation;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-require_once 'ParseTestHelper.php';
-
-class ParseObjectTest extends PHPUnit_Framework_TestCase
+class ParseObjectTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     public function testCreate()
@@ -33,7 +33,8 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
         $obj->set('foo', 'changed');
         $obj->save();
         $this->assertEquals(
-            $obj->foo, 'changed',
+            $obj->foo,
+            'changed',
             'Update should have succeeded'
         );
     }
@@ -66,7 +67,8 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
             'Returned object was not a ParseObject'
         );
         $this->assertEquals(
-            'bar', $returnedObject->foo,
+            'bar',
+            $returnedObject->foo,
             'Value of foo was not saved.'
         );
     }
@@ -94,7 +96,7 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
 
     public function testFind()
     {
-        ParseTestHelper::clearClass('TestObject');
+        Helper::clearClass('TestObject');
         $obj = ParseObject::create('TestObject');
         $obj->set('foo', 'bar');
         $obj->save();
@@ -106,8 +108,8 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
 
     public function testRelationalFields()
     {
-        ParseTestHelper::clearClass("Item");
-        ParseTestHelper::clearClass("Container");
+        Helper::clearClass("Item");
+        Helper::clearClass("Container");
         $item = ParseObject::create("Item");
         $item->set("property", "x");
         $item->save();
@@ -129,8 +131,8 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
 
     public function testRelationDeletion()
     {
-        ParseTestHelper::clearClass("SimpleObject");
-        ParseTestHelper::clearClass("Child");
+        Helper::clearClass("SimpleObject");
+        Helper::clearClass("Child");
         $simple = ParseObject::create("SimpleObject");
         $child = ParseObject::create("Child");
         $simple->set('child', $child);
@@ -164,8 +166,8 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
 
     public function testRecursiveSave()
     {
-        ParseTestHelper::clearClass('Container');
-        ParseTestHelper::clearClass('Item');
+        Helper::clearClass('Container');
+        Helper::clearClass('Item');
         $a = ParseObject::create('Container');
         $b = ParseObject::create('Item');
         $b->set('foo', 'bar');
@@ -219,7 +221,8 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
         $objAgain = ParseObject::create('TestObject', $obj->getObjectId());
         $objAgain->fetch();
         $this->assertEquals(
-            $obj->getCreatedAt(), $objAgain->getCreatedAt()
+            $obj->getCreatedAt(),
+            $objAgain->getCreatedAt()
         );
     }
 
@@ -559,8 +562,8 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
 
     public function testSavingChildrenInArray()
     {
-        ParseTestHelper::clearClass("Parent");
-        ParseTestHelper::clearClass("Child");
+        Helper::clearClass("Parent");
+        Helper::clearClass("Child");
         $parent = ParseObject::create("Parent");
         $child1 = ParseObject::create("Child");
         $child2 = ParseObject::create("Child");
@@ -630,7 +633,8 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
         $parentAgain = $query->get($parent->getObjectId());
         $children = $parentAgain->get("children");
         $this->assertEquals(
-            $child->getObjectId(), $children[0]->getObjectId()
+            $child->getObjectId(),
+            $children[0]->getObjectId()
         );
     }
 
@@ -723,7 +727,7 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
 
     public function testDestroyAll()
     {
-        ParseTestHelper::clearClass("TestObject");
+        Helper::clearClass("TestObject");
         $o1 = ParseObject::create('TestObject');
         $o2 = ParseObject::create('TestObject');
         $o3 = ParseObject::create('TestObject');
@@ -866,7 +870,7 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
 
     public function testSaveAll()
     {
-        ParseTestHelper::clearClass("TestObject");
+        Helper::clearClass("TestObject");
         $objs = [];
         for ($i = 1; $i <= 90; $i++) {
             $obj = ParseObject::create('TestObject');
@@ -887,16 +891,19 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
         $saveOpArray = new SetOperation([]);
         $saveOpAssoc = new SetOperation([], true);
         $this->assertTrue(
-            is_array($saveOpArray->_encode()), "Value should be array."
+            is_array($saveOpArray->_encode()),
+            "Value should be array."
         );
         $this->assertTrue(
-            is_object($saveOpAssoc->_encode()), "Value should be object."
+            is_object($saveOpAssoc->_encode()),
+            "Value should be object."
         );
         $obj->save();
         $obj->setAssociativeArray(
-            'obj', [
-            'foo' => 'bar',
-            'baz' => 'yay',
+            'obj',
+            [
+                'foo' => 'bar',
+                'baz' => 'yay',
             ]
         );
         $obj->save();
@@ -910,7 +917,7 @@ class ParseObjectTest extends PHPUnit_Framework_TestCase
 
     public function testDatetimeHandling()
     {
-        $date = new DateTime('2014-04-30T12:34:56.789Z');
+        $date = new \DateTime('2014-04-30T12:34:56.789Z');
         $obj = ParseObject::create('TestObject');
         $obj->set('f8', $date);
         $obj->save();

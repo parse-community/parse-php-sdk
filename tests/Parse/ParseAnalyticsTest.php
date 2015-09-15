@@ -1,19 +1,19 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseAnalytics;
 
-require_once 'ParseTestHelper.php';
-
-class ParseAnalyticsTest extends PHPUnit_Framework_TestCase
+class ParseAnalyticsTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     public function assertAnalyticsValidation($event, $params, $expectedJSON)
@@ -34,7 +34,8 @@ class ParseAnalyticsTest extends PHPUnit_Framework_TestCase
     public function testFailsOnEventName1()
     {
         $this->setExpectedException(
-            'Exception', 'A name for the custom event must be provided.'
+            'Exception',
+            'A name for the custom event must be provided.'
         );
         ParseAnalytics::track('');
     }
@@ -42,7 +43,8 @@ class ParseAnalyticsTest extends PHPUnit_Framework_TestCase
     public function testFailsOnEventName2()
     {
         $this->setExpectedException(
-            'Exception', 'A name for the custom event must be provided.'
+            'Exception',
+            'A name for the custom event must be provided.'
         );
         ParseAnalytics::track('    ');
     }
@@ -50,7 +52,8 @@ class ParseAnalyticsTest extends PHPUnit_Framework_TestCase
     public function testFailsOnEventName3()
     {
         $this->setExpectedException(
-            'Exception', 'A name for the custom event must be provided.'
+            'Exception',
+            'A name for the custom event must be provided.'
         );
         ParseAnalytics::track("    \n");
     }

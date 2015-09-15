@@ -1,27 +1,27 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseBytes;
 use Parse\ParseObject;
 use Parse\ParseQuery;
-
-require_once 'ParseTestHelper.php';
 
 class ParseBytesTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function setUp()
     {
-        ParseTestHelper::clearClass("BytesObject");
+        Helper::clearClass("BytesObject");
     }
 
     public function tearDown()
     {
-        ParseTestHelper::clearClass("BytesObject");
-        ParseTestHelper::tearDown();
+        Helper::clearClass("BytesObject");
+        Helper::tearDown();
     }
 
     public function testParseBytesFromArray()

@@ -1,16 +1,16 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseCloud;
 use Parse\ParseGeoPoint;
 use Parse\ParseObject;
 
-require_once 'ParseTestHelper.php';
-
-class ParseCloudTest extends PHPUnit_Framework_TestCase
+class ParseCloudTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function testFunctionsWithObjectParamsFails()
