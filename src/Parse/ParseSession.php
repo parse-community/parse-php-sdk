@@ -33,7 +33,13 @@ class ParseSession extends ParseObject
     public static function getCurrentSession($useMasterKey = false)
     {
         $token = ParseUser::getCurrentUser()->getSessionToken();
-        $response = ParseClient::_request('GET', '/1/sessions/me', $token, null, $useMasterKey);
+        $response = ParseClient::_request(
+            'GET',
+            'sessions/me',
+            $token,
+            null,
+            $useMasterKey
+        );
         $session = new ParseSession();
         $session->_mergeAfterFetch($response);
         $session->handleSaveResult();

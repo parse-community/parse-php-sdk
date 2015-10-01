@@ -136,7 +136,7 @@ class ParseUser extends ParseObject
             );
         }
         $data = ["username" => $username, "password" => $password];
-        $result = ParseClient::_request("GET", "/1/login", "", $data);
+        $result = ParseClient::_request('GET', 'login', '', $data);
         $user = new static();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
@@ -176,7 +176,7 @@ class ParseUser extends ParseObject
                 "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
             ]
         ]];
-        $result = ParseClient::_request("POST", "/1/users", "", json_encode($data));
+        $result = ParseClient::_request('POST', 'users', '', json_encode($data));
         $user = ParseObject::create('_User');
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
@@ -204,7 +204,7 @@ class ParseUser extends ParseObject
             ]
         ]];
 
-        $result = ParseClient::_request("POST", "/1/users", "", json_encode($data));
+        $result = ParseClient::_request('POST', 'users', '', json_encode($data));
         $user = new ParseUser();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
@@ -246,7 +246,7 @@ class ParseUser extends ParseObject
             ]
         ]];
         $result = ParseClient::_request(
-            "PUT", "/1/users/" . $this->getObjectId(),
+            'PUT', 'users/' . $this->getObjectId(),
             $this->getSessionToken(), json_encode($data), $useMasterKey
         );
         $user = new ParseUser();
@@ -265,7 +265,7 @@ class ParseUser extends ParseObject
      */
     public static function become($sessionToken)
     {
-        $result = ParseClient::_request('GET', '/1/users/me', $sessionToken);
+        $result = ParseClient::_request('GET', 'users/me', $sessionToken);
         $user = new static();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
@@ -277,7 +277,7 @@ class ParseUser extends ParseObject
     /**
      * Log out the current user.    This will clear the storage and future calls
      *     to current will return null.
-     * This will make a network request to /1/logout to invalidate the session.
+     * This will make a network request to logout to invalidate the session.
      *
      * @return null
      */
@@ -286,7 +286,7 @@ class ParseUser extends ParseObject
         $user = static::getCurrentUser();
         if ($user) {
             try {
-                ParseClient::_request('POST', '/1/logout', $user->getSessionToken());
+                ParseClient::_request('POST', 'logout', $user->getSessionToken());
             } catch (ParseException $ex) {
                 // If this fails, we're going to ignore it.
             }
@@ -420,7 +420,7 @@ class ParseUser extends ParseObject
     public static function requestPasswordReset($email)
     {
         $json = json_encode(['email' => $email]);
-        ParseClient::_request('POST', '/1/requestPasswordReset', null, $json);
+        ParseClient::_request('POST', 'requestPasswordReset', null, $json);
     }
 
     public static function _clearCurrentUserVariable()

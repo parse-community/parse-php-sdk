@@ -517,11 +517,11 @@ class ParseObject implements Encodable
         }
         $response = ParseClient::_request(
             'GET',
-            '/1/classes/'.$this->className.'/'.$this->objectId,
+            'classes/' . $this->className . '/' . $this->objectId,
             $sessionToken, null, $useMasterKey
         );
         $this->_mergeAfterFetch($response);
-        
+
         return $this;
     }
 
@@ -751,8 +751,11 @@ class ParseObject implements Encodable
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
         ParseClient::_request(
-            'DELETE', '/1/classes/'.$this->className.
-            '/'.$this->objectId, $sessionToken, null, $useMasterKey
+            'DELETE',
+            'classes/' . $this->className . '/' . $this->objectId,
+            $sessionToken,
+            null,
+            $useMasterKey
         );
     }
 
@@ -802,9 +805,9 @@ class ParseObject implements Encodable
         $errors = [];
         foreach ($objects as $object) {
             $data[] = [
-                "method" => "DELETE",
-                "path"   => "/1/classes/".$object->getClassName().
-                    "/".$object->getObjectId(),
+                "method" => 'DELETE',
+                "path"   => 'classes/' . $object->getClassName().
+                    '/' . $object->getObjectId(),
             ];
         }
         $sessionToken = null;
@@ -812,7 +815,7 @@ class ParseObject implements Encodable
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
         $result = ParseClient::_request(
-            "POST", "/1/batch", $sessionToken,
+            'POST', 'batch', $sessionToken,
             json_encode(["requests" => $data]),
             $useMasterKey
         );
@@ -1018,7 +1021,7 @@ class ParseObject implements Encodable
             foreach ($batch as $obj) {
                 $json = $obj->getSaveJSON();
                 $method = 'POST';
-                $path = '/1/classes/'.$obj->getClassName();
+                $path = 'classes/' . $obj->getClassName();
                 if ($obj->getObjectId()) {
                     $path .= '/'.$obj->getObjectId();
                     $method = 'PUT';
@@ -1038,7 +1041,7 @@ class ParseObject implements Encodable
                 $batch[0]->mergeAfterSave($result);
             } else {
                 $result = ParseClient::_request(
-                    'POST', '/1/batch', $sessionToken,
+                    'POST', 'batch', $sessionToken,
                     json_encode(["requests" => $requests]), $useMasterKey
                 );
 

@@ -318,8 +318,10 @@ class ParseQuery
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request(
             'GET',
-            '/1/classes/'.$this->className.
-            '?'.$queryString, $sessionToken, null, $useMasterKey
+            'classes/' . $this->className . '?' . $queryString,
+            $sessionToken,
+            null,
+            $useMasterKey
         );
 
         return $result['count'];
@@ -341,8 +343,10 @@ class ParseQuery
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request(
             'GET',
-            '/1/classes/'.$this->className.
-            '?'.$queryString, $sessionToken, null, $useMasterKey
+            'classes/' . $this->className . '?' . $queryString,
+            $sessionToken,
+            null,
+            $useMasterKey
         );
         $output = [];
         foreach ($result['results'] as $row) {
