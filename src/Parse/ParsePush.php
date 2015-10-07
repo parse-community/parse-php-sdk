@@ -33,17 +33,13 @@ class ParsePush
         if (isset($data['expiration_time'])
             && isset($data['expiration_interval'])
         ) {
-            throw new \Exception(
-                'Both expiration_time and expiration_interval can\'t be set.'
-            );
+            throw new \Exception('Both expiration_time and expiration_interval can\'t be set.');
         }
         if (isset($data['where'])) {
             if ($data['where'] instanceof ParseQuery) {
                 $data['where'] = $data['where']->_getOptions()['where'];
             } else {
-                throw new \Exception(
-                    'Where parameter for Parse Push must be of type ParseQuery'
-                );
+                throw new \Exception('Where parameter for Parse Push must be of type ParseQuery');
             }
         }
         if (isset($data['push_time'])) {

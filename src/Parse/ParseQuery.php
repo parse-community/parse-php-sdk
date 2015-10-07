@@ -90,7 +90,7 @@ class ParseQuery
         $this->equalTo('objectId', $objectId);
         $result = $this->first($useMasterKey);
         if (empty($result)) {
-            throw new ParseException("Object not found.", 101);
+            throw new ParseException('Object not found.', 101);
         }
 
         return $result;
@@ -213,7 +213,7 @@ class ParseQuery
      */
     private function quote($s)
     {
-        return "\\Q".str_replace("\\E", "\\E\\\\E\\Q", $s)."\\E";
+        return '\\Q' . str_replace('\\E', '\\E\\\\E\\Q', $s) . '\\E';
     }
 
     /**
@@ -227,7 +227,7 @@ class ParseQuery
      */
     public function startsWith($key, $value)
     {
-        $this->addCondition($key, '$regex', "^".$this->quote($value));
+        $this->addCondition($key, '$regex', '^'.$this->quote($value));
 
         return $this;
     }
@@ -292,9 +292,9 @@ class ParseQuery
      */
     private function buildQueryString($queryOptions)
     {
-        if (isset($queryOptions["where"])) {
-            $queryOptions["where"] = ParseClient::_encode($queryOptions["where"], true);
-            $queryOptions["where"] = json_encode($queryOptions["where"]);
+        if (isset($queryOptions['where'])) {
+            $queryOptions['where'] = ParseClient::_encode($queryOptions['where'], true);
+            $queryOptions['where'] = json_encode($queryOptions['where']);
         }
 
         return http_build_query($queryOptions);
@@ -454,7 +454,7 @@ class ParseQuery
             );
             $this->orderBy = array_merge($this->orderBy, $key);
         } else {
-            $this->orderBy[] = "-".$key;
+            $this->orderBy[] = '-'.$key;
         }
 
         return $this;
@@ -585,15 +585,13 @@ class ParseQuery
     public function each($callback, $useMasterKey = false, $batchSize = 100)
     {
         if ($this->orderBy || $this->skip || ($this->limit >= 0)) {
-            throw new \Exception(
-                "Cannot iterate on a query with sort, skip, or limit."
-            );
+            throw new \Exception('Cannot iterate on a query with sort, skip, or limit.');
         }
         $query = new ParseQuery($this->className);
         $query->where = $this->where;
         $query->includes = $this->includes;
         $query->limit = $batchSize;
-        $query->ascending("objectId");
+        $query->ascending('objectId');
 
         $finished = false;
         while (!$finished) {
@@ -603,7 +601,7 @@ class ParseQuery
                 $callback($results[$i]);
             }
             if ($length == $query->limit) {
-                $query->greaterThan("objectId", $results[$length - 1]->getObjectId());
+                $query->greaterThan('objectId', $results[$length - 1]->getObjectId());
             } else {
                 $finished = true;
             }
@@ -639,7 +637,7 @@ class ParseQuery
     public function matchesQuery($key, $query)
     {
         $queryParam = $query->_getOptions();
-        $queryParam["className"] = $query->className;
+        $queryParam['className'] = $query->className;
         $this->addCondition($key, '$inQuery', $queryParam);
 
         return $this;
@@ -658,7 +656,7 @@ class ParseQuery
     public function doesNotMatchQuery($key, $query)
     {
         $queryParam = $query->_getOptions();
-        $queryParam["className"] = $query->className;
+        $queryParam['className'] = $query->className;
         $this->addCondition($key, '$notInQuery', $queryParam);
 
         return $this;
@@ -679,7 +677,7 @@ class ParseQuery
     public function matchesKeyInQuery($key, $queryKey, $query)
     {
         $queryParam = $query->_getOptions();
-        $queryParam["className"] = $query->className;
+        $queryParam['className'] = $query->className;
         $this->addCondition(
             $key,
             '$select',
@@ -704,7 +702,7 @@ class ParseQuery
     public function doesNotMatchKeyInQuery($key, $queryKey, $query)
     {
         $queryParam = $query->_getOptions();
-        $queryParam["className"] = $query->className;
+        $queryParam['className'] = $query->className;
         $this->addCondition(
             $key,
             '$dontSelect',
@@ -733,7 +731,7 @@ class ParseQuery
                 $className = $queryObjects[$i]->className;
             }
             if ($className != $queryObjects[$i]->className) {
-                throw new \Exception("All queries must be for the same class");
+                throw new \Exception('All queries must be for the same class');
             }
         }
         $query = new ParseQuery($className);

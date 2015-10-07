@@ -64,7 +64,7 @@ class ParseBytes implements Internal\Encodable
      */
     public function _encode()
     {
-        $data = "";
+        $data = '';
         foreach ($this->byteArray as $byte) {
             $data .= chr($byte);
         }

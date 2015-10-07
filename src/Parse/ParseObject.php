@@ -105,8 +105,8 @@ class ParseObject implements Encodable
     {
         if (empty(self::$registeredSubclasses)) {
             throw new Exception(
-                'You must initialize the ParseClient using ParseClient::initialize '.
-                'and your Parse API keys before you can begin working with Objects.'
+                'You must initialize the ParseClient using ParseClient::initialize '
+                . 'and your Parse API keys before you can begin working with Objects.'
             );
         }
         $subclass = static::getSubclass();
@@ -116,9 +116,9 @@ class ParseObject implements Encodable
         }
         if ($class !== __CLASS__ && $className !== $subclass) {
             throw new Exception(
-                'You must specify a Parse class name or register the appropriate '.
-                'subclass when creating a new Object.    Use ParseObject::create to '.
-                'create a subclass object.'
+                'You must specify a Parse class name or register the appropriate '
+                . 'subclass when creating a new Object.    Use ParseObject::create to '
+                . 'create a subclass object.'
             );
         }
 
@@ -202,9 +202,7 @@ class ParseObject implements Encodable
     public function get($key)
     {
         if (!$this->_isDataAvailable($key)) {
-            throw new \Exception(
-                'ParseObject has no data for this key. Call fetch() to get the data.'
-            );
+            throw new \Exception('ParseObject has no data for this key. Call fetch() to get the data.');
         }
         if (isset($this->estimatedData[$key])) {
             return $this->estimatedData[$key];
@@ -297,9 +295,7 @@ class ParseObject implements Encodable
             throw new Exception('key may not be null.');
         }
         if (is_array($value)) {
-            throw new Exception(
-                'Must use setArray() or setAssociativeArray() for this value.'
-            );
+            throw new Exception('Must use setArray() or setAssociativeArray() for this value.');
         }
         $this->_performOperation($key, new SetOperation($value));
     }
@@ -320,9 +316,7 @@ class ParseObject implements Encodable
             throw new Exception('key may not be null.');
         }
         if (!is_array($value)) {
-            throw new Exception(
-                'Must use set() for non-array values.'
-            );
+            throw new Exception('Must use set() for non-array values.');
         }
         $this->_performOperation($key, new SetOperation($value));
     }
@@ -343,9 +337,7 @@ class ParseObject implements Encodable
             throw new Exception('key may not be null.');
         }
         if (!is_array($value)) {
-            throw new Exception(
-                'Must use set() for non-array values.'
-            );
+            throw new Exception('Must use set() for non-array values.');
         }
         $this->_performOperation($key, new SetOperation($value, true));
     }
@@ -543,7 +535,7 @@ class ParseObject implements Encodable
         }
         $className = $objects[0]->getClassName();
         $query = new ParseQuery($className);
-        $query->containedIn("objectId", $objectIds);
+        $query->containedIn('objectId', $objectIds);
         $query->limit(count($objectIds));
         $results = $query->find($useMasterKey);
         return static::updateWithFetchedResults($objects, $results);
@@ -560,9 +552,9 @@ class ParseObject implements Encodable
         for ($i = 0; $i < $count; $i++) {
             $obj = $objects[$i];
             if ($obj->getClassName() !== $className) {
-                throw new ParseException("All objects should be of the same class.");
+                throw new ParseException('All objects should be of the same class.');
             } elseif (!$obj->getObjectId()) {
-                throw new ParseException("All objects must have an ID.");
+                throw new ParseException('All objects must have an ID.');
             }
             array_push($objectIds, $obj->getObjectId());
         }
@@ -579,7 +571,7 @@ class ParseObject implements Encodable
         for ($i = 0; $i < $count; $i++) {
             $obj = $objects[$i];
             if (!isset($fetchedObjectsById[$obj->getObjectId()])) {
-                throw new ParseException("All objects must exist on the server.");
+                throw new ParseException('All objects must exist on the server.');
             }
             $obj->mergeFromObject($fetchedObjectsById[$obj->getObjectId()]);
         }
@@ -802,10 +794,7 @@ class ParseObject implements Encodable
                 }
             }
             if (count($errors)) {
-                throw new ParseAggregateException(
-                    "Errors during batch destroy.",
-                    $errors
-                );
+                throw new ParseAggregateException('Errors during batch destroy.', $errors);
             }
         }
 
@@ -818,8 +807,8 @@ class ParseObject implements Encodable
         $errors = [];
         foreach ($objects as $object) {
             $data[] = [
-                "method" => 'DELETE',
-                "path"   => 'classes/' . $object->getClassName().
+                'method' => 'DELETE',
+                'path'   => 'classes/' . $object->getClassName().
                     '/' . $object->getObjectId(),
             ];
         }
@@ -831,7 +820,7 @@ class ParseObject implements Encodable
             'POST',
             'batch',
             $sessionToken,
-            json_encode(["requests" => $data]),
+            json_encode(['requests' => $data]),
             $useMasterKey
         );
         foreach ($objects as $key => $object) {
@@ -1029,7 +1018,7 @@ class ParseObject implements Encodable
             $remaining = $newRemaining;
 
             if (count($batch) === 0) {
-                throw new Exception("Tried to save a batch with a cycle.");
+                throw new Exception('Tried to save a batch with a cycle.');
             }
 
             $requests = [];
@@ -1062,7 +1051,7 @@ class ParseObject implements Encodable
                     'POST',
                     'batch',
                     $sessionToken,
-                    json_encode(["requests" => $requests]),
+                    json_encode(['requests' => $requests]),
                     $useMasterKey
                 );
 
@@ -1090,10 +1079,7 @@ class ParseObject implements Encodable
                     }
                 }
                 if (count($errorCollection)) {
-                    throw new ParseAggregateException(
-                        "Errors during batch save.",
-                        $errorCollection
-                    );
+                    throw new ParseAggregateException('Errors during batch save.', $errorCollection);
                 }
             }
         }
@@ -1260,11 +1246,11 @@ class ParseObject implements Encodable
     public function _toPointer()
     {
         if (!$this->objectId) {
-            throw new \Exception("Can't serialize an unsaved Parse.Object");
+            throw new \Exception('Can\'t serialize an unsaved Parse.Object');
         }
 
         return [
-                '__type'    => "Pointer",
+                '__type'    => 'Pointer',
                 'className' => $this->className,
                 'objectId'  => $this->objectId, ];
     }
@@ -1316,9 +1302,7 @@ class ParseObject implements Encodable
                     get_called_class();
             }
         } else {
-            throw new \Exception(
-                "Cannot register a subclass that does not have a parseClassName"
-            );
+            throw new \Exception('Cannot register a subclass that does not have a parseClassName');
         }
     }
 
@@ -1373,9 +1357,7 @@ class ParseObject implements Encodable
     {
         $subclass = static::getSubclass();
         if ($subclass === false) {
-            throw new Exception(
-                'Cannot create a query for an unregistered subclass.'
-            );
+            throw new Exception('Cannot create a query for an unregistered subclass.');
         } else {
             return new ParseQuery($subclass);
         }

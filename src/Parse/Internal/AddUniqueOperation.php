@@ -29,7 +29,7 @@ class AddUniqueOperation implements FieldOperation
     public function __construct($objects)
     {
         if (!is_array($objects)) {
-            throw new ParseException("AddUniqueOperation requires an array.");
+            throw new ParseException('AddUniqueOperation requires an array.');
         }
         $this->objects = $objects;
     }
@@ -84,9 +84,8 @@ class AddUniqueOperation implements FieldOperation
 
             return new AddUniqueOperation($result);
         }
-        throw new ParseException(
-            'Operation is invalid after previous operation.'
-        );
+
+        throw new ParseException('Operation is invalid after previous operation.');
     }
 
     /**

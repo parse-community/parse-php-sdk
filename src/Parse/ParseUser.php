@@ -9,7 +9,7 @@ namespace Parse;
  */
 class ParseUser extends ParseObject
 {
-    public static $parseClassName = "_User";
+    public static $parseClassName = '_User';
 
     /**
      * The currently logged-in user.
@@ -32,7 +32,7 @@ class ParseUser extends ParseObject
      */
     public function getUsername()
     {
-        return $this->get("username");
+        return $this->get('username');
     }
 
     /**
@@ -44,7 +44,7 @@ class ParseUser extends ParseObject
      */
     public function setUsername($username)
     {
-        return $this->set("username", $username);
+        return $this->set('username', $username);
     }
 
     /**
@@ -56,7 +56,7 @@ class ParseUser extends ParseObject
      */
     public function setPassword($password)
     {
-        return $this->set("password", $password);
+        return $this->set('password', $password);
     }
 
     /**
@@ -66,7 +66,7 @@ class ParseUser extends ParseObject
      */
     public function getEmail()
     {
-        return $this->get("email");
+        return $this->get('email');
     }
 
     /**
@@ -78,7 +78,7 @@ class ParseUser extends ParseObject
      */
     public function setEmail($email)
     {
-        return $this->set("email", $email);
+        return $this->set('email', $email);
     }
 
     /**
@@ -99,17 +99,13 @@ class ParseUser extends ParseObject
     public function signUp()
     {
         if (!$this->get('username')) {
-            throw new ParseException("Cannot sign up user with an empty name");
+            throw new ParseException('Cannot sign up user with an empty name');
         }
         if (!$this->get('password')) {
-            throw new ParseException(
-                "Cannot sign up user with an empty password."
-            );
+            throw new ParseException('Cannot sign up user with an empty password.');
         }
         if ($this->getObjectId()) {
-            throw new ParseException(
-                "Cannot sign up an already existing user."
-            );
+            throw new ParseException('Cannot sign up an already existing user.');
         }
         parent::save();
         $this->handleSaveResult(true);
@@ -128,19 +124,17 @@ class ParseUser extends ParseObject
     public static function logIn($username, $password)
     {
         if (!$username) {
-            throw new ParseException("Cannot log in user with an empty name");
+            throw new ParseException('Cannot log in user with an empty name');
         }
         if (!$password) {
-            throw new ParseException(
-                "Cannot log in user with an empty password."
-            );
+            throw new ParseException('Cannot log in user with an empty password.');
         }
-        $data = ["username" => $username, "password" => $password];
+        $data = ['username' => $username, 'password' => $password];
         $result = ParseClient::_request('GET', 'login', '', $data);
         $user = new static();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
-        ParseClient::getStorage()->set("user", $user);
+        ParseClient::getStorage()->set('user', $user);
 
         return $user;
     }
@@ -159,28 +153,26 @@ class ParseUser extends ParseObject
     public static function logInWithFacebook($id, $access_token, $expiration_date = null)
     {
         if (!$id) {
-            throw new ParseException("Cannot log in Facebook user without an id.");
+            throw new ParseException('Cannot log in Facebook user without an id.');
         }
         if (!$access_token) {
-            throw new ParseException(
-                "Cannot log in Facebook user without an access token."
-            );
+            throw new ParseException('Cannot log in Facebook user without an access token.');
         }
         if (!$expiration_date) {
             $expiration_date = new \DateTime();
             $expiration_date->setTimestamp(time() + 86400 * 60);
         }
-        $data = ["authData" => [
-            "facebook" => [
-                "id" => $id, "access_token" => $access_token,
-                "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
+        $data = ['authData' => [
+            'facebook' => [
+                'id' => $id, 'access_token' => $access_token,
+                'expiration_date' => ParseClient::getProperDateFormat($expiration_date)
             ]
         ]];
         $result = ParseClient::_request('POST', 'users', '', json_encode($data));
         $user = ParseObject::create('_User');
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
-        ParseClient::getStorage()->set("user", $user);
+        ParseClient::getStorage()->set('user', $user);
         return $user;
     }
 
@@ -199,10 +191,18 @@ class ParseUser extends ParseObject
          */
         $uuid_parts = str_split(md5(mt_rand()), 4);
         $data = ['authData' => [
-            "anonymous" => [
-                "id" => "{$uuid_parts[0]}{$uuid_parts[1]}-{$uuid_parts[2]}-" .
-                "{$uuid_parts[3]}-{$uuid_parts[4]}-{$uuid_parts[5]}" .
-                "{$uuid_parts[6]}{$uuid_parts[7]}",
+            'anonymous' => [
+                'id' => sprintf(
+                    '%s%s-%s-%s-%s-%s%s%s',
+                    $uuid_parts[0],
+                    $uuid_parts[1],
+                    $uuid_parts[2],
+                    $uuid_parts[3],
+                    $uuid_parts[4],
+                    $uuid_parts[5],
+                    $uuid_parts[6],
+                    $uuid_parts[7]
+                ),
             ]
         ]];
 
@@ -210,7 +210,7 @@ class ParseUser extends ParseObject
         $user = new ParseUser();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
-        ParseClient::getStorage()->set("user", $user);
+        ParseClient::getStorage()->set('user', $user);
         return $user;
     }
     /**
@@ -228,29 +228,28 @@ class ParseUser extends ParseObject
     public function linkWithFacebook($id, $access_token, $expiration_date = null, $useMasterKey = false)
     {
         if (!$this->getObjectId()) {
-            throw new ParseException("Cannot link an unsaved user, use ParseUser::logInWithFacebook");
+            throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithFacebook');
         }
         if (!$id) {
-            throw new ParseException("Cannot link Facebook user without an id.");
+            throw new ParseException('Cannot link Facebook user without an id.');
         }
         if (!$access_token) {
-            throw new ParseException(
-                "Cannot link Facebook user without an access token."
-            );
+            throw new ParseException('Cannot link Facebook user without an access token.');
         }
         if (!$expiration_date) {
             $expiration_date = new \DateTime();
             $expiration_date->setTimestamp(time() + 86400 * 60);
         }
-        $data = ["authData" => [
-            "facebook" => [
-                "id" => $id, "access_token" => $access_token,
-                "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
+        $data = ['authData' => [
+            'facebook' => [
+                'id' => $id,
+                'access_token' => $access_token,
+                'expiration_date' => ParseClient::getProperDateFormat($expiration_date)
             ]
         ]];
         $result = ParseClient::_request(
-            "PUT",
-            "users/" . $this->getObjectId(),
+            'PUT',
+            'users/' . $this->getObjectId(),
             $this->getSessionToken(),
             json_encode($data),
             $useMasterKey
@@ -275,7 +274,7 @@ class ParseUser extends ParseObject
         $user = new static();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
-        ParseClient::getStorage()->set("user", $user);
+        ParseClient::getStorage()->set('user', $user);
 
         return $user;
     }
@@ -336,17 +335,17 @@ class ParseUser extends ParseObject
             return static::$currentUser;
         }
         $storage = ParseClient::getStorage();
-        $userData = $storage->get("user");
+        $userData = $storage->get('user');
         if ($userData instanceof ParseUser) {
             static::$currentUser = $userData;
 
             return $userData;
         }
-        if (isset($userData["id"]) && isset($userData["_sessionToken"])) {
-            $user = static::create("_User", $userData["id"]);
-            unset($userData["id"]);
-            $user->_sessionToken = $userData["_sessionToken"];
-            unset($userData["_sessionToken"]);
+        if (isset($userData['id']) && isset($userData['_sessionToken'])) {
+            $user = static::create('_User', $userData['id']);
+            unset($userData['id']);
+            $user->_sessionToken = $userData['_sessionToken'];
+            unset($userData['_sessionToken']);
             foreach ($userData as $key => $value) {
                 $user->set($key, $value);
             }
@@ -408,9 +407,7 @@ class ParseUser extends ParseObject
         if ($this->getObjectId()) {
             parent::save($useMasterKey);
         } else {
-            throw new ParseException(
-                "You must call signUp to create a new User."
-            );
+            throw new ParseException('You must call signUp to create a new User.');
         }
     }
 

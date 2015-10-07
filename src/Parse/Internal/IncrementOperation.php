@@ -94,8 +94,7 @@ class IncrementOperation implements FieldOperation
                 $previous->getValue() + $this->value
             );
         }
-        throw new ParseException(
-            'Operation is invalid after previous operation.'
-        );
+
+        throw new ParseException('Operation is invalid after previous operation.');
     }
 }

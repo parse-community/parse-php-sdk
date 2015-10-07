@@ -9,7 +9,7 @@ namespace Parse;
  */
 class ParseRole extends ParseObject
 {
-    public static $parseClassName = "_Role";
+    public static $parseClassName = '_Role';
 
     /**
      * Create a ParseRole object with a given name and ACL.
@@ -35,7 +35,7 @@ class ParseRole extends ParseObject
      */
     public function getName()
     {
-        return $this->get("name");
+        return $this->get('name');
     }
 
     /**
@@ -48,17 +48,13 @@ class ParseRole extends ParseObject
     public function setName($name)
     {
         if ($this->getObjectId()) {
-            throw new ParseException(
-                "A role's name can only be set before it has been saved."
-            );
+            throw new ParseException('A role\'s name can only be set before it has been saved.');
         }
         if (!is_string($name)) {
-            throw new ParseException(
-                "A role's name must be a string."
-            );
+            throw new ParseException('A role\'s name must be a string.');
         }
 
-        return $this->set("name", $name);
+        return $this->set('name', $name);
     }
 
     /**
@@ -70,7 +66,7 @@ class ParseRole extends ParseObject
      */
     public function getUsers()
     {
-        return $this->getRelation("users");
+        return $this->getRelation('users');
     }
 
     /**
@@ -82,20 +78,16 @@ class ParseRole extends ParseObject
      */
     public function getRoles()
     {
-        return $this->getRelation("roles");
+        return $this->getRelation('roles');
     }
 
     public function save($useMasterKey = false)
     {
         if (!$this->getACL()) {
-            throw new ParseException(
-                "Roles must have an ACL."
-            );
+            throw new ParseException('Roles must have an ACL.');
         }
         if (!$this->getName() || !is_string($this->getName())) {
-            throw new ParseException(
-                "Roles must have a name."
-            );
+            throw new ParseException('Roles must have a name.');
         }
 
         return parent::save($useMasterKey);

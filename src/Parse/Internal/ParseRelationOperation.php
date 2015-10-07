@@ -138,14 +138,14 @@ class ParseRelationOperation implements FieldOperation
             ) {
                 throw new \Exception(
                     'Related object object must be of class '
-                    .$this->targetClassName.', but '.$oldValue->getTargetClass()
-                    .' was passed in.'
+                    . $this->targetClassName . ', but ' . $oldValue->getTargetClass()
+                    . ' was passed in.'
                 );
             }
 
             return $oldValue;
         } else {
-            throw new \Exception("Operation is invalid after previous operation.");
+            throw new \Exception('Operation is invalid after previous operation.');
         }
     }
 
@@ -170,8 +170,8 @@ class ParseRelationOperation implements FieldOperation
             ) {
                 throw new \Exception(
                     'Related object object must be of class '
-                    .$this->targetClassName.', but '.$previous->targetClassName
-                    .' was passed in.'
+                    . $this->targetClassName . ', but ' . $previous->targetClassName
+                    . ' was passed in.'
                 );
             }
             $newRelationToAdd = self::convertToOneDimensionalArray(

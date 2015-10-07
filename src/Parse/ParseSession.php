@@ -9,7 +9,7 @@ namespace Parse;
  */
 class ParseSession extends ParseObject
 {
-    public static $parseClassName = "_Session";
+    public static $parseClassName = '_Session';
 
     private $_sessionToken = null;
 
@@ -71,7 +71,7 @@ class ParseSession extends ParseObject
      */
     public static function _isRevocable($token)
     {
-        return strpos($token, "r:") === 0;
+        return strpos($token, 'r:') === 0;
     }
 
     /**
