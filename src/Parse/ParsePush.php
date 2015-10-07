@@ -60,7 +60,7 @@ class ParsePush
 
         return ParseClient::_request(
             'POST',
-            '/1/push',
+            'push',
             null,
             json_encode($data),
             $useMasterKey

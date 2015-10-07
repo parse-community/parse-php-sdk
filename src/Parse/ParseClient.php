@@ -17,6 +17,11 @@ final class ParseClient
     const HOST_NAME = 'https://api.parse.com';
 
     /**
+     * Constant for the API Service version.
+     */
+    const API_VERSION = '1';
+
+    /**
      * The application id.
      *
      * @var string
@@ -259,7 +264,7 @@ final class ParseClient
         self::assertParseInitialized();
         $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
 
-        $url = self::HOST_NAME . '/' . ltrim($relativeUrl, '/');
+        $url = self::HOST_NAME . '/' . self::API_VERSION . '/' . ltrim($relativeUrl, '/');
         if ($method === 'GET' && !empty($data)) {
             $url .= '?'.http_build_query($data);
         }
@@ -381,6 +386,16 @@ final class ParseClient
         $headers[] = 'Expect: ';
 
         return $headers;
+    }
+
+    /**
+     * Get remote Parse API url.
+     *
+     * @return string
+     */
+    public static function getAPIUrl()
+    {
+        return self::HOST_NAME . '/' . self::API_VERSION . '/';
     }
 
     /**

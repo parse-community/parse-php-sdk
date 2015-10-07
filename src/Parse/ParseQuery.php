@@ -318,8 +318,7 @@ class ParseQuery
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request(
             'GET',
-            '/1/classes/' . $this->className.
-            '?' . $queryString,
+            'classes/' . $this->className . '?' . $queryString,
             $sessionToken,
             null,
             $useMasterKey
@@ -344,8 +343,7 @@ class ParseQuery
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request(
             'GET',
-            '/1/classes/' . $this->className.
-            '?' . $queryString,
+            'classes/' . $this->className . '?' . $queryString,
             $sessionToken,
             null,
             $useMasterKey

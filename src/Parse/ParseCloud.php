@@ -26,7 +26,7 @@ class ParseCloud
         }
         $response = ParseClient::_request(
             'POST',
-            '/1/functions/'.$name,
+            'functions/' . $name,
             $sessionToken,
             json_encode(ParseClient::_encode($data, null, false)),
             $useMasterKey
