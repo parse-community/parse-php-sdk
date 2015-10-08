@@ -2,12 +2,14 @@
 
 namespace Parse;
 
+use Parse\Internal\Encodable;
+
 /**
  * ParseFile - Representation of a Parse File object.
  *
  * @author Fosco Marotto <fjm@fb.com>
  */
-class ParseFile implements \Parse\Internal\Encodable
+class ParseFile implements Encodable
 {
     /**
      * The filename.

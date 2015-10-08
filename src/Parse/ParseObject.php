@@ -906,12 +906,12 @@ class ParseObject implements Encodable
             $out[$key] = $value;
         }
         foreach ($this->estimatedData as $key => $value) {
-            if (is_object($value) && $value instanceof \Parse\Internal\Encodable) {
+            if (is_object($value) && $value instanceof Encodable) {
                 $out[$key] = $value->_encode();
             } elseif (is_array($value)) {
                 $out[$key] = [];
                 foreach ($value as $item) {
-                    if (is_object($item) && $item instanceof \Parse\Internal\Encodable) {
+                    if (is_object($item) && $item instanceof Encodable) {
                         $out[$key][] = $item->_encode();
                     } else {
                         $out[$key][] = $item;
