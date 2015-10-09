@@ -14,17 +14,17 @@ class ParsePush
     /**
      * Sends a push notification.
      *
-     * @param array   $data         The data of the push notification.    Valid fields
-     *                              are:
-     *                              channels - An Array of channels to push to.
-     *                              push_time - A Date object for when to send the push.
-     *                              expiration_time -    A Date object for when to expire
-     *                              the push.
-     *                              expiration_interval - The seconds from now to expire the push.
-     *                              where - A ParseQuery over ParseInstallation that is used to match
-     *                              a set of installations to push to.
-     *                              data - The data to send as part of the push
-     * @param boolean $useMasterKey Whether to use the Master Key for the request
+     * @param array $data         The data of the push notification.    Valid fields
+     *                            are:
+     *                            channels - An Array of channels to push to.
+     *                            push_time - A Date object for when to send the push.
+     *                            expiration_time -    A Date object for when to expire
+     *                            the push.
+     *                            expiration_interval - The seconds from now to expire the push.
+     *                            where - A ParseQuery over ParseInstallation that is used to match
+     *                            a set of installations to push to.
+     *                            data - The data to send as part of the push
+     * @param bool  $useMasterKey Whether to use the Master Key for the request
      *
      * @throws \Exception, ParseException
      *
