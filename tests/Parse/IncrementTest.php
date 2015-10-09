@@ -2,7 +2,6 @@
 
 namespace Parse\Test;
 
-use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
@@ -15,7 +14,7 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        Helper::clearClass("TestObject");
+        Helper::clearClass('TestObject');
         Helper::tearDown();
     }
 
@@ -218,7 +217,7 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         $objAgain->increment('randomkey');
         $this->setExpectedException(
             'Parse\ParseException',
-            "invalid type for key"
+            'invalid type for key'
         );
         $objAgain->save();
     }
