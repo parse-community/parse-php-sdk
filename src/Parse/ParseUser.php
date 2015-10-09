@@ -166,7 +166,7 @@ class ParseUser extends ParseObject
         }
         $data = ['authData' => [
             'facebook' => [
-                'id' => $id, 'access_token' => $access_token,
+                'id'              => $id, 'access_token' => $access_token,
                 'expiration_date' => ParseClient::getProperDateFormat($expiration_date),
             ],
         ]];
@@ -242,7 +242,7 @@ class ParseUser extends ParseObject
         }
         $data = ['authData' => [
             'facebook' => [
-                'id' => $id, 'access_token' => $access_token,
+                'id'              => $id, 'access_token' => $access_token,
                 'expiration_date' => ParseClient::getProperDateFormat($expiration_date),
             ],
         ]];
