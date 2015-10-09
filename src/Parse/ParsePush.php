@@ -2,6 +2,8 @@
 
 namespace Parse;
 
+use Exception;
+
 /**
  * ParsePush - Handles sending push notifications with Parse.
  *
@@ -33,7 +35,7 @@ class ParsePush
         if (isset($data['expiration_time'])
             && isset($data['expiration_interval'])
         ) {
-            throw new \Exception(
+            throw new Exception(
                 'Both expiration_time and expiration_interval can\'t be set.'
             );
         }
@@ -41,7 +43,7 @@ class ParsePush
             if ($data['where'] instanceof ParseQuery) {
                 $data['where'] = $data['where']->_getOptions()['where'];
             } else {
-                throw new \Exception(
+                throw new Exception(
                     'Where parameter for Parse Push must be of type ParseQuery'
                 );
             }
