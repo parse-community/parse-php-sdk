@@ -4,10 +4,10 @@ namespace Parse\Test;
 
 use Exception;
 use Parse\ParseACL;
+use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
-use Parse\ParseException;
 
 class ParseACLTest extends \PHPUnit_Framework_TestCase
 {
