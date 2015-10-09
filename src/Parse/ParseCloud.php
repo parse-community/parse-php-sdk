@@ -12,9 +12,9 @@ class ParseCloud
     /**
      * Makes a call to a Cloud function.
      *
-     * @param string  $name         Cloud function name
-     * @param array   $data         Parameters to pass
-     * @param bool    $useMasterKey Whether to use the Master Key
+     * @param string $name         Cloud function name
+     * @param array  $data         Parameters to pass
+     * @param bool   $useMasterKey Whether to use the Master Key
      *
      * @return mixed
      */

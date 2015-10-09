@@ -787,8 +787,7 @@ class ParseObject implements Encodable
         foreach ($objects as $object) {
             $data[] = [
                 'method' => 'DELETE',
-                'path' => 'classes/'.$object->getClassName().
-                    '/'.$object->getObjectId(),
+                'path'   => 'classes/'.$object->getClassName().'/'.$object->getObjectId(),
             ];
         }
         $sessionToken = null;
@@ -807,7 +806,7 @@ class ParseObject implements Encodable
                     $result[$key]['error']['code'] : -1;
                 $errors[] = [
                     'error' => $error,
-                    'code' => $code,
+                    'code'  => $code,
                 ];
             }
         }
@@ -994,8 +993,8 @@ class ParseObject implements Encodable
                     $method = 'PUT';
                 }
                 $requests[] = ['method' => $method,
-                    'path' => $path,
-                    'body' => $json,
+                    'path'              => $path,
+                    'body'              => $json,
                 ];
             }
 
@@ -1023,14 +1022,14 @@ class ParseObject implements Encodable
                         $code = isset($response['error']['code']) ?
                             $response['error']['code'] : -1;
                         $errorCollection[] = [
-                            'error' => $error,
-                            'code' => $code,
+                            'error'  => $error,
+                            'code'   => $code,
                             'object' => $obj,
                         ];
                     } else {
                         $errorCollection[] = [
-                            'error' => 'Unknown error in batch save.',
-                            'code' => -1,
+                            'error'  => 'Unknown error in batch save.',
+                            'code'   => -1,
                             'object' => $obj,
                         ];
                     }
@@ -1202,9 +1201,9 @@ class ParseObject implements Encodable
         }
 
         return [
-                '__type' => 'Pointer',
+                '__type'    => 'Pointer',
                 'className' => $this->className,
-                'objectId' => $this->objectId, ];
+                'objectId'  => $this->objectId, ];
     }
 
     /**
