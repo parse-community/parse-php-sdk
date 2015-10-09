@@ -1521,6 +1521,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         );
         $obj->save();
     }
+
     public function testSelectKeysQueryArrayArg()
     {
         $obj = ParseObject::create('TestObject');
