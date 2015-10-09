@@ -16,7 +16,7 @@ class ParseGeoBoxTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        Helper::clearClass("TestObject");
+        Helper::clearClass('TestObject');
     }
 
     public function tearDown()
