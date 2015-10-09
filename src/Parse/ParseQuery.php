@@ -2,6 +2,8 @@
 
 namespace Parse;
 
+use Exception;
+
 /**
  * ParseQuery - Handles querying data from Parse.
  *
@@ -583,7 +585,7 @@ class ParseQuery
     public function each($callback, $useMasterKey = false, $batchSize = 100)
     {
         if ($this->orderBy || $this->skip || ($this->limit >= 0)) {
-            throw new \Exception(
+            throw new Exception(
                 'Cannot iterate on a query with sort, skip, or limit.'
             );
         }
@@ -677,7 +679,7 @@ class ParseQuery
     public function matchesKeyInQuery($key, $queryKey, $query)
     {
         $queryParam = $query->_getOptions();
-        $queryParam["className"] = $query->className;
+        $queryParam['className'] = $query->className;
         $this->addCondition(
             $key, '$select',
             ['key' => $queryKey, 'query' => $queryParam]
@@ -701,7 +703,7 @@ class ParseQuery
     public function doesNotMatchKeyInQuery($key, $queryKey, $query)
     {
         $queryParam = $query->_getOptions();
-        $queryParam["className"] = $query->className;
+        $queryParam['className'] = $query->className;
         $this->addCondition(
             $key, '$dontSelect',
             ['key' => $queryKey, 'query' => $queryParam]
@@ -729,10 +731,10 @@ class ParseQuery
                 $className = $queryObjects[$i]->className;
             }
             if ($className != $queryObjects[$i]->className) {
-                throw new \Exception("All queries must be for the same class");
+                throw new Exception('All queries must be for the same class');
             }
         }
-        $query = new ParseQuery($className);
+        $query = new self($className);
         $query->_or($queryObjects);
 
         return $query;

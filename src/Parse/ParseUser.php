@@ -9,7 +9,7 @@ namespace Parse;
  */
 class ParseUser extends ParseObject
 {
-    public static $parseClassName = "_User";
+    public static $parseClassName = '_User';
 
     /**
      * The currently logged-in user.
@@ -32,7 +32,7 @@ class ParseUser extends ParseObject
      */
     public function getUsername()
     {
-        return $this->get("username");
+        return $this->get('username');
     }
 
     /**
@@ -44,7 +44,7 @@ class ParseUser extends ParseObject
      */
     public function setUsername($username)
     {
-        return $this->set("username", $username);
+        return $this->set('username', $username);
     }
 
     /**
@@ -56,7 +56,7 @@ class ParseUser extends ParseObject
      */
     public function setPassword($password)
     {
-        return $this->set("password", $password);
+        return $this->set('password', $password);
     }
 
     /**
@@ -66,7 +66,7 @@ class ParseUser extends ParseObject
      */
     public function getEmail()
     {
-        return $this->get("email");
+        return $this->get('email');
     }
 
     /**
@@ -78,13 +78,13 @@ class ParseUser extends ParseObject
      */
     public function setEmail($email)
     {
-        return $this->set("email", $email);
+        return $this->set('email', $email);
     }
 
     /**
      * Checks whether this user has been authenticated.
      *
-     * @return boolean
+     * @return bool
      */
     public function isAuthenticated()
     {
@@ -99,16 +99,16 @@ class ParseUser extends ParseObject
     public function signUp()
     {
         if (!$this->get('username')) {
-            throw new ParseException("Cannot sign up user with an empty name");
+            throw new ParseException('Cannot sign up user with an empty name');
         }
         if (!$this->get('password')) {
             throw new ParseException(
-                "Cannot sign up user with an empty password."
+                'Cannot sign up user with an empty password.'
             );
         }
         if ($this->getObjectId()) {
             throw new ParseException(
-                "Cannot sign up an already existing user."
+                'Cannot sign up an already existing user.'
             );
         }
         parent::save();
@@ -128,19 +128,19 @@ class ParseUser extends ParseObject
     public static function logIn($username, $password)
     {
         if (!$username) {
-            throw new ParseException("Cannot log in user with an empty name");
+            throw new ParseException('Cannot log in user with an empty name');
         }
         if (!$password) {
             throw new ParseException(
-                "Cannot log in user with an empty password."
+                'Cannot log in user with an empty password.'
             );
         }
-        $data = ["username" => $username, "password" => $password];
+        $data = ['username' => $username, 'password' => $password];
         $result = ParseClient::_request('GET', 'login', '', $data);
         $user = new static();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
-        ParseClient::getStorage()->set("user", $user);
+        ParseClient::getStorage()->set('user', $user);
 
         return $user;
     }
@@ -159,11 +159,11 @@ class ParseUser extends ParseObject
     public static function logInWithFacebook($id, $access_token, $expiration_date = null)
     {
         if (!$id) {
-            throw new ParseException("Cannot log in Facebook user without an id.");
+            throw new ParseException('Cannot log in Facebook user without an id.');
         }
         if (!$access_token) {
             throw new ParseException(
-                "Cannot log in Facebook user without an access token."
+                'Cannot log in Facebook user without an access token.'
             );
         }
         if (!$expiration_date) {
@@ -217,7 +217,7 @@ class ParseUser extends ParseObject
      * @param string $id the Facebook user identifier
      * @param string $access_token the access token for this session
      * @param \DateTime $expiration_date defaults to 60 days
-     * @param boolean $useMasterKey whether to override security
+     * @param bool $useMasterKey whether to override security
      *
      * @throws ParseException
      *
@@ -225,24 +225,24 @@ class ParseUser extends ParseObject
      */
     public function linkWithFacebook($id, $access_token, $expiration_date = null, $useMasterKey = false){
         if (!$this->getObjectId()) {
-            throw new ParseException("Cannot link an unsaved user, use ParseUser::logInWithFacebook");
+            throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithFacebook');
         }
         if (!$id) {
-            throw new ParseException("Cannot link Facebook user without an id.");
+            throw new ParseException('Cannot link Facebook user without an id.');
         }
         if (!$access_token) {
             throw new ParseException(
-                "Cannot link Facebook user without an access token."
+                'Cannot link Facebook user without an access token.'
             );
         }
         if (!$expiration_date) {
             $expiration_date = new \DateTime();
             $expiration_date->setTimestamp(time() + 86400 * 60);
         }
-        $data = ["authData" => [
-            "facebook" => [
-                "id" => $id, "access_token" => $access_token,
-                "expiration_date" => ParseClient::getProperDateFormat($expiration_date)
+        $data = ['authData' => [
+            'facebook' => [
+                'id' => $id, 'access_token' => $access_token,
+                'expiration_date' => ParseClient::getProperDateFormat($expiration_date)
             ]
         ]];
         $result = ParseClient::_request(
