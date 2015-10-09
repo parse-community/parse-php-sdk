@@ -184,7 +184,7 @@ class ParseObject implements Encodable
      *
      * @param string $key Key to check on the object.
      *
-     * @return boolean
+     * @return bool
      */
     public function __isset($key)
     {
@@ -196,14 +196,14 @@ class ParseObject implements Encodable
      *
      * @param string $key Key to retrieve from the estimatedData array.
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return mixed
      */
     public function get($key)
     {
         if (!$this->_isDataAvailable($key)) {
-            throw new \Exception(
+            throw new Exception(
                 'ParseObject has no data for this key. Call fetch() to get the data.'
             );
         }
@@ -219,7 +219,7 @@ class ParseObject implements Encodable
      *
      * @param string $key Key to check
      *
-     * @return boolean
+     * @return bool
      */
     public function has($key)
     {
@@ -488,7 +488,7 @@ class ParseObject implements Encodable
      * @param string $objectId  Unique identifier for existing object.
      * @param bool   $isPointer If the object is a pointer.
      *
-     * @return Object
+     * @return object
      */
     public static function create($className, $objectId = null,
         $isPointer = false
@@ -498,7 +498,7 @@ class ParseObject implements Encodable
                 $className, $objectId, $isPointer
             );
         } else {
-            return new ParseObject($className, $objectId, $isPointer);
+            return new self($className, $objectId, $isPointer);
         }
     }
 
@@ -517,7 +517,7 @@ class ParseObject implements Encodable
         }
         $response = ParseClient::_request(
             'GET',
-            'classes/' . $this->className . '/' . $this->objectId,
+            'classes/'.$this->className.'/'.$this->objectId,
             $sessionToken, null, $useMasterKey
         );
         $this->_mergeAfterFetch($response);
@@ -526,14 +526,15 @@ class ParseObject implements Encodable
     }
 
     /**
-     * Fetch an array of Parse objects from the server
+     * Fetch an array of Parse objects from the server.
      *
-     * @param array $objects The ParseObjects to fetch
-     * @param boolean $useMasterKey Whether to override ACLs
+     * @param array $objects      The ParseObjects to fetch
+     * @param bool  $useMasterKey Whether to override ACLs
      *
      * @return array
      */
-    public static function fetchAll(array $objects, $useMasterKey = false) {
+    public static function fetchAll(array $objects, $useMasterKey = false)
+    {
         $objectIds = static::toObjectIdArray($objects);
         if (!count($objectIds)) return $objects;
         $className = $objects[0]->getClassName();

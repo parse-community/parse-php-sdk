@@ -27,7 +27,7 @@ class ParseBytes implements Encodable
      */
     public static function createFromByteArray(array $byteArray)
     {
-        $bytes = new ParseBytes();
+        $bytes = new self();
         $bytes->setByteArray($byteArray);
 
         return $bytes;
@@ -42,7 +42,7 @@ class ParseBytes implements Encodable
      */
     public static function createFromBase64Data($base64Data)
     {
-        $bytes = new ParseBytes();
+        $bytes = new self();
         $bytes->setBase64Data($base64Data);
 
         return $bytes;
@@ -66,7 +66,7 @@ class ParseBytes implements Encodable
      */
     public function _encode()
     {
-        $data = "";
+        $data = '';
         foreach ($this->byteArray as $byte) {
             $data .= chr($byte);
         }

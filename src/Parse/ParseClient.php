@@ -3,6 +3,7 @@
 namespace Parse;
 
 use Parse\Internal\Encodable;
+use Exception;
 
 /**
  * ParseClient - Main class for Parse initialization and communication.
@@ -73,24 +74,24 @@ final class ParseClient
     /**
      * Parse\Client::initialize, must be called before using Parse features.
      *
-     * @param string  $app_id               Parse Application ID
-     * @param string  $rest_key             Parse REST API Key
-     * @param string  $master_key           Parse Master Key
-     * @param boolean $enableCurlExceptions Enable or disable Parse curl exceptions
+     * @param string $app_id               Parse Application ID
+     * @param string $rest_key             Parse REST API Key
+     * @param string $master_key           Parse Master Key
+     * @param bool   $enableCurlExceptions Enable or disable Parse curl exceptions
      *
      * @return null
      */
     public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true)
     {
-        if (! ParseObject::hasRegisteredSubclass('_User')) {
+        if (!ParseObject::hasRegisteredSubclass('_User')) {
             ParseUser::registerSubclass();
         }
 
-        if (! ParseObject::hasRegisteredSubclass('_Role')) {
+        if (!ParseObject::hasRegisteredSubclass('_Role')) {
             ParseRole::registerSubclass();
         }
 
-        if (! ParseObject::hasRegisteredSubclass('_Installation')) {
+        if (!ParseObject::hasRegisteredSubclass('_Installation')) {
             ParseInstallation::registerSubclass();
         }
 
@@ -132,7 +133,7 @@ final class ParseClient
 
         if ($value instanceof ParseObject) {
             if (!$allowParseObjects) {
-                throw new \Exception('ParseObjects not allowed here.');
+                throw new Exception('ParseObjects not allowed here.');
             }
 
             return $value->_toPointer();
@@ -260,7 +261,7 @@ final class ParseClient
         self::assertParseInitialized();
         $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
 
-        $url = self::HOST_NAME . '/' . self::API_VERSION . '/' . ltrim($relativeUrl, '/');
+        $url = self::HOST_NAME.'/'.self::API_VERSION.'/'.ltrim($relativeUrl, '/');
         if ($method === 'GET' && !empty($data)) {
             $url .= '?'.http_build_query($data);
         }
@@ -347,7 +348,7 @@ final class ParseClient
     private static function assertParseInitialized()
     {
         if (self::$applicationId === null) {
-            throw new \Exception(
+            throw new Exception(
                 'You must call Parse::initialize() before making any requests.'
             );
         }
@@ -391,7 +392,7 @@ final class ParseClient
      */
     public static function getAPIUrl()
     {
-        return self::HOST_NAME . '/' . self::API_VERSION . '/';
+        return self::HOST_NAME.'/'.self::API_VERSION.'/';
     }
 
     /**
@@ -420,14 +421,16 @@ final class ParseClient
      * Format from Parse doc: an ISO 8601 date without a time zone, i.e. 2014-10-16T12:00:00 .
      *
      * @param \DateTime $value DateTime value to format.
-     * @param boolean $local Whether to return the local push time
+     * @param bool      $local Whether to return the local push time
      *
      * @return string
      */
     public static function getPushDateFormat($value, $local = false)
     {
         $dateFormatString = 'Y-m-d\TH:i:s';
-        if (!$local) $dateFormatString .= '\Z';
+        if (!$local) {
+            $dateFormatString .= '\Z';
+        }
         $date = date_format($value, $dateFormatString);
 
         return $date;
