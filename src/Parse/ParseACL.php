@@ -2,8 +2,8 @@
 
 namespace Parse;
 
-use Parse\Internal\Encodable;
 use Exception;
+use Parse\Internal\Encodable;
 
 /**
  * ParseACL - is used to control which users can access or modify a particular

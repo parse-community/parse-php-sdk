@@ -53,7 +53,7 @@ class RemoveOperation implements FieldOperation
      */
     public function _encode()
     {
-        return ['__op' => 'Remove',
+        return ['__op'    => 'Remove',
                 'objects' => ParseClient::_encode($this->objects, true), ];
     }
 

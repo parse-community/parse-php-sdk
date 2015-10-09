@@ -2,8 +2,8 @@
 
 namespace Parse;
 
-use Parse\Internal\Encodable;
 use Exception;
+use Parse\Internal\Encodable;
 
 /**
  * ParseClient - Main class for Parse initialization and communication.
@@ -78,8 +78,6 @@ final class ParseClient
      * @param string $rest_key             Parse REST API Key
      * @param string $master_key           Parse Master Key
      * @param bool   $enableCurlExceptions Enable or disable Parse curl exceptions
-     *
-     * @return null
      */
     public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true)
     {
@@ -313,8 +311,6 @@ final class ParseClient
      * persistence.
      *
      * @param ParseStorageInterface $storageObject
-     *
-     * @return null
      */
     public static function setStorage(ParseStorageInterface $storageObject)
     {
@@ -337,8 +333,6 @@ final class ParseClient
      *
      * Without some ability to clear the storage objects, all test cases would
      *     use the first assigned storage object.
-     *
-     * @return null
      */
     public static function _unsetStorage()
     {
@@ -440,8 +434,6 @@ final class ParseClient
      * Allows an existing application to start using revocable sessions, without forcing
      * all requests for the app to use them.    After calling this method, login & signup requests
      * will be returned a unique and revocable session token.
-     *
-     * @return null
      */
     public static function enableRevocableSessions()
     {

@@ -2,10 +2,10 @@
 
 namespace Parse\Internal;
 
+use Exception;
 use Parse\ParseClient;
 use Parse\ParseObject;
 use Parse\ParseRelation;
-use Exception;
 
 /**
  * ParseRelationOperation - A class that is used to manage ParseRelation changes such as object add or remove.

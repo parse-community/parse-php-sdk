@@ -57,7 +57,7 @@ class ParseGeoPoint implements Encodable
     public function setLatitude($lat)
     {
         if ($lat > 90.0 || $lat < -90.0) {
-            throw new ParseException("Latitude must be within range [-90.0, 90.0]");
+            throw new ParseException('Latitude must be within range [-90.0, 90.0]');
         }
         $this->latitude = $lat;
     }
@@ -83,7 +83,7 @@ class ParseGeoPoint implements Encodable
     {
         if ($lon > 180.0 || $lon < -180.0) {
             throw new ParseException(
-                "Longitude must be within range [-180.0, 180.0]"
+                'Longitude must be within range [-180.0, 180.0]'
             );
         }
         $this->longitude = $lon;
