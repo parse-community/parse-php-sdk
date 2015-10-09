@@ -26,7 +26,7 @@ class ParseSubclassTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFromParseObject()
     {
-        $install = ParseObject::create("_Installation");
+        $install = ParseObject::create('_Installation');
         $this->assertTrue($install instanceof ParseInstallation);
         $this->assertTrue(is_subclass_of($install, 'Parse\ParseObject'));
     }

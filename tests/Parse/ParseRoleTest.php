@@ -17,9 +17,9 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        Helper::clearClass("_User");
-        Helper::clearClass("_Role");
-        Helper::clearClass("Things");
+        Helper::clearClass('_User');
+        Helper::clearClass('_Role');
+        Helper::clearClass('Things');
     }
 
     public function tearDown()
@@ -29,15 +29,15 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateRole()
     {
-        $role = ParseRole::createRole("Admin", $this->aclPublic());
+        $role = ParseRole::createRole('Admin', $this->aclPublic());
         $role->save();
-        $this->assertNotNull($role->getObjectId(), "Role should have objectId.");
+        $this->assertNotNull($role->getObjectId(), 'Role should have objectId.');
     }
 
     public function testRoleWithoutACLFails()
     {
         $role = new ParseRole();
-        $role->setName("Admin");
+        $role->setName('Admin');
         $this->setExpectedException('Parse\ParseException', 'ACL');
         $role->save();
     }

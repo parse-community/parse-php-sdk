@@ -33,8 +33,8 @@ class ParseSessionTest extends \PHPUnit_Framework_TestCase
     {
         ParseClient::enableRevocableSessions();
         $user = new ParseUser();
-        $user->setUsername("username");
-        $user->setPassword("password");
+        $user->setUsername('username');
+        $user->setPassword('password');
         $user->signUp();
         $session = ParseSession::getCurrentSession();
         $this->assertEquals($user->getSessionToken(), $session->getSessionToken());
@@ -42,7 +42,7 @@ class ParseSessionTest extends \PHPUnit_Framework_TestCase
 
         ParseUser::logOut();
 
-        ParseUser::logIn("username", "password");
+        ParseUser::logIn('username', 'password');
         $session = ParseSession::getCurrentSession();
         $this->assertEquals(ParseUser::getCurrentUser()->getSessionToken(), $session->getSessionToken());
         $this->assertTrue($session->isCurrentSessionRevocable());
