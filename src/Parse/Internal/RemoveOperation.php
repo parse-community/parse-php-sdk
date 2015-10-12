@@ -31,7 +31,7 @@ class RemoveOperation implements FieldOperation
     public function __construct($objects)
     {
         if (!is_array($objects)) {
-            throw new ParseException("RemoveOperation requires an array.");
+            throw new ParseException('RemoveOperation requires an array.');
         }
         $this->objects = $objects;
     }
@@ -53,8 +53,8 @@ class RemoveOperation implements FieldOperation
      */
     public function _encode()
     {
-        return ['__op'                     => 'Remove',
-                                 'objects' => ParseClient::_encode($this->objects, true), ];
+        return ['__op'    => 'Remove',
+                'objects' => ParseClient::_encode($this->objects, true), ];
     }
 
     /**
@@ -79,10 +79,10 @@ class RemoveOperation implements FieldOperation
                 $this->_apply($previous->getValue(), $this->objects, null)
             );
         }
-        if ($previous instanceof RemoveOperation) {
+        if ($previous instanceof self) {
             $oldList = $previous->getValue();
 
-            return new RemoveOperation(
+            return new self(
                 array_merge((array) $oldList, (array) $this->objects)
             );
         }

@@ -56,7 +56,7 @@ class ParseAnalytics
 
         return ParseClient::_request(
             'POST',
-            'events/' . $name,
+            'events/'.$name,
             null,
             static::_toSaveJSON($dimensions)
         );

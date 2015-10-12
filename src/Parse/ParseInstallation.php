@@ -9,5 +9,5 @@ namespace Parse;
  */
 class ParseInstallation extends ParseObject
 {
-    public static $parseClassName = "_Installation";
+    public static $parseClassName = '_Installation';
 }
