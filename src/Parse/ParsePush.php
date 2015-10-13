@@ -63,7 +63,7 @@ class ParsePush
             'POST',
             'push',
             null,
-            json_encode($data),
+            json_encode(ParseClient::_encode($data, true)),
             $useMasterKey
         );
     }
