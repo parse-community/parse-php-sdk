@@ -2,12 +2,14 @@
 
 namespace Parse;
 
+use Parse\Internal\Encodable;
+
 /**
  * ParseFile - Representation of a Parse File object.
  *
  * @author Fosco Marotto <fjm@fb.com>
  */
-class ParseFile implements \Parse\Internal\Encodable
+class ParseFile implements Encodable
 {
     /**
      * The filename.
@@ -90,7 +92,7 @@ class ParseFile implements \Parse\Internal\Encodable
         }
 
         $headers = ParseClient::_getRequestHeaders(null, true);
-        $url = ParseClient::getAPIUrl() . 'files/' . $this->getName();
+        $url = ParseClient::getAPIUrl().'files/'.$this->getName();
         $rest = curl_init();
         curl_setopt($rest, CURLOPT_URL, $url);
         curl_setopt($rest, CURLOPT_CUSTOMREQUEST, 'DELETE');
@@ -126,7 +128,7 @@ class ParseFile implements \Parse\Internal\Encodable
      */
     public static function createFromData($contents, $name, $mimeType = null)
     {
-        $file = new ParseFile();
+        $file = new self();
         $file->name = $name;
         $file->mimeType = $mimeType;
         $file->data = $contents;
@@ -162,7 +164,7 @@ class ParseFile implements \Parse\Internal\Encodable
      */
     public static function _createFromServer($name, $url)
     {
-        $file = new ParseFile();
+        $file = new self();
         $file->name = $name;
         $file->url = $url;
 
@@ -206,7 +208,7 @@ class ParseFile implements \Parse\Internal\Encodable
         $mimeType = $this->mimeType ?: $this->getMimeTypeForExtension($extension);
 
         $headers = ParseClient::_getRequestHeaders(null, false);
-        $url = ParseClient::getAPIUrl() . 'files/' . $this->getName();
+        $url = ParseClient::getAPIUrl().'files/'.$this->getName();
         $rest = curl_init();
         curl_setopt($rest, CURLOPT_URL, $url);
         curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);

@@ -2,6 +2,7 @@
 
 namespace Parse;
 
+use Exception;
 use Parse\Internal\Encodable;
 
 /**
@@ -73,24 +74,22 @@ final class ParseClient
     /**
      * Parse\Client::initialize, must be called before using Parse features.
      *
-     * @param string  $app_id               Parse Application ID
-     * @param string  $rest_key             Parse REST API Key
-     * @param string  $master_key           Parse Master Key
-     * @param boolean $enableCurlExceptions Enable or disable Parse curl exceptions
-     *
-     * @return null
+     * @param string $app_id               Parse Application ID
+     * @param string $rest_key             Parse REST API Key
+     * @param string $master_key           Parse Master Key
+     * @param bool   $enableCurlExceptions Enable or disable Parse curl exceptions
      */
     public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true)
     {
-        if (! ParseObject::hasRegisteredSubclass('_User')) {
+        if (!ParseObject::hasRegisteredSubclass('_User')) {
             ParseUser::registerSubclass();
         }
 
-        if (! ParseObject::hasRegisteredSubclass('_Role')) {
+        if (!ParseObject::hasRegisteredSubclass('_Role')) {
             ParseRole::registerSubclass();
         }
 
-        if (! ParseObject::hasRegisteredSubclass('_Installation')) {
+        if (!ParseObject::hasRegisteredSubclass('_Installation')) {
             ParseInstallation::registerSubclass();
         }
 
@@ -133,7 +132,7 @@ final class ParseClient
 
         if ($value instanceof ParseObject) {
             if (!$allowParseObjects) {
-                throw new \Exception('ParseObjects not allowed here.');
+                throw new Exception('ParseObjects not allowed here.');
             }
 
             return $value->_toPointer();
@@ -148,7 +147,7 @@ final class ParseClient
         }
 
         if (!is_scalar($value) && $value !== null) {
-            throw new \Exception('Invalid type encountered.');
+            throw new Exception('Invalid type encountered.');
         }
 
         return $value;
@@ -265,7 +264,7 @@ final class ParseClient
         self::assertParseInitialized();
         $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
 
-        $url = self::HOST_NAME . '/' . self::API_VERSION . '/' . ltrim($relativeUrl, '/');
+        $url = self::HOST_NAME.'/'.self::API_VERSION.'/'.ltrim($relativeUrl, '/');
         if ($method === 'GET' && !empty($data)) {
             $url .= '?'.http_build_query($data);
         }
@@ -314,8 +313,6 @@ final class ParseClient
      * persistence.
      *
      * @param ParseStorageInterface $storageObject
-     *
-     * @return null
      */
     public static function setStorage(ParseStorageInterface $storageObject)
     {
@@ -338,8 +335,6 @@ final class ParseClient
      *
      * Without some ability to clear the storage objects, all test cases would
      *     use the first assigned storage object.
-     *
-     * @return null
      */
     public static function _unsetStorage()
     {
@@ -349,7 +344,7 @@ final class ParseClient
     private static function assertParseInitialized()
     {
         if (self::$applicationId === null) {
-            throw new \Exception('You must call Parse::initialize() before making any requests.');
+            throw new Exception('You must call Parse::initialize() before making any requests.');
         }
     }
 
@@ -391,7 +386,7 @@ final class ParseClient
      */
     public static function getAPIUrl()
     {
-        return self::HOST_NAME . '/' . self::API_VERSION . '/';
+        return self::HOST_NAME.'/'.self::API_VERSION.'/';
     }
 
     /**
@@ -420,7 +415,7 @@ final class ParseClient
      * Format from Parse doc: an ISO 8601 date without a time zone, i.e. 2014-10-16T12:00:00 .
      *
      * @param \DateTime $value DateTime value to format.
-     * @param boolean $local Whether to return the local push time
+     * @param bool      $local Whether to return the local push time
      *
      * @return string
      */
@@ -439,8 +434,6 @@ final class ParseClient
      * Allows an existing application to start using revocable sessions, without forcing
      * all requests for the app to use them.    After calling this method, login & signup requests
      * will be returned a unique and revocable session token.
-     *
-     * @return null
      */
     public static function enableRevocableSessions()
     {

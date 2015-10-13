@@ -78,11 +78,11 @@ class AddUniqueOperation implements FieldOperation
 
             return new SetOperation($result);
         }
-        if ($previous instanceof AddUniqueOperation) {
+        if ($previous instanceof self) {
             $oldList = $previous->getValue();
             $result = $this->_apply($oldList, null, null);
 
-            return new AddUniqueOperation($result);
+            return new self($result);
         }
 
         throw new ParseException('Operation is invalid after previous operation.');

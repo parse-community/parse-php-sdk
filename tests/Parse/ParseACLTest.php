@@ -2,7 +2,9 @@
 
 namespace Parse\Test;
 
+use Exception;
 use Parse\ParseACL;
+use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
@@ -16,8 +18,8 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        Helper::clearClass("_User");
-        Helper::clearClass("Object");
+        Helper::clearClass('_User');
+        Helper::clearClass('Object');
     }
 
     public function tearDown()
@@ -45,7 +47,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         try {
             $query->get($object->getObjectId());
             $this->fail('public should be unable to get');
-        } catch (\Parse\ParseException $e) {
+        } catch (ParseException $e) {
         }
 
         $this->assertEquals(0, count($query->find()));
@@ -53,13 +55,13 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         try {
             $object->save();
             $this->fail('update should fail with object not found');
-        } catch (\Parse\ParseException $e) {
+        } catch (ParseException $e) {
         }
 
         try {
             $object->destroy();
             $this->fail('delete should fail with object not found');
-        } catch (\Parse\ParseException $e) {
+        } catch (ParseException $e) {
         }
 
         ParseUser::logIn('alice', 'wonderland');
@@ -114,13 +116,13 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         try {
             $object->save();
             $this->fail('update should fail with object not found');
-        } catch (\Parse\ParseException $e) {
+        } catch (ParseException $e) {
         }
 
         try {
             $object->destroy();
             $this->fail('delete should fail with object not found');
-        } catch (\Parse\ParseException $e) {
+        } catch (ParseException $e) {
         }
     }
 
@@ -154,7 +156,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         try {
             $query->get($object->getObjectId());
             $this->fail('public should be unable to get');
-        } catch (\Parse\ParseException $e) {
+        } catch (ParseException $e) {
         }
 
         $this->assertEquals(0, count($query->find()));
@@ -195,7 +197,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         try {
             $query->get($object->getObjectId());
             $this->fail('public should be unable to get');
-        } catch (\Parse\ParseException $e) {
+        } catch (ParseException $e) {
         }
 
         $this->assertEquals(0, count($query->find()));
@@ -203,13 +205,13 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         try {
             $object->save();
             $this->fail('update should fail with object not found');
-        } catch (\Parse\ParseException $e) {
+        } catch (ParseException $e) {
         }
 
         try {
             $object->destroy();
             $this->fail('delete should fail with object not found');
-        } catch (\Parse\ParseException $e) {
+        } catch (ParseException $e) {
         }
 
         ParseUser::logIn('bob', 'pass');
@@ -334,8 +336,8 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function testIncludedObjectsGetACLs()
     {
-        Helper::clearClass("Test");
-        Helper::clearClass("Related");
+        Helper::clearClass('Test');
+        Helper::clearClass('Related');
         $object = ParseObject::create('Test');
         $acl = new ParseACL();
         $acl->setPublicReadAccess(true);
@@ -357,8 +359,8 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function testIncludedObjectsGetACLWithDefaultACL()
     {
-        Helper::clearClass("Test");
-        Helper::clearClass("Related");
+        Helper::clearClass('Test');
+        Helper::clearClass('Related');
         $defaultACL = new ParseACL();
         $defaultACL->setPublicReadAccess(true);
         $defaultACL->setPublicWriteAccess(true);

@@ -15,7 +15,7 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        Helper::clearClass("TestObject");
+        Helper::clearClass('TestObject');
     }
 
     public function tearDown()
@@ -118,7 +118,7 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
 
     public function testGeoMaxDistanceWithUnits()
     {
-        Helper::clearClass("PlaceObject");
+        Helper::clearClass('PlaceObject');
         // [SAC] 38.52 -121.50 Sacramento,CA
         $sacramento = new ParseGeoPoint(38.52, -121.50);
         $obj = ParseObject::create('PlaceObject');

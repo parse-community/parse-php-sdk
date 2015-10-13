@@ -89,8 +89,8 @@ class IncrementOperation implements FieldOperation
         if ($previous instanceof SetOperation) {
             return new SetOperation($previous->getValue() + $this->value);
         }
-        if ($previous instanceof IncrementOperation) {
-            return new IncrementOperation(
+        if ($previous instanceof self) {
+            return new self(
                 $previous->getValue() + $this->value
             );
         }

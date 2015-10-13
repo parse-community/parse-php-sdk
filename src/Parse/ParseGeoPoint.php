@@ -2,12 +2,14 @@
 
 namespace Parse;
 
+use Parse\Internal\Encodable;
+
 /**
  * ParseGeoPoint - Representation of a Parse GeoPoint object.
  *
  * @author Fosco Marotto <fjm@fb.com>
  */
-class ParseGeoPoint implements \Parse\Internal\Encodable
+class ParseGeoPoint implements Encodable
 {
     /**
      * The latitude.

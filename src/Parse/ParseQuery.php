@@ -2,6 +2,8 @@
 
 namespace Parse;
 
+use Exception;
+
 /**
  * ParseQuery - Handles querying data from Parse.
  *
@@ -318,7 +320,7 @@ class ParseQuery
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request(
             'GET',
-            'classes/' . $this->className . '?' . $queryString,
+            'classes/'.$this->className.'?'.$queryString,
             $sessionToken,
             null,
             $useMasterKey
@@ -330,7 +332,7 @@ class ParseQuery
     /**
      * Execute a find query and return the results.
      *
-     * @param boolean $useMasterKey
+     * @param bool $useMasterKey
      *
      * @return array
      */
@@ -343,7 +345,7 @@ class ParseQuery
         $queryString = $this->buildQueryString($this->_getOptions());
         $result = ParseClient::_request(
             'GET',
-            'classes/' . $this->className . '?' . $queryString,
+            'classes/'.$this->className.'?'.$queryString,
             $sessionToken,
             null,
             $useMasterKey
@@ -577,7 +579,7 @@ class ParseQuery
      *
      * @param callable $callback     Callback that will be called with each result
      *                               of the query.
-     * @param boolean  $useMasterKey
+     * @param bool     $useMasterKey
      * @param int      $batchSize
      *
      * @throws \Exception If query has sort, skip, or limit.
@@ -585,9 +587,9 @@ class ParseQuery
     public function each($callback, $useMasterKey = false, $batchSize = 100)
     {
         if ($this->orderBy || $this->skip || ($this->limit >= 0)) {
-            throw new \Exception('Cannot iterate on a query with sort, skip, or limit.');
+            throw new Exception('Cannot iterate on a query with sort, skip, or limit.');
         }
-        $query = new ParseQuery($this->className);
+        $query = new self($this->className);
         $query->where = $this->where;
         $query->includes = $this->includes;
         $query->limit = $batchSize;
@@ -731,10 +733,10 @@ class ParseQuery
                 $className = $queryObjects[$i]->className;
             }
             if ($className != $queryObjects[$i]->className) {
-                throw new \Exception('All queries must be for the same class');
+                throw new Exception('All queries must be for the same class');
             }
         }
-        $query = new ParseQuery($className);
+        $query = new self($className);
         $query->_or($queryObjects);
 
         return $query;

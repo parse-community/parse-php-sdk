@@ -2,12 +2,14 @@
 
 namespace Parse;
 
+use Exception;
+
 /**
  * ParseException - Wrapper for \Exception class.
  *
  * @author Fosco Marotto <fjm@fb.com>
  */
-class ParseException extends \Exception
+class ParseException extends Exception
 {
     /**
      * Constructs a Parse\Exception.

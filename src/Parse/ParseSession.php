@@ -26,7 +26,7 @@ class ParseSession extends ParseObject
     /**
      * Retrieves the Session object for the currently logged in user.
      *
-     * @param boolean $useMasterKey If the Master Key should be used to override security.
+     * @param bool $useMasterKey If the Master Key should be used to override security.
      *
      * @return ParseSession
      */
@@ -40,7 +40,7 @@ class ParseSession extends ParseObject
             null,
             $useMasterKey
         );
-        $session = new ParseSession();
+        $session = new self();
         $session->_mergeAfterFetch($response);
         $session->handleSaveResult();
 
@@ -52,7 +52,7 @@ class ParseSession extends ParseObject
      * This method is useful for migrating an existing app to use
      * revocable sessions.
      *
-     * @return boolean
+     * @return bool
      */
     public static function isCurrentSessionRevocable()
     {
@@ -67,7 +67,7 @@ class ParseSession extends ParseObject
      *
      * @param string $token The session token to check
      *
-     * @return boolean
+     * @return bool
      */
     public static function _isRevocable($token)
     {

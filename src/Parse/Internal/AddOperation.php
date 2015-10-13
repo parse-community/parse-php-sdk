@@ -79,7 +79,7 @@ class AddOperation implements FieldOperation
                 array_merge((array) $oldList, (array) $this->objects)
             );
         }
-        if ($previous instanceof AddOperation) {
+        if ($previous instanceof self) {
             $oldList = $previous->getValue();
 
             return new SetOperation(
