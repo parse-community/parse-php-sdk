@@ -65,6 +65,20 @@ final class ParseClient
     private static $forceRevocableSession = false;
 
     /**
+     * Number of seconds to wait while trying to connect. Use 0 to wait indefinitely.
+     *
+     * @var int
+     */
+    private static $connectionTimeout;
+
+    /**
+     * Maximum number of seconds of request/response operation.
+     *
+     * @var int
+     */
+    private static $timeout;
+
+    /**
      * Constant for version string to include with requests.
      *
      * @var string
@@ -280,6 +294,14 @@ final class ParseClient
             curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
         }
         curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
+
+        if (!is_null(self::$connectionTimeout)) {
+            curl_setopt($rest, CURLOPT_CONNECTTIMEOUT, self::$connectionTimeout);
+        }
+        if (!is_null(self::$timeout)) {
+            curl_setopt($rest, CURLOPT_TIMEOUT, self::$timeout);
+        }
+
         $response = curl_exec($rest);
         $status = curl_getinfo($rest, CURLINFO_HTTP_CODE);
         $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
@@ -438,5 +460,25 @@ final class ParseClient
     public static function enableRevocableSessions()
     {
         self::$forceRevocableSession = true;
+    }
+
+    /**
+     * Sets number of seconds to wait while trying to connect. Use 0 to wait indefinitely, null to default behaviour.
+     * 
+     * @param int|null $connectionTimeout
+     */
+    public static function setConnectionTimeout($connectionTimeout)
+    {
+        self::$connectionTimeout = $connectionTimeout;
+    }
+
+    /**
+     * Sets maximum number of seconds of request/response operation. Use 0 to wait indefinitely, null to default behaviour.
+     * 
+     * @param int|null $timeout
+     */
+    public static function setTimeout($timeout)
+    {
+        self::$timeout = $timeout;
     }
 }
