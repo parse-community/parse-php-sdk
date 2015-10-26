@@ -20,7 +20,7 @@ App just for testing, and deploy some cloud code to it.
 * Use the Parse CLI to create a Cloud Code folder for the new app.
 * Copy tests/cloudcode/cloud/main.js into the newly created cloud/ folder.
 * Run "parse deploy" in your cloud folder.
-* Paste your App ID, REST API Key, and Master Key in tests/ParseTestHelper.php
+* Paste your App ID, REST API Key, and Master Key in tests/Parse/Helper.php
 
 You should now be able to execute, from project root folder:
 
