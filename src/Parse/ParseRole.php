@@ -1,7 +1,6 @@
 <?php
 
 namespace Parse;
-use Exception;
 
 /**
  * ParseRole - Representation of an access Role.
@@ -44,7 +43,6 @@ class ParseRole extends ParseObject
      *
      * @param string $name The role name
      *
-     * @throws Exception
      * @throws ParseException
      */
     public function setName($name)
