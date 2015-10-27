@@ -247,8 +247,11 @@ class ParseUser extends ParseObject
             ],
         ]];
         $result = ParseClient::_request(
-            'PUT', 'users/'.$this->getObjectId(),
-            $this->getSessionToken(), json_encode($data), $useMasterKey
+            'PUT',
+            'users/' . $this->getObjectId(),
+            $this->getSessionToken(),
+            json_encode($data),
+            $useMasterKey
         );
         $user = new self();
         $user->_mergeAfterFetch($result);

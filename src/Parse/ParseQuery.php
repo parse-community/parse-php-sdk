@@ -450,12 +450,13 @@ class ParseQuery
         if (is_array($key)) {
             $key = array_map(
                 function ($element) {
-                    return '-'.$element;
-                }, $key
+                    return '-' . $element;
+                },
+                $key
             );
             $this->orderBy = array_merge($this->orderBy, $key);
         } else {
-            $this->orderBy[] = '-'.$key;
+            $this->orderBy[] = '-' . $key;
         }
 
         return $this;
@@ -547,7 +548,8 @@ class ParseQuery
     public function withinGeoBox($key, $southwest, $northeast)
     {
         $this->addCondition(
-            $key, '$within',
+            $key,
+            '$within',
             ['$box' => [$southwest, $northeast]]
         );
 
@@ -681,7 +683,8 @@ class ParseQuery
         $queryParam = $query->_getOptions();
         $queryParam['className'] = $query->className;
         $this->addCondition(
-            $key, '$select',
+            $key,
+            '$select',
             ['key' => $queryKey, 'query' => $queryParam]
         );
 
@@ -705,7 +708,8 @@ class ParseQuery
         $queryParam = $query->_getOptions();
         $queryParam['className'] = $query->className;
         $this->addCondition(
-            $key, '$dontSelect',
+            $key,
+            '$dontSelect',
             ['key' => $queryKey, 'query' => $queryParam]
         );
 

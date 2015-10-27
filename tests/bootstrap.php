@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Used by the PHPUnit Test Suite to load dependencies and configure the main
  * application path.

@@ -61,7 +61,8 @@ class ParsePush
         }
         if (isset($data['expiration_time'])) {
             $data['expiration_time'] = ParseClient::_encode(
-                $data['expiration_time'], false
+                $data['expiration_time'],
+                false
             )['iso'];
         }
 

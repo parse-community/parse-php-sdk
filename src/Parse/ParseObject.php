@@ -101,9 +101,8 @@ class ParseObject implements Encodable
      *
      * @throws Exception
      */
-    public function __construct($className = null, $objectId = null,
-        $isPointer = false
-    ) {
+    public function __construct($className = null, $objectId = null, $isPointer = false)
+    {
         if (empty(self::$registeredSubclasses)) {
             throw new Exception(
                 'You must initialize the ParseClient using ParseClient::initialize '.
@@ -266,7 +265,9 @@ class ParseObject implements Encodable
     {
         $result = false;
         self::traverse(
-            true, $this->estimatedData, function ($object) use (&$result) {
+            true,
+            $this->estimatedData,
+            function ($object) use (&$result) {
                 if ($object instanceof ParseObject) {
                     if ($object->isDirty()) {
                         $result = true;
@@ -474,9 +475,8 @@ class ParseObject implements Encodable
      *
      * @return object
      */
-    public static function create($className, $objectId = null,
-        $isPointer = false
-    ) {
+    public static function create($className, $objectId = null, $isPointer = false)
+    {
         if (isset(self::$registeredSubclasses[$className])) {
             return new self::$registeredSubclasses[$className](
                 $className, $objectId, $isPointer
@@ -502,7 +502,9 @@ class ParseObject implements Encodable
         $response = ParseClient::_request(
             'GET',
             'classes/'.$this->className.'/'.$this->objectId,
-            $sessionToken, null, $useMasterKey
+            $sessionToken,
+            null,
+            $useMasterKey
         );
         $this->_mergeAfterFetch($response);
 
@@ -771,9 +773,7 @@ class ParseObject implements Encodable
                 }
             }
             if (count($errors)) {
-                throw new ParseAggregateException(
-                    'Errors during batch destroy.', $errors
-                );
+                throw new ParseAggregateException('Errors during batch destroy.', $errors);
             }
         }
 
@@ -795,7 +795,9 @@ class ParseObject implements Encodable
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
         $result = ParseClient::_request(
-            'POST', 'batch', $sessionToken,
+            'POST',
+            'batch',
+            $sessionToken,
             json_encode(['requests' => $data]),
             $useMasterKey
         );
@@ -1004,13 +1006,19 @@ class ParseObject implements Encodable
                 $req = $requests[0];
                 $result = ParseClient::_request(
                     $req['method'],
-                    $req['path'], $sessionToken, json_encode($req['body']), $useMasterKey
+                    $req['path'],
+                    $sessionToken,
+                    json_encode($req['body']),
+                    $useMasterKey
                 );
                 $batch[0]->mergeAfterSave($result);
             } else {
                 $result = ParseClient::_request(
-                    'POST', 'batch', $sessionToken,
-                    json_encode(['requests' => $requests]), $useMasterKey
+                    'POST',
+                    'batch',
+                    $sessionToken,
+                    json_encode(['requests' => $requests]),
+                    $useMasterKey
                 );
 
                 $errorCollection = [];
@@ -1037,9 +1045,7 @@ class ParseObject implements Encodable
                     }
                 }
                 if (count($errorCollection)) {
-                    throw new ParseAggregateException(
-                        'Errors during batch save.', $errorCollection
-                    );
+                    throw new ParseAggregateException('Errors during batch save.', $errorCollection);
                 }
             }
         }
@@ -1052,11 +1058,12 @@ class ParseObject implements Encodable
      * @param array       &$unsavedChildren Array to populate with children.
      * @param array       &$unsavedFiles    Array to populate with files.
      */
-    private static function findUnsavedChildren($object,
-        &$unsavedChildren, &$unsavedFiles
-    ) {
+    private static function findUnsavedChildren($object, &$unsavedChildren, &$unsavedFiles)
+    {
         static::traverse(
-            true, $object, function ($obj) use (
+            true,
+            $object,
+            function ($obj) use (
                 &$unsavedChildren,
                 &$unsavedFiles
             ) {
@@ -1084,9 +1091,8 @@ class ParseObject implements Encodable
      *
      * @return mixed The result of calling mapFunction on the root object.
      */
-    private static function traverse($deep, &$object, $mapFunction,
-        $seen = []
-    ) {
+    private static function traverse($deep, &$object, $mapFunction, $seen = [])
+    {
         if ($object instanceof self) {
             if (in_array($object, $seen, true)) {
                 return;
@@ -1094,7 +1100,10 @@ class ParseObject implements Encodable
             $seen[] = $object;
             if ($deep) {
                 self::traverse(
-                    $deep, $object->estimatedData, $mapFunction, $seen
+                    $deep,
+                    $object->estimatedData,
+                    $mapFunction,
+                    $seen
                 );
             }
 
@@ -1136,7 +1145,9 @@ class ParseObject implements Encodable
     {
         $result = true;
         self::traverse(
-            false, $object, function ($obj) use (&$result) {
+            false,
+            $object,
+            function ($obj) use (&$result) {
                 // short circuit as soon as possible.
                 if ($result === false) {
                     return;
@@ -1200,7 +1211,7 @@ class ParseObject implements Encodable
     public function _toPointer()
     {
         if (!$this->objectId) {
-            throw new \Exception("Can't serialize an unsaved Parse.Object");
+            throw new Exception("Can't serialize an unsaved Parse.Object");
         }
 
         return [
@@ -1256,7 +1267,7 @@ class ParseObject implements Encodable
                     get_called_class();
             }
         } else {
-            throw new \Exception(
+            throw new Exception(
                 'Cannot register a subclass that does not have a parseClassName'
             );
         }
