@@ -41,15 +41,13 @@ class ParsePush
         }
         if (isset($data['where'])) {
             if ($data['where'] instanceof ParseQuery) {
-                
-                $where_options   = $data['where']->_getOptions();
+                $where_options = $data['where']->_getOptions();
 
-                if (!isset($query_where['where'])) {
+                if (!isset($where_options['where'])) {
                     $data['where'] = '{}';
                 } else {
                     $data['where'] = $data['where']->_getOptions()['where'];
                 }
-
             } else {
                 throw new Exception(
                     'Where parameter for Parse Push must be of type ParseQuery'
