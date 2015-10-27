@@ -937,6 +937,8 @@ class ParseObject implements Encodable
      * @param array $target
      * @param bool  $useMasterKey Whether to use the Master Key.
      *
+     * @throws Exception
+     * @throws ParseAggregateException
      * @throws ParseException
      */
     private static function deepSave($target, $useMasterKey = false)

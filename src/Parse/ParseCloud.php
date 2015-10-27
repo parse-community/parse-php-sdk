@@ -28,7 +28,7 @@ class ParseCloud
             'POST',
             'functions/'.$name,
             $sessionToken,
-            json_encode(ParseClient::_encode($data, null, false)),
+            json_encode(ParseClient::_encode($data, false)),
             $useMasterKey
         );
 

@@ -43,7 +43,7 @@ class ParseRole extends ParseObject
      *
      * @param string $name The role name
      *
-     * @return null
+     * @throws ParseException
      */
     public function setName($name)
     {
