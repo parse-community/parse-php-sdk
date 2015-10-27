@@ -477,7 +477,8 @@ final class ParseClient
     }
 
     /**
-     * Sets maximum number of seconds of request/response operation. Use 0 to wait indefinitely, null to default behaviour.
+     * Sets maximum number of seconds of request/response operation.
+     * Use 0 to wait indefinitely, null to default behaviour.
      *
      * @param int|null $timeout
      */
