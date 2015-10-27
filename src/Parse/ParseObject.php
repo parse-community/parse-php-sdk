@@ -1171,15 +1171,16 @@ class ParseObject implements Encodable
     /**
      * Access or create a Relation value for a key.
      *
-     * @param string $key The key to access the relation for.
+     * @param string $key       The key to access the relation for.
+     * @param string $className The target class name.
      *
      * @return ParseRelation The ParseRelation object if the relation already
      *                       exists for the key or can be created for this key.
      */
-    public function getRelation($key)
+    public function getRelation($key, $className = null)
     {
-        $relation = new ParseRelation($this, $key);
-        if (isset($this->estimatedData[$key])) {
+        $relation = new ParseRelation($this, $key, $className);
+        if (!$className && isset($this->estimatedData[$key])) {
             $object = $this->estimatedData[$key];
             if ($object instanceof ParseRelation) {
                 $relation->setTargetClass($object->getTargetClass());
