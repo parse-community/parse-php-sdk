@@ -160,7 +160,7 @@ final class ParseClient
         }
 
         if (!is_scalar($value) && $value !== null) {
-            throw new \Exception('Invalid type encountered.');
+            throw new Exception('Invalid type encountered.');
         }
 
         return $value;
@@ -264,8 +264,12 @@ final class ParseClient
      *
      * @return mixed Result from Parse API Call.
      */
-    public static function _request($method, $relativeUrl, $sessionToken = null,
-        $data = null, $useMasterKey = false
+    public static function _request(
+        $method,
+        $relativeUrl,
+        $sessionToken = null,
+        $data = null,
+        $useMasterKey = false
     ) {
         if ($data === '[]') {
             $data = '{}';
@@ -464,7 +468,7 @@ final class ParseClient
 
     /**
      * Sets number of seconds to wait while trying to connect. Use 0 to wait indefinitely, null to default behaviour.
-     * 
+     *
      * @param int|null $connectionTimeout
      */
     public static function setConnectionTimeout($connectionTimeout)
@@ -473,8 +477,9 @@ final class ParseClient
     }
 
     /**
-     * Sets maximum number of seconds of request/response operation. Use 0 to wait indefinitely, null to default behaviour.
-     * 
+     * Sets maximum number of seconds of request/response operation.
+     * Use 0 to wait indefinitely, null to default behaviour.
+     *
      * @param int|null $timeout
      */
     public static function setTimeout($timeout)

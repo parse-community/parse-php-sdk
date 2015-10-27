@@ -801,7 +801,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
             function ($i) use ($personHomeTown, $personName) {
                 $person = ParseObject::create('Person');
                 $person->set('hometown', $personHomeTown[$i]);
-            $person->set('name', $personName[$i]);
+                $person->set('name', $personName[$i]);
 
                 return $person;
             }

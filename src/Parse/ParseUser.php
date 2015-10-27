@@ -198,7 +198,8 @@ class ParseUser extends ParseObject
         $uuid_parts = str_split(md5(mt_rand()), 4);
         $data = ['authData' => [
             'anonymous' => [
-                'id' => '{$uuid_parts[0]}{$uuid_parts[1]}-{$uuid_parts[2]}-{$uuid_parts[3]}-{$uuid_parts[4]}-{$uuid_parts[5]}{$uuid_parts[6]}{$uuid_parts[7]}',
+                'id' => '{$uuid_parts[0]}{$uuid_parts[1]}-{$uuid_parts[2]}-{$uuid_parts[3]}'
+                . '-{$uuid_parts[4]}-{$uuid_parts[5]}{$uuid_parts[6]}{$uuid_parts[7]}',
             ],
         ]];
 
@@ -247,8 +248,11 @@ class ParseUser extends ParseObject
             ],
         ]];
         $result = ParseClient::_request(
-            'PUT', 'users/'.$this->getObjectId(),
-            $this->getSessionToken(), json_encode($data), $useMasterKey
+            'PUT',
+            'users/' . $this->getObjectId(),
+            $this->getSessionToken(),
+            json_encode($data),
+            $useMasterKey
         );
         $user = new self();
         $user->_mergeAfterFetch($result);
