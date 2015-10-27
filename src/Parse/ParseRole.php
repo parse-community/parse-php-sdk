@@ -48,14 +48,10 @@ class ParseRole extends ParseObject
     public function setName($name)
     {
         if ($this->getObjectId()) {
-            throw new ParseException(
-                "A role's name can only be set before it has been saved."
-            );
+            throw new ParseException('A role\'s name can only be set before it has been saved.');
         }
         if (!is_string($name)) {
-            throw new ParseException(
-                "A role's name must be a string."
-            );
+            throw new ParseException('A role\'s name must be a string.');
         }
 
         return $this->set('name', $name);
@@ -88,14 +84,10 @@ class ParseRole extends ParseObject
     public function save($useMasterKey = false)
     {
         if (!$this->getACL()) {
-            throw new ParseException(
-                'Roles must have an ACL.'
-            );
+            throw new ParseException('Roles must have an ACL.');
         }
         if (!$this->getName() || !is_string($this->getName())) {
-            throw new ParseException(
-                'Roles must have a name.'
-            );
+            throw new ParseException('Roles must have a name.');
         }
 
         return parent::save($useMasterKey);

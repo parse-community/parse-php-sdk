@@ -84,9 +84,8 @@ class AddUniqueOperation implements FieldOperation
 
             return new self($result);
         }
-        throw new ParseException(
-            'Operation is invalid after previous operation.'
-        );
+
+        throw new ParseException('Operation is invalid after previous operation.');
     }
 
     /**

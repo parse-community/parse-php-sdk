@@ -82,9 +82,7 @@ class ParseGeoPoint implements Encodable
     public function setLongitude($lon)
     {
         if ($lon > 180.0 || $lon < -180.0) {
-            throw new ParseException(
-                'Longitude must be within range [-180.0, 180.0]'
-            );
+            throw new ParseException('Longitude must be within range [-180.0, 180.0]');
         }
         $this->longitude = $lon;
     }

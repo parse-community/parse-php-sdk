@@ -215,7 +215,7 @@ class ParseQuery
      */
     private function quote($s)
     {
-        return '\\Q'.str_replace('\\E', '\\E\\\\E\\Q', $s).'\\E';
+        return '\\Q' . str_replace('\\E', '\\E\\\\E\\Q', $s) . '\\E';
     }
 
     /**
@@ -451,7 +451,8 @@ class ParseQuery
             $key = array_map(
                 function ($element) {
                     return '-'.$element;
-                }, $key
+                },
+                $key
             );
             $this->orderBy = array_merge($this->orderBy, $key);
         } else {
@@ -547,7 +548,8 @@ class ParseQuery
     public function withinGeoBox($key, $southwest, $northeast)
     {
         $this->addCondition(
-            $key, '$within',
+            $key,
+            '$within',
             ['$box' => [$southwest, $northeast]]
         );
 
@@ -585,9 +587,7 @@ class ParseQuery
     public function each($callback, $useMasterKey = false, $batchSize = 100)
     {
         if ($this->orderBy || $this->skip || ($this->limit >= 0)) {
-            throw new Exception(
-                'Cannot iterate on a query with sort, skip, or limit.'
-            );
+            throw new Exception('Cannot iterate on a query with sort, skip, or limit.');
         }
         $query = new self($this->className);
         $query->where = $this->where;
@@ -681,7 +681,8 @@ class ParseQuery
         $queryParam = $query->_getOptions();
         $queryParam['className'] = $query->className;
         $this->addCondition(
-            $key, '$select',
+            $key,
+            '$select',
             ['key' => $queryKey, 'query' => $queryParam]
         );
 
@@ -705,7 +706,8 @@ class ParseQuery
         $queryParam = $query->_getOptions();
         $queryParam['className'] = $query->className;
         $this->addCondition(
-            $key, '$dontSelect',
+            $key,
+            '$dontSelect',
             ['key' => $queryKey, 'query' => $queryParam]
         );
 

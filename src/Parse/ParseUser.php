@@ -96,14 +96,10 @@ class ParseUser extends ParseObject
             throw new ParseException('Cannot sign up user with an empty name');
         }
         if (!$this->get('password')) {
-            throw new ParseException(
-                'Cannot sign up user with an empty password.'
-            );
+            throw new ParseException('Cannot sign up user with an empty password.');
         }
         if ($this->getObjectId()) {
-            throw new ParseException(
-                'Cannot sign up an already existing user.'
-            );
+            throw new ParseException('Cannot sign up an already existing user.');
         }
         parent::save();
         $this->handleSaveResult(true);
@@ -125,9 +121,7 @@ class ParseUser extends ParseObject
             throw new ParseException('Cannot log in user with an empty name');
         }
         if (!$password) {
-            throw new ParseException(
-                'Cannot log in user with an empty password.'
-            );
+            throw new ParseException('Cannot log in user with an empty password.');
         }
         $data = ['username' => $username, 'password' => $password];
         $result = ParseClient::_request('GET', 'login', '', $data);
@@ -156,9 +150,7 @@ class ParseUser extends ParseObject
             throw new ParseException('Cannot log in Facebook user without an id.');
         }
         if (!$access_token) {
-            throw new ParseException(
-                'Cannot log in Facebook user without an access token.'
-            );
+            throw new ParseException('Cannot log in Facebook user without an access token.');
         }
         if (!$expiration_date) {
             $expiration_date = new \DateTime();
@@ -166,7 +158,8 @@ class ParseUser extends ParseObject
         }
         $data = ['authData' => [
             'facebook' => [
-                'id'              => $id, 'access_token' => $access_token,
+                'id' => $id,
+                'access_token' => $access_token,
                 'expiration_date' => ParseClient::getProperDateFormat($expiration_date),
             ],
         ]];
@@ -198,8 +191,18 @@ class ParseUser extends ParseObject
         $uuid_parts = str_split(md5(mt_rand()), 4);
         $data = ['authData' => [
             'anonymous' => [
-                'id' => '{$uuid_parts[0]}{$uuid_parts[1]}-{$uuid_parts[2]}-{$uuid_parts[3]}-{$uuid_parts[4]}-{$uuid_parts[5]}{$uuid_parts[6]}{$uuid_parts[7]}',
-            ],
+                'id' => sprintf(
+                    '%s%s-%s-%s-%s-%s%s%s',
+                    $uuid_parts[0],
+                    $uuid_parts[1],
+                    $uuid_parts[2],
+                    $uuid_parts[3],
+                    $uuid_parts[4],
+                    $uuid_parts[5],
+                    $uuid_parts[6],
+                    $uuid_parts[7]
+                ),
+            ]
         ]];
 
         $result = ParseClient::_request('POST', 'users', '', json_encode($data));
@@ -232,9 +235,7 @@ class ParseUser extends ParseObject
             throw new ParseException('Cannot link Facebook user without an id.');
         }
         if (!$access_token) {
-            throw new ParseException(
-                'Cannot link Facebook user without an access token.'
-            );
+            throw new ParseException('Cannot link Facebook user without an access token.');
         }
         if (!$expiration_date) {
             $expiration_date = new \DateTime();
@@ -242,13 +243,17 @@ class ParseUser extends ParseObject
         }
         $data = ['authData' => [
             'facebook' => [
-                'id'              => $id, 'access_token' => $access_token,
-                'expiration_date' => ParseClient::getProperDateFormat($expiration_date),
-            ],
+                'id' => $id,
+                'access_token' => $access_token,
+                'expiration_date' => ParseClient::getProperDateFormat($expiration_date)
+            ]
         ]];
         $result = ParseClient::_request(
-            'PUT', 'users/'.$this->getObjectId(),
-            $this->getSessionToken(), json_encode($data), $useMasterKey
+            'PUT',
+            'users/' . $this->getObjectId(),
+            $this->getSessionToken(),
+            json_encode($data),
+            $useMasterKey
         );
         $user = new self();
         $user->_mergeAfterFetch($result);
@@ -396,9 +401,7 @@ class ParseUser extends ParseObject
         if ($this->getObjectId()) {
             parent::save($useMasterKey);
         } else {
-            throw new ParseException(
-                'You must call signUp to create a new User.'
-            );
+            throw new ParseException('You must call signUp to create a new User.');
         }
     }
 

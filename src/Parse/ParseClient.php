@@ -135,7 +135,8 @@ final class ParseClient
     {
         if ($value instanceof \DateTime || $value instanceof \DateTimeImmutable) {
             return [
-                '__type' => 'Date', 'iso' => self::getProperDateFormat($value),
+                '__type' => 'Date',
+                'iso' => self::getProperDateFormat($value),
             ];
         }
 
@@ -160,7 +161,7 @@ final class ParseClient
         }
 
         if (!is_scalar($value) && $value !== null) {
-            throw new \Exception('Invalid type encountered.');
+            throw new Exception('Invalid type encountered.');
         }
 
         return $value;
@@ -264,8 +265,12 @@ final class ParseClient
      *
      * @return mixed Result from Parse API Call.
      */
-    public static function _request($method, $relativeUrl, $sessionToken = null,
-        $data = null, $useMasterKey = false
+    public static function _request(
+        $method,
+        $relativeUrl,
+        $sessionToken = null,
+        $data = null,
+        $useMasterKey = false
     ) {
         if ($data === '[]') {
             $data = '{}';
@@ -319,10 +324,7 @@ final class ParseClient
 
         $decoded = json_decode($response, true);
         if (isset($decoded['error'])) {
-            throw new ParseException(
-                $decoded['error'],
-                isset($decoded['code']) ? $decoded['code'] : 0
-            );
+            throw new ParseException($decoded['error'], isset($decoded['code']) ? $decoded['code'] : 0);
         }
 
         return $decoded;
@@ -364,9 +366,7 @@ final class ParseClient
     private static function assertParseInitialized()
     {
         if (self::$applicationId === null) {
-            throw new Exception(
-                'You must call Parse::initialize() before making any requests.'
-            );
+            throw new Exception('You must call Parse::initialize() before making any requests.');
         }
     }
 

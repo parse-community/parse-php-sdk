@@ -144,12 +144,10 @@ class ParseACL implements Encodable
             $userId = $userId->getObjectId();
         }
         if ($userId instanceof ParseRole) {
-            $userId = 'role:'.$userId->getName();
+            $userId = 'role:' . $userId->getName();
         }
         if (!is_string($userId)) {
-            throw new ParseException(
-                'Invalid target for access control.'
-            );
+            throw new ParseException('Invalid target for access control.');
         }
         if (!isset($this->permissionsById[$userId])) {
             if (!$allowed) {
@@ -437,9 +435,7 @@ class ParseACL implements Encodable
     private static function validateRoleState($role)
     {
         if (!$role->getObjectId()) {
-            throw new Exception(
-                'Roles must be saved to the server before they can be used in an ACL.'
-            );
+            throw new Exception('Roles must be saved to the server before they can be used in an ACL.');
         }
     }
 

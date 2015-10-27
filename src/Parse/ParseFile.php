@@ -229,10 +229,7 @@ class ParseFile implements Encodable
 
         $decoded = json_decode($response, true);
         if (isset($decoded['error'])) {
-            throw new ParseException(
-                $decoded['error'],
-                isset($decoded['code']) ? $decoded['code'] : 0
-            );
+            throw new ParseException($decoded['error'], isset($decoded['code']) ? $decoded['code'] : 0);
         }
 
         return $decoded;

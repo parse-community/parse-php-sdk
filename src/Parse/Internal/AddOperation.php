@@ -86,9 +86,8 @@ class AddOperation implements FieldOperation
                 array_merge((array) $oldList, (array) $this->objects)
             );
         }
-        throw new ParseException(
-            'Operation is invalid after previous operation.'
-        );
+
+        throw new ParseException('Operation is invalid after previous operation.');
     }
 
     /**
