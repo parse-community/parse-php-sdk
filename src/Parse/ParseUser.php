@@ -393,6 +393,8 @@ class ParseUser extends ParseObject
     /**
      * Save the current user object, unless it is not signed up.
      *
+     * @param bool $useMasterKey Whether to use the Master Key
+     *
      * @throws ParseException
      */
     public function save($useMasterKey = false)

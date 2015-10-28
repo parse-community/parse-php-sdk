@@ -119,6 +119,12 @@ class ParseQuery
 
     /**
      * Helper for condition queries.
+     *
+     * @param string $key       The key to where constraints
+     * @param string $condition The condition name
+     * @param mixed  $value     The condition value, can be a string or an array of strings
+     *
+     * @throws Exception
      */
     private function addCondition($key, $condition, $value)
     {
@@ -212,6 +218,10 @@ class ParseQuery
      * Converts a string into a regex that matches it.
      * Surrounding with \Q .. \E does this, we just need to escape \E's in
      * the text separately.
+     *
+     * @param mixed $s The string or array being replaced.
+     *
+     * @return string Returns the string converted.
      */
     private function quote($s)
     {
