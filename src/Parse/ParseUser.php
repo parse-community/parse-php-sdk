@@ -199,7 +199,7 @@ class ParseUser extends ParseObject
         $data = ['authData' => [
             'anonymous' => [
                 'id' => '{$uuid_parts[0]}{$uuid_parts[1]}-{$uuid_parts[2]}-{$uuid_parts[3]}'
-                . '-{$uuid_parts[4]}-{$uuid_parts[5]}{$uuid_parts[6]}{$uuid_parts[7]}',
+                .'-{$uuid_parts[4]}-{$uuid_parts[5]}{$uuid_parts[6]}{$uuid_parts[7]}',
             ],
         ]];
 
@@ -249,7 +249,7 @@ class ParseUser extends ParseObject
         ]];
         $result = ParseClient::_request(
             'PUT',
-            'users/' . $this->getObjectId(),
+            'users/'.$this->getObjectId(),
             $this->getSessionToken(),
             json_encode($data),
             $useMasterKey
@@ -392,6 +392,8 @@ class ParseUser extends ParseObject
 
     /**
      * Save the current user object, unless it is not signed up.
+     *
+     * @param bool $useMasterKey Whether to use the Master Key
      *
      * @throws ParseException
      */

@@ -936,8 +936,8 @@ class ParseObject implements Encodable
     /**
      * Save object and unsaved children within.
      *
-     * @param array $target
-     * @param bool  $useMasterKey Whether to use the Master Key.
+     * @param ParseObject|array $target
+     * @param bool              $useMasterKey Whether to use the Master Key.
      *
      * @throws Exception
      * @throws ParseAggregateException
