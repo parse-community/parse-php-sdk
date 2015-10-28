@@ -460,13 +460,13 @@ class ParseQuery
         if (is_array($key)) {
             $key = array_map(
                 function ($element) {
-                    return '-' . $element;
+                    return '-'.$element;
                 },
                 $key
             );
             $this->orderBy = array_merge($this->orderBy, $key);
         } else {
-            $this->orderBy[] = '-' . $key;
+            $this->orderBy[] = '-'.$key;
         }
 
         return $this;
