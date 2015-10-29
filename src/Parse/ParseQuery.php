@@ -85,7 +85,7 @@ class ParseQuery
      *
      * @throws ParseException
      *
-     * @return array
+     * @return array|ParseObject Returns the selected object or an empty array
      */
     public function get($objectId, $useMasterKey = false)
     {
@@ -282,7 +282,7 @@ class ParseQuery
      *
      * @param bool $useMasterKey If the query should use the master key
      *
-     * @return array
+     * @return array|ParseObject Returns the first object or an empty array
      */
     public function first($useMasterKey = false)
     {
@@ -344,7 +344,7 @@ class ParseQuery
      *
      * @param bool $useMasterKey
      *
-     * @return array
+     * @return ParseObject[]
      */
     public function find($useMasterKey = false)
     {
