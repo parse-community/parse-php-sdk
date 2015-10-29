@@ -83,9 +83,9 @@ class ParseQuery
      * @param string $objectId     Unique object id to retrieve.
      * @param bool   $useMasterKey If the query should use the master key
      *
-     * @return array|ParseObject Returns the selected object or an empty array
-     *
      * @throws ParseException
+     *
+     * @return array|ParseObject Returns the selected object or an empty array
      */
     public function get($objectId, $useMasterKey = false)
     {
