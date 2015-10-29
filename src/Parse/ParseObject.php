@@ -473,7 +473,7 @@ class ParseObject implements Encodable
      * @param string $objectId  Unique identifier for existing object.
      * @param bool   $isPointer If the object is a pointer.
      *
-     * @return object
+     * @return ParseObject
      */
     public static function create($className, $objectId = null, $isPointer = false)
     {

@@ -282,7 +282,7 @@ class ParseQuery
      *
      * @param bool $useMasterKey If the query should use the master key
      *
-     * @return array
+     * @return array|ParseObject Returns the first object or an empty array
      */
     public function first($useMasterKey = false)
     {
