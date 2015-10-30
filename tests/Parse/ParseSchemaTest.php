@@ -70,5 +70,4 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema = new ParseSchema('SchemaTest');
         $schema->delete();
     }
-
 }
