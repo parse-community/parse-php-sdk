@@ -29,7 +29,6 @@ class ParseSchema
     private $fields = [];
 
     /**
-     * 
      * Force to use master key in Schema Methods.
      * 
      * @see https://parse.com/docs/rest/guide#schemas
@@ -393,7 +392,7 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'Object'
+            'type' => 'Object',
         ];
     }
 
@@ -497,4 +496,5 @@ class ParseSchema
             throw new Exception('The type "'.$type.'" is not valid', 1);
         }
     }
+    
 }
