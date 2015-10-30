@@ -37,7 +37,6 @@ class ParseSchema
      */
     public static $useMasterKey = true;
 
-
     /**
      * Create a Parse Schema.
      *
@@ -496,5 +495,4 @@ class ParseSchema
             throw new Exception('The type "'.$type.'" is not valid', 1);
         }
     }
-    
 }
