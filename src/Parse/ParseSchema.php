@@ -12,9 +12,8 @@ use Exception;
  *
  * @author Júlio César Gonçalves de Oliveira <julio@pinguineras.com.br>
  */
-class ParseSchema 
+class ParseSchema
 {
-
     /**
      * Class name for data stored on Parse.
      *
@@ -22,15 +21,12 @@ class ParseSchema
      */
     private $className;
 
-
     /**
-     *
      * Fields to create.
      *
      * @var array
      */
     private $fields = [];
-
 
     /**
      * 
@@ -50,11 +46,10 @@ class ParseSchema
      */
     public function __construct($className = null)
     {
-        if($className){
+        if ($className) {
             $this->className = $className;
         }
     }
-
 
     /**
      * Get all the Schema data on Parse.
@@ -83,9 +78,7 @@ class ParseSchema
         }
 
         return $result;
-
     }
-
 
     /**
      * Get the Schema from Parse.
@@ -117,7 +110,6 @@ class ParseSchema
     }
 
     /**
-     *
      * Create a new Schema on Parse.
      * 
      * @throws \Exception
@@ -126,7 +118,6 @@ class ParseSchema
      */
     public function save()
     {
-
         self::assertClassName();
 
         $Schema = [];
@@ -149,12 +140,11 @@ class ParseSchema
         );
 
         if (empty($result)) {
-            throw new Exception('Error on create Schema "'.$this->className.'"' , 0);
+            throw new Exception('Error on create Schema "'.$this->className.'"', 0);
         }
 
         return $result;
     }
-
 
     /**
      * Update a Schema from Parse.
@@ -165,7 +155,6 @@ class ParseSchema
      */
     public function update()
     {
-
         self::assertClassName();
 
         $sessionToken = null;
@@ -186,7 +175,7 @@ class ParseSchema
         );
 
         if (empty($result)) {
-            throw new Exception('Error on update Schema "'.$this->className.'"' , 101);
+            throw new Exception('Error on update Schema "'.$this->className.'"', 101);
         }
 
         return $result;
@@ -218,20 +207,20 @@ class ParseSchema
         );
 
         if (!empty($result)) {
-            throw new Exception('Error on delete Schema "'.$this->className.'"' , 101);
+            throw new Exception('Error on delete Schema "'.$this->className.'"', 101);
         }
 
         return true;
     }
 
-
-
     /**
      * Adding a Field to Create / Update a Schema.
      *
-     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $fieldName Name of the field will created on Parse
      * @param string $fieldType ( String | Number | Boolean | Date | File | GeoPoint | Array | Object | Pointer | Relation )
+     * 
      * @throws \Exception
+     * 
      * @return ParseSchema fields return self to create field on Parse
      */
     public function addField($fieldName = null, $fieldType = 'String')
@@ -244,14 +233,14 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => $fieldType
+            'type' => $fieldType,
         ];
     }
 
     /**
      * Adding String Field.
      * 
-     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $fieldName Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
@@ -264,15 +253,14 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'String'
+            'type' => 'String',
         ];
     }
-
 
     /**
      * Adding Number Field.
      * 
-     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $fieldName Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
@@ -285,15 +273,14 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'Number'
+            'type' => 'Number',
         ];
     }
-
 
     /**
      * Adding Boolean Field.
      * 
-     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $fieldName Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
@@ -306,15 +293,14 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'Boolean'
+            'type' => 'Boolean',
         ];
     }
-
 
     /**
      * Adding Date Field.
      * 
-     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $fieldName Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
@@ -327,15 +313,14 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'Date'
+            'type' => 'Date',
         ];
     }
-
 
     /**
      * Adding File Field.
      * 
-     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $fieldName Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
@@ -348,15 +333,14 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'File'
+            'type' => 'File',
         ];
     }
-
 
     /**
      * Adding GeoPoint Field.
      * 
-     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $fieldName Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
@@ -369,15 +353,14 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'GeoPoint'
+            'type' => 'GeoPoint',
         ];
     }
-
 
     /**
      * Adding Array Field.
      * 
-     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $fieldName Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
@@ -390,15 +373,14 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'Array'
+            'type' => 'Array',
         ];
     }
-
 
     /**
      * Adding Object Field.
      * 
-     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $fieldName Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
@@ -415,12 +397,11 @@ class ParseSchema
         ];
     }
 
-
     /**
      * Adding Pointer Field.
      * 
      * @param string $fieldName   Name of the field will created on Parse
-     * @param string $targetClass   Name of the target Pointer Class
+     * @param string $targetClass Name of the target Pointer Class
      * 
      * @throws \Exception
      * 
@@ -437,11 +418,10 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'Pointer',
-            'targetClass' => $targetClass
+            'type'        => 'Pointer',
+            'targetClass' => $targetClass,
         ];
     }
-
 
     /**
      * Adding Relation Field.
@@ -464,17 +444,15 @@ class ParseSchema
         }
 
         $this->fields[$fieldName] = [
-            'type' => 'Relation',
-            'targetClass' => $targetClass
+            'type'        => 'Relation',
+            'targetClass' => $targetClass,
         ];
     }
 
-
-
     /**
-     * Deleting a Field to Update on a Schema
+     * Deleting a Field to Update on a Schema.
      * 
-     * @param string $fieldName   Name of the field will be deleted
+     * @param string $fieldName Name of the field will be deleted
      * 
      * @throws \Exception
      * 
@@ -483,41 +461,38 @@ class ParseSchema
     public function deleteField($fieldName = null)
     {
         $this->fields[$fieldName] = [
-            '__op' => 'Delete'
+            '__op' => 'Delete',
         ];
     }
 
-
     /**
-     * Assert if ClassName has filled
+     * Assert if ClassName has filled.
      * 
      * @throws \Exception
      */
     public function assertClassName()
     {
-
-        if($this->className === null)
-        {
-            throw new Exception("You must set a Class Name before make any request.");
+        if ($this->className === null) {
+            throw new Exception('You must set a Class Name before make any request.');
         }
     }
 
     /**
-     *  Assert types of fields
+     *  Assert types of fields.
      * 
      * @throws Exception
      */
     public function assetTypes($type = null)
     {
-        if ($type !== 'String' || 
-            $type !== 'Number' || 
-            $type !== 'Boolean' || 
-            $type !== 'Date' || 
-            $type !== 'File' || 
-            $type !== 'GeoPoint' || 
-            $type !== 'Array' || 
-            $type !== 'Object' || 
-            $type !== 'Pointer' || 
+        if ($type !== 'String' ||
+            $type !== 'Number' ||
+            $type !== 'Boolean' ||
+            $type !== 'Date' ||
+            $type !== 'File' ||
+            $type !== 'GeoPoint' ||
+            $type !== 'Array' ||
+            $type !== 'Object' ||
+            $type !== 'Pointer' ||
             $type !== 'Relation') {
             throw new Exception('The type "'.$type.'" is not valid', 1);
         }

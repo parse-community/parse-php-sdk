@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 /**
  * ParseSchema Tests.
@@ -24,14 +25,12 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         Helper::tearDown();
     }
 
-
     // Tests
 
     public function testSchemas()
     {
         $schemas = new ParseSchema();
         $results = $schemas->all();
-    	
     }
 
     public function testCreateSchema()
@@ -47,7 +46,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema->addArray('NewField8');
         $schema->addObject('NewField9');
         $schema->addPointer('NewField10', '_User');
-        $schema->addRelation('NewField11',  '_User');
+        $schema->addRelation('NewField11', '_User');
         $schema->save();
     }
 
