@@ -12,7 +12,8 @@ use Exception;
  *
  * @author Júlio César Gonçalves de Oliveira <julio@pinguineras.com.br>
  */
-Class ParseSchema {
+class ParseSchema 
+{
 
     /**
      * Class name for data stored on Parse.
@@ -24,7 +25,7 @@ Class ParseSchema {
 
     /**
      *
-     * Fields to create
+     * Fields to create.
      *
      * @var array
      */
@@ -33,30 +34,30 @@ Class ParseSchema {
 
     /**
      * 
-     * Force to use master key in Schema Methods
+     * Force to use master key in Schema Methods.
      * 
      * @see https://parse.com/docs/rest/guide#schemas
      * 
-     * @var boolean
-     * 
+     * @var bool
      */
-    static $useMasterKey = true;
+    public static $useMasterKey = true;
 
 
     /**
-     * Create a Parse Schema
+     * Create a Parse Schema.
      *
      * @param mixed $className Class Name of data on Parse.
      */
-    public function __construct($className = NULL)
+    public function __construct($className = null)
     {
-        if($className)
+        if($className){
             $this->className = $className;
+        }
     }
 
 
     /**
-     * Get all the Schema data on Parse
+     * Get all the Schema data on Parse.
      *
      * @param bool $useMasterKey Need to be true to make schema requests
      * 
@@ -64,7 +65,7 @@ Class ParseSchema {
      */
     public function all()
     {
-        $sessionToken = NULL;
+        $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
@@ -73,7 +74,7 @@ Class ParseSchema {
             'GET',
             'schemas/',
             $sessionToken,
-            NULL,
+            null,
             true
         );
 
@@ -87,25 +88,24 @@ Class ParseSchema {
 
 
     /**
-     * Get the Schema from Parse
+     * Get the Schema from Parse.
      *
      * @return array
-     *
      */
     public function get()
     {
         self::assertClassName();
 
-        $sessionToken = NULL;
+        $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
 
         $result = ParseClient::_request(
             'GET',
-            'schemas/' . $this->className,
+            'schemas/'.$this->className,
             $sessionToken,
-            NULL,
+            null,
             self::$useMasterKey
         );
 
@@ -118,19 +118,20 @@ Class ParseSchema {
 
     /**
      *
-     * Create a new Schema on Parse
+     * Create a new Schema on Parse.
      * 
      * @throws \Exception
      *
      * @return array
      */
-    public function save(){
+    public function save()
+    {
 
         self::assertClassName();
 
-        $Schema = array();
+        $Schema = [];
 
-        $sessionToken = NULL;
+        $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
@@ -141,14 +142,14 @@ Class ParseSchema {
 
         $result = ParseClient::_request(
             'POST',
-            'schemas/' . $this->className,
+            'schemas/'.$this->className,
             $sessionToken,
             json_encode($Schema),
             self::$useMasterKey
         );
 
         if (empty($result)) {
-            throw new Exception('Error on create Schema "' . $this->className . '"' , 0);
+            throw new Exception('Error on create Schema "'.$this->className.'"' , 0);
         }
 
         return $result;
@@ -156,17 +157,18 @@ Class ParseSchema {
 
 
     /**
-     * Update a Schema from Parse
+     * Update a Schema from Parse.
      * 
      * @throws \Exception
      *
      * @return array
      */
-    public function update(){
+    public function update()
+    {
 
         self::assertClassName();
 
-        $sessionToken = NULL;
+        $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
@@ -177,21 +179,21 @@ Class ParseSchema {
 
         $result = ParseClient::_request(
             'PUT',
-            'schemas/' . $this->className,
+            'schemas/'.$this->className,
             $sessionToken,
             json_encode($Schema),
             self::$useMasterKey
         );
 
         if (empty($result)) {
-            throw new Exception('Error on update Schema "' . $this->className . '"' , 101);
+            throw new Exception('Error on update Schema "'.$this->className.'"' , 101);
         }
 
         return $result;
     }
 
     /**
-     * Removing a Schema from Parse
+     * Removing a Schema from Parse.
      * You can only remove a schema from your app if it is empty (has 0 objects).
      * 
      * @throws \Exception
@@ -202,21 +204,21 @@ Class ParseSchema {
     {
         self::assertClassName();
 
-        $sessionToken = NULL;
+        $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
 
         $result = ParseClient::_request(
             'DELETE',
-            'schemas/' . $this->className,
+            'schemas/'.$this->className,
             $sessionToken,
-            NULL,
+            null,
             self::$useMasterKey
         );
 
         if (!empty($result)) {
-            throw new Exception('Error on delete Schema "' . $this->className . '"' , 101);
+            throw new Exception('Error on delete Schema "'.$this->className.'"' , 101);
         }
 
         return true;
@@ -225,14 +227,14 @@ Class ParseSchema {
 
 
     /**
-     * Adding a Field to Create / Update a Schema
+     * Adding a Field to Create / Update a Schema.
      *
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * @param string $fieldType ( String | Number | Boolean | Date | File | GeoPoint | Array | Object | Pointer | Relation )
      * @throws \Exception
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addField($fieldName = NULL, $fieldType = 'String')
+    public function addField($fieldName = null, $fieldType = 'String')
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
@@ -241,190 +243,190 @@ Class ParseSchema {
             throw new Exception('Type name may not be null.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => $fieldType
-        );
+        ];
     }
 
     /**
-     * Adding String Field
+     * Adding String Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addString($fieldName = NULL)
+    public function addString($fieldName = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'String'
-        );
+        ];
     }
 
 
     /**
-     * Adding Number Field
+     * Adding Number Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addNumber($fieldName = NULL)
+    public function addNumber($fieldName = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'Number'
-        );
+        ];
     }
 
 
     /**
-     * Adding Boolean Field
+     * Adding Boolean Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addBoolean($fieldName = NULL)
+    public function addBoolean($fieldName = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'Boolean'
-        );
+        ];
     }
 
 
     /**
-     * Adding Date Field
+     * Adding Date Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addDate($fieldName = NULL)
+    public function addDate($fieldName = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'Date'
-        );
+        ];
     }
 
 
     /**
-     * Adding File Field
+     * Adding File Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addFile($fieldName = NULL)
+    public function addFile($fieldName = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'File'
-        );
+        ];
     }
 
 
     /**
-     * Adding GeoPoint Field
+     * Adding GeoPoint Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addGeoPoint($fieldName = NULL)
+    public function addGeoPoint($fieldName = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'GeoPoint'
-        );
+        ];
     }
 
 
     /**
-     * Adding Array Field
+     * Adding Array Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addArray($fieldName = NULL)
+    public function addArray($fieldName = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'Array'
-        );
+        ];
     }
 
 
     /**
-     * Adding Object Field
+     * Adding Object Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addObject($fieldName = NULL)
+    public function addObject($fieldName = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'Object'
-        );
+        ];
     }
 
 
     /**
-     * Adding Pointer Field
+     * Adding Pointer Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
-     * @param string $targetClass Name of the target Pointer Class
+     * @param string $fieldName   Name of the field will created on Parse
+     * @param string $targetClass   Name of the target Pointer Class
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addPointer($fieldName = NULL, $targetClass = NULL)
+    public function addPointer($fieldName = null, $targetClass = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
@@ -434,24 +436,24 @@ Class ParseSchema {
             throw new Exception('You need set the targetClass of the Pointer.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'Pointer',
             'targetClass' => $targetClass
-        );
+        ];
     }
 
 
     /**
-     * Adding Relation Field
+     * Adding Relation Field.
      * 
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName   Name of the field will created on Parse
      * @param string $targetClass Name of the target Pointer Class
      * 
      * @throws \Exception
      * 
      * @return ParseSchema fields return self to create field on Parse
      */
-    public function addRelation($fieldName = NULL, $targetClass = NULL)
+    public function addRelation($fieldName = null, $targetClass = null)
     {
         if (!$fieldName) {
             throw new Exception('field name may not be null.');
@@ -461,10 +463,10 @@ Class ParseSchema {
             throw new Exception('You need set the targetClass of the Pointer.');
         }
 
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             'type' => 'Relation',
             'targetClass' => $targetClass
-        );
+        ];
     }
 
 
@@ -472,17 +474,17 @@ Class ParseSchema {
     /**
      * Deleting a Field to Update on a Schema
      * 
-     * @param string $fieldName Name of the field will be deleted
+     * @param string $fieldName   Name of the field will be deleted
      * 
      * @throws \Exception
      * 
      * @return array to $fields
      */
-    public function deleteField($fieldName = NULL)
+    public function deleteField($fieldName = null)
     {
-        $this->fields[$fieldName] = array(
+        $this->fields[$fieldName] = [
             '__op' => 'Delete'
-        );
+        ];
     }
 
 
@@ -505,9 +507,9 @@ Class ParseSchema {
      * 
      * @throws Exception
      */
-    public function assetTypes($type = NULL)
+    public function assetTypes($type = null)
     {
-        if( $type !== 'String' || 
+        if ($type !== 'String' || 
             $type !== 'Number' || 
             $type !== 'Boolean' || 
             $type !== 'Date' || 
@@ -516,11 +518,8 @@ Class ParseSchema {
             $type !== 'Array' || 
             $type !== 'Object' || 
             $type !== 'Pointer' || 
-            $type !== 'Relation')
-        {
+            $type !== 'Relation') {
             throw new Exception('The type "'.$type.'" is not valid', 1);
         }
     }
-
-
 }

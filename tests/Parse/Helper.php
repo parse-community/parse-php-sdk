@@ -5,6 +5,7 @@ namespace Parse\Test;
 use Parse\ParseClient;
 use Parse\ParseObject;
 use Parse\ParseQuery;
+use Parse\ParseSchema;
 
 class Helper
 {
@@ -15,9 +16,9 @@ class Helper
         date_default_timezone_set('UTC');
 
         ParseClient::initialize(
-            'app-id-here',
-            'rest-api-key-here',
-            'master-key-here'
+            '2i1dJ1YGS93dz6YV5IVLdk3KyweJklb3YZIpFxbP',
+            'MGtWmpVjDsTkXvYfXTqeH1LIaSPhi1FK3jHy8h2Y',
+            'B4j3dzMI0uuulwTwjFfTNxqf5n0FBkT8VjwKdx2T'
         );
     }
 
