@@ -645,6 +645,11 @@ class ParseObject implements Encodable
         }
     }
 
+    /**
+     * Merge data from other object
+     *
+     * @param ParseObject $other
+     */
     private function mergeFromObject($other)
     {
         if (!$other) {
@@ -780,6 +785,16 @@ class ParseObject implements Encodable
         return;
     }
 
+    /**
+     * Destroy batch of objects
+     *
+     * @param ParseObject[] $objects
+     * @param bool $useMasterKey
+     *
+     * @return array
+     *
+     * @throws ParseException
+     */
     private static function destroyBatch(array $objects, $useMasterKey = false)
     {
         $data = [];
@@ -1013,6 +1028,9 @@ class ParseObject implements Encodable
                 );
                 $batch[0]->mergeAfterSave($result);
             } else {
+                foreach ($requests as &$r){
+                    $r['path'] = '/1/' . $r['path'];
+                }
                 $result = ParseClient::_request(
                     'POST',
                     'batch',

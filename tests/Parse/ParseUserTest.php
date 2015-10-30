@@ -26,6 +26,16 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         ParseUser::_unregisterSubclass();
     }
 
+    public function testUserAttributes()
+    {
+        $user = new ParseUser();
+        $user->setUsername('asdf');
+        $user->setPassword('zxcv');
+        $user->setEmail('asds@mail.com');
+        $this->assertEquals('asdf', $user->getUsername());
+        $this->assertEquals('asds@mail.com', $user->getEmail());
+    }
+
     public function testUserSignUp()
     {
         $user = new ParseUser();
@@ -41,6 +51,18 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $user = ParseUser::logIn('asdf', 'zxcv');
         $this->assertTrue($user->isAuthenticated());
         $this->assertEquals('asdf', $user->get('username'));
+    }
+
+    public function testLoginEmptyUsername()
+    {
+        $this->setExpectedException('Parse\ParseException', 'empty name');
+        $user = ParseUser::logIn('', 'bogus');
+    }
+
+    public function testLoginEmptyPassword()
+    {
+        $this->setExpectedException('Parse\ParseException', 'empty password');
+        $user = ParseUser::logIn('asdf', '');
     }
 
     public function testLoginWrongUsername()
@@ -72,6 +94,15 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException('Parse\ParseException', 'invalid session');
         $failUser = ParseUser::become('garbage_token');
+    }
+
+    public function testCannotSingUpAlreadyExistingUser()
+    {
+        $this->testUserSignUp();
+        $user = ParseUser::getCurrentUser();
+        $user->setPassword('zxcv');
+        $this->setExpectedException('Parse\ParseException', 'already existing user');
+        $user->signUp();
     }
 
     public function testCannotAlterOtherUser()
@@ -338,8 +369,8 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $user->destroy();
 
         $query = ParseUser::query();
-        $this->setExpectedException('Parse\ParseException', 'Object not found');
-        $fail = $query->get($user->getObjectId());
+        $this->setExpectedException('Parse\ParseException', 'Object not found.');
+        $fail = $query->get($user->getObjectId(), true);
     }
 
     public function testCountUsers()
