@@ -40,7 +40,7 @@ class ParseSchema
     /**
      * Create a Parse Schema.
      *
-     * @param mixed $className Class Name of data on Parse.
+     * @param string|null $className Class Name of data on Parse.
      */
     public function __construct($className = null)
     {
