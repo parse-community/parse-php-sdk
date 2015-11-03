@@ -230,6 +230,8 @@ class ParseSchema
             throw new Exception('Type name may not be null.');
         }
 
+        $this->assertTypes($fieldType);
+
         $this->fields[$fieldName] = [
             'type' => $fieldType,
         ];
@@ -480,19 +482,19 @@ class ParseSchema
      * 
      * @throws Exception
      */
-    public function assetTypes($type = null)
+    public function assertTypes($type = null)
     {
-        if ($type !== 'String' ||
-            $type !== 'Number' ||
-            $type !== 'Boolean' ||
-            $type !== 'Date' ||
-            $type !== 'File' ||
-            $type !== 'GeoPoint' ||
-            $type !== 'Array' ||
-            $type !== 'Object' ||
-            $type !== 'Pointer' ||
+        if ($type !== 'String' &&
+            $type !== 'Number' &&
+            $type !== 'Boolean' &&
+            $type !== 'Date' &&
+            $type !== 'File' &&
+            $type !== 'GeoPoint' &&
+            $type !== 'Array' &&
+            $type !== 'Object' &&
+            $type !== 'Pointer' &&
             $type !== 'Relation') {
-            throw new Exception('The type "'.$type.'" is not valid', 1);
+            throw new Exception($type.' is not a valid type.', 1);
         }
     }
 }
