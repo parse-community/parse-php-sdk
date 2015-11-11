@@ -14,108 +14,113 @@ use Parse\ParseSchema;
 
 class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ParseSchema
+     */
+    private static $schema;
+
     public static function setUpBeforeClass()
     {
         Helper::setUp();
     }
 
+    public function setUp()
+    {
+        self::$schema = new ParseSchema('SchemaTest');
+    }
+
     public function tearDown()
     {
         Helper::tearDown();
+        self::$schema->delete();
     }
 
-    // Tests
-
-    public function testSchemas()
+    public function testSaveSchema()
     {
-        $schemas = new ParseSchema();
-        $results = $schemas->all();
-    }
+        $schema = self::$schema;
 
-    public function testCreateSchema()
-    {
-        $schema = new ParseSchema('SchemaTest');
-        $schema->addField('NewField1');
-        $schema->addField('NewField2', 'Date');
-        $schema->addNumber('NewField3');
-        $schema->addBoolean('NewField4');
-        $schema->addDate('NewField5');
-        $schema->addFile('NewField6');
-        $schema->addGeoPoint('NewField7');
-        $schema->addArray('NewField8');
-        $schema->addObject('NewField9');
-        $schema->addPointer('NewField10', '_User');
-        $schema->addRelation('NewField11', '_User');
         $schema->save();
 
-        $getSchema = new ParseSchema('SchemaTest');
-        $result = $getSchema->get();
-
-        $getSchema = new ParseSchema('SchemaTest');
-        $result = $getSchema->get();
-
-        if ($result['fields']['NewField1']['type'] != 'String') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField2']['type'] != 'Date') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField3']['type'] != 'Number') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField4']['type'] != 'Boolean') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField5']['type'] != 'Date') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField6']['type'] != 'File') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField7']['type'] != 'GeoPoint') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField8']['type'] != 'Array') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField9']['type'] != 'Object') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField10']['type'] != 'Pointer') {
-            $this->assertTrue(false);
-        }
-        if ($result['fields']['NewField11']['type'] != 'Relation') {
-            $this->assertTrue(false);
-        }
+        $this->assertEquals('SchemaTest', $schema->get()['className']);
     }
 
-    public function testGetSchema()
+    public function testGetFieldsSchema()
     {
-        $schema = new ParseSchema('SchemaTest');
-        $schema->get();
+        self::createFieldsOfSchema();
+
+        // get schema
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+
+        $this->assertEquals(ParseSchema::$STRING, $result['fields']['defaultFieldString']['type']);
+        $this->assertEquals(ParseSchema::$STRING, $result['fields']['stringField']['type']);
+        $this->assertEquals(ParseSchema::$NUMBER, $result['fields']['numberField']['type']);
+        $this->assertEquals(ParseSchema::$BOOLEAN, $result['fields']['booleanField']['type']);
+        $this->assertEquals(ParseSchema::$DATE, $result['fields']['dateField']['type']);
+        $this->assertEquals(ParseSchema::$FILE, $result['fields']['fileField']['type']);
+        $this->assertEquals(ParseSchema::$GEO_POINT, $result['fields']['geoPointField']['type']);
+        $this->assertEquals(ParseSchema::$ARRAY, $result['fields']['arrayField']['type']);
+        $this->assertEquals(ParseSchema::$OBJECT, $result['fields']['objectField']['type']);
+        $this->assertEquals(ParseSchema::$POINTER, $result['fields']['pointerField']['type']);
+        $this->assertEquals(ParseSchema::$RELATION, $result['fields']['relationField']['type']);
+    }
+
+    private static function createFieldsOfSchema()
+    {
+        $schema = self::$schema;
+        // add fields
+        $schema
+            ->addField('defaultFieldString')
+            ->addString('stringField')
+            ->addNumber('numberField')
+            ->addBoolean('booleanField')
+            ->addDate('dateField')
+            ->addFile('fileField')
+            ->addGeoPoint('geoPointField')
+            ->addArray('arrayField')
+            ->addObject('objectField')
+            ->addPointer('pointerField', '_User')
+            ->addRelation('relationField', '_User');
+        // save schema
+        $schema->save();
+    }
+
+    public function testAllSchema()
+    {
+        $schema_1 = new ParseSchema('SchemaTest_1');
+        $schema_2 = new ParseSchema('SchemaTest_2');
+        $schema_1->save();
+        $schema_2->save();
+
+        $schemas = new ParseSchema();
+        $results = $schemas->all();
+
+        $this->assertGreaterThanOrEqual(2, count($results));
+
+        $schema_1->delete();
+        $schema_2->delete();
     }
 
     public function testUpdateSchema()
     {
-        $schema = new ParseSchema('SchemaTest');
-        $schema->deleteField('NewField2');
+        // create
+        $schema = self::$schema;
+        $schema->addString('name');
+        $schema->save();
+        // update
+        $schema->deleteField('name');
         $schema->addNumber('quantity');
         $schema->addField('status', 'Boolean');
         $schema->update();
-
+        // get
         $getSchema = new ParseSchema('SchemaTest');
         $result = $getSchema->get();
 
-        if (isset($result['fields']['NewField2'])) {
-            $this->assertTrue(false);
+        if (isset($result['fields']['name'])) {
+            $this->fail('Field not deleted in update action');
         }
-
-        if (!isset($result['fields']['quantity'])) {
-            $this->assertTrue(false);
-        }
-        if (!isset($result['fields']['status'])) {
-            $this->assertTrue(false);
-        }
+        $this->assertNotNull($result['fields']['quantity']);
+        $this->assertNotNull($result['fields']['status']);
     }
 
     public function testUpdateWrongFieldType()
@@ -138,5 +143,124 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $getSchema = new ParseSchema('SchemaDeleteTest');
         $this->setExpectedException('Parse\ParseException', 'class SchemaDeleteTest does not exist');
         $getSchema->get();
+    }
+
+    public function testAssertClassName()
+    {
+        $schema = new ParseSchema();
+        $this->setExpectedException('\Exception', 'You must set a Class Name before make any request.');
+        $schema->assertClassName();
+    }
+
+    public function testFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addField(null, '_Type');
+    }
+
+    public function testStringFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addString();
+    }
+
+    public function testNumberFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addNumber();
+    }
+
+    public function testBooleanFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addBoolean();
+    }
+
+    public function testDateFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addDate();
+    }
+
+    public function testFileFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addFile();
+    }
+
+    public function testGeoPointFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addGeoPoint();
+    }
+
+    public function testArrayFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addArray();
+    }
+
+    public function testObjectFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addObject();
+    }
+
+    public function testPointFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addPointer(null, '_Type');
+    }
+
+    public function testRelationFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addRelation(null, '_Type');
+    }
+
+    public function testPointerTargetClassException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'You need set the targetClass of the Pointer.');
+        $schema->addPointer('field', null);
+    }
+
+    public function testRelationTargetClassException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'You need set the targetClass of the Relation.');
+        $schema->addRelation('field', null);
+    }
+
+    public function testTypeNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'Type name may not be null.');
+        $schema->addField('field', null);
+    }
+
+    public function testSchemaNotExistException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'class SchemaTest does not exist');
+        $schema->get();
+    }
+
+    public function testInvalidTypeException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'StringFormatter is not a valid type.');
+        $schema->assertTypes('StringFormatter');
     }
 }
