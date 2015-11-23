@@ -9,7 +9,7 @@ namespace Parse;
  */
 class ParseSession extends ParseObject
 {
-    public static $parseClassName = "_Session";
+    public static $parseClassName = '_Session';
 
     private $_sessionToken = null;
 
@@ -26,15 +26,21 @@ class ParseSession extends ParseObject
     /**
      * Retrieves the Session object for the currently logged in user.
      *
-     * @param boolean $useMasterKey If the Master Key should be used to override security.
+     * @param bool $useMasterKey If the Master Key should be used to override security.
      *
      * @return ParseSession
      */
     public static function getCurrentSession($useMasterKey = false)
     {
         $token = ParseUser::getCurrentUser()->getSessionToken();
-        $response = ParseClient::_request('GET', '/1/sessions/me', $token, null, $useMasterKey);
-        $session = new ParseSession();
+        $response = ParseClient::_request(
+            'GET',
+            'sessions/me',
+            $token,
+            null,
+            $useMasterKey
+        );
+        $session = new self();
         $session->_mergeAfterFetch($response);
         $session->handleSaveResult();
 
@@ -46,7 +52,7 @@ class ParseSession extends ParseObject
      * This method is useful for migrating an existing app to use
      * revocable sessions.
      *
-     * @return boolean
+     * @return bool
      */
     public static function isCurrentSessionRevocable()
     {
@@ -61,11 +67,11 @@ class ParseSession extends ParseObject
      *
      * @param string $token The session token to check
      *
-     * @return boolean
+     * @return bool
      */
     public static function _isRevocable($token)
     {
-        return strpos($token, "r:") === 0;
+        return strpos($token, 'r:') === 0;
     }
 
     /**

@@ -7,7 +7,6 @@
 
 namespace Parse;
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once dirname(__DIR__).'/vendor/autoload.php';
 
-$baseDir = str_replace('/tests', '', __DIR__);
-define('APPLICATION_PATH', $baseDir);
+define('APPLICATION_PATH', dirname(__DIR__));

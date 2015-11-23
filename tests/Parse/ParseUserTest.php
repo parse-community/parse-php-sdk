@@ -1,24 +1,24 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
 
-require_once 'ParseTestHelper.php';
-
-class ParseUserTest extends PHPUnit_Framework_TestCase
+class ParseUserTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::setUp();
+        Helper::clearClass(ParseUser::$parseClassName);
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
         ParseUser::logOut();
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
     }
 
     public static function tearDownAfterClass()
@@ -26,11 +26,21 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         ParseUser::_unregisterSubclass();
     }
 
+    public function testUserAttributes()
+    {
+        $user = new ParseUser();
+        $user->setUsername('asdf');
+        $user->setPassword('zxcv');
+        $user->setEmail('asds@mail.com');
+        $this->assertEquals('asdf', $user->getUsername());
+        $this->assertEquals('asds@mail.com', $user->getEmail());
+    }
+
     public function testUserSignUp()
     {
         $user = new ParseUser();
-        $user->setUsername("asdf");
-        $user->setPassword("zxcv");
+        $user->setUsername('asdf');
+        $user->setPassword('zxcv');
         $user->signUp();
         $this->assertTrue($user->isAuthenticated());
     }
@@ -38,29 +48,41 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
     public function testLoginSuccess()
     {
         $this->testUserSignUp();
-        $user = ParseUser::logIn("asdf", "zxcv");
+        $user = ParseUser::logIn('asdf', 'zxcv');
         $this->assertTrue($user->isAuthenticated());
-        $this->assertEquals("asdf", $user->get('username'));
+        $this->assertEquals('asdf', $user->get('username'));
+    }
+
+    public function testLoginEmptyUsername()
+    {
+        $this->setExpectedException('Parse\ParseException', 'empty name');
+        $user = ParseUser::logIn('', 'bogus');
+    }
+
+    public function testLoginEmptyPassword()
+    {
+        $this->setExpectedException('Parse\ParseException', 'empty password');
+        $user = ParseUser::logIn('asdf', '');
     }
 
     public function testLoginWrongUsername()
     {
         $this->setExpectedException('Parse\ParseException', 'invalid login');
-        $user = ParseUser::logIn("non_existent_user", "bogus");
+        $user = ParseUser::logIn('non_existent_user', 'bogus');
     }
 
     public function testLoginWrongPassword()
     {
         $this->testUserSignUp();
         $this->setExpectedException('Parse\ParseException', 'invalid login');
-        $user = ParseUser::logIn("asdf", "bogus");
+        $user = ParseUser::logIn('asdf', 'bogus');
     }
 
     public function testBecome()
     {
         $user = new ParseUser();
-        $user->setUsername("asdf");
-        $user->setPassword("zxcv");
+        $user->setUsername('asdf');
+        $user->setPassword('zxcv');
         $user->signUp();
         $this->assertEquals(ParseUser::getCurrentUser(), $user);
 
@@ -68,28 +90,38 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
         $newUser = ParseUser::become($sessionToken);
         $this->assertEquals(ParseUser::getCurrentUser(), $newUser);
-        $this->assertEquals("asdf", $newUser->get('username'));
+        $this->assertEquals('asdf', $newUser->get('username'));
 
         $this->setExpectedException('Parse\ParseException', 'invalid session');
         $failUser = ParseUser::become('garbage_token');
     }
 
+    public function testCannotSingUpAlreadyExistingUser()
+    {
+        $this->testUserSignUp();
+        $user = ParseUser::getCurrentUser();
+        $user->setPassword('zxcv');
+        $this->setExpectedException('Parse\ParseException', 'already existing user');
+        $user->signUp();
+    }
+
     public function testCannotAlterOtherUser()
     {
         $user = new ParseUser();
-        $user->setUsername("asdf");
-        $user->setPassword("zxcv");
+        $user->setUsername('asdf');
+        $user->setPassword('zxcv');
         $user->signUp();
 
         $otherUser = new ParseUser();
-        $otherUser->setUsername("hacker");
-        $otherUser->setPassword("password");
+        $otherUser->setUsername('hacker');
+        $otherUser->setPassword('password');
         $otherUser->signUp();
 
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
         $this->setExpectedException(
-            'Parse\ParseException', 'UserCannotBeAlteredWithoutSession'
+            'Parse\ParseException',
+            'UserCannotBeAlteredWithoutSession'
         );
         $user->setUsername('changed');
         $user->save();
@@ -98,19 +130,20 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
     public function testCannotDeleteOtherUser()
     {
         $user = new ParseUser();
-        $user->setUsername("asdf");
-        $user->setPassword("zxcv");
+        $user->setUsername('asdf');
+        $user->setPassword('zxcv');
         $user->signUp();
 
         $otherUser = new ParseUser();
-        $otherUser->setUsername("hacker");
-        $otherUser->setPassword("password");
+        $otherUser->setUsername('hacker');
+        $otherUser->setPassword('password');
         $otherUser->signUp();
 
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
         $this->setExpectedException(
-            'Parse\ParseException', 'UserCannotBeAlteredWithoutSession'
+            'Parse\ParseException',
+            'UserCannotBeAlteredWithoutSession'
         );
         $user->destroy();
     }
@@ -118,31 +151,32 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
     public function testCannotSaveAllWithOtherUser()
     {
         $user = new ParseUser();
-        $user->setUsername("asdf");
-        $user->setPassword("zxcv");
+        $user->setUsername('asdf');
+        $user->setPassword('zxcv');
         $user->signUp();
 
         $otherUser = new ParseUser();
-        $otherUser->setUsername("hacker");
-        $otherUser->setPassword("password");
+        $otherUser->setUsername('hacker');
+        $otherUser->setPassword('password');
         $otherUser->signUp();
 
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
-        $obj = ParseObject::create("TestObject");
+        $obj = ParseObject::create('TestObject');
         $obj->set('user', $otherUser);
         $obj->save();
 
-        $item1 = ParseObject::create("TestObject");
+        $item1 = ParseObject::create('TestObject');
         $item1->set('num', 0);
         $item1->save();
 
         $item1->set('num', 1);
-        $item2 = ParseObject::create("TestObject");
+        $item2 = ParseObject::create('TestObject');
         $item2->set('num', 2);
         $user->setUsername('changed');
         $this->setExpectedException(
-            'Parse\ParseAggregateException', 'Errors during batch save.'
+            'Parse\ParseAggregateException',
+            'Errors during batch save.'
         );
         ParseObject::saveAll([$item1, $item2, $user]);
     }
@@ -150,8 +184,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
     public function testCurrentUser()
     {
         $user = new ParseUser();
-        $user->setUsername("asdf");
-        $user->setPassword("zxcv");
+        $user->setUsername('asdf');
+        $user->setPassword('zxcv');
         $user->signUp();
 
         $current = ParseUser::getCurrentUser();
@@ -229,14 +263,15 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
     public function testPasswordResetFails()
     {
         $this->setExpectedException(
-            'Parse\ParseException', 'no user found with email'
+            'Parse\ParseException',
+            'no user found with email'
         );
         ParseUser::requestPasswordReset('non_existent@example.com');
     }
 
     public function testUserAssociations()
     {
-        $child = ParseObject::create("TestObject");
+        $child = ParseObject::create('TestObject');
         $child->save();
 
         $user = new ParseUser();
@@ -245,24 +280,25 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $user->set('child', $child);
         $user->signUp();
 
-        $object = ParseObject::create("TestObject");
+        $object = ParseObject::create('TestObject');
         $object->set('user', $user);
         $object->save();
 
-        $query = new ParseQuery("TestObject");
+        $query = new ParseQuery('TestObject');
         $objectAgain = $query->get($object->getObjectId());
         $userAgain = $objectAgain->get('user');
         $userAgain->fetch();
 
         $this->assertEquals($userAgain->getObjectId(), $user->getObjectId());
         $this->assertEquals(
-            $userAgain->get('child')->getObjectId(), $child->getObjectId()
+            $userAgain->get('child')->getObjectId(),
+            $child->getObjectId()
         );
     }
 
     public function testUserQueries()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
         $user = new ParseUser();
         $user->setUsername('asdf');
         $user->setPassword('zxcv');
@@ -279,8 +315,8 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
     public function testContainedInUserArrayQueries()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
-        ParseTestHelper::clearClass("TestObject");
+        Helper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass('TestObject');
         $userList = [];
         for ($i = 0; $i < 4; $i++) {
             $user = new ParseUser();
@@ -302,7 +338,7 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         }
 
         $inList = [$userList[0], $userList[3], $userList[3]];
-        $query = new ParseQuery("TestObject");
+        $query = new ParseQuery('TestObject');
         $query->containedIn('from', $inList);
         $results = $query->find();
 
@@ -333,13 +369,13 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         $user->destroy();
 
         $query = ParseUser::query();
-        $this->setExpectedException('Parse\ParseException', 'Object not found');
-        $fail = $query->get($user->getObjectId());
+        $this->setExpectedException('Parse\ParseException', 'Object not found.');
+        $fail = $query->get($user->getObjectId(), true);
     }
 
     public function testCountUsers()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
         $ilya = new ParseUser();
         $ilya->setUsername('ilya');
         $ilya->setPassword('password');
@@ -362,7 +398,7 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
     public function testUserLoadedFromStorageFromSignUp()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
         $fosco = new ParseUser();
         $fosco->setUsername('fosco');
         $fosco->setPassword('password');
@@ -378,7 +414,7 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
 
     public function testUserLoadedFromStorageFromLogIn()
     {
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
         $fosco = new ParseUser();
         $fosco->setUsername('fosco');
         $fosco->setPassword('password');
@@ -389,7 +425,7 @@ class ParseUserTest extends PHPUnit_Framework_TestCase
         ParseUser::_clearCurrentUserVariable();
         $current = ParseUser::getCurrentUser();
         $this->assertNull($current);
-        ParseUser::logIn("fosco", "password");
+        ParseUser::logIn('fosco', 'password');
         $current = ParseUser::getCurrentUser();
         $this->assertEquals($id, $current->getObjectId());
         ParseUser::_clearCurrentUserVariable();

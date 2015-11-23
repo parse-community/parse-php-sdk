@@ -12,9 +12,9 @@ class ParseCloud
     /**
      * Makes a call to a Cloud function.
      *
-     * @param string  $name         Cloud function name
-     * @param array   $data         Parameters to pass
-     * @param boolean $useMasterKey Whether to use the Master Key
+     * @param string $name         Cloud function name
+     * @param array  $data         Parameters to pass
+     * @param bool   $useMasterKey Whether to use the Master Key
      *
      * @return mixed
      */
@@ -26,9 +26,9 @@ class ParseCloud
         }
         $response = ParseClient::_request(
             'POST',
-            '/1/functions/'.$name,
+            'functions/'.$name,
             $sessionToken,
-            json_encode(ParseClient::_encode($data, null, false)),
+            json_encode(ParseClient::_encode($data, false)),
             $useMasterKey
         );
 

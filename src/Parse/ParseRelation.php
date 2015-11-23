@@ -2,6 +2,7 @@
 
 namespace Parse;
 
+use Exception;
 use Parse\Internal\ParseRelationOperation;
 
 /**
@@ -63,11 +64,11 @@ class ParseRelation
         if (!$this->key) {
             $this->key = $key;
         }
-        if ($this->parent != $parent) {
-            throw new \Exception('Internal Error. Relation retrieved from two different Objects.');
+        if ($this->parent !== $parent) {
+            throw new Exception('Internal Error. Relation retrieved from two different Objects.');
         }
-        if ($this->key != $key) {
-            throw new \Exception('Internal Error. Relation retrieved from two different keys.');
+        if ($this->key !== $key) {
+            throw new Exception('Internal Error. Relation retrieved from two different keys.');
         }
     }
 

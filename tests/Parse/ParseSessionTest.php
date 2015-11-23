@@ -1,26 +1,26 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseClient;
 use Parse\ParseSession;
 use Parse\ParseUser;
 
-require_once 'ParseTestHelper.php';
-
-class ParseSessionTest extends PHPUnit_Framework_TestCase
+class ParseSessionTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
-        ParseTestHelper::clearClass(ParseSession::$parseClassName);
+        Helper::setUp();
+        Helper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseSession::$parseClassName);
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
         ParseUser::logOut();
-        ParseTestHelper::clearClass(ParseUser::$parseClassName);
-        ParseTestHelper::clearClass(ParseSession::$parseClassName);
+        Helper::clearClass(ParseUser::$parseClassName);
+        Helper::clearClass(ParseSession::$parseClassName);
     }
 
     public static function tearDownAfterClass()
@@ -33,8 +33,8 @@ class ParseSessionTest extends PHPUnit_Framework_TestCase
     {
         ParseClient::enableRevocableSessions();
         $user = new ParseUser();
-        $user->setUsername("username");
-        $user->setPassword("password");
+        $user->setUsername('username');
+        $user->setPassword('password');
         $user->signUp();
         $session = ParseSession::getCurrentSession();
         $this->assertEquals($user->getSessionToken(), $session->getSessionToken());
@@ -42,7 +42,7 @@ class ParseSessionTest extends PHPUnit_Framework_TestCase
 
         ParseUser::logOut();
 
-        ParseUser::logIn("username", "password");
+        ParseUser::logIn('username', 'password');
         $session = ParseSession::getCurrentSession();
         $this->assertEquals(ParseUser::getCurrentUser()->getSessionToken(), $session->getSessionToken());
         $this->assertTrue($session->isCurrentSessionRevocable());

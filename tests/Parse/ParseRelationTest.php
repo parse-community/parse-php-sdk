@@ -1,20 +1,20 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-require_once 'ParseTestHelper.php';
-
-class ParseRelationTest extends PHPUnit_Framework_TestCase
+class ParseRelationTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     /**
@@ -37,7 +37,8 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase
     {
         $children = [];
         $this->saveObjects(
-            10, function ($i) use (&$children) {
+            10,
+            function ($i) use (&$children) {
                 $child = ParseObject::create('ChildObject');
                 $child->set('x', $i);
                 $children[] = $child;
@@ -105,7 +106,8 @@ class ParseRelationTest extends PHPUnit_Framework_TestCase
     {
         $children = [];
         $this->saveObjects(
-            10, function ($i) use (&$children) {
+            10,
+            function ($i) use (&$children) {
                 $child = ParseObject::create('ChildObject');
                 $child->set('x', $i);
                 $children[] = $child;

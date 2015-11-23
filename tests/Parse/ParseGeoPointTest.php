@@ -1,26 +1,26 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseGeoPoint;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-require_once 'ParseTestHelper.php';
-
-class ParseGeoPointTest extends PHPUnit_Framework_TestCase
+class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function setUp()
     {
-        ParseTestHelper::clearClass("TestObject");
+        Helper::clearClass('TestObject');
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     public function testGeoPointBase()
@@ -118,7 +118,7 @@ class ParseGeoPointTest extends PHPUnit_Framework_TestCase
 
     public function testGeoMaxDistanceWithUnits()
     {
-        ParseTestHelper::clearClass("PlaceObject");
+        Helper::clearClass('PlaceObject');
         // [SAC] 38.52 -121.50 Sacramento,CA
         $sacramento = new ParseGeoPoint(38.52, -121.50);
         $obj = ParseObject::create('PlaceObject');

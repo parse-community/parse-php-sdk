@@ -1,20 +1,20 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseInstallation;
 use Parse\ParsePush;
 
-require_once 'ParseTestHelper.php';
-
-class ParsePushTest extends PHPUnit_Framework_TestCase
+class ParsePushTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     public function testBasicPush()
@@ -44,8 +44,8 @@ class ParsePushTest extends PHPUnit_Framework_TestCase
         ParsePush::send(
             [
             'data'            => ['alert' => 'iPhone 5 is out!'],
-            'push_time'       => new DateTime(),
-            'expiration_time' => new DateTime(),
+            'push_time'       => new \DateTime(),
+            'expiration_time' => new \DateTime(),
             'channels'        => [],
             ]
         );

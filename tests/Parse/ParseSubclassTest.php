@@ -1,20 +1,20 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseInstallation;
 use Parse\ParseObject;
 
-require_once 'ParseTestHelper.php';
-
-class ParseSubclassTest extends PHPUnit_Framework_TestCase
+class ParseSubclassTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     public function testCreateFromSubclass()
@@ -26,7 +26,7 @@ class ParseSubclassTest extends PHPUnit_Framework_TestCase
 
     public function testCreateFromParseObject()
     {
-        $install = ParseObject::create("_Installation");
+        $install = ParseObject::create('_Installation');
         $this->assertTrue($install instanceof ParseInstallation);
         $this->assertTrue(is_subclass_of($install, 'Parse\ParseObject'));
     }

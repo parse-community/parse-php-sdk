@@ -2,12 +2,14 @@
 
 namespace Parse;
 
+use Exception;
+
 /**
  * ParseException - Wrapper for \Exception class.
  *
  * @author Fosco Marotto <fjm@fb.com>
  */
-class ParseException extends \Exception
+class ParseException extends Exception
 {
     /**
      * Constructs a Parse\Exception.
@@ -16,9 +18,8 @@ class ParseException extends \Exception
      * @param int        $code     Error code.
      * @param \Exception $previous Previous Exception.
      */
-    public function __construct($message, $code = 0,
-        \Exception $previous = null
-    ) {
+    public function __construct($message, $code = 0, Exception $previous = null)
+    {
         parent::__construct($message, $code, $previous);
     }
 }

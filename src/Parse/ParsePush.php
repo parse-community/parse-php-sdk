@@ -2,6 +2,8 @@
 
 namespace Parse;
 
+use Exception;
+
 /**
  * ParsePush - Handles sending push notifications with Parse.
  *
@@ -12,17 +14,17 @@ class ParsePush
     /**
      * Sends a push notification.
      *
-     * @param array   $data         The data of the push notification.    Valid fields
-     *                              are:
-     *                              channels - An Array of channels to push to.
-     *                              push_time - A Date object for when to send the push.
-     *                              expiration_time -    A Date object for when to expire
-     *                              the push.
-     *                              expiration_interval - The seconds from now to expire the push.
-     *                              where - A ParseQuery over ParseInstallation that is used to match
-     *                              a set of installations to push to.
-     *                              data - The data to send as part of the push
-     * @param boolean $useMasterKey Whether to use the Master Key for the request
+     * @param array $data         The data of the push notification.    Valid fields
+     *                            are:
+     *                            channels - An Array of channels to push to.
+     *                            push_time - A Date object for when to send the push.
+     *                            expiration_time -    A Date object for when to expire
+     *                            the push.
+     *                            expiration_interval - The seconds from now to expire the push.
+     *                            where - A ParseQuery over ParseInstallation that is used to match
+     *                            a set of installations to push to.
+     *                            data - The data to send as part of the push
+     * @param bool  $useMasterKey Whether to use the Master Key for the request
      *
      * @throws \Exception, ParseException
      *
@@ -33,15 +35,21 @@ class ParsePush
         if (isset($data['expiration_time'])
             && isset($data['expiration_interval'])
         ) {
-            throw new \Exception(
+            throw new Exception(
                 'Both expiration_time and expiration_interval can\'t be set.'
             );
         }
         if (isset($data['where'])) {
             if ($data['where'] instanceof ParseQuery) {
-                $data['where'] = $data['where']->_getOptions()['where'];
+                $where_options = $data['where']->_getOptions();
+
+                if (!isset($where_options['where'])) {
+                    $data['where'] = '{}';
+                } else {
+                    $data['where'] = $data['where']->_getOptions()['where'];
+                }
             } else {
-                throw new \Exception(
+                throw new Exception(
                     'Where parameter for Parse Push must be of type ParseQuery'
                 );
             }
@@ -53,15 +61,16 @@ class ParsePush
         }
         if (isset($data['expiration_time'])) {
             $data['expiration_time'] = ParseClient::_encode(
-                $data['expiration_time'], false
+                $data['expiration_time'],
+                false
             )['iso'];
         }
 
         return ParseClient::_request(
             'POST',
-            '/1/push',
+            'push',
             null,
-            json_encode($data),
+            json_encode(ParseClient::_encode($data, true)),
             $useMasterKey
         );
     }

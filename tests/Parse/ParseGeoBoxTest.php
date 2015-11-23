@@ -1,27 +1,27 @@
 <?php
 
+namespace Parse\Test;
+
 use Parse\ParseException;
 use Parse\ParseGeoPoint;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-require_once 'ParseTestHelper.php';
-
-class ParseGeoBoxTest extends PHPUnit_Framework_TestCase
+class ParseGeoBoxTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
-        ParseTestHelper::setUp();
+        Helper::setUp();
     }
 
     public function setUp()
     {
-        ParseTestHelper::clearClass("TestObject");
+        Helper::clearClass('TestObject');
     }
 
     public function tearDown()
     {
-        ParseTestHelper::tearDown();
+        Helper::tearDown();
     }
 
     public function testGeoBox()
