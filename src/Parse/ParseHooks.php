@@ -18,15 +18,10 @@ class ParseHooks
      */
     public function fetchFunctions()
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'GET',
             'hooks/functions',
-            $sessionToken,
+            null,
             null,
             true
         );
@@ -49,15 +44,10 @@ class ParseHooks
      */
     public function fetchFunction($functionName)
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'GET',
             'hooks/functions/'.$functionName,
-            $sessionToken,
+            null,
             null,
             true
         );
@@ -78,15 +68,10 @@ class ParseHooks
      */
     public function fetchTriggers()
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'GET',
             'hooks/triggers',
-            $sessionToken,
+            null,
             null,
             true
         );
@@ -101,8 +86,8 @@ class ParseHooks
     /**
      * Fetch a single cloud trigger.
      *
-     * @param $className
-     * @param $triggerName
+     * @param string $className
+     * @param string $triggerName
      *
      * @throws ParseException
      *
@@ -110,15 +95,10 @@ class ParseHooks
      */
     public function fetchTrigger($className, $triggerName)
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'GET',
             'hooks/triggers/'.$className.'/'.$triggerName,
-            $sessionToken,
+            null,
             null,
             true
         );
@@ -133,8 +113,8 @@ class ParseHooks
     /**
      * Create a new function webhook.
      *
-     * @param $functionName
-     * @param $url
+     * @param string $functionName
+     * @param string $url
      *
      * @throws ParseException
      *
@@ -142,15 +122,10 @@ class ParseHooks
      */
     public function createFunction($functionName, $url)
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'POST',
             'hooks/functions',
-            $sessionToken,
+            null,
             json_encode([
                 'functionName' => $functionName,
                 'url'          => $url,
@@ -164,23 +139,18 @@ class ParseHooks
     /**
      * Create a new trigger webhook.
      *
-     * @param $className
-     * @param $triggerName
-     * @param $url
+     * @param string $className
+     * @param string $triggerName
+     * @param string $url
      *
      * @return array
      */
     public function createTrigger($className, $triggerName, $url)
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'POST',
             'hooks/triggers',
-            $sessionToken,
+            null,
             json_encode([
                 'className'   => $className,
                 'triggerName' => $triggerName,
@@ -195,8 +165,8 @@ class ParseHooks
     /**
      * Edit the url of a function webhook that was already created.
      *
-     * @param $functionName
-     * @param $url
+     * @param string $functionName
+     * @param string $url
      *
      * @throws ParseException
      *
@@ -204,15 +174,10 @@ class ParseHooks
      */
     public function editFunction($functionName, $url)
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'PUT',
             'hooks/functions/'.$functionName,
-            $sessionToken,
+            null,
             json_encode([
                 'url' => $url,
             ]),
@@ -225,23 +190,18 @@ class ParseHooks
     /**
      * Edit the url of a trigger webhook that was already crated.
      *
-     * @param $className
-     * @param $triggerName
-     * @param $url
+     * @param string $className
+     * @param string $triggerName
+     * @param string $url
      *
      * @return array
      */
     public function editTrigger($className, $triggerName, $url)
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'PUT',
             'hooks/triggers/'.$className.'/'.$triggerName,
-            $sessionToken,
+            null,
             json_encode([
                 'url' => $url,
             ]),
@@ -254,7 +214,7 @@ class ParseHooks
     /**
      * Delete a function webhook.
      *
-     * @param $functionName
+     * @param string $functionName
      *
      * @throws ParseException
      *
@@ -262,15 +222,10 @@ class ParseHooks
      */
     public function deleteFunction($functionName)
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'PUT',
             'hooks/functions/'.$functionName,
-            $sessionToken,
+            null,
             json_encode([
                 '__op' => 'Delete',
             ]),
@@ -283,22 +238,17 @@ class ParseHooks
     /**
      * Delete a trigger webhook.
      *
-     * @param $className
-     * @param $triggerName
+     * @param string $className
+     * @param string $triggerName
      *
      * @return array
      */
     public function deleteTrigger($className, $triggerName)
     {
-        $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
-        }
-
         $result = ParseClient::_request(
             'PUT',
             'hooks/triggers/'.$className.'/'.$triggerName,
-            $sessionToken,
+            null,
             json_encode([
                 '__op' => 'Delete',
             ]),
