@@ -879,8 +879,8 @@ class ParseQuery
      *
      * @param string $key   The key to check.
      * @param mixed  $value The substring to match with key , 
-     * its case insensitive operation 
-     * remove (?i) from below regex to make it case sensitive.
+     *                      its case insensitive operation 
+     *                      remove (?i) from below regex to make it case sensitive.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
@@ -890,6 +890,4 @@ class ParseQuery
 
         return $this;
     }
-
-
 }
