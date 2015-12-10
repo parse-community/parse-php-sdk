@@ -878,7 +878,9 @@ class ParseQuery
      * works like same as SQL LIKE %value% syntax which is case insensitive.
      *
      * @param string $key   The key to check.
-     * @param mixed  $value The substring to match with key , its case insensitive operation remove (?i) from below regex to make it case sensitive.
+     * @param mixed  $value The substring to match with key , 
+     * its case insensitive operation 
+     * remove (?i) from below regex to make it case sensitive.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
