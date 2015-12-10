@@ -872,7 +872,7 @@ class ParseQuery
         return $this;
     }
 
-     /**
+    /**
      * Added by mahavirnahata
      * Add a constraint to the query that requires a particular key's value to
      * works like same as SQL "like %value%" syntax which is case insensitive.
