@@ -3,6 +3,7 @@
 namespace Parse;
 
 use Exception;
+use InvalidArgumentException;
 use Parse\Internal\Encodable;
 
 /**
@@ -51,6 +52,13 @@ final class ParseClient
     private static $enableCurlExceptions;
 
     /**
+     * The account key.
+     *
+     * @var string
+     */
+    private static $accountKey;
+
+    /**
      * The object for managing persistence.
      *
      * @var ParseStorageInterface
@@ -92,8 +100,12 @@ final class ParseClient
      * @param string $rest_key             Parse REST API Key
      * @param string $master_key           Parse Master Key
      * @param bool   $enableCurlExceptions Enable or disable Parse curl exceptions
+     * @param null   $email                Parse Account Email
+     * @param null   $password             Parse Account Password
+     *
+     * @throws Exception
      */
-    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true)
+    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true, $account_key = null)
     {
         if (!ParseObject::hasRegisteredSubclass('_User')) {
             ParseUser::registerSubclass();
@@ -112,6 +124,7 @@ final class ParseClient
         self::$restKey = $rest_key;
         self::$masterKey = $master_key;
         self::$enableCurlExceptions = $enableCurlExceptions;
+        self::$accountKey = $account_key;
         if (!static::$storage) {
             if (session_status() === PHP_SESSION_ACTIVE) {
                 self::setStorage(new ParseSessionStorage());
@@ -259,6 +272,7 @@ final class ParseClient
      * @param null   $sessionToken Session Token.
      * @param null   $data         Data to provide with the request.
      * @param bool   $useMasterKey Whether to use the Master Key.
+     * @param bool   $appRequest   App request to create or modify a application
      *
      * @throws \Exception
      *
@@ -269,13 +283,19 @@ final class ParseClient
         $relativeUrl,
         $sessionToken = null,
         $data = null,
-        $useMasterKey = false
+        $useMasterKey = false,
+        $appRequest = false
     ) {
         if ($data === '[]') {
             $data = '{}';
         }
-        self::assertParseInitialized();
-        $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
+        if ($appRequest) {
+            self::assertAppInitialized();
+            $headers = self::_getAppRequestHeaders();
+        } else {
+            self::assertParseInitialized();
+            $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
+        }
 
         $url = self::HOST_NAME.'/'.self::API_VERSION.'/'.ltrim($relativeUrl, '/');
         if ($method === 'GET' && !empty($data)) {
@@ -375,6 +395,18 @@ final class ParseClient
     }
 
     /**
+     * @throws Exception
+     */
+    private static function assertAppInitialized()
+    {
+        if (self::$accountKey === null) {
+            throw new Exception(
+                'You must call Parse::initialize(..., $accountKey) before making any requests.'
+            );
+        }
+    }
+
+    /**
      * @param $sessionToken
      * @param $useMasterKey
      *
@@ -395,6 +427,27 @@ final class ParseClient
         if (self::$forceRevocableSession) {
             $headers[] = 'X-Parse-Revocable-Session: 1';
         }
+        /*
+         * Set an empty Expect header to stop the 100-continue behavior for post
+         *     data greater than 1024 bytes.
+         *     http://pilif.github.io/2007/02/the-return-of-except-100-continue/
+         */
+        $headers[] = 'Expect: ';
+
+        return $headers;
+    }
+
+    /**
+     * @return array
+     */
+    public static function _getAppRequestHeaders()
+    {
+        if (is_null(self::$accountKey) || empty(self::$accountKey)) {
+            throw new InvalidArgumentException('A account key is required and can not be null or empty');
+        } else {
+            $headers[] = 'X-Parse-Account-Key: '.self::$accountKey;
+        }
+
         /*
          * Set an empty Expect header to stop the 100-continue behavior for post
          *     data greater than 1024 bytes.
