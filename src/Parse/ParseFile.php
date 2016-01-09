@@ -2,8 +2,8 @@
 
 namespace Parse;
 
-use Parse\Internal\Encodable;
 use GuzzleHttp\Exception\ClientException;
+use Parse\Internal\Encodable;
 
 /**
  * ParseFile - Representation of a Parse File object.
@@ -100,6 +100,7 @@ class ParseFile implements Encodable
             if (ParseClient::$enableCurlExceptions) {
                 throw ParseClient::handleGuzzleException($e);
             }
+
             return false;
         }
     }
@@ -217,6 +218,7 @@ class ParseFile implements Encodable
             if (ParseClient::$enableCurlExceptions) {
                 throw ParseClient::handleGuzzleException($e);
             }
+
             return false;
         }
 
@@ -243,6 +245,7 @@ class ParseFile implements Encodable
             if (ParseClient::$enableCurlExceptions) {
                 throw ParseClient::handleGuzzleException($e);
             }
+
             return false;
         }
 

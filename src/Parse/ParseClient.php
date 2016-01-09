@@ -3,10 +3,10 @@
 namespace Parse;
 
 use Exception;
-use InvalidArgumentException;
-use Parse\Internal\Encodable;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use InvalidArgumentException;
+use Parse\Internal\Encodable;
 
 /**
  * ParseClient - Main class for Parse initialization and communication.
@@ -89,7 +89,7 @@ final class ParseClient
     private static $timeout;
 
     /**
-     * Guzzle client
+     * Guzzle client.
      *
      * @var \GuzzleHttp\Client
      */
@@ -323,9 +323,9 @@ final class ParseClient
         }
 
         $options = [
-            'headers' => $headers,
+            'headers'         => $headers,
             'connect_timeout' => !is_null(self::$connectionTimeout) ? self::$connectionTimeout : 0,
-            'timeout' => !is_null(self::$timeout) ? self::$timeout : 0,
+            'timeout'         => !is_null(self::$timeout) ? self::$timeout : 0,
         ];
 
         if ($method === 'POST' || $method === 'PUT') {
@@ -360,7 +360,7 @@ final class ParseClient
     /**
      * Wrap Guzzle Exception in a ParseException.
      *
-     * @param  ClientException $e
+     * @param ClientException $e
      * @return ParseException
      */
     public static function handleGuzzleException(ClientException $e)
@@ -441,7 +441,7 @@ final class ParseClient
     {
         $headers = [
             'X-Parse-Application-Id' => self::$applicationId,
-            'X-Parse-Client-Version' => self::VERSION_STRING
+            'X-Parse-Client-Version' => self::VERSION_STRING,
         ];
         if ($sessionToken) {
             $headers['X-Parse-Session-Token'] = $sessionToken;
