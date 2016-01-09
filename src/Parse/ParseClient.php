@@ -106,12 +106,12 @@ final class ParseClient
     /**
      * Parse\Client::initialize, must be called before using Parse features.
      *
-     * @param string           $app_id               Parse Application ID
-     * @param string           $rest_key             Parse REST API Key
-     * @param string           $master_key           Parse Master Key
-     * @param bool             $enableCurlExceptions Enable or disable Parse curl exceptions
-     * @param string           $account_key          Parse Account Key
-     * @param ClientInterface  $client               Guzzle client
+     * @param string          $app_id               Parse Application ID
+     * @param string          $rest_key             Parse REST API Key
+     * @param string          $master_key           Parse Master Key
+     * @param bool            $enableCurlExceptions Enable or disable Parse curl exceptions
+     * @param string          $account_key          Parse Account Key
+     * @param ClientInterface $client               Guzzle client
      *
      * @throws Exception
      */
@@ -158,7 +158,7 @@ final class ParseClient
     /**
      * Returns enableCurlExceptions.
      *
-     * @return boolean
+     * @return bool
      */
     public static function getEnableCurlExceptions()
     {
