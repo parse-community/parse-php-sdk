@@ -339,6 +339,7 @@ final class ParseClient
             if (self::$enableCurlExceptions) {
                 throw self::handleGuzzleException($e);
             }
+
             return false;
         }
 
@@ -361,6 +362,7 @@ final class ParseClient
      * Wrap Guzzle Exception in a ParseException.
      *
      * @param ClientException $e
+     *
      * @return ParseException
      */
     public static function handleGuzzleException(ClientException $e)
@@ -374,6 +376,7 @@ final class ParseClient
                 $message = $decoded->error;
             }
         }
+
         return new ParseException($message, $code, $e);
     }
 
