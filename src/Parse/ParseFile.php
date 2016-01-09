@@ -97,7 +97,7 @@ class ParseFile implements Encodable
         try {
             $response = ParseClient::getClient()->request('DELETE', $url, ['headers' => $headers]);
         } catch (ClientException $e) {
-            if (ParseClient::$enableCurlExceptions) {
+            if (ParseClient::getEnableCurlExceptions()) {
                 throw ParseClient::handleGuzzleException($e);
             }
 
@@ -215,7 +215,7 @@ class ParseFile implements Encodable
         try {
             $response = ParseClient::getClient()->request('POST', $url, $options);
         } catch (ClientException $e) {
-            if (ParseClient::$enableCurlExceptions) {
+            if (ParseClient::getEnableCurlExceptions()) {
                 throw ParseClient::handleGuzzleException($e);
             }
 
@@ -242,7 +242,7 @@ class ParseFile implements Encodable
         try {
             $response = ParseClient::getClient()->request('GET', $this->url);
         } catch (ClientException $e) {
-            if (ParseClient::$enableCurlExceptions) {
+            if (ParseClient::getEnableCurlExceptions()) {
                 throw ParseClient::handleGuzzleException($e);
             }
 

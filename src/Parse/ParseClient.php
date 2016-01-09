@@ -4,6 +4,7 @@ namespace Parse;
 
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use InvalidArgumentException;
 use Parse\Internal\Encodable;
@@ -105,16 +106,16 @@ final class ParseClient
     /**
      * Parse\Client::initialize, must be called before using Parse features.
      *
-     * @param string $app_id               Parse Application ID
-     * @param string $rest_key             Parse REST API Key
-     * @param string $master_key           Parse Master Key
-     * @param bool   $enableCurlExceptions Enable or disable Parse curl exceptions
-     * @param string $account_key          Parse Account Key
-     * @param array  $guzzleConfig         Constructor argument for GuzzleHttp\Client
+     * @param string           $app_id               Parse Application ID
+     * @param string           $rest_key             Parse REST API Key
+     * @param string           $master_key           Parse Master Key
+     * @param bool             $enableCurlExceptions Enable or disable Parse curl exceptions
+     * @param string           $account_key          Parse Account Key
+     * @param ClientInterface  $client               Guzzle client
      *
      * @throws Exception
      */
-    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true, $account_key = null, $guzzleConfig = [])
+    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true, $account_key = null, ClientInterface $client = null)
     {
         if (!ParseObject::hasRegisteredSubclass('_User')) {
             ParseUser::registerSubclass();
@@ -141,7 +142,7 @@ final class ParseClient
                 self::setStorage(new ParseMemoryStorage());
             }
         }
-        self::$client = new Client($guzzleConfig);
+        self::$client = (null !== $client) ? $client : new Client();
     }
 
     /**
@@ -152,6 +153,16 @@ final class ParseClient
     public static function getClient()
     {
         return self::$client;
+    }
+
+    /**
+     * Returns enableCurlExceptions.
+     *
+     * @return boolean
+     */
+    public static function getEnableCurlExceptions()
+    {
+        return self::$enableCurlExceptions;
     }
 
     /**
