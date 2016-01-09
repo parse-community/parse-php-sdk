@@ -92,7 +92,7 @@ final class ParseClient
     /**
      * Guzzle client.
      *
-     * @var \GuzzleHttp\Client
+     * @var \GuzzleHttp\ClientInterface
      */
     private static $client;
 
