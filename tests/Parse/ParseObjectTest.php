@@ -638,6 +638,16 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSetArray()
+    {
+        $arr = [0 => 'foo', 2 => 'bar'];
+        $obj = ParseObject::create('TestObject');
+        $obj->setArray('arr', $arr);
+        $obj->save();
+
+        $this->assertEquals($obj->get('arr'), array_values($arr));
+    }
+
     public function testAddUnique()
     {
         $obj = ParseObject::create('TestObject');
