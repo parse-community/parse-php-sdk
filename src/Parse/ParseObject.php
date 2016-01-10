@@ -212,6 +212,26 @@ class ParseObject implements Encodable
     }
 
     /**
+     * Get current value for all object properties.
+     *
+     * @return array
+     */
+    public function getAllKeys()
+    {
+		$tempArray = array();
+		
+        foreach(array_keys($this->dataAvailability) as $key) {
+			
+			if (isset($this->estimatedData[$key])) {
+				
+				$tempArray[$key] = $this->estimatedData[$key];
+			}
+		}
+		
+		return $tempArray;
+    }
+
+    /**
      * Check if the object has a given key.
      *
      * @param string $key Key to check
