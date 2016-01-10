@@ -318,7 +318,7 @@ class ParseObject implements Encodable
                 'Must use set() for non-array values.'
             );
         }
-        $this->_performOperation($key, new SetOperation($value));
+        $this->_performOperation($key, new SetOperation(array_values($value)));
     }
 
     /**
