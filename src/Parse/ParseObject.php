@@ -218,17 +218,7 @@ class ParseObject implements Encodable
      */
     public function getAllKeys()
     {
-		$tempArray = array();
-		
-        foreach(array_keys($this->dataAvailability) as $key) {
-			
-			if (isset($this->estimatedData[$key])) {
-				
-				$tempArray[$key] = $this->estimatedData[$key];
-			}
-		}
-		
-		return $tempArray;
+		return $this->estimatedData;
     }
 
     /**
