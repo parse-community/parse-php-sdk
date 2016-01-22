@@ -218,7 +218,7 @@ class ParseObject implements Encodable
      */
     public function getAllKeys()
     {
-		return $this->estimatedData;
+		return isset($this->estimatedData);
     }
 
     /**
