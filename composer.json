@@ -13,8 +13,8 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "ext-curl": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "~5.0|~6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",

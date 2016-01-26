@@ -3,6 +3,9 @@
 namespace Parse;
 
 use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\ClientException;
 use InvalidArgumentException;
 use Parse\Internal\Encodable;
 
@@ -87,6 +90,13 @@ final class ParseClient
     private static $timeout;
 
     /**
+     * Guzzle client.
+     *
+     * @var \GuzzleHttp\ClientInterface
+     */
+    private static $client;
+
+    /**
      * Constant for version string to include with requests.
      *
      * @var string
@@ -96,16 +106,16 @@ final class ParseClient
     /**
      * Parse\Client::initialize, must be called before using Parse features.
      *
-     * @param string $app_id               Parse Application ID
-     * @param string $rest_key             Parse REST API Key
-     * @param string $master_key           Parse Master Key
-     * @param bool   $enableCurlExceptions Enable or disable Parse curl exceptions
-     * @param null   $email                Parse Account Email
-     * @param null   $password             Parse Account Password
+     * @param string               $app_id               Parse Application ID
+     * @param string               $rest_key             Parse REST API Key
+     * @param string               $master_key           Parse Master Key
+     * @param bool                 $enableCurlExceptions Enable or disable Parse curl exceptions
+     * @param string               $account_key          Parse Account Key
+     * @param ClientInterface|null $client               Guzzle client
      *
      * @throws Exception
      */
-    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true, $account_key = null)
+    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true, $account_key = null, ClientInterface $client = null)
     {
         if (!ParseObject::hasRegisteredSubclass('_User')) {
             ParseUser::registerSubclass();
@@ -132,6 +142,27 @@ final class ParseClient
                 self::setStorage(new ParseMemoryStorage());
             }
         }
+        self::$client = $client ?: new Client();
+    }
+
+    /**
+     * Returns GuzzleClient.
+     *
+     * @return \GuzzleHttp\Client
+     */
+    public static function getClient()
+    {
+        return self::$client;
+    }
+
+    /**
+     * Returns enableCurlExceptions.
+     *
+     * @return bool
+     */
+    public static function getEnableCurlExceptions()
+    {
+        return self::$enableCurlExceptions;
     }
 
     /**
@@ -301,47 +332,33 @@ final class ParseClient
         if ($method === 'GET' && !empty($data)) {
             $url .= '?'.http_build_query($data);
         }
-        $rest = curl_init();
-        curl_setopt($rest, CURLOPT_URL, $url);
-        curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
-        if ($method === 'POST') {
-            $headers[] = 'Content-Type: application/json';
-            curl_setopt($rest, CURLOPT_POST, 1);
-            curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
-        }
-        if ($method === 'PUT') {
-            $headers[] = 'Content-Type: application/json';
-            curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
-            curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
-        }
-        if ($method === 'DELETE') {
-            curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
-        }
-        curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
 
-        if (!is_null(self::$connectionTimeout)) {
-            curl_setopt($rest, CURLOPT_CONNECTTIMEOUT, self::$connectionTimeout);
-        }
-        if (!is_null(self::$timeout)) {
-            curl_setopt($rest, CURLOPT_TIMEOUT, self::$timeout);
+        $options = [
+            'headers'         => $headers,
+            'connect_timeout' => !is_null(self::$connectionTimeout) ? self::$connectionTimeout : 0,
+            'timeout'         => !is_null(self::$timeout) ? self::$timeout : 0,
+        ];
+
+        if ($method === 'POST' || $method === 'PUT') {
+            $options['headers']['Content-Type'] = 'json';
+            $options['body'] = $data;
         }
 
-        $response = curl_exec($rest);
-        $status = curl_getinfo($rest, CURLINFO_HTTP_CODE);
-        $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
-        if (curl_errno($rest)) {
+        try {
+            $response = self::$client->request($method, $url, $options);
+        } catch (ClientException $e) {
             if (self::$enableCurlExceptions) {
-                throw new ParseException(curl_error($rest), curl_errno($rest));
-            } else {
-                return false;
+                throw self::handleGuzzleException($e);
             }
+
+            return false;
         }
-        curl_close($rest);
-        if (strpos($contentType, 'text/html') !== false) {
+
+        if (strpos($response->getHeader('Content-Type')[0], 'text/html') !== false) {
             throw new ParseException('Bad Request', -1);
         }
 
-        $decoded = json_decode($response, true);
+        $decoded = json_decode($response->getBody(), true);
         if (isset($decoded['error'])) {
             throw new ParseException(
                 $decoded['error'],
@@ -350,6 +367,28 @@ final class ParseClient
         }
 
         return $decoded;
+    }
+
+    /**
+     * Wrap Guzzle Exception in a ParseException.
+     *
+     * @param ClientException $e
+     *
+     * @return ParseException
+     */
+    public static function handleGuzzleException(ClientException $e)
+    {
+        $code = $e->getCode();
+        $message = $e->getMessage();
+        if ($e->hasResponse()) {
+            $decoded = json_decode($e->getResponse()->getBody());
+            if ($decoded !== false && property_exists($decoded, 'code') && property_exists($decoded, 'error')) {
+                $code = $decoded->code;
+                $message = $decoded->error;
+            }
+        }
+
+        return new ParseException($message, $code, $e);
     }
 
     /**
@@ -414,25 +453,27 @@ final class ParseClient
      */
     public static function _getRequestHeaders($sessionToken, $useMasterKey)
     {
-        $headers = ['X-Parse-Application-Id: '.self::$applicationId,
-            'X-Parse-Client-Version: '.self::VERSION_STRING, ];
+        $headers = [
+            'X-Parse-Application-Id' => self::$applicationId,
+            'X-Parse-Client-Version' => self::VERSION_STRING,
+        ];
         if ($sessionToken) {
-            $headers[] = 'X-Parse-Session-Token: '.$sessionToken;
+            $headers['X-Parse-Session-Token'] = $sessionToken;
         }
         if ($useMasterKey) {
-            $headers[] = 'X-Parse-Master-Key: '.self::$masterKey;
+            $headers['X-Parse-Master-Key'] = self::$masterKey;
         } else {
-            $headers[] = 'X-Parse-REST-API-Key: '.self::$restKey;
+            $headers['X-Parse-REST-API-Key'] = self::$restKey;
         }
         if (self::$forceRevocableSession) {
-            $headers[] = 'X-Parse-Revocable-Session: 1';
+            $headers['X-Parse-Revocable-Session'] = '1';
         }
         /*
          * Set an empty Expect header to stop the 100-continue behavior for post
          *     data greater than 1024 bytes.
          *     http://pilif.github.io/2007/02/the-return-of-except-100-continue/
          */
-        $headers[] = 'Expect: ';
+        $headers['Expect'] = '';
 
         return $headers;
     }
@@ -445,7 +486,7 @@ final class ParseClient
         if (is_null(self::$accountKey) || empty(self::$accountKey)) {
             throw new InvalidArgumentException('A account key is required and can not be null or empty');
         } else {
-            $headers[] = 'X-Parse-Account-Key: '.self::$accountKey;
+            $headers['X-Parse-Account-Key'] = self::$accountKey;
         }
 
         /*
@@ -453,7 +494,7 @@ final class ParseClient
          *     data greater than 1024 bytes.
          *     http://pilif.github.io/2007/02/the-return-of-except-100-continue/
          */
-        $headers[] = 'Expect: ';
+        $headers['Expect'] = '';
 
         return $headers;
     }

@@ -2,6 +2,7 @@
 
 namespace Parse;
 
+use GuzzleHttp\Exception\ClientException;
 use Parse\Internal\Encodable;
 
 /**
@@ -93,17 +94,15 @@ class ParseFile implements Encodable
 
         $headers = ParseClient::_getRequestHeaders(null, true);
         $url = ParseClient::getAPIUrl().'files/'.$this->getName();
-        $rest = curl_init();
-        curl_setopt($rest, CURLOPT_URL, $url);
-        curl_setopt($rest, CURLOPT_CUSTOMREQUEST, 'DELETE');
-        curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
-        $response = curl_exec($rest);
-        $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
-        if (curl_errno($rest)) {
-            throw new ParseException(curl_error($rest), curl_errno($rest));
+        try {
+            $response = ParseClient::getClient()->request('DELETE', $url, ['headers' => $headers]);
+        } catch (ClientException $e) {
+            if (ParseClient::getEnableCurlExceptions()) {
+                throw ParseClient::handleGuzzleException($e);
+            }
+
+            return false;
         }
-        curl_close($rest);
     }
 
     /**
@@ -208,26 +207,26 @@ class ParseFile implements Encodable
         $mimeType = $this->mimeType ?: $this->getMimeTypeForExtension($extension);
 
         $headers = ParseClient::_getRequestHeaders(null, false);
+        $headers['Content-Type'] = $mimeType;
+
         $url = ParseClient::getAPIUrl().'files/'.$this->getName();
-        $rest = curl_init();
-        curl_setopt($rest, CURLOPT_URL, $url);
-        curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($rest, CURLOPT_BINARYTRANSFER, 1);
-        $headers[] = 'Content-Type: '.$mimeType;
-        curl_setopt($rest, CURLOPT_POST, 1);
-        curl_setopt($rest, CURLOPT_POSTFIELDS, $this->getData());
-        curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
-        $response = curl_exec($rest);
-        $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
-        if (curl_errno($rest)) {
-            throw new ParseException(curl_error($rest), curl_errno($rest));
+        $options = ['headers' => $headers, 'body' => $this->getData()];
+
+        try {
+            $response = ParseClient::getClient()->request('POST', $url, $options);
+        } catch (ClientException $e) {
+            if (ParseClient::getEnableCurlExceptions()) {
+                throw ParseClient::handleGuzzleException($e);
+            }
+
+            return false;
         }
-        curl_close($rest);
-        if (strpos($contentType, 'text/html') !== false) {
+
+        if (strpos($response->getHeader('Content-Type')[0], 'text/html') !== false) {
             throw new ParseException('Bad Request', -1);
         }
 
-        $decoded = json_decode($response, true);
+        $decoded = json_decode($response->getBody(), true);
         if (isset($decoded['error'])) {
             throw new ParseException(
                 $decoded['error'],
@@ -240,23 +239,24 @@ class ParseFile implements Encodable
 
     private function download()
     {
-        $rest = curl_init();
-        curl_setopt($rest, CURLOPT_URL, $this->url);
-        curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($rest, CURLOPT_BINARYTRANSFER, 1);
-        $response = curl_exec($rest);
-        if (curl_errno($rest)) {
-            throw new ParseException(curl_error($rest), curl_errno($rest));
-        }
-        $httpStatus = curl_getinfo($rest, CURLINFO_HTTP_CODE);
-        if ($httpStatus > 399) {
-            throw new ParseException('Download failed, file may have been deleted.', $httpStatus);
-        }
-        $this->mimeType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
-        $this->data = $response;
-        curl_close($rest);
+        try {
+            $response = ParseClient::getClient()->request('GET', $this->url);
+        } catch (ClientException $e) {
+            if (ParseClient::getEnableCurlExceptions()) {
+                throw ParseClient::handleGuzzleException($e);
+            }
 
-        return $response;
+            return false;
+        }
+
+        if ($response->getStatusCode() != 200) {
+            throw new ParseException('Download failed, file may have been deleted.', $response->getStatusCode());
+        }
+
+        $this->mimeType = $response->getHeader('Content-Type')[0];
+        $this->data = $response->getBody();
+
+        return $this->data;
     }
 
     private function getMimeTypeForExtension($extension)

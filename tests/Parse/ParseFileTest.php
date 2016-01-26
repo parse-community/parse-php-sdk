@@ -24,7 +24,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         $file = ParseFile::_createFromServer('hi.txt', 'http://');
         $file2 = ParseFile::createFromData('hello', 'hi.txt');
         $file3 = ParseFile::createFromFile(
-            'ParseFileTest.php',
+            __FILE__,
             'file.php'
         );
         $this->assertEquals('http://', $file->getURL());
