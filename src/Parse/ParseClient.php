@@ -468,7 +468,7 @@ final class ParseClient
      */
     public static function getAPIUrl()
     {
-        if(self::$hostName == 'https://api.parse.com') {
+        if (self::$hostName == 'https://api.parse.com') {
             return self::$hostName.'/'.self::API_VERSION.'/';
         } else {
             return self::$hostName;
