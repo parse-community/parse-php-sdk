@@ -14,14 +14,16 @@ use Parse\Internal\Encodable;
 final class ParseClient
 {
     /**
-     * Constant for the API Server Host Address.
-     */
-    const HOST_NAME = 'https://api.parse.com';
-
-    /**
      * Constant for the API Service version.
      */
     const API_VERSION = '1';
+
+    /**
+     * The application host name.
+     *
+     * @var string
+     */
+    private static $hostName;
 
     /**
      * The application id.
@@ -105,7 +107,7 @@ final class ParseClient
      *
      * @throws Exception
      */
-    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true, $account_key = null)
+    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true, $account_key = null, $host_name = 'https://api.parse.com')
     {
         if (!ParseObject::hasRegisteredSubclass('_User')) {
             ParseUser::registerSubclass();
@@ -125,6 +127,7 @@ final class ParseClient
         self::$masterKey = $master_key;
         self::$enableCurlExceptions = $enableCurlExceptions;
         self::$accountKey = $account_key;
+        self::$hostName = $host_name;
         if (!static::$storage) {
             if (session_status() === PHP_SESSION_ACTIVE) {
                 self::setStorage(new ParseSessionStorage());
@@ -297,7 +300,7 @@ final class ParseClient
             $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
         }
 
-        $url = self::HOST_NAME.'/'.self::API_VERSION.'/'.ltrim($relativeUrl, '/');
+        $url = self::getAPIUrl().'/'.ltrim($relativeUrl, '/');
         if ($method === 'GET' && !empty($data)) {
             $url .= '?'.http_build_query($data);
         }
@@ -465,7 +468,11 @@ final class ParseClient
      */
     public static function getAPIUrl()
     {
-        return self::HOST_NAME.'/'.self::API_VERSION.'/';
+        if(self::$hostName == 'https://api.parse.com') {
+            return self::$hostName.'/'.self::API_VERSION.'/';
+        } else {
+            return self::$hostName;
+        }
     }
 
     /**
