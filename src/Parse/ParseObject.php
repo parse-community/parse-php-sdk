@@ -812,7 +812,7 @@ class ParseObject implements Encodable
         foreach ($objects as $object) {
             $data[] = [
                 'method' => 'DELETE',
-                'path'   => 'classes/'.$object->getClassName().'/'.$object->getObjectId(),
+                'path'   => '/1/classes/'.$object->getClassName().'/'.$object->getObjectId(),
             ];
         }
         $sessionToken = null;
