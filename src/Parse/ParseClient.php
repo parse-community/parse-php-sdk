@@ -14,14 +14,11 @@ use Parse\Internal\Encodable;
 final class ParseClient
 {
     /**
-     * Constant for the API Server Host Address.
+     * The remote Parse Server to communicate with
+     *
+     * @var string
      */
-    const HOST_NAME = 'https://api.parse.com';
-
-    /**
-     * Constant for the API Service version.
-     */
-    const API_VERSION = '1';
+    private static $serverURL = 'https://api.parse.com/1';
 
     /**
      * The application id.
@@ -91,7 +88,7 @@ final class ParseClient
      *
      * @var string
      */
-    const VERSION_STRING = 'php1.1.10';
+    const VERSION_STRING = 'php1.2.0';
 
     /**
      * Parse\Client::initialize, must be called before using Parse features.
@@ -100,8 +97,7 @@ final class ParseClient
      * @param string $rest_key             Parse REST API Key
      * @param string $master_key           Parse Master Key
      * @param bool   $enableCurlExceptions Enable or disable Parse curl exceptions
-     * @param null   $email                Parse Account Email
-     * @param null   $password             Parse Account Password
+     * @param string $account_key          An account key from Parse.com can enable creating apps via API.
      *
      * @throws Exception
      */
@@ -132,6 +128,21 @@ final class ParseClient
                 self::setStorage(new ParseMemoryStorage());
             }
         }
+    }
+
+    /**
+     * ParseClient::setServerURL, to change the Parse Server address for this app
+     *
+     * @param string $serverURL The remote server and mount path
+     *
+     * @throws \Exception
+     */
+    public static function setServerURL($serverURL)
+    {
+        if (!$serverURL) {
+            throw new Exception('Invalid Server URL.');
+        }
+        self::$serverURL = $serverURL;
     }
 
     /**
@@ -297,7 +308,7 @@ final class ParseClient
             $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
         }
 
-        $url = self::HOST_NAME.'/'.self::API_VERSION.'/'.ltrim($relativeUrl, '/');
+        $url = self::$serverURL.'/'.ltrim($relativeUrl, '/');
         if ($method === 'GET' && !empty($data)) {
             $url .= '?'.http_build_query($data);
         }
@@ -465,7 +476,7 @@ final class ParseClient
      */
     public static function getAPIUrl()
     {
-        return self::HOST_NAME.'/'.self::API_VERSION.'/';
+        return self::$serverURL.'/';
     }
 
     /**

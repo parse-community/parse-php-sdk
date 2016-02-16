@@ -21,6 +21,7 @@ class Helper
             true,
             'account-key-here'
         );
+        ParseClient::setServerURL('http://localhost:1337/parse');
     }
 
     public static function tearDown()

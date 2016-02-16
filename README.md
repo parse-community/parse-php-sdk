@@ -2,7 +2,7 @@ Parse PHP SDK
 -------------
 
 The Parse PHP SDK gives you access to the powerful Parse cloud platform
-from your PHP app or script.
+from your PHP app or script.  Updated to work with the self-hosted Parse Server: https://github.com/parseplatform/parse-server
 
 Installation
 ------------
@@ -13,7 +13,7 @@ Installation
 ```json
 {
     "require": {
-        "parse/php-sdk" : "1.1.*"
+        "parse/php-sdk" : "1.2.*"
     }
 }
 ```
@@ -44,6 +44,8 @@ After including the required files from the SDK, you need to initalize the Parse
 
 ```php
 ParseClient::initialize( $app_id, $rest_key, $master_key );
+// Users of Parse Server will need to point ParseClient at their remote URL:
+ParseClient::setServerURL('https://my-parse-server.com/parse');
 ```
 
 Usage
@@ -203,6 +205,9 @@ ParsePush::send(array(
     "where" => $query,
     "data" => $data
 ));
+
+// Parse Server requires the master key for sending push.  Pass true as the second parameter.
+ParsePush::send($data, true);
 ```
 
 Contributing / Testing
