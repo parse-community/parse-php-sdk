@@ -244,14 +244,14 @@ class ParseRelationOperation implements FieldOperation
                 ),
             ];
         }
-        if (!empty($addRelation) && !empty($removeRelation)) {
+        if (!empty($addRelation['objects']) && !empty($removeRelation['objects'])) {
             return [
                 '__op' => 'Batch',
                 'ops'  => [$addRelation, $removeRelation],
             ];
         }
 
-        return empty($addRelation) ? $removeRelation : $addRelation;
+        return empty($addRelation['objects']) ? $removeRelation : $addRelation;
     }
 
     public function _getTargetClass()
