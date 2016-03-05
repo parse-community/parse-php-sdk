@@ -812,7 +812,6 @@ class ParseObject implements Encodable
         foreach ($objects as $object) {
             $data[] = [
                 'method' => 'DELETE',
-                // TODO PATCHV2
                 'path'   => '/'.ParseClient::getMountPath().'classes/'.$object->getClassName().'/'.$object->getObjectId(),
             ];
         }
@@ -1039,7 +1038,6 @@ class ParseObject implements Encodable
                 );
                 $batch[0]->mergeAfterSave($result);
             } else {
-                // TODO PATCHV2
                 foreach ($requests as &$r) {
                     $r['path'] = '/' . ParseClient::getMountPath() . $r['path'];
                 }

@@ -150,7 +150,7 @@ final class ParseClient
             throw new Exception('Invalid Server URL.');
         }
         if( !$mountPath) {
-            throw new Exception('Invalid Mount Path');
+            throw new Exception('Invalid Mount Path.');
         }
 
         self::$serverURL = rtrim($serverURL,'/');
