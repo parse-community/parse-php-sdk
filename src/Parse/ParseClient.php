@@ -18,14 +18,14 @@ final class ParseClient
      *
      * @var string
      */
-    private static $serverURL = 'https://api.parse.com/1';
+    private static $serverURL = 'https://api.parse.com/';
 
     /**
      * The mount path for the current parse server
      *
      * @var string
      */
-    private static $mountPath = "";
+    private static $mountPath = "1/";
 
     /**
      * The application id.
