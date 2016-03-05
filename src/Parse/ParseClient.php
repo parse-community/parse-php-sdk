@@ -21,6 +21,13 @@ final class ParseClient
     private static $serverURL = 'https://api.parse.com/1';
 
     /**
+     * The mount path for the current parse server
+     *
+     * @var string
+     */
+    private static $mountPath = "";
+
+    /**
      * The application id.
      *
      * @var string
@@ -131,18 +138,23 @@ final class ParseClient
     }
 
     /**
-     * ParseClient::setServerURL, to change the Parse Server address for this app
-     *
-     * @param string $serverURL The remote server and mount path
+     * ParseClient::setServerURL, to change the Parse Server address & mount path for this app
+     * @param string $serverUrl     The remote server url
+     * @param string $mountPath     The mount path for this server
      *
      * @throws \Exception
+     *
      */
-    public static function setServerURL($serverURL)
-    {
+    public static function setServerURL($serverURL, $mountPath) {
         if (!$serverURL) {
             throw new Exception('Invalid Server URL.');
         }
-        self::$serverURL = $serverURL;
+        if( !$mountPath) {
+            throw new Exception('Invalid Mount Path');
+        }
+
+        self::$serverURL = rtrim($serverURL,'/');
+        self::$mountPath = trim($mountPath,'/') . '/';
     }
 
     /**
@@ -308,7 +320,7 @@ final class ParseClient
             $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
         }
 
-        $url = self::$serverURL.'/'.ltrim($relativeUrl, '/');
+        $url = self::$serverURL.'/'.self::$mountPath.ltrim($relativeUrl, '/');
         if ($method === 'GET' && !empty($data)) {
             $url .= '?'.http_build_query($data);
         }
@@ -476,7 +488,17 @@ final class ParseClient
      */
     public static function getAPIUrl()
     {
-        return self::$serverURL.'/';
+        return self::$serverURL.'/'.self::$mountPath;
+    }
+
+    /**
+     * Get remote Parse API mount path
+     *
+     * @return string
+     */
+    public static function getMountPath()
+    {
+        return self::$mountPath;
     }
 
     /**
