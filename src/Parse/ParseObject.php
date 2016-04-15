@@ -931,8 +931,16 @@ class ParseObject implements Encodable
      */
     private function getSaveJSON()
     {
+        $this->beforeSave();
         return ParseClient::_encode($this->operationSet, true);
     }
+    
+    /**
+     * Before save stub
+     *
+     * @return void
+     */
+    public function beforeSave(){}
 
     /**
      * Save Object to Parse.
