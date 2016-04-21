@@ -127,10 +127,9 @@ class ParseObject implements Encodable
         $this->operationSet = [];
         $this->estimatedData = [];
         $this->dataAvailability = [];
-        if ($objectId || $isPointer) {
-            $this->objectId = $objectId;
-            $this->hasBeenFetched = false;
-        } else {
+        $this->objectId = $objectId;
+        $this->hasBeenFetched = false;
+        if (!$objectId || $isPointer) {
             $this->hasBeenFetched = true;
         }
     }
