@@ -17,8 +17,11 @@ class Helper
         ParseClient::initialize(
             'app-id-here',
             'rest-api-key-here',
-            'master-key-here'
+            'master-key-here',
+            true,
+            'account-key-here'
         );
+        ParseClient::setServerURL('http://localhost:1337/parse');
     }
 
     public static function tearDown()
