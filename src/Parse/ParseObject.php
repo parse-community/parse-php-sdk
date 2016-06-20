@@ -127,10 +127,9 @@ class ParseObject implements Encodable
         $this->operationSet = [];
         $this->estimatedData = [];
         $this->dataAvailability = [];
-        if ($objectId || $isPointer) {
-            $this->objectId = $objectId;
-            $this->hasBeenFetched = false;
-        } else {
+        $this->objectId = $objectId;
+        $this->hasBeenFetched = false;
+        if (!$objectId || $isPointer) {
             $this->hasBeenFetched = true;
         }
     }
@@ -931,8 +930,16 @@ class ParseObject implements Encodable
      */
     private function getSaveJSON()
     {
+        $this->beforeSave();
         return ParseClient::_encode($this->operationSet, true);
     }
+    
+    /**
+     * Before save stub
+     *
+     * @return void
+     */
+    public function beforeSave(){}
 
     /**
      * Save Object to Parse.
