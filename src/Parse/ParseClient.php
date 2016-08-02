@@ -155,6 +155,12 @@ final class ParseClient
 
         self::$serverURL = rtrim($serverURL,'/');
         self::$mountPath = trim($mountPath,'/') . '/';
+
+        // check if mount path is root
+        if(self::$mountPath == "/") {
+            // root path should have no mount path
+            self::$mountPath = "";
+        }
     }
 
     /**
