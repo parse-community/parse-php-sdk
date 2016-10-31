@@ -180,8 +180,7 @@ class ParseUser extends ParseObject
     }
 
     /**
-     * Login as an anonymous User with REST API.
-     * docs https://www.parse.com/docs/php/guide#users
+     * Login as an anonymous User with REST API. See docs https://www.parse.com/docs/php/guide#users
      *
      * @link https://www.parse.com/docs/rest/guide#users-anonymous-user-code-authdata-code-
      *
