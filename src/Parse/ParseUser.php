@@ -89,8 +89,10 @@ class ParseUser extends ParseObject
      * Signs up the current user, or throw if invalid.
      * This will create a new ParseUser on the server, and also persist the
      * session so that you can access the user using ParseUser::getCurrentUser();.
+     *
+     * @param bool $useMasterKey Whether to use the Master Key
      */
-    public function signUp()
+    public function signUp($useMasterKey = false)
     {
         if (!$this->get('username')) {
             throw new ParseException('Cannot sign up user with an empty name');
@@ -105,7 +107,7 @@ class ParseUser extends ParseObject
                 'Cannot sign up an already existing user.'
             );
         }
-        parent::save();
+        parent::save($useMasterKey);
         $this->handleSaveResult(true);
     }
 
