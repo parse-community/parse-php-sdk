@@ -372,8 +372,9 @@ final class ParseClient
 
         $decoded = json_decode($response, true);
         if (isset($decoded['error'])) {
+            $errorMessage = is_array($decoded['error']) ? json_encode($decoded['error']) : $decoded['error'];
             throw new ParseException(
-                $decoded['error'],
+                $errorMessage,
                 isset($decoded['code']) ? $decoded['code'] : 0
             );
         }
