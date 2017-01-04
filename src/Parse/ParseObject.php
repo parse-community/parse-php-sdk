@@ -229,7 +229,7 @@ class ParseObject implements Encodable
      */
     public function has($key)
     {
-        return isset($this->estimatedData[$key]);
+        return array_key_exists($key, $this->estimatedData);
     }
 
     /**
