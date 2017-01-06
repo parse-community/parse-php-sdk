@@ -302,6 +302,7 @@ final class ParseClient
      * @param null   $data         Data to provide with the request.
      * @param bool   $useMasterKey Whether to use the Master Key.
      * @param bool   $appRequest   App request to create or modify a application
+     * @param string $contentType  The content type for this request, default is application/json
      *
      * @throws \Exception
      *
@@ -313,7 +314,8 @@ final class ParseClient
         $sessionToken = null,
         $data = null,
         $useMasterKey = false,
-        $appRequest = false
+        $appRequest = false,
+        $contentType = 'application/json'
     ) {
         if ($data === '[]') {
             $data = '{}';
@@ -334,12 +336,12 @@ final class ParseClient
         curl_setopt($rest, CURLOPT_URL, $url);
         curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
         if ($method === 'POST') {
-            $headers[] = 'Content-Type: application/json';
+            $headers[] = 'Content-Type: '.$contentType;
             curl_setopt($rest, CURLOPT_POST, 1);
             curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
         }
         if ($method === 'PUT') {
-            $headers[] = 'Content-Type: application/json';
+            $headers[] = 'Content-Type: '.$contentType;
             curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
             curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
         }
