@@ -83,27 +83,23 @@ class ParseFile implements Encodable
     /**
      * Send a REST request to delete the ParseFile.
      *
+     * @param  bool $useMasterKey  Whether to use the Master Key.
      * @throws ParseException
      */
-    public function delete()
+    public function delete($useMasterKey = true)
     {
         if (!$this->url) {
             throw new ParseException('Cannot delete file that has not been saved.');
         }
 
-        $headers = ParseClient::_getRequestHeaders(null, true);
-        $url = ParseClient::getAPIUrl().'files/'.$this->getName();
-        $rest = curl_init();
-        curl_setopt($rest, CURLOPT_URL, $url);
-        curl_setopt($rest, CURLOPT_CUSTOMREQUEST, 'DELETE');
-        curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
-        $response = curl_exec($rest);
-        $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
-        if (curl_errno($rest)) {
-            throw new ParseException(curl_error($rest), curl_errno($rest));
-        }
-        curl_close($rest);
+        ParseClient::_request(
+            'DELETE',
+            'files/'.$this->getName(),
+            null,
+            null,
+            $useMasterKey
+        );
+
     }
 
     /**
@@ -188,12 +184,13 @@ class ParseFile implements Encodable
     /**
      * Uploads the file contents to Parse, if not saved.
      *
+     * @param bool $useMasterKey  Whether to use the Master Key.
      * @return bool
      */
-    public function save()
+    public function save($useMasterKey = false)
     {
         if (!$this->url) {
-            $response = $this->upload();
+            $response = $this->upload($useMasterKey);
             $this->url = $response['url'];
             $this->name = $response['name'];
         }
@@ -201,41 +198,30 @@ class ParseFile implements Encodable
         return true;
     }
 
-    private function upload()
+    /**
+     * Internally uploads the contents of the file to a Parse Server
+     *
+     * @param bool $useMasterKey  Whether to use the Master Key.
+     * @return mixed              Result from Parse API Call.
+     * @throws ParseException
+     */
+    private function upload($useMasterKey = false)
     {
+        // get the MIME type of this file
         $fileParts = explode('.', $this->getName());
         $extension = array_pop($fileParts);
         $mimeType = $this->mimeType ?: $this->getMimeTypeForExtension($extension);
 
-        $headers = ParseClient::_getRequestHeaders(null, false);
-        $url = ParseClient::getAPIUrl().'files/'.$this->getName();
-        $rest = curl_init();
-        curl_setopt($rest, CURLOPT_URL, $url);
-        curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($rest, CURLOPT_BINARYTRANSFER, 1);
-        $headers[] = 'Content-Type: '.$mimeType;
-        curl_setopt($rest, CURLOPT_POST, 1);
-        curl_setopt($rest, CURLOPT_POSTFIELDS, $this->getData());
-        curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
-        $response = curl_exec($rest);
-        $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
-        if (curl_errno($rest)) {
-            throw new ParseException(curl_error($rest), curl_errno($rest));
-        }
-        curl_close($rest);
-        if (strpos($contentType, 'text/html') !== false) {
-            throw new ParseException('Bad Request', -1);
-        }
+        return ParseClient::_request(
+            'POST',
+            'files/'.$this->getName(),
+            null,
+            $this->getData(),
+            $useMasterKey,
+            false,
+            $mimeType
+        );
 
-        $decoded = json_decode($response, true);
-        if (isset($decoded['error'])) {
-            throw new ParseException(
-                $decoded['error'],
-                isset($decoded['code']) ? $decoded['code'] : 0
-            );
-        }
-
-        return $decoded;
     }
 
     private function download()
