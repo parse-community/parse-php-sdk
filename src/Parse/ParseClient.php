@@ -37,7 +37,7 @@ final class ParseClient
     /**
      * The REST API Key.
      *
-     * @var string
+     * @var string|null
      */
     private static $restKey;
 
@@ -455,7 +455,7 @@ final class ParseClient
         }
         if ($useMasterKey) {
             $headers[] = 'X-Parse-Master-Key: '.self::$masterKey;
-        } else {
+        } else if(isset(self::$restKey)) {
             $headers[] = 'X-Parse-REST-API-Key: '.self::$restKey;
         }
         if (self::$forceRevocableSession) {
