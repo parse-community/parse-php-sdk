@@ -48,6 +48,14 @@ ParseClient::initialize( $app_id, $rest_key, $master_key );
 ParseClient::setServerURL('https://my-parse-server.com','parse');
 ```
 
+If your server does not use or require a REST key you may initialize the ParseClient as follows, safely omitting the REST key:
+
+```php
+ParseClient::initialize( $app_id, null, $master_key );
+// Users of Parse Server will need to point ParseClient at their remote URL and Mount Point:
+ParseClient::setServerURL('https://my-parse-server.com','parse');
+```
+
 Usage
 -----
 
