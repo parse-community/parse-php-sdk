@@ -38,4 +38,10 @@ class ParseConfig
     {
         $this->currentConfig = $config;
     }
+
+    public function getConfig()
+    {
+        return $this->currentConfig;
+
+    }
 }

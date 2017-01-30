@@ -8,6 +8,30 @@ use Parse\ParseQuery;
 
 class Helper
 {
+    /**
+     * Application Id
+     * @var string
+     */
+    public static $appId      = 'app-id-here';
+
+    /**
+     * Rest API Key
+     * @var string
+     */
+    public static $restKey    = 'rest-api-key-here';
+
+    /**
+     * Master Key
+     * @var string
+     */
+    public static $masterKey  = 'master-key-here';
+
+    /**
+     * Account Key (for parse.com)
+     * @var string
+     */
+    public static $accountKey = 'account-key';
+
     public static function setUp()
     {
         ini_set('error_reporting', E_ALL);
@@ -15,13 +39,18 @@ class Helper
         date_default_timezone_set('UTC');
 
         ParseClient::initialize(
-            'app-id-here',
-            'rest-api-key-here',
-            'master-key-here',
+            self::$appId,
+            self::$restKey,
+            self::$masterKey,
             true,
-            'account-key-here'
+            self::$accountKey
         );
-        ParseClient::setServerURL('http://localhost:1337/parse');
+        self::setServerURL();
+    }
+
+    public static function setServerURL()
+    {
+        ParseClient::setServerURL('http://localhost:1337','parse');
     }
 
     public static function tearDown()
@@ -37,5 +66,17 @@ class Helper
             },
             true
         );
+    }
+
+    public static function setUpWithoutCURLExceptions()
+    {
+        ParseClient::initialize(
+            self::$appId,
+            self::$restKey,
+            self::$masterKey,
+            false,
+            self::$accountKey
+        );
+
     }
 }

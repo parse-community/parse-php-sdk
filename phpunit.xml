@@ -20,4 +20,13 @@
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src/Parse</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+        <log type="coverage-html" target="phpunit-test-results/" showUncoveredFiles="true"/>
+    </logging>
 </phpunit>

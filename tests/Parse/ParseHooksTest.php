@@ -38,9 +38,13 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
         self::$hooks->createFunction('baz', 'https://api.example.com/baz');
 
         $function = self::$hooks->fetchFunction('baz');
-        $this->assertEquals([['functionName' => 'baz', 'url' => 'https://api.example.com/baz']], $function);
+        $this->assertEquals([
+            'functionName' => 'baz',
+            'url' => 'https://api.example.com/baz'
+        ], $function);
 
         self::$hooks->deleteFunction('baz');
+
     }
 
     public function testSingleFunctionNotFound()
@@ -63,7 +67,10 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
     public function testCreateFunction()
     {
         $function = self::$hooks->createFunction('baz', 'https://api.example.com/baz');
-        $this->assertEquals(['functionName' => 'baz', 'url' => 'https://api.example.com/baz'], $function);
+        $this->assertEquals([
+            'functionName' => 'baz',
+            'url' => 'https://api.example.com/baz'
+        ], $function);
 
         self::$hooks->deleteFunction('baz');
     }
@@ -75,20 +82,34 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
         try {
             self::$hooks->createFunction('baz', 'https://api.example.com/baz');
         } catch (ParseException $ex) {
-            $this->assertEquals('a webhook with name: baz already exists', $ex->getMessage());
+            $this->assertEquals('function name: baz already exits',
+                $ex->getMessage());
         }
 
         self::$hooks->deleteFunction('baz');
     }
 
+    /**
+     * @group hook-create-trigger
+     */
     public function testCreateTrigger()
     {
         $trigger = self::$hooks->createTrigger('Game', 'beforeSave', 'https://api.example.com/Game/beforeSave');
+        // validate
         $this->assertEquals([
             'className'   => 'Game',
             'triggerName' => 'beforeSave',
             'url'         => 'https://api.example.com/Game/beforeSave',
         ], $trigger);
+
+        // fetch and revalidate
+        $trigger = self::$hooks->fetchTrigger('Game', 'beforeSave');
+        $this->assertEquals([
+            'className'   => 'Game',
+            'triggerName' => 'beforeSave',
+            'url'         => 'https://api.example.com/Game/beforeSave',
+        ], $trigger);
+
 
         self::$hooks->deleteTrigger('Game', 'beforeSave');
     }
@@ -101,7 +122,9 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
             self::$hooks->createTrigger('Game', 'beforeDelete', 'https://api.example.com/Game/beforeDelete');
             $this->fail();
         } catch (ParseException $ex) {
-            $this->assertEquals('beforeDelete trigger already exists for class Game as a webhook', $ex->getMessage());
+            $this->assertEquals('class Game already has trigger beforeDelete',
+                $ex->getMessage());
+
         }
 
         self::$hooks->deleteTrigger('Game', 'beforeDelete');
@@ -112,7 +135,10 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
         self::$hooks->createFunction('baz', 'https://api.example.com/baz');
 
         $edited_function = self::$hooks->editFunction('baz', 'https://api.example.com/_baz');
-        $this->assertEquals(['functionName' => 'baz', 'url' => 'https://api.example.com/_baz'], $edited_function);
+        $this->assertEquals([
+            'functionName' => 'baz',
+            'url' => 'https://api.example.com/_baz'
+        ], $edited_function);
 
         self::$hooks->deleteFunction('baz');
     }
@@ -145,5 +171,37 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
 
         $deleted_trigger = self::$hooks->deleteTrigger('Game', 'beforeSave');
         $this->assertEmpty($deleted_trigger);
+    }
+
+    /**
+     * @group hooks-fetch-functions
+     */
+    public function testFetchFunctions()
+    {
+        self::$hooks->createFunction('func1', 'http://example1.com');
+        self::$hooks->createFunction('func2', 'http://example2.com');
+        self::$hooks->createFunction('func3', 'http://example3.com');
+
+        $functions = self::$hooks->fetchFunctions();
+
+        $this->assertEquals([
+            [
+                'functionName'  => 'func1',
+                'url'           => 'http://example1.com'
+            ],
+            [
+                'functionName'  => 'func2',
+                'url'           => 'http://example2.com'
+            ],
+            [
+                'functionName'  => 'func3',
+                'url'           => 'http://example3.com'
+            ]
+        ], $functions);
+
+        self::$hooks->deleteFunction('func1');
+        self::$hooks->deleteFunction('func2');
+        self::$hooks->deleteFunction('func3');
+
     }
 }

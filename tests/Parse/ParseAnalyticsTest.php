@@ -77,4 +77,22 @@ class ParseAnalyticsTest extends \PHPUnit_Framework_TestCase
         ];
         $this->assertAnalyticsValidation('testDate', $params, $expected);
     }
+
+    public function testBadKeyDimension() {
+        $this->expectException(
+            '\Exception',
+            'Dimensions expected string keys and values.'
+        );
+        ParseAnalytics::track('event', [1=>'good-value']);
+
+    }
+
+    public function testBadValueDimension() {
+        $this->expectException(
+            '\Exception',
+            'Dimensions expected string keys and values.'
+        );
+        ParseAnalytics::track('event', ['good-key'=>1]);
+
+    }
 }

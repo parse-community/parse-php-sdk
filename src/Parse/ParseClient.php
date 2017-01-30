@@ -321,8 +321,10 @@ final class ParseClient
             $data = '{}';
         }
         if ($appRequest) {
+            // 'app' requests are not available in open source parse-server
             self::assertAppInitialized();
             $headers = self::_getAppRequestHeaders();
+
         } else {
             self::assertParseInitialized();
             $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);

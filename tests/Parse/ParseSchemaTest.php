@@ -10,7 +10,9 @@
  */
 namespace Parse\Test;
 
+use Parse\ParseException;
 use Parse\ParseSchema;
+use Parse\ParseUser;
 
 class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,6 +20,11 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      * @var ParseSchema
      */
     private static $schema;
+
+    /**
+     * @var string
+     */
+    private static $badClassName = "<Bad~ Class~ Name>";
 
     public static function setUpBeforeClass()
     {
@@ -27,12 +34,16 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         self::$schema = new ParseSchema('SchemaTest');
+        Helper::clearClass('_User');
+
     }
 
     public function tearDown()
     {
         Helper::tearDown();
         self::$schema->delete();
+
+        ParseUser::logOut();
     }
 
     public function testSaveSchema()
@@ -101,6 +112,27 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema_2->delete();
     }
 
+    public function testAllSchemaWithUserLoggedIn()
+    {
+        $user = new ParseUser();
+        $user->setUsername('schema-user');
+        $user->setPassword('basicpassword');
+        $user->signUp();
+
+        $schema_1 = new ParseSchema('SchemaTest_1');
+        $schema_2 = new ParseSchema('SchemaTest_2');
+        $schema_1->save();
+        $schema_2->save();
+
+        $schemas = new ParseSchema();
+        $results = $schemas->all();
+
+        $this->assertGreaterThanOrEqual(2, count($results));
+
+        $schema_1->delete();
+        $schema_2->delete();
+    }
+
     public function testUpdateSchema()
     {
         // create
@@ -141,7 +173,8 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $deleteSchema->delete();
 
         $getSchema = new ParseSchema('SchemaDeleteTest');
-        $this->setExpectedException('Parse\ParseException', 'class SchemaDeleteTest does not exist');
+        $this->setExpectedException('Parse\ParseException',
+            'Class SchemaDeleteTest does not exist.');
         $getSchema->get();
     }
 
@@ -253,7 +286,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
     public function testSchemaNotExistException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'class SchemaTest does not exist');
+        $this->setExpectedException('\Exception', 'Class SchemaTest does not exist');
         $schema->get();
     }
 
@@ -263,4 +296,77 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\Exception', 'StringFormatter is not a valid type.');
         $schema->assertTypes('StringFormatter');
     }
+
+    /**
+     * @group schema-test-errors
+     */
+    public function testBadSchemaGet()
+    {
+        $this->expectException(ParseException::class,
+            'Empty reply from server');
+
+        $user = new ParseUser();
+        $user->setUsername('schema-user');
+        $user->setPassword('basicpassword');
+        $user->signUp();
+
+        $schema = new ParseSchema(self::$badClassName);
+        $schema->get();
+
+    }
+
+    /**
+     * @group schema-test-errors
+     */
+    public function testBadSchemaSave()
+    {
+        $this->expectException(ParseException::class,
+            'Empty reply from server');
+
+        $user = new ParseUser();
+        $user->setUsername('schema-user');
+        $user->setPassword('basicpassword');
+        $user->signUp();
+
+        $schema = new ParseSchema(self::$badClassName);
+        $schema->save();
+
+    }
+
+    /**
+     * @group schema-test-errors
+     */
+    public function testBadSchemaUpdate()
+    {
+        $this->expectException(ParseException::class,
+            'Empty reply from server');
+
+        $user = new ParseUser();
+        $user->setUsername('schema-user');
+        $user->setPassword('basicpassword');
+        $user->signUp();
+
+        $schema = new ParseSchema(self::$badClassName);
+        $schema->update();
+
+    }
+
+    /**
+     * @group schema-test-errors
+     */
+    public function testBadSchemaDelete()
+    {
+        $this->expectException(ParseException::class,
+            'Empty reply from server');
+
+        $user = new ParseUser();
+        $user->setUsername('schema-user');
+        $user->setPassword('basicpassword');
+        $user->signUp();
+
+        $schema = new ParseSchema(self::$badClassName);
+        $schema->delete();
+
+    }
+
 }

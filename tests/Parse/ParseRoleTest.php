@@ -3,6 +3,7 @@
 namespace Parse\Test;
 
 use Parse\ParseACL;
+use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseRole;
@@ -82,13 +83,18 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $query3->count());
     }
 
+    /**
+     * @group role-name-duplicate
+     */
     public function testRoleNameUnique()
     {
         $role = ParseRole::createRole('Admin', $this->aclPublic());
         $role->save();
         $role2 = ParseRole::createRole('Admin', $this->aclPublic());
-        $this->setExpectedException('Parse\ParseException', 'duplicate');
+        $this->setExpectedException('Parse\ParseException',
+            "Cannot add duplicate role name of 'Admin'");
         $role2->save();
+
     }
 
     public function testExplicitRoleACL()
@@ -137,6 +143,8 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         }
         ParseUser::logIn('snake', 'snake');
         $query->get($eden['garden']->getObjectId());
+
+        ParseUser::logOut();
     }
 
     public function testAddUserAfterFetch()
@@ -151,6 +159,9 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         $roleAgain = $query->get($role->getObjectId());
         $roleAgain->getUsers()->add($user);
         $roleAgain->save();
+
+        ParseUser::logOut();
+
     }
 
     /**
@@ -217,5 +228,27 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         ParseObject::saveAll([$eden['apple'], $eden['garden']]);
 
         return $eden;
+    }
+
+    public function testSettingNonStringAsName()
+    {
+        $this->expectException(ParseException::class,
+            "A role's name must be a string.");
+        $role = new ParseRole();
+        $role->setName(12345);
+
+    }
+
+    /**
+     * @group role-save-noname
+     */
+    public function testSavingWithoutName()
+    {
+        $this->expectException(ParseException::class,
+            'Roles must have a name.');
+        $role = new ParseRole();
+        $role->setACL(new ParseACL());
+        $role->save();
+
     }
 }

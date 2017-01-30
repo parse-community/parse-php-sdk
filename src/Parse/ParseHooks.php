@@ -26,11 +26,7 @@ class ParseHooks
             true
         );
 
-        if (!isset($result['results'])) {
-            throw new ParseException('Hooks functions not found.', 101);
-        }
-
-        return $result['results'];
+        return $result;
     }
 
     /**
@@ -52,11 +48,7 @@ class ParseHooks
             true
         );
 
-        if (!isset($result['results'])) {
-            throw new ParseException('Hooks functions not found.', 101);
-        }
-
-        return $result['results'];
+        return $result;
     }
 
     /**
@@ -76,11 +68,7 @@ class ParseHooks
             true
         );
 
-        if (!isset($result['results'])) {
-            throw new ParseException('Hooks triggers not found.', 101);
-        }
-
-        return $result['results'];
+        return $result;
     }
 
     /**
@@ -102,10 +90,6 @@ class ParseHooks
             null,
             true
         );
-
-        if (!isset($result['results'])) {
-            throw new ParseException('Hooks trigger not found.', 101);
-        }
 
         return $result;
     }

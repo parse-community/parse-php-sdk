@@ -200,5 +200,20 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
         $query->withinMiles('location', $point, 10.0);
         $results = $query->find();
         $this->assertEquals(0, count($results));
+
+    }
+
+    public function testBadLatitude() {
+        $this->expectException('\Parse\ParseException',
+            'Latitude must be within range [-90.0, 90.0]');
+        new ParseGeoPoint(-180, 32);
+
+    }
+
+    public function testBadLongitude() {
+        $this->expectException('\Parse\ParseException',
+            'Longitude must be within range [-180.0, 180.0]');
+        new ParseGeoPoint(32, -360);
+
     }
 }

@@ -109,7 +109,17 @@ class ParseFile implements Encodable
      */
     public function getMimeType()
     {
-        return $this->mimeType;
+        if(isset($this->mimeType)) {
+            // return the mime type
+            return $this->mimeType;
+
+        } else {
+            // return an inferred mime type instead
+            $fileParts = explode('.', $this->getName());
+            $extension = array_pop($fileParts);
+            return $this->getMimeTypeForExtension($extension);
+
+        }
     }
 
     /**

@@ -230,6 +230,7 @@ class ParseObject implements Encodable
     public function has($key)
     {
         return isset($this->estimatedData[$key]);
+
     }
 
     /**
@@ -1365,5 +1366,6 @@ class ParseObject implements Encodable
         } else {
             return new ParseQuery($subclass);
         }
+
     }
 }

@@ -344,7 +344,6 @@ class ParseUser extends ParseObject
             foreach ($userData as $key => $value) {
                 $user->set($key, $value);
             }
-            $user->_opSetQueue = [];
             static::$currentUser = $user;
 
             return $user;

@@ -27,7 +27,7 @@ class ParseMemoryStorageTest extends \PHPUnit_Framework_TestCase
     public function testIsUsingDefaultStorage()
     {
         $this->assertTrue(
-            self::$parseStorage instanceof Parse\ParseMemoryStorage
+            self::$parseStorage instanceof \Parse\ParseMemoryStorage
         );
     }
 
@@ -63,5 +63,12 @@ class ParseMemoryStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $result['foo2']);
         $this->assertEquals('bar', $result['foo3']);
         $this->assertEquals(3, count($result));
+    }
+
+    public function testSave()
+    {
+        // does nothing
+        self::$parseStorage->save();
+
     }
 }

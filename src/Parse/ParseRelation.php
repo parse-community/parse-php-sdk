@@ -49,30 +49,6 @@ class ParseRelation
     }
 
     /**
-     * Makes sure that this relation has the right parent and key.
-     *
-     * @param $parent
-     * @param $key
-     *
-     * @throws \Exception
-     */
-    private function ensureParentAndKey($parent, $key)
-    {
-        if (!$this->parent) {
-            $this->parent = $parent;
-        }
-        if (!$this->key) {
-            $this->key = $key;
-        }
-        if ($this->parent !== $parent) {
-            throw new Exception('Internal Error. Relation retrieved from two different Objects.');
-        }
-        if ($this->key !== $key) {
-            throw new Exception('Internal Error. Relation retrieved from two different keys.');
-        }
-    }
-
-    /**
      * Adds a ParseObject or an array of ParseObjects to the relation.
      *
      * @param mixed $objects The item or items to add.

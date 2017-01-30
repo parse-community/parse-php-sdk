@@ -7,6 +7,7 @@ use Parse\ParseACL;
 use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
+use Parse\ParseRole;
 use Parse\ParseUser;
 
 class ParseACLTest extends \PHPUnit_Framework_TestCase
@@ -25,6 +26,12 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         Helper::tearDown();
+    }
+
+    public function testIsSharedDefault() {
+        $acl = new ParseACL();
+        $this->assertFalse($acl->_isShared());
+
     }
 
     public function testACLAnObjectOwnedByOneUser()
@@ -76,6 +83,8 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($query->find()));
         $object->save();
         $object->destroy();
+
+        ParseUser::logOut();
     }
 
     public function testACLMakingAnObjectPubliclyReadable()
@@ -229,6 +238,8 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         $object->set('foo', 'bar');
         $object->save();
         $object->destroy();
+
+        ParseUser::logOut();
     }
 
     public function testACLSaveAllWithPermissions()
@@ -261,6 +272,8 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         $query = new ParseQuery('Object');
         $query->equalTo('foo', 'bar');
         $this->assertEquals(2, count($query->find()));
+
+        ParseUser::logOut();
     }
 
     public function testACLModifyingAfterLoad()
@@ -285,6 +298,8 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($objectAgain->getACL()->getUserWriteAccess($user));
         $this->assertTrue($objectAgain->getACL()->getPublicReadAccess());
         $this->assertFalse($objectAgain->getACL()->getPublicWriteAccess());
+
+        ParseUser::logOut();
     }
 
     public function testACLRequiresObjectId()
@@ -357,6 +372,54 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($objectAgain->getACL()->getPublicWriteAccess());
     }
 
+    public function testNullDefaultACL() {
+        // verify null acl returns itself
+        ParseACL::setDefaultACL(null, true);
+        $this->assertNull(ParseACL::_getDefaultACL());
+
+    }
+
+    /**
+     * @group default-acls
+     */
+    public function testDefaultACL() {
+        // setup default acl
+        $defaultACL = new ParseACL();
+        $defaultACL->setPublicReadAccess(false);
+        $defaultACL->setPublicWriteAccess(false);
+        ParseACL::setDefaultACL($defaultACL, true);
+
+        // get without current user
+        $acl = ParseACL::_getDefaultACL();
+
+        // verify shared
+        $this->assertTrue($acl->_isShared());
+
+        // verify empty
+        $this->assertEquals(new \stdClass(),$acl->_encode());
+
+        // login as new user
+        $user = new ParseUser();
+        $user->setUsername('random-username');
+        $user->setPassword('random-password');
+        $user->signUp();
+
+        // verify user does not have access to original acl
+        $this->assertFalse($defaultACL->getUserReadAccess($user));
+        $this->assertFalse($defaultACL->getUserWriteAccess($user));
+
+        // get default acl with user
+        $acl = ParseACL::_getDefaultACL();
+
+        // verify this user has read/write access to the returned default
+        $this->assertTrue($acl->getUserReadAccess($user));
+        $this->assertTrue($acl->getUserWriteAccess($user));
+
+        ParseUser::logOut();
+        $user->destroy(true);
+
+    }
+
     public function testIncludedObjectsGetACLWithDefaultACL()
     {
         Helper::clearClass('Test');
@@ -382,5 +445,217 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
         $objectAgain = $query->first()->get('test');
         $this->assertTrue($objectAgain->getACL()->getPublicReadAccess());
         $this->assertFalse($objectAgain->getACL()->getPublicWriteAccess());
+    }
+
+    /**
+     * @group acl-invalid
+     */
+    public function testCreatingACLWithInvalidId() {
+        $this->expectException('\Exception',
+            'Tried to create an ACL with an invalid userId.');
+
+        ParseACL::_createACLFromJSON([
+            1234    => 'write'
+        ]);
+
+    }
+
+    /**
+     * @group acl-invalid
+     */
+    public function testCreatingWithBadAccessType() {
+        $this->expectException('\Exception',
+            'Tried to create an ACL with an invalid permission type.');
+
+        ParseACL::_createACLFromJSON([
+            'id'    => [
+                'not-valid' => true
+            ]
+        ]);
+
+    }
+
+    /**
+     * @group acl-invalid
+     */
+    public function testCreatingWithInvalidPermissionValue() {
+        $this->expectException('\Exception',
+            'Tried to create an ACL with an invalid permission value.');
+
+        ParseACL::_createACLFromJSON([
+            'id'    => [
+                'write' => 'not-valid'
+            ]
+        ]);
+
+    }
+
+    /**
+     * @group acl-user-notallowed
+     */
+    public function testSettingPermissionForUserNotAllowed() {
+        // add 'userid'
+        $acl = new ParseACL();
+        $acl->setPublicReadAccess(false);
+        $acl->setPublicWriteAccess(false);
+        $acl->setReadAccess('userid', true);
+
+        // verify this user can read
+        $this->assertTrue($acl->getReadAccess('userid'));
+
+        // attempt to add another id with false access
+        $acl->setReadAccess('anotheruserid', false);
+
+        // verify the second id was not actually added internally
+        $permissions = $acl->_encode();
+        $this->assertEquals([
+            'userid'    => [
+                'read' => true
+            ]
+        ], $permissions);
+
+    }
+
+    /**
+     * @group removing-from-acl
+     */
+    public function testRemovingFromAcl() {
+        // add 'userid'
+        $acl = new ParseACL();
+        $acl->setPublicReadAccess(false);
+        $acl->setPublicWriteAccess(false);
+        $acl->setReadAccess('userid', true);
+        $acl->setWriteAccess('userid', true);
+
+        // verify this user can read
+        $this->assertTrue($acl->getReadAccess('userid'));
+
+        // remove read access
+        $acl->setReadAccess('userid', false);
+
+        // verify this user cannot read
+        $this->assertFalse($acl->getReadAccess('userid'));
+
+        // verify user can still write
+        $this->assertTrue($acl->getWriteAccess('userid'));
+
+        // remove write access
+        $acl->setWriteAccess('userid', false);
+
+        // verify user can no longer write
+        $this->assertFalse($acl->getWriteAccess('userid'));
+
+        // verify acl is now empty, should be an instance of stdClass
+        $permissions = $acl->_encode();
+        $this->assertEquals(new \stdClass(), $permissions, 'ACL not empty after removing last user.');
+
+    }
+
+    public function testSettingUserReadAccessWithoutId() {
+        $this->expectException('\Exception',
+            'cannot setReadAccess for a user with null id');
+
+        $acl = new ParseACL();
+        $acl->setUserReadAccess(new ParseUser(), true);
+
+    }
+
+    public function testGettingUserReadAccessWithoutId() {
+        $this->expectException('\Exception',
+            'cannot getReadAccess for a user with null id');
+
+        $acl = new ParseACL();
+        $acl->getUserReadAccess(new ParseUser());
+
+    }
+
+    public function testSettingUserWriteAccessWithoutId() {
+        $this->expectException('\Exception',
+            'cannot setWriteAccess for a user with null id');
+
+        $acl = new ParseACL();
+        $acl->setUserWriteAccess(new ParseUser(), true);
+
+    }
+
+    public function testGettingUserWriteAccessWithoutId() {
+        $this->expectException('\Exception',
+            'cannot getWriteAccess for a user with null id');
+
+        $acl = new ParseACL();
+        $acl->getUserWriteAccess(new ParseUser());
+
+    }
+
+    /**
+     * @group test-role-access
+     */
+    public function testRoleAccess() {
+        $acl = new ParseACL();
+
+        // Create a role
+        $roleAcl = new ParseACL();
+        $role = ParseRole::createRole('BasicRole', $roleAcl);
+        $role->save();
+
+        // Read Access
+        $this->assertFalse($acl->getRoleReadAccess($role));
+
+        // set true
+        $acl->setRoleReadAccess($role, true);
+        $this->assertTrue($acl->getRoleReadAccess($role));
+
+        // set back to false
+        $acl->setRoleReadAccess($role, false);
+        $this->assertFalse($acl->getRoleReadAccess($role));
+
+        // Write Access
+        $this->assertFalse($acl->getRoleWriteAccess($role));
+
+        // set true
+        $acl->setRoleWriteAccess($role, true);
+        $this->assertTrue($acl->getRoleWriteAccess($role));
+
+        // set back to false
+        $acl->setRoleWriteAccess($role, false);
+        $this->assertFalse($acl->getRoleWriteAccess($role));
+
+        $role->destroy(true);
+
+    }
+
+    public function testUnsavedRoleAdded() {
+        $this->expectException('\Exception',
+            'Roles must be saved to the server before they can be used in an ACL.');
+
+        $acl = new ParseACL();
+        $acl->setRoleReadAccess(new ParseRole(), true);
+
+    }
+
+    public function testRoleAccessWithName() {
+        $acl = new ParseACL();
+        // Read Access
+        $this->assertFalse($acl->getRoleReadAccessWithName('role'));
+
+        // set true
+        $acl->setRoleReadAccessWithName('role', true);
+        $this->assertTrue($acl->getRoleReadAccessWithName('role'));
+
+        // set back to false
+        $acl->setRoleReadAccessWithName('role', false);
+        $this->assertFalse($acl->getRoleReadAccessWithName('role'));
+
+        // Write Access
+        $this->assertFalse($acl->getRoleWriteAccessWithName('role'));
+
+        // set true
+        $acl->setRoleWriteAccessWithName('role', true);
+        $this->assertTrue($acl->getRoleWriteAccessWithName('role'));
+
+        // set back to false
+        $acl->setRoleWriteAccessWithName('role', false);
+        $this->assertFalse($acl->getRoleWriteAccessWithName('role'));
+
     }
 }
