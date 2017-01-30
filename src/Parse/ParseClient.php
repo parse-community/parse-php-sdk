@@ -296,13 +296,14 @@ final class ParseClient
     /**
      * Parse\Client::_request, internal method for communicating with Parse.
      *
-     * @param string $method       HTTP Method for this request.
-     * @param string $relativeUrl  REST API Path.
-     * @param null   $sessionToken Session Token.
-     * @param null   $data         Data to provide with the request.
-     * @param bool   $useMasterKey Whether to use the Master Key.
-     * @param bool   $appRequest   App request to create or modify a application
-     * @param string $contentType  The content type for this request, default is application/json
+     * @param string $method        HTTP Method for this request.
+     * @param string $relativeUrl   REST API Path.
+     * @param null   $sessionToken  Session Token.
+     * @param null   $data          Data to provide with the request.
+     * @param bool   $useMasterKey  Whether to use the Master Key.
+     * @param bool   $appRequest    App request to create or modify a application
+     * @param string $contentType   The content type for this request, default is application/json
+     * @param bool   $returnHeaders Allow to return response headers
      *
      * @throws \Exception
      *
@@ -315,7 +316,8 @@ final class ParseClient
         $data = null,
         $useMasterKey = false,
         $appRequest = false,
-        $contentType = 'application/json'
+        $contentType = 'application/json',
+        $returnHeaders = false
     ) {
         if ($data === '[]') {
             $data = '{}';
@@ -329,32 +331,44 @@ final class ParseClient
         }
 
         $url = self::$serverURL.'/'.self::$mountPath.ltrim($relativeUrl, '/');
+
         if ($method === 'GET' && !empty($data)) {
             $url .= '?'.http_build_query($data);
         }
+
         $rest = curl_init();
         curl_setopt($rest, CURLOPT_URL, $url);
         curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
+
         if ($method === 'POST') {
             $headers[] = 'Content-Type: '.$contentType;
             curl_setopt($rest, CURLOPT_POST, 1);
             curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
         }
+
         if ($method === 'PUT') {
             $headers[] = 'Content-Type: '.$contentType;
             curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
             curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
         }
+
         if ($method === 'DELETE') {
             curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
         }
+
         curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
 
         if (!is_null(self::$connectionTimeout)) {
             curl_setopt($rest, CURLOPT_CONNECTTIMEOUT, self::$connectionTimeout);
         }
+
         if (!is_null(self::$timeout)) {
             curl_setopt($rest, CURLOPT_TIMEOUT, self::$timeout);
+        }
+
+        if ($returnHeaders) {
+            curl_setopt($rest, CURLOPT_HEADER, 1);
+            curl_setopt($rest, CURLOPT_FOLLOWLOCATION, true);
         }
 
         $response = curl_exec($rest);
@@ -367,6 +381,16 @@ final class ParseClient
                 return false;
             }
         }
+
+        $headerData = [];
+
+        if ($returnHeaders) {
+            $headerSize = curl_getinfo($rest, CURLINFO_HEADER_SIZE);
+            $headerContent = substr($response, 0, $headerSize);
+            $headerData = self::parseCurlHeaders($headerContent);
+            $response = substr($response, $headerSize);
+        }
+
         curl_close($rest);
         if (strpos($contentType, 'text/html') !== false) {
             throw new ParseException('Bad Request', -1);
@@ -383,7 +407,55 @@ final class ParseClient
             );
         }
 
+        if ($returnHeaders) {
+            $decoded['_headers'] = $headerData;
+        }
+
         return $decoded;
+    }
+
+    /**
+     * ParseClient::parseCurlHeaders, will parse headers data and returns it as array.
+     * @param $headerContent
+     *
+     * @return array
+     */
+    private static function parseCurlHeaders($headerContent)
+    {
+        $headers = [];
+        $headersContentSet = explode("\r\n\r\n", $headerContent);
+        $withRedirect = count($headersContentSet) > 2;
+
+        if ($withRedirect) {
+            $headers['_previous'] = [];
+        }
+
+        foreach ($headersContentSet as $headerIndex => $headersData) {
+            if (empty($headersData)) {
+                continue;
+            }
+
+            if ($withRedirect && $headerIndex === 0) {
+                $storage = &$headers['_previous'];
+            } else {
+                $storage = &$headers;
+            }
+
+            $exploded = explode("\r\n", $headersData);
+
+            foreach ($exploded as $i => $line) {
+                if (empty($line)) {
+                    continue;
+                } elseif ($i === 0) {
+                    $storage['http_status'] = $line;
+                } else {
+                    list ($headerName, $headerValue) = explode(': ', $line);
+                    $storage[$headerName] = $headerValue;
+                }
+            }
+        }
+
+        return $headers;
     }
 
     /**
