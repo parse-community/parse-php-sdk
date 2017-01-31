@@ -4,6 +4,7 @@ namespace Parse\Internal;
 
 use Parse\ParseClient;
 use Parse\ParseException;
+use Parse\ParseObject;
 
 /**
  * Class AddUniqueOperation - Operation to add unique objects to an array key.

@@ -105,6 +105,12 @@ class RemoveOperation implements FieldOperation
         if (empty($oldValue)) {
             return [];
         }
+
+        if(!is_array($oldValue)) {
+            $oldValue = [$oldValue];
+
+        }
+
         $newValue = [];
         foreach ($oldValue as $oldObject) {
             foreach ($this->objects as $newObject) {

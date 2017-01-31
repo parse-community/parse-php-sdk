@@ -1366,6 +1366,5 @@ class ParseObject implements Encodable
         } else {
             return new ParseQuery($subclass);
         }
-
     }
 }
