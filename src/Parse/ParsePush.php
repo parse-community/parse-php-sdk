@@ -71,7 +71,10 @@ class ParsePush
             'push',
             null,
             json_encode(ParseClient::_encode($data, true)),
-            $useMasterKey
+            $useMasterKey,
+            false,
+            'application/json',
+            true
         );
     }
 }

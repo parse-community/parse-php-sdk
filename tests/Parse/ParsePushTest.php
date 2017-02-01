@@ -104,4 +104,16 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
             , true);
 
     }
+
+    public function testPushHasHeaders()
+    {
+        $response = ParsePush::send(
+            [
+                'channels' => [''],
+                'data'     => ['alert' => 'sample message'],
+            ]
+        );
+
+        $this->assertArrayHasKey('_headers', $response);
+    }
 }
