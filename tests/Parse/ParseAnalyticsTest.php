@@ -79,7 +79,7 @@ class ParseAnalyticsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testBadKeyDimension() {
-        $this->expectException(
+        $this->setExpectedException(
             '\Exception',
             'Dimensions expected string keys and values.'
         );
@@ -88,7 +88,7 @@ class ParseAnalyticsTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testBadValueDimension() {
-        $this->expectException(
+        $this->setExpectedException(
             '\Exception',
             'Dimensions expected string keys and values.'
         );

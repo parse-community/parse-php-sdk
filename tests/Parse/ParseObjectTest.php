@@ -990,7 +990,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testNoRegisteredSubclasses()
     {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'You must initialize the ParseClient using ParseClient::initialize '.
             'and your Parse API keys before you can begin working with Objects.');
         ParseUser::_unregisterSubclass();
@@ -1006,7 +1006,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
     {
         Helper::setUp();
 
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'You must specify a Parse class name or register the appropriate '.
             'subclass when creating a new Object.    Use ParseObject::create to '.
             'create a subclass object.');
@@ -1026,7 +1026,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingProtectedProperty()
     {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'Protected field could not be set.');
         $obj = new ParseObject('TestClass');
         $obj->updatedAt = "value";
@@ -1119,7 +1119,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testSetNullKey()
     {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'key may not be null.');
         $obj = new ParseObject('TestClass');
         $obj->set(null, 'value');
@@ -1128,7 +1128,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testSetWithArrayValue()
     {
-        $this->expectException(
+        $this->setExpectedException(
             '\Exception',
             'Must use setArray() or setAssociativeArray() for this value.'
         );
@@ -1139,7 +1139,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testSetArrayNullKey()
     {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'key may not be null.');
         $obj = new ParseObject('TestClass');
         $obj->setArray(null, ['is-an-array' => 'yes']);
@@ -1148,7 +1148,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testSetArrayWithNonArrayValue()
     {
-        $this->expectException(
+        $this->setExpectedException(
             '\Exception',
             'Must use set() for non-array values.'
         );
@@ -1159,7 +1159,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testAsocSetArrayNullKey()
     {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'key may not be null.');
         $obj = new ParseObject('TestClass');
         $obj->setAssociativeArray(null, ['is-an-array' => 'yes']);
@@ -1168,7 +1168,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testAsocSetArrayWithNonArrayValue()
     {
-        $this->expectException(
+        $this->setExpectedException(
             '\Exception',
             'Must use set() for non-array values.'
         );
@@ -1179,7 +1179,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testRemovingNullKey()
     {
-        $this->expectException(
+        $this->setExpectedException(
             '\Exception',
             'key may not be null.'
         );
@@ -1209,12 +1209,17 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchAllMixedClasses()
     {
-        $this->expectException('\Parse\ParseException',
+        $this->setExpectedException('\Parse\ParseException',
             'All objects should be of the same class.');
 
         $objs = [];
-        $objs[] = new ParseObject('TestClass1');
-        $objs[] = new ParseObject('TestClass2');
+        $obj = new ParseObject('TestClass1');
+        $obj->save();
+        $objs[] = $obj;
+
+        $obj = new ParseObject('TestClass2');
+        $obj->save();
+        $objs[] = $obj;
 
         ParseObject::fetchAll($objs);
 
@@ -1222,7 +1227,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchAllUnsavedWithoutId()
     {
-        $this->expectException('\Parse\ParseException',
+        $this->setExpectedException('\Parse\ParseException',
             'All objects must have an ID.');
 
         $objs = [];
@@ -1235,7 +1240,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchAllUnsavedWithId()
     {
-        $this->expectException('\Parse\ParseException',
+        $this->setExpectedException('\Parse\ParseException',
             'All objects must exist on the server.');
 
         $objs = [];
@@ -1304,7 +1309,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testToPointerWithoutId()
     {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             "Can't serialize an unsaved Parse.Object");
         (new ParseObject('TestClass'))->_toPointer();
 
@@ -1327,7 +1332,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testSubclassRegisterMissingParseClassName()
     {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'Cannot register a subclass that does not have a parseClassName');
         ParseObjectMock::registerSubclass();
 
@@ -1346,8 +1351,29 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testGettingQueryForUnregisteredSubclass()
     {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'Cannot create a query for an unregistered subclass.');
         ParseObjectMock::query();
+    }
+
+    /**
+     * @group encode-encodable
+     */
+    public function testEncodeEncodable()
+    {
+        $obj = new ParseObject('TestClass');
+        // set an Encodable value
+        $encodable1 = new SetOperation(['key'=>'value']);
+        $obj->set('key1', $encodable1);
+
+        // set an Encodable array value
+        $encodable2 = new SetOperation(['anotherkey'=>'anothervalue']);
+        $obj->setArray('key2', [$encodable2]);
+
+        $encoded = json_decode($obj->_encode(), true);
+
+        $this->assertEquals($encoded['key1'], $encodable1->_encode());
+        $this->assertEquals($encoded['key2'][0], $encodable2->_encode());
+
     }
 }

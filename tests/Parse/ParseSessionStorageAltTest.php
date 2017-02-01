@@ -19,7 +19,7 @@ class ParseSessionStorageAltTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoSessionActive()
     {
-        $this->expectException(ParseException::class,
+        $this->setExpectedException(ParseException::class,
             'PHP session_start() must be called first.');
         new ParseSessionStorage();
 

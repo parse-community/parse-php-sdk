@@ -19,7 +19,7 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testNoMasterKey() {
-        $this->expectException(ParseException::class);
+        $this->setExpectedException(ParseException::class);
 
         ParsePush::send(
             [
@@ -66,7 +66,7 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
 
     public function testNonQueryWhere()
     {
-        $this->expectException(\Exception::class,
+        $this->setExpectedException(\Exception::class,
             'Where parameter for Parse Push must be of type ParseQuery');
         ParsePush::send(
             [
@@ -91,7 +91,7 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
 
     public function testExpirationTimeAndIntervalSet()
     {
-        $this->expectException(\Exception::class,
+        $this->setExpectedException(\Exception::class,
             'Both expiration_time and expiration_interval can\'t be set.');
         ParsePush::send(
             [
@@ -112,7 +112,7 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
                 'channels' => [''],
                 'data'     => ['alert' => 'sample message'],
             ]
-        );
+        , true);
 
         $this->assertArrayHasKey('_headers', $response);
     }

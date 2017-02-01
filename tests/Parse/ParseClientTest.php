@@ -39,7 +39,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      * @group client-not-initialized
      */
     public function testParseNotInitialized() {
-        $this->expectException(
+        $this->setExpectedException(
             '\Exception',
             'You must call Parse::initialize() before making any requests.'
         );
@@ -62,7 +62,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      * @group client-not-initialized
      */
     public function testAppNotNotInitialized() {
-        $this->expectException(
+        $this->setExpectedException(
             '\Exception',
             'You must call Parse::initialize(..., $accountKey) before making any requests.'
         );
@@ -111,7 +111,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      * @group client-app-request
      */
     public function testAppRequestHeadersMissingAccountKey() {
-        $this->expectException(
+        $this->setExpectedException(
             '\InvalidArgumentException',
             'A account key is required and can not be null or empty'
         );
@@ -246,7 +246,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      * @group client-test
      */
     public function testBadServerURL() {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'Invalid Server URL.');
         ParseClient::setServerURL(null, 'parse');
 
@@ -256,7 +256,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      * @group client-test
      */
     public function testBadMountPath() {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'Invalid Mount Path.');
         ParseClient::setServerURL('https://example.com', null);
 
@@ -266,7 +266,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      * @group encoding-error
      */
     public function testEncodingError() {
-        $this->expectException('\Exception',
+        $this->setExpectedException('\Exception',
             'Invalid type encountered.');
         ParseClient::_encode(new Helper(), false);
 
@@ -352,8 +352,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      * @group curl-exceptions
      */
     public function testCurlExceptions() {
-        $this->expectException('\Parse\ParseException',
-            "Couldn't resolve host '404.example.com'");
+        $this->setExpectedException('\Parse\ParseException', '', 6);
 
         ParseClient::setServerURL('http://404.example.com', 'parse');
         ParseClient::_request(
@@ -367,7 +366,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      * @group client-bad-request
      */
     public function testBadRequest() {
-        $this->expectException('\Parse\ParseException',
+        $this->setExpectedException('\Parse\ParseException',
             "Bad Request");
         ParseClient::setServerURL('http://example.com', '/');
         ParseClient::_request(

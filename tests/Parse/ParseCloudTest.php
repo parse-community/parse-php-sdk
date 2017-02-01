@@ -59,7 +59,7 @@ class ParseCloudTest extends \PHPUnit_Framework_TestCase
      * @group cloud-code
      */
     public function testFunctionCallException() {
-        $this->expectException('\Parse\ParseException',
+        $this->setExpectedException('\Parse\ParseException',
             'bad stuff happened');
 
         ParseCloud::run('bar', [

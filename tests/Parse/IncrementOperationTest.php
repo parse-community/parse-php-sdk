@@ -62,7 +62,7 @@ class IncrementOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->expectException(ParseException::class,
+        $this->setExpectedException(ParseException::class,
             'Operation is invalid after previous operation.');
         $addOp = new IncrementOperation();
         $addOp->_mergeWithPrevious(new AddOperation(['key'  => 'value']));

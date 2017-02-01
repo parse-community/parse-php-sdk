@@ -64,7 +64,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseFileDownloadUnsaved()
     {
-        $this->expectException('\Parse\ParseException',
+        $this->setExpectedException('\Parse\ParseException',
             'Cannot retrieve data for unsaved ParseFile.');
         $file = ParseFile::createFromData(null, 'file.txt');
         $file->getData();
@@ -76,7 +76,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
      */
     public function testParsefileDeleteUnsaved()
     {
-        $this->expectException('\Parse\ParseException',
+        $this->setExpectedException('\Parse\ParseException',
             'Cannot delete file that has not been saved.');
         $file = ParseFile::createFromData('a test file', 'file.txt');
         $file->delete();
@@ -88,8 +88,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseFileDownloadBadURL()
     {
-        $this->expectException('\Parse\ParseException',
-            'Cannot delete file that has not been saved.');
+        $this->setExpectedException('\Parse\ParseException', '', 6);
         $file = ParseFile::_createFromServer('file.txt', 'http://404.example.com');
         $file->getData();
 

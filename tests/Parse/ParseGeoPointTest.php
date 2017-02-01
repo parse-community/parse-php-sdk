@@ -204,14 +204,14 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testBadLatitude() {
-        $this->expectException('\Parse\ParseException',
+        $this->setExpectedException('\Parse\ParseException',
             'Latitude must be within range [-90.0, 90.0]');
         new ParseGeoPoint(-180, 32);
 
     }
 
     public function testBadLongitude() {
-        $this->expectException('\Parse\ParseException',
+        $this->setExpectedException('\Parse\ParseException',
             'Longitude must be within range [-180.0, 180.0]');
         new ParseGeoPoint(32, -360);
 

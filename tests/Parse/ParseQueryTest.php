@@ -2090,7 +2090,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testOrQueriesVaryingClasses()
     {
-        $this->expectException(\Exception::class,
+        $this->setExpectedException(\Exception::class,
             'All queries must be for the same class');
         ParseQuery::orQueries([
             new ParseQuery('Class1'),

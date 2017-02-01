@@ -30,7 +30,7 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingObjects()
     {
-        $this->expectException(\Exception::class,
+        $this->setExpectedException(\Exception::class,
             'Cannot create a ParseRelationOperation with no objects.');
         new ParseRelationOperation(null, null);
 
@@ -41,7 +41,7 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMixedClasses()
     {
-        $this->expectException(\Exception::class,
+        $this->setExpectedException(\Exception::class,
             'All objects in a relation must be of the same class.');
 
         $objects = [];
@@ -78,9 +78,9 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testApplyDifferentClassRelation()
     {
-        $this->expectException(\Exception::class,
+        $this->setExpectedException(\Exception::class,
             'Related object object must be of class '
-            .'Class1, but Different_Class'
+            .'Class1, but DifferentClass'
             .' was passed in.');
 
         // create one op
@@ -96,7 +96,7 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidApply()
     {
-        $this->expectException(\Exception::class,
+        $this->setExpectedException(\Exception::class,
             'Operation is invalid after previous operation.');
         $addObj = new ParseObject('Class1');
         $op = new ParseRelationOperation($addObj, null);
@@ -120,7 +120,7 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMergeDifferentClass()
     {
-        $this->expectException(\Exception::class,
+        $this->setExpectedException(\Exception::class,
             'Related object object must be of class '
             .'Class1, but AnotherClass'
             .' was passed in.');
@@ -140,7 +140,7 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->expectException(\Exception::class,
+        $this->setExpectedException(\Exception::class,
             'Operation is invalid after previous operation.');
         $obj = new ParseObject('Class1');
         $op = new ParseRelationOperation($obj, null);

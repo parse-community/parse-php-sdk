@@ -302,7 +302,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaGet()
     {
-        $this->expectException(ParseException::class,
+        $this->setExpectedException(ParseException::class,
             'Empty reply from server');
 
         $user = new ParseUser();
@@ -320,7 +320,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaSave()
     {
-        $this->expectException(ParseException::class,
+        $this->setExpectedException(ParseException::class,
             'Empty reply from server');
 
         $user = new ParseUser();
@@ -338,7 +338,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaUpdate()
     {
-        $this->expectException(ParseException::class,
+        $this->setExpectedException(ParseException::class,
             'Empty reply from server');
 
         $user = new ParseUser();
@@ -356,7 +356,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaDelete()
     {
-        $this->expectException(ParseException::class,
+        $this->setExpectedException(ParseException::class,
             'Empty reply from server');
 
         $user = new ParseUser();
