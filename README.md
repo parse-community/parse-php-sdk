@@ -93,8 +93,11 @@ $object->setAssociativeArray(
     "languageTypes", array("php" => "awesome", "ruby" => "wtf")
 );
 
-// Save:
+// Save normally:
 $object->save();
+
+// Or pass true to use the master key to override ACLs when saving:
+$object->save(true);
 ```
 
 Users:
@@ -148,8 +151,11 @@ $object = $query->get("anObjectId");
 
 $query->limit(10); // default 100, max 1000
 
-// All results:
+// All results, normally:
 $results = $query->find();
+
+// Or pass true to use the master key to override ACLs when querying:
+$results = $query->find(true);
 
 // Just the first result:
 $first = $query->first();
@@ -200,22 +206,29 @@ Push:
 ```php
 $data = array("alert" => "Hi!");
 
+// Parse Server requires the master key for sending push.  Pass true as the second parameter.
+ParsePush::send($data, true);
+
 // Push to Channels
 ParsePush::send(array(
     "channels" => ["PHPFans"],
     "data" => $data
-));
+), true);
 
 // Push to Query
 $query = ParseInstallation::query();
 $query->equalTo("design", "rad");
+
 ParsePush::send(array(
     "where" => $query,
     "data" => $data
-));
+), true);
 
-// Parse Server requires the master key for sending push.  Pass true as the second parameter.
-ParsePush::send($data, true);
+// Get Push Status Id
+$reponse = ParsePush::send($data, true);
+if(isset($response['_headers']['X-Push-Status-Id'])) {
+    // Retrieve info on _PushStatus using the id
+}
 ```
 
 Contributing / Testing
