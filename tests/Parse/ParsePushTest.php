@@ -5,6 +5,8 @@ namespace Parse\Test;
 use Parse\ParseException;
 use Parse\ParseInstallation;
 use Parse\ParsePush;
+use Parse\ParsePushStatus;
+use Parse\ParseQuery;
 
 class ParsePushTest extends \PHPUnit_Framework_TestCase
 {
@@ -105,6 +107,9 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @group push-status
+     */
     public function testPushHasHeaders()
     {
         $response = ParsePush::send(
@@ -114,6 +119,109 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
             ]
         , true);
 
+        // verify headers are present
         $this->assertArrayHasKey('_headers', $response);
+
+    }
+
+    /**
+     * @group push-status
+     */
+    public function testGettingPushStatus()
+    {
+        $payload = [
+            'alert' => 'sample message'
+        ];
+
+        $response = ParsePush::send(
+            [
+                'channels' => [''],
+                'data'     => $payload,
+            ]
+            , true);
+
+        // verify push status id is present
+        $this->assertTrue(isset($response['_headers']['X-Parse-Push-Status-Id']));
+
+        // verify ParsePush indicates there is a push status id as well
+        $this->assertTrue(ParsePush::hasStatus($response));
+
+        // get the _PushStatus object
+        $pushStatus = ParsePush::getStatus($response);
+
+        $this->assertNotNull($pushStatus);
+
+        // verify values
+        $this->assertTrue($pushStatus->getPushTime() instanceof \DateTime,
+            'Push time was not as expected');
+
+        $query = $pushStatus->getPushQuery();
+        $options = $query->_getOptions();
+        $this->assertEquals([
+            'where' => [
+                'channels'  => [
+                    '$in'       => [
+                        ''
+                    ]
+                ]
+            ]
+        ], $options);
+
+        // verify payload
+        $this->assertEquals($payload, $pushStatus->getPushPayload(),
+            'Payload did not match');
+
+        // verify source
+        $this->assertEquals("rest", $pushStatus->getPushSource(),
+            'Source was not rest');
+
+        // verify 'running'
+        $this->assertEquals("running", $pushStatus->getPushStatus(),
+            'Push did not succeed');
+
+        // verify # sent & failed
+        $this->assertEquals(0, $pushStatus->getPushesSent(),
+            'More than 0 pushes sent');
+        $this->assertEquals(0, $pushStatus->getPushesFailed(),
+            'More than 0 pushes failed');
+
+        $this->assertNotNull($pushStatus->getPushHash(),
+            'Hash not present');
+
+    }
+
+    /**
+     * @group push-status
+     */
+    public function testGettingNonExistentPushStatus()
+    {
+        $pushStatus = ParsePushStatus::getFromId('not-a-real-id');
+        $this->assertNull($pushStatus);
+
+    }
+
+    public function testDoesNotHaveStatus()
+    {
+        $this->assertFalse(ParsePush::hasStatus([]));
+
+    }
+
+    public function testGetStatus()
+    {
+        // test no headers
+        $this->assertNull(ParsePush::getStatus([]));
+
+        // test no push id
+        $this->assertNull(ParsePush::getStatus([
+            '_headers'  => []
+        ]));
+
+        // test bad push status id
+        $this->assertNull(ParsePush::getStatus([
+            '_headers'  => [
+                'X-Parse-Push-Status-Id'    => 'not-a-real-id'
+            ]
+        ]));
+
     }
 }

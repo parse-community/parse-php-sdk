@@ -135,6 +135,30 @@ class ParseQuery
     }
 
     /**
+     * Sets the conditions of this parse query from an array
+     *
+     * @param array $conditions Array of Conditions to set
+     * @throws ParseException
+     */
+    public function _setConditions($conditions)
+    {
+        if(!is_array($conditions)) {
+            throw new ParseException("Conditions must be in an array");
+
+        }
+
+        // iterate over and add each condition
+        foreach($conditions as $key => $entry) {
+            foreach($entry as $condition => $value) {
+                $this->addCondition($key, $condition, $value);
+
+            }
+
+        }
+
+    }
+
+    /**
      * Add a constraint to the query that requires a particular key's value to
      * be not equal to the provided value.
      *
