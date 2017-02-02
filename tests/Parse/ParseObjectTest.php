@@ -3,8 +3,13 @@
 namespace Parse\Test;
 
 use Parse\Internal\SetOperation;
+use Parse\ParseACL;
+use Parse\ParseInstallation;
 use Parse\ParseObject;
 use Parse\ParseQuery;
+use Parse\ParseRole;
+use Parse\ParseSession;
+use Parse\ParseUser;
 
 class ParseObjectTest extends \PHPUnit_Framework_TestCase
 {
@@ -278,7 +283,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
     public function testInvalidClassName()
     {
         $obj = ParseObject::create('Foo^bar');
-        $this->setExpectedException('Parse\ParseException', 'bad characters in classname');
+        $this->setExpectedException('Parse\ParseException', 'schema class name does not revalidate');
         $obj->save();
     }
 
@@ -288,7 +293,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $obj->set('foo^bar', 'baz');
         $this->setExpectedException(
             'Parse\ParseException',
-            'invalid field name'
+            'Invalid field name: foo^bar.'
         );
         $obj->save();
     }
@@ -738,6 +743,13 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
     public function testDestroyAll()
     {
         Helper::clearClass('TestObject');
+
+        // log in
+        $user = new ParseUser();
+        $user->setUsername('username123');
+        $user->setPassword('password123');
+        $user->signUp();
+
         $o1 = ParseObject::create('TestObject');
         $o2 = ParseObject::create('TestObject');
         $o3 = ParseObject::create('TestObject');
@@ -746,6 +758,10 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $query = new ParseQuery('TestObject');
         $results = $query->find();
         $this->assertEquals(0, count($results));
+
+        ParseUser::logOut();
+        $user->destroy(true);
+
     }
 
     public function testEmptyArray()
@@ -948,8 +964,8 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
             $this->fail('Save should have failed.');
         } catch (\Parse\ParseAggregateException $ex) {
             $errors = $ex->getErrors();
-            $this->assertContains('invalid field name', $errors[0]['error']);
-            $this->assertContains('invalid field name', $errors[1]['error']);
+            $this->assertEquals('Invalid field name: fos^^co.', $errors[0]['error']);
+            $this->assertEquals('Invalid field name: fo^^mo.', $errors[1]['error']);
         }
     }
 
@@ -970,5 +986,394 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $results[0]->get('foo'));
         $this->assertEquals('bar', $results[1]->get('foo'));
         $this->assertEquals('bar', $results[2]->get('foo'));
+    }
+
+    public function testNoRegisteredSubclasses()
+    {
+        $this->setExpectedException('\Exception',
+            'You must initialize the ParseClient using ParseClient::initialize '.
+            'and your Parse API keys before you can begin working with Objects.');
+        ParseUser::_unregisterSubclass();
+        ParseRole::_unregisterSubclass();
+        ParseInstallation::_unregisterSubclass();
+        ParseSession::_unregisterSubclass();
+
+        new ParseObject('TestClass');
+
+    }
+
+    public function testMissingClassName()
+    {
+        Helper::setUp();
+
+        $this->setExpectedException('\Exception',
+            'You must specify a Parse class name or register the appropriate '.
+            'subclass when creating a new Object.    Use ParseObject::create to '.
+            'create a subclass object.');
+
+        new ParseObjectMock();
+
+    }
+
+    public function testSettingProperties()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->key = "value";
+
+        $this->assertEquals('value', $obj->get('key'));
+
+    }
+
+    public function testSettingProtectedProperty()
+    {
+        $this->setExpectedException('\Exception',
+            'Protected field could not be set.');
+        $obj = new ParseObject('TestClass');
+        $obj->updatedAt = "value";
+
+    }
+
+    public function testGettingProperties()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->key = "value";
+        $this->assertEquals('value', $obj->key);
+
+    }
+
+    public function testNullValues()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->key1 = 'notnull';
+        $obj->key2 = null;
+
+        // verify key2 is present
+        $this->assertNull($obj->get('key2'));
+
+        $obj->save();
+        $obj->fetch();
+
+        // verify we still have key2 present
+        $this->assertNull($obj->get('key2'));
+
+        $obj->destroy();
+
+    }
+
+    public function testIsset()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->set('key', 'value');
+        $this->assertTrue(isset($obj->key), 'Failed on "value"');
+
+        $obj->set('key', 9);
+        $this->assertTrue(isset($obj->key), 'Failed on 9');
+
+        $obj->set('key', 0);
+        $this->assertTrue(isset($obj->key), 'Failed on 0');
+
+        $obj->set('key', false);
+        $this->assertTrue(isset($obj->key), 'Failed on false');
+
+        // null should return false
+        $obj->set('key', null);
+        $this->assertFalse(isset($obj->key), 'Failed on null');
+
+    }
+
+    public function testGetAllKeys()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->set('key1', 'value1');
+        $obj->set('key2', 'value2');
+        $obj->set('key3', 'value3');
+
+        $estimatedData = $obj->getAllKeys();
+
+        $this->assertEquals([
+            'key1'  => 'value1',
+            'key2'  => 'value2',
+            'key3'  => 'value3'
+        ], $estimatedData);
+
+    }
+
+    public function testDirtyChildren()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->set('key1', 'value1');
+        $obj->save();
+
+        $obj2 = new ParseObject('TestClass');
+        $obj2->set('key2', 'value2');
+
+        $this->assertFalse($obj->isDirty());
+
+        $obj->set('innerObject', $obj2);
+
+        $this->assertTrue($obj->isDirty());
+
+        $obj->destroy();
+
+    }
+
+    public function testSetNullKey()
+    {
+        $this->setExpectedException('\Exception',
+            'key may not be null.');
+        $obj = new ParseObject('TestClass');
+        $obj->set(null, 'value');
+
+    }
+
+    public function testSetWithArrayValue()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'Must use setArray() or setAssociativeArray() for this value.'
+        );
+        $obj = new ParseObject('TestClass');
+        $obj->set('key', ['is-an-array' => 'yes']);
+        
+    }
+
+    public function testSetArrayNullKey()
+    {
+        $this->setExpectedException('\Exception',
+            'key may not be null.');
+        $obj = new ParseObject('TestClass');
+        $obj->setArray(null, ['is-an-array' => 'yes']);
+
+    }
+
+    public function testSetArrayWithNonArrayValue()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'Must use set() for non-array values.'
+        );
+        $obj = new ParseObject('TestClass');
+        $obj->setArray('key', 'not-an-array');
+
+    }
+
+    public function testAsocSetArrayNullKey()
+    {
+        $this->setExpectedException('\Exception',
+            'key may not be null.');
+        $obj = new ParseObject('TestClass');
+        $obj->setAssociativeArray(null, ['is-an-array' => 'yes']);
+
+    }
+
+    public function testAsocSetArrayWithNonArrayValue()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'Must use set() for non-array values.'
+        );
+        $obj = new ParseObject('TestClass');
+        $obj->setAssociativeArray('key', 'not-an-array');
+
+    }
+
+    public function testRemovingNullKey()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'key may not be null.'
+        );
+        $obj = new ParseObject('TestClass');
+        $obj->remove(null, 'value');
+
+    }
+
+    public function testRevert()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->set('key1', 'value1');
+        $obj->set('key2', 'value2');
+
+        $obj->revert();
+
+        $this->assertNull($obj->key1);
+        $this->assertNull($obj->key2);
+
+    }
+
+    public function testEmptyFetchAll()
+    {
+        $this->assertEmpty(ParseObject::fetchAll([]));
+
+    }
+
+    public function testFetchAllMixedClasses()
+    {
+        $this->setExpectedException('\Parse\ParseException',
+            'All objects should be of the same class.');
+
+        $objs = [];
+        $obj = new ParseObject('TestClass1');
+        $obj->save();
+        $objs[] = $obj;
+
+        $obj = new ParseObject('TestClass2');
+        $obj->save();
+        $objs[] = $obj;
+
+        ParseObject::fetchAll($objs);
+
+    }
+
+    public function testFetchAllUnsavedWithoutId()
+    {
+        $this->setExpectedException('\Parse\ParseException',
+            'All objects must have an ID.');
+
+        $objs = [];
+        $objs[] = new ParseObject('TestClass');
+        $objs[] = new ParseObject('TestClass');
+
+        ParseObject::fetchAll($objs);
+
+    }
+
+    public function testFetchAllUnsavedWithId()
+    {
+        $this->setExpectedException('\Parse\ParseException',
+            'All objects must exist on the server.');
+
+        $objs = [];
+        $objs[] = new ParseObject('TestClass', 'objectid1');
+        $objs[] = new ParseObject('TestClass', 'objectid2');
+
+        ParseObject::fetchAll($objs);
+    }
+
+    public function testRevertingUnsavedChangesViaFetch()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->set('montymxb', 'phpguy');
+        $obj->save();
+
+        $obj->set('montymxb', 'luaguy');
+
+        $obj->fetch();
+
+        $this->assertEquals('phpguy', $obj->montymxb);
+
+        $obj->destroy();
+
+    }
+
+    public function testMergeFromServer()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->set('key', 'value');
+        $obj->save();
+
+        $obj->_mergeAfterFetch([
+            '__type'    => 'className',
+            'key'       => 'new value',
+            'ACL'       => [
+                'u1'        => [
+                    'write'     => false,
+                    'read'      => true
+                ]
+            ]
+        ]);
+
+        $this->assertNull($obj->get('__type'));
+        $this->assertEquals('new value', $obj->get('key'));
+
+        $obj->destroy();
+
+    }
+
+    public function testDestroyingUnsaved()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->destroy();
+
+    }
+
+    public function testEncodeWithArray()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->setArray('arraykey', ['value1','value2']);
+
+        $encoded = json_decode($obj->_encode(), true);
+        $this->assertEquals($encoded['arraykey'], ['value1','value2']);
+
+    }
+
+    public function testToPointerWithoutId()
+    {
+        $this->setExpectedException('\Exception',
+            "Can't serialize an unsaved Parse.Object");
+        (new ParseObject('TestClass'))->_toPointer();
+
+    }
+
+    public function testGettingSharedACL()
+    {
+        $acl = new ParseACL();
+        $acl->_setShared(true);
+
+        $obj = new ParseObject('TestClass');
+        $obj->setACL($acl);
+
+        $copy = $obj->getACL();
+
+        $this->assertTrue($copy !== $acl);
+        $this->assertEquals($copy->_encode(), $acl->_encode());
+
+    }
+
+    public function testSubclassRegisterMissingParseClassName()
+    {
+        $this->setExpectedException('\Exception',
+            'Cannot register a subclass that does not have a parseClassName');
+        ParseObjectMock::registerSubclass();
+
+    }
+
+    public function testGetRegisteredSubclass()
+    {
+        $subclass = ParseObject::getRegisteredSubclass('_User');
+        $this->assertEquals('Parse\ParseUser', $subclass);
+
+        $subclass = ParseObject::getRegisteredSubclass('Unknown');
+        $this->assertTrue($subclass instanceof ParseObject);
+        $this->assertEquals('Unknown', $subclass->getClassName());
+
+    }
+
+    public function testGettingQueryForUnregisteredSubclass()
+    {
+        $this->setExpectedException('\Exception',
+            'Cannot create a query for an unregistered subclass.');
+        ParseObjectMock::query();
+    }
+
+    /**
+     * @group encode-encodable
+     */
+    public function testEncodeEncodable()
+    {
+        $obj = new ParseObject('TestClass');
+        // set an Encodable value
+        $encodable1 = new SetOperation(['key'=>'value']);
+        $obj->set('key1', $encodable1);
+
+        // set an Encodable array value
+        $encodable2 = new SetOperation(['anotherkey'=>'anothervalue']);
+        $obj->setArray('key2', [$encodable2]);
+
+        $encoded = json_decode($obj->_encode(), true);
+
+        $this->assertEquals($encoded['key1'], $encodable1->_encode());
+        $this->assertEquals($encoded['key2'][0], $encodable2->_encode());
+
     }
 }

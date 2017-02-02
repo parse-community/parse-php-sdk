@@ -548,7 +548,7 @@ class ParseACL implements Encodable
                 return self::$defaultACL;
             }
             if ($last != ParseUser::getCurrentUser()) {
-                self::$defaultACLWithCurrentUser = clone self::$defaultAC;
+                self::$defaultACLWithCurrentUser = clone self::$defaultACL;
                 self::$defaultACLWithCurrentUser->_setShared(true);
                 self::$defaultACLWithCurrentUser->setUserReadAccess(ParseUser::getCurrentUser(), true);
                 self::$defaultACLWithCurrentUser->setUserWriteAccess(ParseUser::getCurrentUser(), true);

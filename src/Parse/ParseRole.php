@@ -85,6 +85,13 @@ class ParseRole extends ParseObject
         return $this->getRelation('roles');
     }
 
+    /**
+     * Handles pre-saving of this role
+     * Calls ParseObject::save to finish
+     *
+     * @param bool $useMasterKey
+     * @throws ParseException
+     */
     public function save($useMasterKey = false)
     {
         if (!$this->getACL()) {
@@ -96,6 +103,17 @@ class ParseRole extends ParseObject
             throw new ParseException(
                 'Roles must have a name.'
             );
+        }
+        if($this->getObjectId() === null) {
+            // Not yet saved, verify this name is not taken
+            // ParseServer does not validate duplicate role names as of parse-server v2.3.2
+            $query = new ParseQuery('_Role');
+            $query->equalTo('name', $this->getName());
+            if($query->count(true) > 0) {
+                throw new ParseException("Cannot add duplicate role name of '{$this->getName()}'");
+
+            }
+
         }
 
         return parent::save($useMasterKey);

@@ -144,4 +144,48 @@ class ParseRelationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($results));
         $this->assertEquals($results[0]->getObjectId(), $parent2->getObjectId());
     }
+
+    /**
+     * @group relation-parent-set
+     */
+    public function testSwitchingParent()
+    {
+        // setup parent 1
+        $parent1 = new ParseObject('ParentObject');
+        $relation = $parent1->getRelation('children');
+
+        $child1 = new ParseObject('ChildObject');
+        $child1->set('name', 'child1');
+        $child1->save();
+
+        $child2 = new ParseObject('ChildObject');
+        $child2->set('name', 'child2');
+        $child2->save();
+        $relation->add([$child1, $child2]);
+        $parent1->save();
+
+        // setup parent 2
+        $parent2 = new ParseObject('ParentObject');
+        $relation = $parent2->getRelation('children');
+
+        $child = new ParseObject('ChildObject');
+        $child->set('name', 'child3');
+        $child->save();
+        $relation->add([$child]);
+        $parent2->save();
+
+        // get relation for parent one
+        $relation = $parent1->getRelation('children');
+
+        // switch parent to parent 2
+        $relation->setParent($parent2);
+
+        // get query for parent 2 instead now
+        $query = $relation->getQuery();
+        $children = $query->find();
+
+        $this->assertEquals(1, count($children));
+        $this->assertEquals('child3', $children[0]->get('name'));
+
+    }
 }

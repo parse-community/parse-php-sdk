@@ -2,6 +2,7 @@
 
 namespace Parse\Test;
 
+use Parse\ParseException;
 use Parse\ParseFile;
 use Parse\ParseObject;
 use Parse\ParseQuery;
@@ -24,7 +25,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         $file = ParseFile::_createFromServer('hi.txt', 'http://');
         $file2 = ParseFile::createFromData('hello', 'hi.txt');
         $file3 = ParseFile::createFromFile(
-            'ParseFileTest.php',
+            APPLICATION_PATH.'/tests/Parse/ParseFileTest.php',
             'file.php'
         );
         $this->assertEquals('http://', $file->getURL());
@@ -58,6 +59,44 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @group file-download-test
+     */
+    public function testParseFileDownloadUnsaved()
+    {
+        $this->setExpectedException('\Parse\ParseException',
+            'Cannot retrieve data for unsaved ParseFile.');
+        $file = ParseFile::createFromData(null, 'file.txt');
+        $file->getData();
+
+    }
+
+    /**
+     * @group file-download-test
+     */
+    public function testParsefileDeleteUnsaved()
+    {
+        $this->setExpectedException('\Parse\ParseException',
+            'Cannot delete file that has not been saved.');
+        $file = ParseFile::createFromData('a test file', 'file.txt');
+        $file->delete();
+
+    }
+
+    /**
+     * @group file-download-test
+     */
+    public function testParseFileDownloadBadURL()
+    {
+        $this->setExpectedException('\Parse\ParseException', '', 6);
+        $file = ParseFile::_createFromServer('file.txt', 'http://404.example.com');
+        $file->getData();
+
+    }
+
+    /**
+     * @group test-parsefile-round-trip
+     */
     public function testParseFileRoundTrip()
     {
         $contents = 'What would Bryan do?';
@@ -81,6 +120,11 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         $file2->save();
         $file3->save();
 
+        // check initial mime types after creating from data
+        $this->assertEquals('unknown/unknown', $file->getMimeType());
+        $this->assertEquals('text/plain', $file2->getMimeType());
+        $this->assertEquals('image/png', $file3->getMimeType());
+
         $fileAgain = ParseFile::_createFromServer($file->getName(), $file->getURL());
         $file2Again = ParseFile::_createFromServer($file2->getName(), $file2->getURL());
         $file3Again = ParseFile::_createFromServer($file3->getName(), $file3->getURL());
@@ -89,8 +133,9 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($contents, $file2Again->getData());
         $this->assertEquals($contents, $file3Again->getData());
 
-        $this->assertEquals('unknown/unknown', $fileAgain->getMimeType());
-        $this->assertEquals('text/plain', $file2Again->getMimeType());
+        // check mime types after calling getData
+        $this->assertEquals('application/octet-stream', $fileAgain->getMimeType());
+        $this->assertEquals('image/png', $file2Again->getMimeType());
         $this->assertEquals('image/png', $file3Again->getMimeType());
     }
 

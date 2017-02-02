@@ -24,7 +24,7 @@ class ParseApp
             'apps',
             null,
             null,
-            false,
+            true,
             true
         );
 
@@ -47,7 +47,7 @@ class ParseApp
             'apps/'.$application_id,
             null,
             null,
-            false,
+            true,
             true
         );
 
@@ -70,7 +70,7 @@ class ParseApp
             'apps',
             null,
             json_encode($data),
-            false,
+            true,
             true
         );
 
@@ -94,7 +94,7 @@ class ParseApp
             'apps/'.$application_id,
             null,
             json_encode($data),
-            false,
+            true,
             true
         );
 

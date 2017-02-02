@@ -2,6 +2,7 @@
 
 namespace Parse\Test;
 
+use Parse\ParseClient;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
@@ -51,6 +52,8 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $user = ParseUser::logIn('asdf', 'zxcv');
         $this->assertTrue($user->isAuthenticated());
         $this->assertEquals('asdf', $user->get('username'));
+
+        ParseUser::logOut();
     }
 
     public function testLoginEmptyUsername()
@@ -67,14 +70,14 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginWrongUsername()
     {
-        $this->setExpectedException('Parse\ParseException', 'invalid login');
+        $this->setExpectedException('Parse\ParseException', 'Invalid username/password.');
         $user = ParseUser::logIn('non_existent_user', 'bogus');
     }
 
     public function testLoginWrongPassword()
     {
         $this->testUserSignUp();
-        $this->setExpectedException('Parse\ParseException', 'invalid login');
+        $this->setExpectedException('Parse\ParseException', 'Invalid username/password.');
         $user = ParseUser::logIn('asdf', 'bogus');
     }
 
@@ -121,7 +124,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             'Parse\ParseException',
-            'UserCannotBeAlteredWithoutSession'
+            'Cannot modify user '.$user->getObjectId().'.'
         );
         $user->setUsername('changed');
         $user->save();
@@ -143,7 +146,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             'Parse\ParseException',
-            'UserCannotBeAlteredWithoutSession'
+            'insufficient auth to delete user'
         );
         $user->destroy();
     }
@@ -264,7 +267,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             'Parse\ParseException',
-            'no user found with email'
+            'No user found with email non_existent@example.com.'
         );
         ParseUser::requestPasswordReset('non_existent@example.com');
     }
@@ -459,5 +462,56 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($user->isKeyDirty('bleep'));
         $userAgain = ParseUser::getCurrentUser();
         $this->assertFalse($userAgain->isKeyDirty('bleep'));
+    }
+
+    /**
+     * @group anon-login
+     */
+    public function testAnonymousLogin()
+    {
+        $user = ParseUser::loginWithAnonymous();
+        $this->assertEquals(ParseUser::getCurrentUser(), $user);
+        ParseUser::logOut();
+
+    }
+
+    /**
+     * @group user-by-id-session
+     */
+    public function testGetCurrentUserByIdAndSession()
+    {
+        $user = new ParseUser();
+        $user->setUsername('plainusername');
+        $user->setPassword('plainpassword');
+        $user->signUp();
+
+        $id = $user->getObjectId();
+        $sessionToken = $user->getSessionToken();
+
+        $storage = ParseClient::getStorage();
+        ParseUser::_clearCurrentUserVariable();
+        $storage->remove('user');
+
+        $this->assertNull(ParseUser::getCurrentUser());
+
+        $storage->set('user',[
+            'id'            => $id,
+            '_sessionToken' => $sessionToken,
+            'moredata'      => 'moredata'
+        ]);
+
+        $currentUser = ParseUser::getCurrentUser();
+        $this->assertNotNull($currentUser);
+
+        $this->assertFalse($currentUser->isDataAvailable());
+        $currentUser->fetch();
+
+        $this->assertEquals('plainusername', $currentUser->getUsername());
+
+        // check our additional userdata as well
+        $this->assertEquals('moredata', $currentUser->get('moredata'));
+
+        ParseUser::logOut();
+
     }
 }

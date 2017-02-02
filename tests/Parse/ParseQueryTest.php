@@ -3,8 +3,10 @@
 namespace Parse\Test;
 
 use Parse\ParseACL;
+use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
+use Parse\ParseUser;
 
 class ParseQueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -155,6 +157,25 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testEndsWithSingle()
+    {
+        $this->provideTestObjects(10);
+        $query = new ParseQuery('TestObject');
+        $query->endsWith('foo', 'r0');
+        $results = $query->find();
+        $this->assertEquals(
+            count($results),
+            1,
+            'EndsWith function did not return correct number of objects.'
+        );
+        $this->assertEquals(
+            $results[0]->get('foo'),
+            'bar0',
+            'EndsWith function did not return the correct object.'
+        );
+
+    }
+
     public function testStartsWithSingle()
     {
         $this->provideTestObjects(10);
@@ -188,6 +209,14 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testStartsWithMiddle()
     {
+
+        $user = ParseUser::getCurrentUser();
+
+        if(isset($user)) {
+            throw new ParseException($user->_encode());
+
+        }
+
         $this->provideTestObjects(10);
         $query = new ParseQuery('TestObject');
         $query->startsWith('foo', 'ar');
@@ -424,7 +453,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     public function testFindWithError()
     {
         $query = new ParseQuery('TestObject');
-        $this->setExpectedException('Parse\ParseException', 'Invalid key', 102);
+        $this->setExpectedException('Parse\ParseException', 'Invalid key name: $foo', 105);
         $query->equalTo('$foo', 'bar');
         $query->find();
     }
@@ -487,7 +516,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $query = new ParseQuery('TestObject');
         $query->equalTo('$foo', 'bar');
-        $this->setExpectedException('Parse\ParseException', 'Invalid key', 102);
+        $this->setExpectedException('Parse\ParseException', 'Invalid key name: $foo', 105);
         $query->first();
     }
 
@@ -638,7 +667,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $query = new ParseQuery('Test');
         $query->equalTo('$foo', 'bar');
-        $this->setExpectedException('Parse\ParseException', 'Invalid key', 102);
+        $this->setExpectedException('Parse\ParseException', 'Invalid key name: $foo', 105);
         $query->count();
     }
 
@@ -1452,6 +1481,10 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @throws ParseException
+     * @group order-by-updated-at-desc
+     */
     public function testOrderByUpdatedAtDesc()
     {
         $numbers = [3, 1, 2];
@@ -1476,7 +1509,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
             count($results),
             'Did not return correct number of objects.'
         );
-        $expected = [4, 2, 3];
+        $expected = [4, 3, 2];
         for ($i = 0; $i < 3; ++$i) {
             $this->assertEquals(
                 $expected[$i],
@@ -1802,7 +1835,6 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
         $query = new ParseQuery('Parent');
         $query->includeKey('foo');
-        $this->setExpectedException('Parse\ParseException', '', 102);
         $results = $query->find();
         $this->assertEquals(
             1,
@@ -2026,5 +2058,44 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $count);
         $count = $query->count(true);
         $this->assertEquals(1, $count);
+    }
+
+    public function testAscendingByArray() {
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'John');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Bob');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Joel');
+        $obj->set('country', 'CA');
+        $obj->save();
+
+        $query = new ParseQuery('TestObject');
+        $query->ascending(['country','name']);
+        $results = $query->find();
+
+        $this->assertEquals(3, count($results));
+
+        $this->assertEquals('Joel', $results[0]->name);
+        $this->assertEquals('Bob', $results[1]->name);
+        $this->assertEquals('John', $results[2]->name);
+
+    }
+
+    public function testOrQueriesVaryingClasses()
+    {
+        $this->setExpectedException(\Exception::class,
+            'All queries must be for the same class');
+        ParseQuery::orQueries([
+            new ParseQuery('Class1'),
+            new ParseQuery('Class2')
+        ]);
+
     }
 }

@@ -217,7 +217,7 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         $objAgain->increment('randomkey');
         $this->setExpectedException(
             'Parse\ParseException',
-            'invalid type for key'
+            'schema mismatch for TestObject.randomkey; expected String but got Number'
         );
         $objAgain->save();
     }
@@ -234,8 +234,8 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         $obj->save();
         $this->setExpectedException(
             'Parse\ParseException',
-            'invalid type for key randomkeyagain, '.
-            'expected number, but got string'
+            'schema mismatch for TestObject.randomkeyagain; '.
+            'expected Number but got String'
         );
         $objAgain->save();
     }

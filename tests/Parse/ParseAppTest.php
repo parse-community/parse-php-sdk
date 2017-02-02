@@ -14,6 +14,9 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testFetchingApps()
     {
+        $this->setExpectedException('Parse\ParseException',
+            'unauthorized');
+
         self::_createApp(self::_getNewName());
         self::_createApp(self::_getNewName());
 
@@ -23,6 +26,9 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testFetchSingleApp()
     {
+        $this->setExpectedException('Parse\ParseException',
+            'unauthorized');
+
         $app_created = self::_createApp(self::_getNewName());
 
         $app = ParseApp::fetchApp($app_created['applicationId']);
@@ -34,12 +40,15 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
     {
         $invalid_application_id = '1YkU7V110nEDUqU7ctCEbLr6xcgQgdEkePuBaw6P';
 
-        $this->setExpectedException('Parse\ParseException', 'requested resource was not found');
+        $this->setExpectedException('Parse\ParseException', 'unauthorized');
         ParseApp::fetchApp($invalid_application_id);
     }
 
     public function testCreateApp()
     {
+        $this->setExpectedException('Parse\ParseException',
+            'unauthorized');
+
         $app_name = self::_getNewName();
 
         $app = ParseApp::createApp([
@@ -55,6 +64,9 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testNameAlreadyInAccount()
     {
+        $this->setExpectedException('Parse\ParseException',
+            'unauthorized');
+
         $app_name = self::_getNewName();
 
         ParseApp::createApp([
@@ -69,6 +81,9 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testUpdateApp()
     {
+        $this->setExpectedException('Parse\ParseException',
+            'unauthorized');
+
         $app_name = self::_getNewName();
         $updated_name = self::_getNewName();
         $this->assertNotEquals($app_name, $updated_name);
