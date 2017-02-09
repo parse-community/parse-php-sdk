@@ -45,7 +45,7 @@ After including the required files from the SDK, you need to initalize the Parse
 ```php
 ParseClient::initialize( $app_id, $rest_key, $master_key );
 // Users of Parse Server will need to point ParseClient at their remote URL and Mount Point:
-ParseClient::setServerURL('https://my-parse-server.com','parse');
+ParseClient::setServerURL('https://my-parse-server.com:port','parse');
 ```
 
 If your server does not use or require a REST key you may initialize the ParseClient as follows, safely omitting the REST key:
@@ -53,8 +53,15 @@ If your server does not use or require a REST key you may initialize the ParseCl
 ```php
 ParseClient::initialize( $app_id, null, $master_key );
 // Users of Parse Server will need to point ParseClient at their remote URL and Mount Point:
-ParseClient::setServerURL('https://my-parse-server.com','parse');
+ParseClient::setServerURL('https://my-parse-server.com:port','parse');
 ```
+
+Notice
+Parse server's default port is `1337` and the second parameter `parse` is the route prefix of your parse server.
+
+For example if your parse server's url is `http://example.com:1337/parse` then you can set the server url using the following snippet
+
+`ParseClient::setServerURL('https://example.com:1337','parse');`
 
 Usage
 -----
