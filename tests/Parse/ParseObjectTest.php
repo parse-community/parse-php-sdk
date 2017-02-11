@@ -6,6 +6,7 @@ use Parse\Internal\SetOperation;
 use Parse\ParseACL;
 use Parse\ParseInstallation;
 use Parse\ParseObject;
+use Parse\ParsePushStatus;
 use Parse\ParseQuery;
 use Parse\ParseRole;
 use Parse\ParseSession;
@@ -997,6 +998,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         ParseRole::_unregisterSubclass();
         ParseInstallation::_unregisterSubclass();
         ParseSession::_unregisterSubclass();
+        ParsePushStatus::_unregisterSubclass();
 
         new ParseObject('TestClass');
 

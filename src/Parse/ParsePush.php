@@ -77,4 +77,50 @@ class ParsePush
             true
         );
     }
+
+    /**
+     * Returns whether or not the given response has a push status
+     * Checks to see if X-Push-Status-Id is present in $response
+     *
+     * @param array $response    Response from ParsePush::send
+     * @return bool
+     */
+    public static function hasStatus($response)
+    {
+        return(
+            isset($response['_headers']) &&
+            isset($response['_headers']['X-Parse-Push-Status-Id'])
+        );
+
+    }
+
+    /**
+     * Returns the PushStatus for a response from ParsePush::send
+     *
+     * @param array $response   Response from ParsePush::send
+     * @return null|ParsePushStatus
+     */
+    public static function getStatus($response)
+    {
+        if(!isset($response['_headers'])) {
+            // missing headers
+            return null;
+
+        }
+
+        $headers = $response['_headers'];
+
+        if(!isset($headers['X-Parse-Push-Status-Id'])) {
+            // missing push status id
+            return null;
+
+        }
+
+        // get our push status id
+        $pushStatusId = $response['_headers']['X-Parse-Push-Status-Id'];
+
+        // return our push status if it exists
+        return ParsePushStatus::getFromId($pushStatusId);
+
+    }
 }

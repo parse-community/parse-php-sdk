@@ -2098,4 +2098,35 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         ]);
 
     }
+
+    /**
+     * @group query-set-conditions
+     */
+    public function testSetConditions()
+    {
+        $query = new ParseQuery('TestObject');
+        $query->_setConditions([
+            [
+                'key'  => 'value'
+            ]
+        ]);
+
+        $this->assertEquals([
+            'where' => [
+                [
+                    'key'   => 'value'
+                ]
+            ]
+        ], $query->_getOptions());
+    }
+
+    public function testBadConditions()
+    {
+        $this->setExpectedException(ParseException::class,
+            "Conditions must be in an array");
+
+        $query = new ParseQuery('TestObject');
+        $query->_setConditions('not-an-array');
+
+    }
 }

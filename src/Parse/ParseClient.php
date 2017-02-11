@@ -122,6 +122,10 @@ final class ParseClient
             ParseInstallation::registerSubclass();
         }
 
+        if(!ParseObject::hasRegisteredSubclass('_PushStatus')) {
+            ParsePushStatus::registerSubclass();
+        }
+
         ParseSession::registerSubclass();
         self::$applicationId = $app_id;
         self::$restKey = $rest_key;
