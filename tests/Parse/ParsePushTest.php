@@ -41,6 +41,46 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
         , true);
     }
 
+    /**
+     * @group parse-push
+     */
+    public function testMissingWhereAndChannels()
+    {
+        $this->setExpectedException(ParseException::class,
+            "Sending a push requires either \"channels\" or a \"where\" query.");
+
+        ParsePush::send([
+            'data'  => [
+                'alert' => 'are we missing something?'
+            ]
+        ], true);
+
+    }
+
+    /**
+     * @group parse-push
+     */
+    public function testWhereAndChannels()
+    {
+        $this->setExpectedException(ParseException::class,
+            "Channels and query can not be set at the same time.");
+
+        $query = ParseInstallation::query();
+        $query->equalTo('key', 'value');
+
+        ParsePush::send([
+            'data'      => [
+                'alert'     => 'too many limits'
+            ],
+            'channels'  => [
+                'PushFans',
+                'PHPFans'
+            ],
+            'where'     => $query
+        ], true);
+
+    }
+
     public function testPushToQuery()
     {
         $query = ParseInstallation::query();
