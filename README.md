@@ -213,14 +213,17 @@ Push:
 ```php
 $data = array("alert" => "Hi!");
 
-// Parse Server requires the master key for sending push.  Pass true as the second parameter.
-ParsePush::send($data, true);
+// Parse Server has a few requirements:
+// - The master key is required for sending pushes, pass true as the second parameter
+// - You must set your recipients by using 'channels' or 'where', but you must not pass both
+
 
 // Push to Channels
 ParsePush::send(array(
     "channels" => ["PHPFans"],
     "data" => $data
 ), true);
+
 
 // Push to Query
 $query = ParseInstallation::query();
@@ -231,8 +234,13 @@ ParsePush::send(array(
     "data" => $data
 ), true);
 
+
 // Get Push Status
-$response = ParsePush::send($data, true);
+$response = ParsePush::send(array(
+    "channels" => ["StatusFans"],
+    "data" => $data
+), true);
+
 if(ParsePush::hasStatus($response)) {
 
     // Retrieve PushStatus object
