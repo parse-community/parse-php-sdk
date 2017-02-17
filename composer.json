@@ -30,10 +30,5 @@
         "psr-4": {
             "Parse\\Test\\": "tests/Parse/"
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.1-dev"
-        }
     }
 }
