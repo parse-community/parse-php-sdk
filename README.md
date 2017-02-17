@@ -210,6 +210,8 @@ $file = ParseFile::createFromData($contents, "Parse.txt", "text/plain");
 
 Push:
 
+In order to use Push you must first configure a [working push configuration](https://parseplatform.github.io/docs/parse-server/guide/#push-notifications) in your parse server instance.
+
 ```php
 $data = array("alert" => "Hi!");
 
