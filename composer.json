@@ -1,5 +1,5 @@
 {
-    "name": "parse/php-sdk",
+    "name": "evaldas-leliuga/parse-php-sdk",
     "description": "Parse PHP SDK",
     "keywords": ["parse", "sdk"],
     "type": "library",
