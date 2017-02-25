@@ -40,6 +40,9 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @group file-upload-test
+     */
     public function testParseFileUpload()
     {
         $file = ParseFile::createFromData('Fosco', 'test.txt');

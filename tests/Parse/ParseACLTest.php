@@ -34,6 +34,9 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @group acl-one-user
+     */
     public function testACLAnObjectOwnedByOneUser()
     {
         $user = new ParseUser();

@@ -97,6 +97,9 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @group explicit-role-acl
+     */
     public function testExplicitRoleACL()
     {
         $eden = $this->createEden();

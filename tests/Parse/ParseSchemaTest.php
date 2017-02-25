@@ -10,6 +10,9 @@
  */
 namespace Parse\Test;
 
+use Parse\HttpClients\ParseCurlHttpClient;
+use Parse\HttpClients\ParseStreamHttpClient;
+use Parse\ParseClient;
 use Parse\ParseException;
 use Parse\ParseSchema;
 use Parse\ParseUser;
@@ -35,6 +38,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
     {
         self::$schema = new ParseSchema('SchemaTest');
         Helper::clearClass('_User');
+        Helper::setHttpClient();
 
     }
 
@@ -133,8 +137,10 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema_2->delete();
     }
 
-    public function testUpdateSchema()
+    public function testUpdateSchemaStream()
     {
+        ParseClient::setHttpClient(new ParseStreamHttpClient());
+
         // create
         $schema = self::$schema;
         $schema->addString('name');
@@ -153,6 +159,32 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertNotNull($result['fields']['quantity']);
         $this->assertNotNull($result['fields']['status']);
+
+    }
+
+    public function testUpdateSchemaCurl()
+    {
+        ParseClient::setHttpClient(new ParseCurlHttpClient());
+
+        // create
+        $schema = self::$schema;
+        $schema->addString('name');
+        $schema->save();
+        // update
+        $schema->deleteField('name');
+        $schema->addNumber('quantity');
+        $schema->addField('status', 'Boolean');
+        $schema->update();
+        // get
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+
+        if (isset($result['fields']['name'])) {
+            $this->fail('Field not deleted in update action');
+        }
+        $this->assertNotNull($result['fields']['quantity']);
+        $this->assertNotNull($result['fields']['status']);
+
     }
 
     public function testUpdateWrongFieldType()
@@ -302,8 +334,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaGet()
     {
-        $this->setExpectedException(ParseException::class,
-            'Empty reply from server');
+        $this->setExpectedException(ParseException::class);
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -320,8 +351,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaSave()
     {
-        $this->setExpectedException(ParseException::class,
-            'Empty reply from server');
+        $this->setExpectedException(ParseException::class);
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -338,8 +368,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaUpdate()
     {
-        $this->setExpectedException(ParseException::class,
-            'Empty reply from server');
+        $this->setExpectedException(ParseException::class);
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -356,8 +385,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaDelete()
     {
-        $this->setExpectedException(ParseException::class,
-            'Empty reply from server');
+        $this->setExpectedException(ParseException::class);
 
         $user = new ParseUser();
         $user->setUsername('schema-user');

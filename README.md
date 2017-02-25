@@ -40,7 +40,7 @@ require 'autoload.php';
 Initialization
 ---------------
 
-After including the required files from the SDK, you need to initalize the ParseClient using your Parse API keys:
+After including the required files from the SDK, you need to initialize the ParseClient using your Parse API keys:
 
 ```php
 ParseClient::initialize( $app_id, $rest_key, $master_key );
@@ -62,6 +62,43 @@ Parse server's default port is `1337` and the second parameter `parse` is the ro
 For example if your parse server's url is `http://example.com:1337/parse` then you can set the server url using the following snippet
 
 `ParseClient::setServerURL('https://example.com:1337','parse');`
+
+
+Http Clients
+------------
+
+This SDK has the ability to change the underlying http client at your convenience.
+The default is to use the curl http client if none is set, there is also a stream http client that can be used as well.
+
+Setting the http client can be done as follows:
+```php
+// set curl http client (default if none set)
+ParseClient::setHttpClient(new ParseCurlHttpClient());
+
+// set stream http client
+// ** requires 'allow_url_fopen' to be enabled in php.ini ** 
+ParseClient::setHttpClient(new ParseStreamHttpClient());
+```
+
+If you have a need for an additional http client you can request one by opening an issue or by submitting a PR.
+
+If you wish to build one yourself make sure your http client implements ```ParseHttpable``` for it be compatible with the SDK. Once you have a working http client that enhances the SDK feel free to submit it in a PR so we can look into adding it in.
+
+
+Alternate Certificate Authority File
+------------------------------------
+
+It is possible that your local setup may not be able to verify with peers over SSL/TLS. This may especially be the case if you do not have control over your local installation, such as for shared hosting.
+
+If this is the case you may need to specify a Certificate Authority bundle. You can download such a bundle from (http://curl.haxx.se/ca/cacert.pem)[http://curl.haxx.se/ca/cacert.pem] to use for this purpose. This one happens to be a Mozilla CA certificate store, you don't necessarily have to use this one but it's recommended.
+
+Once you have your bundle you can set it as follows:
+```php
+// ** Use an Absolute path for your file! **
+// holds one or more certificates to verify the peer with
+ParseClient::setCAFile(__DIR__ . '/certs/cacert.pem');
+```
+
 
 Usage
 -----

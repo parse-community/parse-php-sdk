@@ -2,8 +2,11 @@
 
 namespace Parse\Test;
 
+use Parse\HttpClients\ParseCurlHttpClient;
+use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\Internal\SetOperation;
 use Parse\ParseACL;
+use Parse\ParseClient;
 use Parse\ParseInstallation;
 use Parse\ParseObject;
 use Parse\ParsePushStatus;
@@ -17,6 +20,11 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         Helper::setUp();
+    }
+
+    public function setUp()
+    {
+        Helper::setHttpClient();
     }
 
     public function tearDown()
@@ -89,8 +97,10 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test', $t2->get('test'), 'Fetch failed.');
     }
 
-    public function testDelete()
+    public function testDeleteStream()
     {
+        ParseClient::setHttpClient(new ParseStreamHttpClient());
+
         $obj = ParseObject::create('TestObject');
         $obj->set('foo', 'bar');
         $obj->save();
@@ -98,6 +108,21 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $query = new ParseQuery('TestObject');
         $this->setExpectedException('Parse\ParseException', 'Object not found');
         $out = $query->get($obj->getObjectId());
+
+    }
+
+    public function testDeleteCurl()
+    {
+        ParseClient::setHttpClient(new ParseCurlHttpClient());
+
+        $obj = ParseObject::create('TestObject');
+        $obj->set('foo', 'bar');
+        $obj->save();
+        $obj->destroy();
+        $query = new ParseQuery('TestObject');
+        $this->setExpectedException('Parse\ParseException', 'Object not found');
+        $out = $query->get($obj->getObjectId());
+
     }
 
     public function testFind()
@@ -895,8 +920,10 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($childSimultaneous->isDirty());
     }
 
-    public function testSaveAll()
+    public function testSaveAllStream()
     {
+        ParseClient::setHttpClient(new ParseStreamHttpClient());
+
         Helper::clearClass('TestObject');
         $objs = [];
         for ($i = 1; $i <= 90; $i++) {
@@ -908,8 +935,30 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $query = new ParseQuery('TestObject');
         $result = $query->find();
         $this->assertEquals(90, count($result));
+
     }
 
+    public function testSaveAllCurl()
+    {
+        ParseClient::setHttpClient(new ParseCurlHttpClient());
+
+        Helper::clearClass('TestObject');
+        $objs = [];
+        for ($i = 1; $i <= 90; $i++) {
+            $obj = ParseObject::create('TestObject');
+            $obj->set('test', 'test');
+            $objs[] = $obj;
+        }
+        ParseObject::saveAll($objs);
+        $query = new ParseQuery('TestObject');
+        $result = $query->find();
+        $this->assertEquals(90, count($result));
+
+    }
+
+    /**
+     * @group test-empty-objects-arrays
+     */
     public function testEmptyObjectsAndArrays()
     {
         $obj = ParseObject::create('TestObject');
