@@ -2,7 +2,10 @@
 
 namespace Parse\Test;
 
+use Parse\HttpClients\ParseCurlHttpClient;
+use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\ParseClient;
+use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
@@ -47,6 +50,29 @@ class Helper
             self::$accountKey
         );
         self::setServerURL();
+        self::setHttpClient();
+
+    }
+
+    public static function setHttpClient()
+    {
+        //
+        // Set a curl http client to run primary tests under
+        // may be:
+        //
+        // ParseCurlHttpClient
+        // ParseStreamHttpClient
+        //
+
+        if(function_exists('curl_init')) {
+            // cURL client
+            ParseClient::setHttpClient(new ParseCurlHttpClient());
+
+        } else {
+            // stream client
+            ParseClient::setHttpClient(new ParseStreamHttpClient());
+        }
+
     }
 
     public static function setServerURL()

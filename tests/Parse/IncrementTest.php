@@ -18,6 +18,9 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         Helper::tearDown();
     }
 
+    /**
+     * @group fresh-increment
+     */
     public function testIncrementOnFreshObject()
     {
         $obj = ParseObject::create('TestObject');
@@ -184,6 +187,9 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @group increment-empty
+     */
     public function testIncrementEmptyField()
     {
         $obj = ParseObject::create('TestObject');
@@ -205,6 +211,9 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @group empty-field-type-conflict
+     */
     public function testIncrementEmptyFieldAndTypeConflict()
     {
         $obj = ParseObject::create('TestObject');

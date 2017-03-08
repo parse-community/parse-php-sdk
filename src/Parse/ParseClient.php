@@ -3,7 +3,9 @@
 namespace Parse;
 
 use Exception;
-use InvalidArgumentException;
+use Parse\HttpClients\ParseCurlHttpClient;
+use Parse\HttpClients\ParseHttpable;
+use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\Internal\Encodable;
 
 /**
@@ -91,11 +93,25 @@ final class ParseClient
     private static $timeout;
 
     /**
+     * Http client for requests
+     *
+     * @var ParseHttpable
+     */
+    private static $httpClient;
+
+    /**
+     * CA file holding one or more certificates to verify a peer
+     *
+     * @var string
+     */
+    private static $caFile;
+
+    /**
      * Constant for version string to include with requests.
      *
      * @var string
      */
-    const VERSION_STRING = 'php1.2.1';
+    const VERSION_STRING = 'php1.2.2';
 
     /**
      * Parse\Client::initialize, must be called before using Parse features.
@@ -143,7 +159,7 @@ final class ParseClient
 
     /**
      * ParseClient::setServerURL, to change the Parse Server address & mount path for this app
-     * @param string $serverUrl     The remote server url
+     * @param string $serverURL     The remote server url
      * @param string $mountPath     The mount path for this server
      *
      * @throws \Exception
@@ -165,6 +181,56 @@ final class ParseClient
             // root path should have no mount path
             self::$mountPath = "";
         }
+    }
+
+    /**
+     * Sets the Http client to use for requests
+     *
+     * @param ParseHttpable $httpClient Http client to use
+     */
+    public static function setHttpClient(ParseHttpable $httpClient)
+    {
+        self::$httpClient = $httpClient;
+
+    }
+
+    /**
+     * Gets the current Http client, or creates one to suite the need
+     *
+     * @return ParseHttpable
+     */
+    public static function getHttpClient()
+    {
+        if (static::$httpClient) {
+            // use existing client
+            return static::$httpClient;
+
+        } else {
+            // default to cURL/stream
+            return function_exists('curl_init') ? new ParseCurlHttpClient() : new ParseStreamHttpClient();
+
+        }
+
+    }
+
+    /**
+     * Clears the currently set http client
+     */
+    public static function clearHttpClient()
+    {
+        self::$httpClient = null;
+
+    }
+
+    /**
+     * Sets a CA file to validate peers of our requests with
+     *
+     * @param string $caFile    CA file to set
+     */
+    public static function setCAFile($caFile)
+    {
+        self::$caFile = $caFile;
+
     }
 
     /**
@@ -326,80 +392,104 @@ final class ParseClient
         if ($data === '[]') {
             $data = '{}';
         }
+
+        // get our http client
+        $httpClient = self::getHttpClient();
+
+        // setup
+        $httpClient->setup();
+
+        if(isset(self::$caFile)) {
+            // set CA file
+            $httpClient->setCAFile(self::$caFile);
+
+        }
+
         if ($appRequest) {
-            // 'app' requests are not available in open source parse-server
+            // ** 'app' requests are not available in open source parse-server
             self::assertAppInitialized();
-            $headers = self::_getAppRequestHeaders();
+
+            $httpClient->addRequestHeader('X-Parse-Account-Key', self::$accountKey);
 
         } else {
             self::assertParseInitialized();
-            $headers = self::_getRequestHeaders($sessionToken, $useMasterKey);
+
+            // add appId & client version
+            $httpClient->addRequestHeader('X-Parse-Application-Id', self::$applicationId);
+            $httpClient->addRequestHeader('X-Parse-Client-Version', self::VERSION_STRING);
+
+
+            if ($sessionToken) {
+                // add our current session token
+                $httpClient->addRequestHeader('X-Parse-Session-Token', $sessionToken);
+
+            }
+
+            if ($useMasterKey) {
+                // pass master key
+                $httpClient->addRequestHeader('X-Parse-Master-Key', self::$masterKey);
+
+            } else if(isset(self::$restKey)) {
+                // pass REST key
+                $httpClient->addRequestHeader('X-Parse-REST-API-Key', self::$restKey);
+
+            }
+
+            if (self::$forceRevocableSession) {
+                // indicate we are using revocable sessions
+                $httpClient->addRequestHeader('X-Parse-Revocable-Session', '1');
+
+            }
+
         }
 
-        $url = self::$serverURL.'/'.self::$mountPath.ltrim($relativeUrl, '/');
+        /*
+         * Set an empty Expect header to stop the 100-continue behavior for post
+         *     data greater than 1024 bytes.
+         *     http://pilif.github.io/2007/02/the-return-of-except-100-continue/
+         */
+        $httpClient->addRequestHeader('Expect', '');
 
-        if ($method === 'GET' && !empty($data)) {
-            $url .= '?'.http_build_query($data);
+        // create request url
+        $url = self::$serverURL . '/' . self::$mountPath.ltrim($relativeUrl, '/');
+
+        if($method === 'POST' || $method === 'PUT') {
+            // add content type to the request
+            $httpClient->addRequestHeader('Content-type', $contentType);
+
         }
-
-        $rest = curl_init();
-        curl_setopt($rest, CURLOPT_URL, $url);
-        curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
-
-        if ($method === 'POST') {
-            $headers[] = 'Content-Type: '.$contentType;
-            curl_setopt($rest, CURLOPT_POST, 1);
-            curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
-        }
-
-        if ($method === 'PUT') {
-            $headers[] = 'Content-Type: '.$contentType;
-            curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
-            curl_setopt($rest, CURLOPT_POSTFIELDS, $data);
-        }
-
-        if ($method === 'DELETE') {
-            curl_setopt($rest, CURLOPT_CUSTOMREQUEST, $method);
-        }
-
-        curl_setopt($rest, CURLOPT_HTTPHEADER, $headers);
 
         if (!is_null(self::$connectionTimeout)) {
-            curl_setopt($rest, CURLOPT_CONNECTTIMEOUT, self::$connectionTimeout);
+            // set connection timeout
+            $httpClient->setConnectionTimeout(self::$connectionTimeout);
+
         }
 
         if (!is_null(self::$timeout)) {
-            curl_setopt($rest, CURLOPT_TIMEOUT, self::$timeout);
+            // set request/response timeout
+            $httpClient->setTimeout(self::$timeout);
+
         }
 
-        if ($returnHeaders) {
-            curl_setopt($rest, CURLOPT_HEADER, 1);
-            curl_setopt($rest, CURLOPT_FOLLOWLOCATION, true);
-        }
+        // send our request
+        $response = $httpClient->send($url, $method, $data);
 
-        $response = curl_exec($rest);
-        $status = curl_getinfo($rest, CURLINFO_HTTP_CODE);
-        $contentType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
-        if (curl_errno($rest)) {
-            if (self::$enableCurlExceptions) {
-                throw new ParseException(curl_error($rest), curl_errno($rest));
-            } else {
-                return false;
-            }
-        }
+        // check content type of our response
+        $contentType = $httpClient->getResponseContentType();
 
-        $headerData = [];
-
-        if ($returnHeaders) {
-            $headerSize = curl_getinfo($rest, CURLINFO_HEADER_SIZE);
-            $headerContent = substr($response, 0, $headerSize);
-            $headerData = self::parseCurlHeaders($headerContent);
-            $response = substr($response, $headerSize);
-        }
-
-        curl_close($rest);
         if (strpos($contentType, 'text/html') !== false) {
             throw new ParseException('Bad Request', -1);
+
+        }
+
+        if($httpClient->getErrorCode()) {
+            if(self::$enableCurlExceptions) {
+                throw new ParseException($httpClient->getErrorMessage(), $httpClient->getErrorCode());
+
+            } else {
+                return false;
+
+            }
         }
 
         $decoded = json_decode($response, true);
@@ -414,54 +504,12 @@ final class ParseClient
         }
 
         if ($returnHeaders) {
-            $decoded['_headers'] = $headerData;
+            $decoded['_headers'] = $httpClient->getResponseHeaders();
+
         }
 
         return $decoded;
-    }
 
-    /**
-     * ParseClient::parseCurlHeaders, will parse headers data and returns it as array.
-     * @param $headerContent
-     *
-     * @return array
-     */
-    private static function parseCurlHeaders($headerContent)
-    {
-        $headers = [];
-        $headersContentSet = explode("\r\n\r\n", $headerContent);
-        $withRedirect = count($headersContentSet) > 2;
-
-        if ($withRedirect) {
-            $headers['_previous'] = [];
-        }
-
-        foreach ($headersContentSet as $headerIndex => $headersData) {
-            if (empty($headersData)) {
-                continue;
-            }
-
-            if ($withRedirect && $headerIndex === 0) {
-                $storage = &$headers['_previous'];
-            } else {
-                $storage = &$headers;
-            }
-
-            $exploded = explode("\r\n", $headersData);
-
-            foreach ($exploded as $i => $line) {
-                if (empty($line)) {
-                    continue;
-                } elseif ($i === 0) {
-                    $storage['http_status'] = $line;
-                } else {
-                    list ($headerName, $headerValue) = explode(': ', $line);
-                    $storage[$headerName] = $headerValue;
-                }
-            }
-        }
-
-        return $headers;
     }
 
     /**
@@ -511,63 +559,12 @@ final class ParseClient
      */
     private static function assertAppInitialized()
     {
-        if (self::$accountKey === null) {
+        if (self::$accountKey === null || empty(self::$accountKey)) {
             throw new Exception(
-                'You must call Parse::initialize(..., $accountKey) before making any requests.'
+                'You must call Parse::initialize(..., $accountKey) before making any app requests. '.
+                'Your account key must not be null or empty.'
             );
         }
-    }
-
-    /**
-     * @param $sessionToken
-     * @param $useMasterKey
-     *
-     * @return array
-     */
-    public static function _getRequestHeaders($sessionToken, $useMasterKey)
-    {
-        $headers = ['X-Parse-Application-Id: '.self::$applicationId,
-            'X-Parse-Client-Version: '.self::VERSION_STRING, ];
-        if ($sessionToken) {
-            $headers[] = 'X-Parse-Session-Token: '.$sessionToken;
-        }
-        if ($useMasterKey) {
-            $headers[] = 'X-Parse-Master-Key: '.self::$masterKey;
-        } else if(isset(self::$restKey)) {
-            $headers[] = 'X-Parse-REST-API-Key: '.self::$restKey;
-        }
-        if (self::$forceRevocableSession) {
-            $headers[] = 'X-Parse-Revocable-Session: 1';
-        }
-        /*
-         * Set an empty Expect header to stop the 100-continue behavior for post
-         *     data greater than 1024 bytes.
-         *     http://pilif.github.io/2007/02/the-return-of-except-100-continue/
-         */
-        $headers[] = 'Expect: ';
-
-        return $headers;
-    }
-
-    /**
-     * @return array
-     */
-    public static function _getAppRequestHeaders()
-    {
-        if (is_null(self::$accountKey) || empty(self::$accountKey)) {
-            throw new InvalidArgumentException('A account key is required and can not be null or empty');
-        } else {
-            $headers[] = 'X-Parse-Account-Key: '.self::$accountKey;
-        }
-
-        /*
-         * Set an empty Expect header to stop the 100-continue behavior for post
-         *     data greater than 1024 bytes.
-         *     http://pilif.github.io/2007/02/the-return-of-except-100-continue/
-         */
-        $headers[] = 'Expect: ';
-
-        return $headers;
     }
 
     /**
