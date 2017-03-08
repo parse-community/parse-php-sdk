@@ -90,7 +90,7 @@ Alternate Certificate Authority File
 
 It is possible that your local setup may not be able to verify with peers over SSL/TLS. This may especially be the case if you do not have control over your local installation, such as for shared hosting.
 
-If this is the case you may need to specify a Certificate Authority bundle. You can download such a bundle from (http://curl.haxx.se/ca/cacert.pem)[http://curl.haxx.se/ca/cacert.pem] to use for this purpose. This one happens to be a Mozilla CA certificate store, you don't necessarily have to use this one but it's recommended.
+If this is the case you may need to specify a Certificate Authority bundle. You can download such a bundle from <a href="http://curl.haxx.se/ca/cacert.pem">http://curl.haxx.se/ca/cacert.pem</a> to use for this purpose. This one happens to be a Mozilla CA certificate store, you don't necessarily have to use this one but it's recommended.
 
 Once you have your bundle you can set it as follows:
 ```php
