@@ -1149,6 +1149,9 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @group dirty-children
+     */
     public function testDirtyChildren()
     {
         $obj = new ParseObject('TestClass');
@@ -1161,10 +1164,51 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($obj->isDirty());
 
         $obj->set('innerObject', $obj2);
+        $this->assertTrue($obj->isDirty());
+
+        $this->assertTrue($obj2->isDirty());
+
+        $obj->save();
+        $this->assertFalse($obj->isDirty());
+        $this->assertFalse($obj2->isDirty());
+
+
+        // update the child again
+        $obj2->set('key2', 'an unsaved value');
+        $this->assertTrue($obj->isDirty());
+        $obj->save();
+
+
+        // test setting a child in child
+        $obj3 = new ParseObject('TestClass');
+        $obj3->set('key2', 'child of child');
+        $obj2->set('innerObject', $obj3);
 
         $this->assertTrue($obj->isDirty());
 
+        $obj2->save();
+        $this->assertFalse($obj->isDirty());
+
+        $obj3->set('key2', 'an unsaved value 2');
+        $this->assertTrue($obj->isDirty());
+
+
+        // test setting a child in child in child!
+        $obj4 = new ParseObject('TestClass');
+        $obj4->set('key2', 'child of child of child!');
+        $obj3->set('innerObject', $obj4);
+
+        $this->assertTrue($obj->isDirty());
+
+        $obj3->save();
+        $this->assertFalse($obj->isDirty());
+
+        $obj4->set('key2', 'an unsaved value 3');
+        $this->assertTrue($obj->isDirty());
+
         $obj->destroy();
+        $obj2->destroy();
+        $obj3->destroy();
 
     }
 
