@@ -188,4 +188,35 @@ class ParseRelationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('child3', $children[0]->get('name'));
 
     }
+
+    /**
+     * Verifies bi directional relations can be saved when an array of pointers is used and is in dirty state
+     * @author zeliard91
+     * @group bidir-test
+     */
+    public function testBiDirectionalRelations()
+    {
+        Helper::clearClass('BiParent');
+        Helper::clearClass('BiChild');
+
+        $parent = new ParseObject('BiParent');
+
+        $child = new ParseObject('BiChild');
+        $child->set('name', 'Child');
+        $child->set('parent', $parent);
+
+        $child->save();
+        $parent->save();
+
+        $child2 = new ParseObject('BiChild');
+        $child2->set('name', 'Child 2');
+        $child2->set('parent', $parent);
+
+        $parent->setArray('children', [$child, $child2]);
+
+        $child2->save();
+        $parent->save();
+
+    }
+
 }

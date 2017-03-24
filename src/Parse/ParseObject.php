@@ -279,7 +279,7 @@ class ParseObject implements Encodable
             $this->estimatedData,
             function ($object) use (&$result) {
                 if ($object instanceof ParseObject) {
-                    if ($object->isDirty()) {
+                    if ($object->_isDirty(false)) {
                         $result = true;
                     }
                 }
