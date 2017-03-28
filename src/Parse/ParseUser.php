@@ -180,6 +180,69 @@ class ParseUser extends ParseObject
     }
 
     /**
+     * Logs in with Twitter details, or throws if invalid.
+     *
+     * @param string $id                the Twitter user identifier
+     * @param string $screen_name       the user's Twitter handle
+     * @param string $consumer_key      the application's consumer key
+     * @param string $consumer_secret   the application's consumer secret
+     * @param string $auth_token        the authorized Twitter token for the user
+     * @param string $auth_token_secret the secret associated with $auth_token
+     *
+     * @throws ParseException
+     *
+     * @return ParseUser
+     */
+    public static function logInWithTwitter($id, $screen_name, $consumer_key, $consumer_secret, $auth_token, $auth_token_secret)
+    {
+        if (!$id) {
+            throw new ParseException('Cannot log in Twitter user without an id.');
+        }
+        if (!$screen_name) {
+            throw new ParseException(
+                'Cannot log in Twitter user without Twitter screen name.'
+            );
+        }
+        if (!$consumer_key) {
+            throw new ParseException(
+                'Cannot log in Twitter user without a consumer key.'
+            );
+        }
+        if (!$consumer_secret) {
+            throw new ParseException(
+                'Cannot log in Twitter user without a consumer secret.'
+            );
+        }
+        if (!$auth_token) {
+            throw new ParseException(
+                'Cannot log in Twitter user without an auth token.'
+            );
+        }
+        if (!$auth_token_secret) {
+            throw new ParseException(
+                'Cannot log in Twitter user without an auth token secret.'
+            );
+        }
+        $data = ['authData' => [
+            'twitter' => [
+                'id'                => $id,
+                'screen_name'       => $screen_name,
+                'consumer_key'      => $consumer_key,
+                'consumer_secret'   => $consumer_secret,
+                'auth_token'        => $auth_token,
+                'auth_token_secret' => $auth_token_secret,
+            ],
+        ]];
+        $result = ParseClient::_request('POST', 'users', '', json_encode($data));
+        $user = ParseObject::create('_User');
+        $user->_mergeAfterFetch($result);
+        $user->handleSaveResult(true);
+        ParseClient::getStorage()->set('user', $user);
+
+        return $user;
+    }
+
+    /**
      * Login as an anonymous User with REST API. See docs https://www.parse.com/docs/php/guide#users
      *
      * @link https://www.parse.com/docs/rest/guide#users-anonymous-user-code-authdata-code-
@@ -243,6 +306,78 @@ class ParseUser extends ParseObject
             'facebook' => [
                 'id'              => $id, 'access_token' => $access_token,
                 'expiration_date' => ParseClient::getProperDateFormat($expiration_date),
+            ],
+        ]];
+        $result = ParseClient::_request(
+            'PUT',
+            'users/'.$this->getObjectId(),
+            $this->getSessionToken(),
+            json_encode($data),
+            $useMasterKey
+        );
+        $user = new self();
+        $user->_mergeAfterFetch($result);
+        $user->handleSaveResult(true);
+
+        return $user;
+    }
+
+    /**
+     * Link the user with Twitter details.
+     *
+     * @param string $id                the Twitter user identifier
+     * @param string $screen_name       the user's Twitter handle
+     * @param string $consumer_key      the application's consumer key
+     * @param string $consumer_secret   the application's consumer secret
+     * @param string $auth_token        the authorized Twitter token for the user
+     * @param string $auth_token_secret the secret associated with $auth_token
+     * @param bool   $useMasterKey      whether to override security
+     *
+     * @throws ParseException
+     *
+     * @return ParseUser
+     */
+    public function linkWithTwitter($id, $screen_name, $consumer_key, $consumer_secret, $auth_token, $auth_token_secret, $useMasterKey = false)
+    {
+        if (!$this->getObjectId()) {
+            throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithTwitter');
+        }
+        if (!$id) {
+            throw new ParseException('Cannot link Twitter user without an id.');
+        }
+        if (!$screen_name) {
+            throw new ParseException(
+                'Cannot link Twitter user without Twitter screen name.'
+            );
+        }
+        if (!$consumer_key) {
+            throw new ParseException(
+                'Cannot link Twitter user without a consumer key.'
+            );
+        }
+        if (!$consumer_secret) {
+            throw new ParseException(
+                'Cannot link Twitter user without a consumer secret.'
+            );
+        }
+        if (!$auth_token) {
+            throw new ParseException(
+                'Cannot link Twitter user without an auth token.'
+            );
+        }
+        if (!$auth_token_secret) {
+            throw new ParseException(
+                'Cannot link Twitter user without an auth token secret.'
+            );
+        }
+        $data = ['authData' => [
+            'twitter' => [
+                'id'                => $id,
+                'screen_name'       => $screen_name,
+                'consumer_key'      => $consumer_key,
+                'consumer_secret'   => $consumer_secret,
+                'auth_token'        => $auth_token,
+                'auth_token_secret' => $auth_token_secret,
             ],
         ]];
         $result = ParseClient::_request(
