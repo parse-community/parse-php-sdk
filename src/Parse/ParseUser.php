@@ -197,7 +197,7 @@ class ParseUser extends ParseObject
         $id,
         $screen_name,
         $consumer_key,
-        $consumer_secret,
+        $consumer_secret = null,
         $auth_token,
         $auth_token_secret)
     {
@@ -212,11 +212,6 @@ class ParseUser extends ParseObject
         if (!$consumer_key) {
             throw new ParseException(
                 'Cannot log in Twitter user without a consumer key.'
-            );
-        }
-        if (!$consumer_secret) {
-            throw new ParseException(
-                'Cannot log in Twitter user without a consumer secret.'
             );
         }
         if (!$auth_token) {
@@ -347,7 +342,7 @@ class ParseUser extends ParseObject
         $id,
         $screen_name,
         $consumer_key,
-        $consumer_secret,
+        $consumer_secret = null,
         $auth_token,
         $auth_token_secret,
         $useMasterKey = false)
@@ -366,11 +361,6 @@ class ParseUser extends ParseObject
         if (!$consumer_key) {
             throw new ParseException(
                 'Cannot link Twitter user without a consumer key.'
-            );
-        }
-        if (!$consumer_secret) {
-            throw new ParseException(
-                'Cannot link Twitter user without a consumer secret.'
             );
         }
         if (!$auth_token) {
