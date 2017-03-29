@@ -193,7 +193,13 @@ class ParseUser extends ParseObject
      *
      * @return ParseUser
      */
-    public static function logInWithTwitter($id, $screen_name, $consumer_key, $consumer_secret, $auth_token, $auth_token_secret)
+    public static function logInWithTwitter(
+        $id,
+        $screen_name,
+        $consumer_key,
+        $consumer_secret,
+        $auth_token,
+        $auth_token_secret)
     {
         if (!$id) {
             throw new ParseException('Cannot log in Twitter user without an id.');
@@ -337,7 +343,14 @@ class ParseUser extends ParseObject
      *
      * @return ParseUser
      */
-    public function linkWithTwitter($id, $screen_name, $consumer_key, $consumer_secret, $auth_token, $auth_token_secret, $useMasterKey = false)
+    public function linkWithTwitter(
+        $id,
+        $screen_name,
+        $consumer_key,
+        $consumer_secret,
+        $auth_token,
+        $auth_token_secret,
+        $useMasterKey = false)
     {
         if (!$this->getObjectId()) {
             throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithTwitter');
