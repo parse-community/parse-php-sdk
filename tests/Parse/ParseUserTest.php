@@ -81,6 +81,55 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $user = ParseUser::logIn('asdf', 'bogus');
     }
 
+    public function testLoginWithFacebookNoId()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Facebook user without an id.');
+        $user = ParseUser::logInWithFacebook(null, 'asdf');
+    }
+
+    public function testLoginWithFacebookNoAccessToken()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Facebook user without an access token.');
+        $user = ParseUser::logInWithFacebook('asdf', null);
+    }
+
+    public function testLoginWithTwitterNoId()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without an id.');
+        $user = ParseUser::logInWithTwitter(null, 'asdf', 'asdf', null, 'bogus', 'bogus');
+    }
+
+    public function testLoginWithTwitterNoScreenName()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without Twitter screen name.');
+        $user = ParseUser::logInWithTwitter('asdf', null, 'asdf', null, 'bogus', 'bogus');
+    }
+
+    public function testLoginWithTwitterNoConsumerKey()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without a consumer key.');
+        $user = ParseUser::logInWithTwitter('asdf', 'asdf', null, null, 'bogus', 'bogus');
+    }
+
+    public function testLoginWithTwitterNoAuthToken()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without an auth token.');
+        $user = ParseUser::logInWithTwitter('asdf', 'asf', 'asdf', null, null, 'bogus');
+    }
+
+    public function testLoginWithTwitterNoAuthTokenSecret()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without an auth token secret.');
+        $user = ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, 'bogus', null);
+    }
+
     public function testBecome()
     {
         $user = new ParseUser();

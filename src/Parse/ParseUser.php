@@ -164,19 +164,13 @@ class ParseUser extends ParseObject
             $expiration_date = new \DateTime();
             $expiration_date->setTimestamp(time() + 86400 * 60);
         }
-        $data = ['authData' => [
-            'facebook' => [
-                'id'              => $id, 'access_token' => $access_token,
-                'expiration_date' => ParseClient::getProperDateFormat($expiration_date),
-            ],
-        ]];
-        $result = ParseClient::_request('POST', 'users', '', json_encode($data));
-        $user = ParseObject::create('_User');
-        $user->_mergeAfterFetch($result);
-        $user->handleSaveResult(true);
-        ParseClient::getStorage()->set('user', $user);
+        $authData = [
+            'id'              => $id,
+            'access_token'    => $access_token,
+            'expiration_date' => ParseClient::getProperDateFormat($expiration_date),
+        ];
 
-        return $user;
+        return self::logInWith('facebook', $authData);
     }
 
     /**
@@ -224,15 +218,30 @@ class ParseUser extends ParseObject
                 'Cannot log in Twitter user without an auth token secret.'
             );
         }
+        $authData = [
+            'id'                => $id,
+            'screen_name'       => $screen_name,
+            'consumer_key'      => $consumer_key,
+            'consumer_secret'   => $consumer_secret,
+            'auth_token'        => $auth_token,
+            'auth_token_secret' => $auth_token_secret,
+        ];
+
+        return self::logInWith('twitter', $authData);
+    }
+
+    /**
+     * Logs in with an OAuth service.
+     *
+     * @param string $serviceName the name of OAuth service
+     * @param array  $authData    the array of auth data for $serviceName
+     *
+     * @return ParseUser
+     */
+    public static function logInWith($serviceName, $authData)
+    {
         $data = ['authData' => [
-            'twitter' => [
-                'id'                => $id,
-                'screen_name'       => $screen_name,
-                'consumer_key'      => $consumer_key,
-                'consumer_secret'   => $consumer_secret,
-                'auth_token'        => $auth_token,
-                'auth_token_secret' => $auth_token_secret,
-            ],
+            $serviceName => $authData,
         ]];
         $result = ParseClient::_request('POST', 'users', '', json_encode($data));
         $user = ParseObject::create('_User');
@@ -286,10 +295,15 @@ class ParseUser extends ParseObject
      *
      * @return ParseUser
      */
-    public function linkWithFacebook($id, $access_token, $expiration_date = null, $useMasterKey = false)
+    public function linkWithFacebook(
+        $id,
+        $access_token,
+        $expiration_date = null,
+        $useMasterKey = false)
     {
         if (!$this->getObjectId()) {
-            throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithFacebook');
+            throw new ParseException(
+                'Cannot link an unsaved user, use ParseUser::logInWithFacebook');
         }
         if (!$id) {
             throw new ParseException('Cannot link Facebook user without an id.');
@@ -303,24 +317,13 @@ class ParseUser extends ParseObject
             $expiration_date = new \DateTime();
             $expiration_date->setTimestamp(time() + 86400 * 60);
         }
-        $data = ['authData' => [
-            'facebook' => [
-                'id'              => $id, 'access_token' => $access_token,
-                'expiration_date' => ParseClient::getProperDateFormat($expiration_date),
-            ],
-        ]];
-        $result = ParseClient::_request(
-            'PUT',
-            'users/'.$this->getObjectId(),
-            $this->getSessionToken(),
-            json_encode($data),
-            $useMasterKey
-        );
-        $user = new self();
-        $user->_mergeAfterFetch($result);
-        $user->handleSaveResult(true);
+        $authData = [
+            'id'              => $id,
+            'access_token'    => $access_token,
+            'expiration_date' => ParseClient::getProperDateFormat($expiration_date),
+        ];
 
-        return $user;
+        return $this->linkWith('facebook', $authData, $useMasterKey);
     }
 
     /**
@@ -373,15 +376,30 @@ class ParseUser extends ParseObject
                 'Cannot link Twitter user without an auth token secret.'
             );
         }
+        $authData = [
+            'id'                => $id,
+            'screen_name'       => $screen_name,
+            'consumer_key'      => $consumer_key,
+            'consumer_secret'   => $consumer_secret,
+            'auth_token'        => $auth_token,
+            'auth_token_secret' => $auth_token_secret,
+        ];
+
+        return $this->linkWith('twitter', $authData, $useMasterKey);
+    }
+
+    /**
+     * Link the user with an OAuth service.
+     *
+     * @param string $serviceName the name of OAuth service
+     * @param array  $authData    the array of auth data for $serviceName
+     *
+     * @return ParseUser
+     */
+    public function linkWith($serviceName, $authData, $useMasterKey = false)
+    {
         $data = ['authData' => [
-            'twitter' => [
-                'id'                => $id,
-                'screen_name'       => $screen_name,
-                'consumer_key'      => $consumer_key,
-                'consumer_secret'   => $consumer_secret,
-                'auth_token'        => $auth_token,
-                'auth_token_secret' => $auth_token_secret,
-            ],
+            $serviceName => $authData,
         ]];
         $result = ParseClient::_request(
             'PUT',
