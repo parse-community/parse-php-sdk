@@ -231,31 +231,9 @@ class ParseUser extends ParseObject
     }
 
     /**
-     * Logs in with an OAuth service.
+     * Login as an anonymous User with REST API. See docs http://parseplatform.org/docs/php/guide/#users
      *
-     * @param string $serviceName the name of OAuth service
-     * @param array  $authData    the array of auth data for $serviceName
-     *
-     * @return ParseUser
-     */
-    public static function logInWith($serviceName, $authData)
-    {
-        $data = ['authData' => [
-            $serviceName => $authData,
-        ]];
-        $result = ParseClient::_request('POST', 'users', '', json_encode($data));
-        $user = ParseObject::create('_User');
-        $user->_mergeAfterFetch($result);
-        $user->handleSaveResult(true);
-        ParseClient::getStorage()->set('user', $user);
-
-        return $user;
-    }
-
-    /**
-     * Login as an anonymous User with REST API. See docs https://www.parse.com/docs/php/guide#users
-     *
-     * @link https://www.parse.com/docs/rest/guide#users-anonymous-user-code-authdata-code-
+     * @link http://parseplatform.org/docs/rest/guide/#anonymous-user-authdata
      *
      * @throws ParseException
      *
@@ -268,14 +246,28 @@ class ParseUser extends ParseObject
          * @link https://en.wikipedia.org/wiki/Universally_unique_identifier
          */
         $uuid_parts = str_split(md5(mt_rand()), 4);
-        $data = ['authData' => [
-            'anonymous' => [
-                'id' => $uuid_parts[0].$uuid_parts[1].'-'.$uuid_parts[2].'-'.$uuid_parts[3].'-'.$uuid_parts[4].'-'.$uuid_parts[5].$uuid_parts[6].$uuid_parts[7],
-            ],
-        ]];
+        $authData = [
+            'id' => $uuid_parts[0].$uuid_parts[1].'-'.$uuid_parts[2].'-'.$uuid_parts[3].'-'.$uuid_parts[4].'-'.$uuid_parts[5].$uuid_parts[6].$uuid_parts[7],
+        ];
 
+        return self::logInWith('anonymous', $authData);
+    }
+
+    /**
+     * Logs in with a service.
+     *
+     * @param string $serviceName the name of the service
+     * @param array  $authData    the array of auth data for $serviceName
+     *
+     * @return ParseUser
+     */
+    public static function logInWith($serviceName, $authData)
+    {
+        $data = ['authData' => [
+            $serviceName => $authData,
+        ]];
         $result = ParseClient::_request('POST', 'users', '', json_encode($data));
-        $user = new self();
+        $user = ParseObject::create('_User');
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
         ParseClient::getStorage()->set('user', $user);
@@ -389,9 +381,9 @@ class ParseUser extends ParseObject
     }
 
     /**
-     * Link the user with an OAuth service.
+     * Link the user with a service.
      *
-     * @param string $serviceName the name of OAuth service
+     * @param string $serviceName the name of the service
      * @param array  $authData    the array of auth data for $serviceName
      *
      * @return ParseUser
