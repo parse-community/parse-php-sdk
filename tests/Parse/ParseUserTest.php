@@ -81,6 +81,172 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $user = ParseUser::logIn('asdf', 'bogus');
     }
 
+    public function testLoginWithFacebook()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Facebook auth is invalid for this user.');
+        $user = ParseUser::logInWithFacebook('asdf', 'zxcv');
+    }
+
+    public function testLoginWithFacebookNoId()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Facebook user without an id.');
+        $user = ParseUser::logInWithFacebook(null, 'asdf');
+    }
+
+    public function testLoginWithFacebookNoAccessToken()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Facebook user without an access token.');
+        $user = ParseUser::logInWithFacebook('asdf', null);
+    }
+
+    public function testLoginWithTwitter()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Twitter auth is invalid for this user.');
+        $user = ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, 'bogus', 'bogus');
+    }
+
+    public function testLoginWithTwitterNoId()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without an id.');
+        $user = ParseUser::logInWithTwitter(null, 'asdf', 'asdf', null, 'bogus', 'bogus');
+    }
+
+    public function testLoginWithTwitterNoScreenName()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without Twitter screen name.');
+        $user = ParseUser::logInWithTwitter('asdf', null, 'asdf', null, 'bogus', 'bogus');
+    }
+
+    public function testLoginWithTwitterNoConsumerKey()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without a consumer key.');
+        $user = ParseUser::logInWithTwitter('asdf', 'asdf', null, null, 'bogus', 'bogus');
+    }
+
+    public function testLoginWithTwitterNoAuthToken()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without an auth token.');
+        $user = ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, null, 'bogus');
+    }
+
+    public function testLoginWithTwitterNoAuthTokenSecret()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot log in Twitter user without an auth token secret.');
+        $user = ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, 'bogus', null);
+    }
+
+    public function testLoginWithAnonymous()
+    {
+        $user = ParseUser::loginWithAnonymous();
+        $this->assertTrue($user->isAuthenticated());
+    }
+
+    public function testLinkWithFacebook()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Facebook auth is invalid for this user.');
+        $this->testUserSignUp();
+        $user = ParseUser::logIn('asdf', 'zxcv');
+        $user->linkWithFacebook('asdf', 'zxcv');
+    }
+
+    public function testLinkWithFacebookUnsavedUser()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot link an unsaved user, use ParseUser::logInWithFacebook');
+        $user = new ParseUser();
+        $user->linkWithFacebook('asdf', 'zxcv');
+    }
+
+    public function testLinkWithFacebookNoId()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot link Facebook user without an id.');
+        $this->testUserSignUp();
+        $user = ParseUser::logIn('asdf', 'zxcv');
+        $user->linkWithFacebook(null, 'zxcv');
+    }
+
+    public function testLinkWithFacebookNoAccessToken()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot link Facebook user without an access token.');
+        $this->testUserSignUp();
+        $user = ParseUser::logIn('asdf', 'zxcv');
+        $user->linkWithFacebook('asdf', null);
+    }
+
+    public function testLinkWithTwitter()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Twitter auth is invalid for this user.');
+        $this->testUserSignUp();
+        $user = ParseUser::logIn('asdf', 'zxcv');
+        $user->linkWithTwitter('qwer', 'asdf', 'zxcv', null, 'bogus', 'bogus');
+    }
+
+    public function testLinkWithTwitterUnsavedUser()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot link an unsaved user, use ParseUser::logInWithTwitter');
+        $user = new ParseUser();
+        $user->linkWithTwitter('qwer', 'asdf', 'zxcv', null, 'bogus', 'bogus');
+    }
+
+    public function testLinkWithTwitterNoId()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot link Twitter user without an id.');
+        $this->testUserSignUp();
+        $user = ParseUser::logIn('asdf', 'zxcv');
+        $user->linkWithTwitter(null, 'asdf', 'zxcv', null, 'bogus', 'bogus');
+    }
+
+    public function testLinkWithTwitterNoScreenName()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot link Twitter user without Twitter screen name.');
+        $this->testUserSignUp();
+        $user = ParseUser::logIn('asdf', 'zxcv');
+        $user->linkWithTwitter('qwer', null, 'zxcv', null, 'bogus', 'bogus');
+    }
+
+    public function testLinkWithTwitterNoConsumerKey()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot link Twitter user without a consumer key.');
+        $this->testUserSignUp();
+        $user = ParseUser::logIn('asdf', 'zxcv');
+        $user->linkWithTwitter('qwer', 'asdf', null, null, 'bogus', 'bogus');
+    }
+
+    public function testLinkWithTwitterNoAuthToken()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot link Twitter user without an auth token.');
+        $this->testUserSignUp();
+        $user = ParseUser::logIn('asdf', 'zxcv');
+        $user->linkWithTwitter('qwer', 'asdf', 'zxcv', null, null, 'bogus');
+    }
+
+    public function testLinkWithTwitterNoAuthTokenSecret()
+    {
+        $this->setExpectedException('Parse\ParseException',
+                'Cannot link Twitter user without an auth token secret.');
+        $this->testUserSignUp();
+        $user = ParseUser::logIn('asdf', 'zxcv');
+        $user->linkWithTwitter('qwer', 'asdf', 'zxcv', null, 'bogus', null);
+    }
+
     public function testBecome()
     {
         $user = new ParseUser();
