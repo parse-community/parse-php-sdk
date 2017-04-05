@@ -316,3 +316,7 @@ the Parse PHP SDK. We welcome fixes and enhancements.
 
 [Get Composer]: https://getcomposer.org/download/
 [Parse PHP Guide]: https://www.parse.com/docs/php/guide
+
+-----
+
+As of April 5, 2017, Parse, LLC has transferred this code to the parse-community organization, and will no longer be contributing to or distributing this code. 
