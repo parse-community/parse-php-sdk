@@ -178,7 +178,7 @@ class ParseCurlHttpClient implements ParseHttpable
 
         if($method == "GET" && !empty($data)) {
             // handle get
-            $url .= '?'.http_build_query($data);
+            $url .= '?'.http_build_query($data, null, '&');
 
         } else if($method == "POST") {
             // handle post

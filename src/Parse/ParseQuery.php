@@ -365,7 +365,7 @@ class ParseQuery
             $queryOptions['where'] = json_encode($queryOptions['where']);
         }
 
-        return http_build_query($queryOptions);
+        return http_build_query($queryOptions, null, '&');
     }
 
     /**
