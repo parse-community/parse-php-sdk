@@ -1,24 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 4/13/17
- * Time: 20:37
- */
 
 namespace Parse\Test;
 
 
 use Parse\ParseException;
 use Parse\ParseInstallation;
-use Parse\ParseSchema;
-use Parse\ParseUser;
 
 class ParseInstallationTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         Helper::setUp();
+    }
+
+    public function tearDown()
+    {
+        Helper::clearClass(ParseInstallation::$parseClassName);
     }
 
     /**
@@ -56,6 +53,24 @@ class ParseInstallationTest extends \PHPUnit_Framework_TestCase
 
         $query = ParseInstallation::query();
         $query->first();
+
+    }
+
+    /**
+     * @group installation-tests
+     */
+    public function testClientsCannotDestroyWithoutMasterKey()
+    {
+        $installation = new ParseInstallation();
+        $installation->set('deviceToken', '12345');
+        $installation->set('deviceType', 'android');
+        $installation->save();
+
+        $this->setExpectedException(ParseException::class,
+            "Clients aren't allowed to perform the delete operation on the installation collection.");
+
+        // try destroying, without using the master key
+        $installation->destroy();
 
     }
 
@@ -120,7 +135,7 @@ class ParseInstallationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($inst->getParseVersion(), $parseVersion);
 
         // cleanup
-        $installation->destroy();
+        $installation->destroy(true);
 
     }
 
