@@ -247,7 +247,7 @@ $file = ParseFile::createFromData($contents, "Parse.txt", "text/plain");
 
 Push:
 
-In order to use Push you must first configure a [working push configuration](https://parseplatform.github.io/docs/parse-server/guide/#push-notifications) in your parse server instance.
+In order to use Push you must first configure a [working push configuration](http://docs.parseplatform.org/parse-server/guide/#push-notifications) in your parse server instance.
 
 ```php
 $data = array("alert" => "Hi!");
@@ -315,7 +315,7 @@ See the CONTRIBUTORS.md file for information on testing and contributing to
 the Parse PHP SDK. We welcome fixes and enhancements.
 
 [Get Composer]: https://getcomposer.org/download/
-[Parse PHP Guide]: https://www.parse.com/docs/php/guide
+[Parse PHP Guide]: http://docs.parseplatform.org/php/guide/
 
 -----
 
