@@ -11,6 +11,17 @@ class ParsePushStatus extends ParseObject
 {
     public static $parseClassName = '_PushStatus';
 
+    // possible push status values from parse server
+    const STATUS_SCHEDULED  = 'scheduled';
+    const STATUS_PENDING    = 'pending';
+    const STATUS_RUNNING    = 'running';
+    const STATUS_SUCCEEDED  = 'succeeded';
+    const STATUS_FAILED     = 'failed';
+
+    /**
+     * 'scheduled', 'pending', etc. Add constants and 'isPending' and such for better status checking
+     */
+
     /**
      * Returns a push status object or null from an id
      *
@@ -95,6 +106,61 @@ class ParsePushStatus extends ParseObject
     public function getPushStatus()
     {
         return $this->get("status");
+
+    }
+
+    /**
+     * Indicates whether this push is scheduled
+     *
+     * @return bool
+     */
+    public function isScheduled()
+    {
+        return $this->getPushStatus() === self::STATUS_SCHEDULED;
+
+    }
+
+    /**
+     * Indicates whether this push is pending
+     *
+     * @return bool
+     */
+    public function isPending()
+    {
+        return $this->getPushStatus() === self::STATUS_PENDING;
+
+    }
+
+    /**
+     * Indicates whether this push is running
+     *
+     * @return bool
+     */
+    public function isRunning()
+    {
+        return $this->getPushStatus() === self::STATUS_RUNNING;
+
+    }
+
+    /**
+     * Indicates whether this push has succeeded
+     *
+     * @return bool
+     */
+    public function hasSucceeded()
+    {
+        return $this->getPushStatus() === self::STATUS_SUCCEEDED;
+
+    }
+
+    /**
+     * Indicates whether this push has failed
+     *
+     * @return bool
+     */
+    public function hasFailed()
+    {
+        return $this->getPushStatus() === self::STATUS_FAILED;
 
     }
 

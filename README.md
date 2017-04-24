@@ -284,20 +284,24 @@ if(ParsePush::hasStatus($response)) {
 
     // Retrieve PushStatus object
     $pushStatus = ParsePush::getStatus($response);
-    
-    // get push status string
-    $status = $pushStatus->getPushStatus();
-    
-    if($status == "succeeded") {
-        // handle a successful push request
-        
-    } else if($status == "running") {
+
+    // check push status
+    if($pushStatus->isPending()) {
+        // handle a pending push request
+
+    } else if($pushStatus->isRunning()) {
         // handle a running push request
-        
-    } else if($status == "failed") {
-        // push request did not succeed
-        
+
+    } else if($pushStatus->hasSucceeded()) {
+        // handle a successful push request
+
+    } else if($pushStatus->hasFailed()) {
+        // handle a failed request
+
     }
+    
+    // ...or get the push status string to check yourself
+    $status = $pushStatus->getPushStatus();
     
     // get # pushes sent
     $sent = $pushStatus->getPushesSent();
