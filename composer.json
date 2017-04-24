@@ -3,12 +3,12 @@
     "description": "Parse PHP SDK",
     "keywords": ["parse", "sdk"],
     "type": "library",
-    "homepage": "https://github.com/parseplatform/parse-php-sdk",
+    "homepage": "https://github.com/parse-community/parse-php-sdk",
     "license": "Parse Platform License",
     "authors": [
         {
             "name": "Parse",
-            "homepage": "https://github.com/parseplatform/parse-php-sdk/contributors"
+            "homepage": "https://github.com/parse-community/parse-php-sdk/graphs/contributors"
         }
     ],
     "require": {
@@ -29,11 +29,6 @@
     "autoload-dev": {
         "psr-4": {
             "Parse\\Test\\": "tests/Parse/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.1-dev"
         }
     }
 }

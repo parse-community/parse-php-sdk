@@ -2,7 +2,7 @@ Parse PHP SDK
 -------------
 
 The Parse PHP SDK gives you access to the powerful Parse cloud platform
-from your PHP app or script.  Updated to work with the self-hosted Parse Server: https://github.com/parseplatform/parse-server
+from your PHP app or script.  Updated to work with the self-hosted Parse Server: https://github.com/parse-community/parse-server
 
 Installation
 ------------
@@ -76,7 +76,7 @@ Setting the http client can be done as follows:
 ParseClient::setHttpClient(new ParseCurlHttpClient());
 
 // set stream http client
-// ** requires 'allow_url_fopen' to be enabled in php.ini ** 
+// ** requires 'allow_url_fopen' to be enabled in php.ini **
 ParseClient::setHttpClient(new ParseStreamHttpClient());
 ```
 
@@ -299,16 +299,16 @@ if(ParsePush::hasStatus($response)) {
         // handle a failed request
 
     }
-    
+
     // ...or get the push status string to check yourself
     $status = $pushStatus->getPushStatus();
-    
+
     // get # pushes sent
     $sent = $pushStatus->getPushesSent();
-    
+
     // get # pushes failed
     $failed = $pushStatus->getPushesFailed();
-    
+
 }
 ```
 
@@ -323,4 +323,4 @@ the Parse PHP SDK. We welcome fixes and enhancements.
 
 -----
 
-As of April 5, 2017, Parse, LLC has transferred this code to the parse-community organization, and will no longer be contributing to or distributing this code. 
+As of April 5, 2017, Parse, LLC has transferred this code to the parse-community organization, and will no longer be contributing to or distributing this code.
