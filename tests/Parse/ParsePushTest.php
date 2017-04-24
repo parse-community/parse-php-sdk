@@ -123,10 +123,10 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
     {
         ParsePush::send(
             [
-            'data'            => ['alert' => 'iPhone 5 is out!'],
-            'push_time'       => new \DateTime(),
-            'expiration_time' => new \DateTime(),
-            'channels'        => [],
+                'data'            => ['alert' => 'iPhone 5 is out!'],
+                'push_time'       => new \DateTime(),
+                'expiration_time' => new \DateTime(),
+                'channels'        => [],
             ]
         , true);
     }
@@ -215,9 +215,17 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("rest", $pushStatus->getPushSource(),
             'Source was not rest');
 
+        // verify not scheduled
+        $this->assertFalse($pushStatus->isScheduled());
+
+        // verify not pending
+        $this->assertFalse($pushStatus->isPending());
+
         // verify 'running'
-        $this->assertEquals("running", $pushStatus->getPushStatus(),
+        $this->assertTrue($pushStatus->isRunning(),
             'Push did not succeed');
+
+
 
         // verify # sent & failed
         $this->assertEquals(0, $pushStatus->getPushesSent(),
@@ -227,6 +235,10 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotNull($pushStatus->getPushHash(),
             'Hash not present');
+
+        // verify we have neither failed or succeeded
+        $this->assertFalse($pushStatus->hasFailed());
+        $this->assertFalse($pushStatus->hasSucceeded());
 
     }
 
