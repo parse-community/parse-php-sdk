@@ -116,7 +116,7 @@ class ParsePushStatus extends ParseObject
      */
     public function isScheduled()
     {
-        return $this->getPushStatus() == self::STATUS_SCHEDULED;
+        return $this->getPushStatus() === self::STATUS_SCHEDULED;
 
     }
 
@@ -127,7 +127,7 @@ class ParsePushStatus extends ParseObject
      */
     public function isPending()
     {
-        return $this->getPushStatus() == self::STATUS_PENDING;
+        return $this->getPushStatus() === self::STATUS_PENDING;
 
     }
 
@@ -138,7 +138,7 @@ class ParsePushStatus extends ParseObject
      */
     public function isRunning()
     {
-        return $this->getPushStatus() == self::STATUS_RUNNING;
+        return $this->getPushStatus() === self::STATUS_RUNNING;
 
     }
 
@@ -149,7 +149,7 @@ class ParsePushStatus extends ParseObject
      */
     public function hasSucceeded()
     {
-        return $this->getPushStatus() == self::STATUS_SUCCEEDED;
+        return $this->getPushStatus() === self::STATUS_SUCCEEDED;
 
     }
 
@@ -160,7 +160,7 @@ class ParsePushStatus extends ParseObject
      */
     public function hasFailed()
     {
-        return $this->getPushStatus() == self::STATUS_FAILED;
+        return $this->getPushStatus() === self::STATUS_FAILED;
 
     }
 
