@@ -11,7 +11,7 @@ into a single commit. Please provide ample explanation in the commit message.
 Installation
 ------------
 
-Testing the Parse PHP SDK requires having a working Parse Server instance to run against. 
+Testing the Parse PHP SDK requires having a working Parse Server instance to run against.
 Additionally you'll need to add some cloud code to it.
 
 To get started:
@@ -22,7 +22,7 @@ To get started:
 From here you have to setup an instance of parse server.
 
 To get started quickly you can clone and run this [parse server test] project.
-It's setup with the appropriate configuration to run the php sdk test suite. 
+It's setup with the appropriate configuration to run the php sdk test suite.
 Additionally it handles setting up mongodb for the server.
 
 Alternately you can configure a compatible test server as follows:
@@ -71,4 +71,4 @@ If you have XDebug setup and can view code coverage please ensure that you do yo
 [Create Parse App]: https://parse.com/apps/new
 [XDebug]: https://xdebug.org/
 [parse server test]: https://github.com/montymxb/parse-server-test
-[Setup a local Parse Server instance]: https://github.com/ParsePlatform/parse-server#user-content-locally
+[Setup a local Parse Server instance]: https://github.com/parse-community/parse-server#user-content-locally
