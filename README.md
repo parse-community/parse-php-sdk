@@ -153,14 +153,14 @@ $user->setUsername("foo");
 $user->setPassword("Q2w#4!o)df");
 try {
     $user->signUp();
-} catch (ParseException $ex) {
+} catch (Parse\ParseException $ex) {
     // error in $ex->getMessage();
 }
 
 // Login
 try {
     $user = ParseUser::logIn("foo", "Q2w#4!o)df");
-} catch(ParseException $ex) {
+} catch(Parse\ParseException $ex) {
     // error in $ex->getMessage();
 }
 
