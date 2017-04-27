@@ -417,7 +417,7 @@ class ParseQuery
             $useMasterKey
         );
 		
-		if (!is_array($result)) return false;
+        if (!is_array($result)) return false;
 
         $output = [];
         foreach ($result['results'] as $row) {
