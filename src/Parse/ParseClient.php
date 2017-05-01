@@ -495,7 +495,11 @@ final class ParseClient
         $decoded = json_decode($response, true);
 
         if(!isset($decoded) && $response !== '') {
-            throw new ParseException('Bad Request. Could not decode Response', -1);
+            throw new ParseException(
+                'Bad Request. Could not decode Response: '.
+                '('.json_last_error().') '.json_last_error_msg(),
+                -1
+            );
 
         }
 
