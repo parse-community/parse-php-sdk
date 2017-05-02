@@ -503,4 +503,36 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @group bad-api-response
+     */
+    public function testBadApiResponse()
+    {
+        $this->setExpectedException(ParseException::class,
+            'Bad Request. Could not decode Response: (4) Syntax error');
+
+        $httpClient = ParseClient::getHttpClient();
+
+        // create a mock of the current http client
+        $stubClient = $this->createMock(get_class($httpClient));
+
+        // stub the response type to return
+        // something we will try to work with
+        $stubClient
+            ->method('getResponseContentType')
+            ->willReturn('application/octet-stream');
+
+        $stubClient
+            ->method('send')
+            ->willReturn('This is not valid json!');
+
+        // replace the client with our stub
+        ParseClient::setHttpClient($stubClient);
+
+        // attempt to save, which should not fire our given code
+        $obj = new ParseObject('TestingClass');
+        $obj->save();
+
+    }
+
 }
