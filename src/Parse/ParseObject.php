@@ -987,7 +987,7 @@ class ParseObject implements Encodable
         }
 
         foreach ($unsavedFiles as &$file) {
-            $file->save();
+            $file->save($useMasterKey);
         }
 
         $objects = [];
