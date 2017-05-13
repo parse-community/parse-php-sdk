@@ -1499,20 +1499,23 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @group order-by-updated-at
+     */
     public function testOrderByUpdatedAtAsc()
     {
         $numbers = [3, 1, 2];
         $objects = [];
-        $this->saveObjects(
-            3,
-            function ($i) use ($numbers, &$objects) {
-                $obj = ParseObject::create('TestObject');
-                $obj->set('number', $numbers[$i]);
-                $objects[] = $obj;
 
-                return $obj;
-            }
-        );
+        foreach($numbers as $num) {
+            $obj = ParseObject::create('TestObject');
+            $obj->set('number', $num);
+            $obj->save();
+            $objects[]  = $obj;
+            sleep(1);
+
+        }
+
         $objects[1]->set('number', 4);
         $objects[1]->save();
         $query = new ParseQuery('TestObject');
@@ -1541,16 +1544,16 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $numbers = [3, 1, 2];
         $objects = [];
-        $this->saveObjects(
-            3,
-            function ($i) use ($numbers, &$objects) {
-                $obj = ParseObject::create('TestObject');
-                $obj->set('number', $numbers[$i]);
-                $objects[] = $obj;
 
-                return $obj;
-            }
-        );
+        foreach($numbers as $num) {
+            $obj = ParseObject::create('TestObject');
+            $obj->set('number', $num);
+            $obj->save();
+            $objects[]  = $obj;
+            sleep(1);
+
+        }
+
         $objects[1]->set('number', 4);
         $objects[1]->save();
         $query = new ParseQuery('TestObject');
@@ -1561,7 +1564,8 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
             count($results),
             'Did not return correct number of objects.'
         );
-        $expected = [4, 3, 2];
+
+        $expected = [4, 2, 3];
         for ($i = 0; $i < 3; ++$i) {
             $this->assertEquals(
                 $expected[$i],

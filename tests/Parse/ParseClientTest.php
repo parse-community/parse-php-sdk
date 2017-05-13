@@ -514,7 +514,8 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         $httpClient = ParseClient::getHttpClient();
 
         // create a mock of the current http client
-        $stubClient = $this->createMock(get_class($httpClient));
+        $stubClient = $this->getMockBuilder(get_class($httpClient))
+            ->getMock();
 
         // stub the response type to return
         // something we will try to work with
