@@ -907,6 +907,8 @@ class ParseObject implements Encodable
         foreach ($this->estimatedData as $key => $value) {
             if (is_object($value) && $value instanceof Encodable) {
                 $out[$key] = $value->_encode();
+            } elseif (self::isAssoc($value)) {
+                $out[$key] = $value;
             } elseif (is_array($value)) {
                 $out[$key] = [];
                 foreach ($value as $item) {
@@ -934,7 +936,7 @@ class ParseObject implements Encodable
         $this->beforeSave();
         return ParseClient::_encode($this->operationSet, true);
     }
-    
+
     /**
      * Before save stub
      *
@@ -1366,5 +1368,19 @@ class ParseObject implements Encodable
         } else {
             return new ParseQuery($subclass);
         }
+    }
+
+    /**
+     * Check if array is Associative
+     * Array is not associative is keys are numeric
+     *
+     * @return bool
+     */
+    private static function isAssoc($arr)
+    {
+        if (array() === $arr || !is_array($arr)) {
+            return false;
+        }
+        return array_keys($arr) !== range(0, count($arr) - 1);
     }
 }
