@@ -2,5 +2,9 @@
 composer.lock
 vendor
 
+# npm based parse-server-test
+node_modules
+logs
+
 # ignore test results
 phpunit-test-results
