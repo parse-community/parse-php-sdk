@@ -17,14 +17,21 @@ Additionally you'll need to add some cloud code to it.
 To get started:
 
 * [Get Composer], the PHP package manager.
-* Run "composer install" to download dependencies.
+* Run `composer install` to download dependencies.
 
 From here you have to setup an instance of parse server.
+For your convenience we have included a testable version of parse server as a dev dependency.
 
-To get started quickly you can clone and run this [parse server test] project.
+To setup the Test Parse Server:
+* [Get npm], you'll need this to install the server.
+* Run `npm install` from the project root to download the server and it's dependencies.
+* When you're ready to run tests use `npm start` from the project root to boot up the test server.
+
+The embedded test server utilizes this [parse server test] project. 
 It's setup with the appropriate configuration to run the php sdk test suite.
 Additionally it handles setting up mongodb for the server.
 
+If you have specific needs and would like to alter your test server you can fork and modify the aforementioned test project.
 Alternately you can configure a compatible test server as follows:
 
 * [Setup a local Parse Server instance]
@@ -67,8 +74,8 @@ Please make sure that any new functionality (or issues) you are working on are c
 If you have XDebug setup and can view code coverage please ensure that you do your best to completely cover any new code you are adding.
 
 [Get Composer]: https://getcomposer.org/download/
+[Get npm]: https://www.npmjs.com/get-npm
 [Contributor License Agreement]: https://developers.facebook.com/opensource/cla
-[Create Parse App]: https://parse.com/apps/new
 [XDebug]: https://xdebug.org/
 [parse server test]: https://github.com/montymxb/parse-server-test
 [Setup a local Parse Server instance]: https://github.com/parse-community/parse-server#user-content-locally
