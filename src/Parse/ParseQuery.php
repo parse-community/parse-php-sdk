@@ -254,6 +254,22 @@ class ParseQuery
 
     /**
      * Add a constraint to the query that requires a particular key's value to
+     * regex with the provided value.
+     *
+     * @param string $key   The key to check.
+     * @param mixed  $value The substring that the value must start with.
+     *
+     * @return ParseQuery Returns this query, so you can chain this call.
+     */
+    public function regex($key, $value)
+    {
+        $this->addCondition($key, '$regex', $this->quote($value));
+
+        return $this;
+    }
+    
+    /**
+     * Add a constraint to the query that requires a particular key's value to
      * start with the provided value.
      *
      * @param string $key   The key to check.
@@ -263,7 +279,7 @@ class ParseQuery
      */
     public function startsWith($key, $value)
     {
-        $this->addCondition($key, '$regex', '^'.$this->quote($value));
+        $this->regex($key, '^' . $value);
 
         return $this;
     }
@@ -279,7 +295,7 @@ class ParseQuery
      */
     public function endsWith($key, $value)
     {
-        $this->addCondition($key, '$regex', $this->quote($value).'$');
+        $this->regex($key, $value . '$');
 
         return $this;
     }
