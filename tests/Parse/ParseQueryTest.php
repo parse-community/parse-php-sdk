@@ -330,6 +330,94 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMatchesSingle()
+    {
+        $this->provideTestObjects(10);
+        $query = new ParseQuery('TestObject');
+        $query->matches('foo', 'bar0');
+        $results = $query->find();
+        $this->assertEquals(
+            count($results),
+            1,
+            'Matches function did not return correct number of objects.'
+        );
+        $this->assertEquals(
+            $results[0]->get('foo'),
+            'bar0',
+            'Matches function did not return the correct object.'
+        );
+    }
+
+    public function testMatchesMultiple()
+    {
+        $this->provideTestObjects(10);
+        $query = new ParseQuery('TestObject');
+        $query->matches('foo', 'bar');
+        $results = $query->find();
+        $this->assertEquals(
+            count($results),
+            10,
+            'Matches function did not return correct number of objects.'
+        );
+    }
+
+    public function testMatchesRegexDelimiters()
+    {
+        $testObject = ParseObject::create('TestObject');
+        $testObject->set('foo', "foob\E");
+        $testObject->save();
+        $query = new ParseQuery('TestObject');
+        $query->matches('foo', 'foob\E');
+        $results = $query->find();
+        $this->assertEquals(
+            count($results),
+            1,
+            'Matches function did not return correct number of objects.'
+        );
+        $query->matches('foo', 'foobE');
+        $results = $query->find();
+        $this->assertEquals(
+            count($results),
+            0,
+            'Matches function did not return correct number of objects.'
+        );
+    }
+
+    public function testMatchesCaseInsensitiveModifier()
+    {
+        $testObject = ParseObject::create('TestObject');
+        $testObject->set('foo', 'FOOBAR');
+        $testObject->save();
+        $query = new ParseQuery('TestObject');
+        $query->matches('foo', 'foo', 'i');
+        $results = $query->find();
+        $this->assertEquals(
+            count($results),
+            1,
+            'Matches function did not return correct number of objects.'
+        );
+        $this->assertEquals(
+            $results[0]->get('foo'),
+            'FOOBAR',
+            'Matches function did not return correct number of objects.'
+        );
+    }
+
+    public function testMatchesMultilineModifier()
+    {
+        $testObject = ParseObject::create('TestObject');
+        $testObject->set('foo', 'foo\nbar');
+        $testObject->save();
+        $query = new ParseQuery('TestObject');
+        $query->matches('foo', 'bar', 'm');
+        $results = $query->find();
+        $this->assertEquals(
+            count($results),
+            1,
+            'Matches function did not return correct number of objects.'
+        );
+    }
+
     public function testContainsSingle()
     {
         $testObject = ParseObject::create('TestObject');
@@ -381,7 +469,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
             'Contains should not find.'
         );
     }
-    
+
     public function testGreaterThan()
     {
         $this->provideTestObjects(10);

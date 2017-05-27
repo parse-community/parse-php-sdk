@@ -695,6 +695,27 @@ class ParseQuery
     }
 
     /**
+     * Adds a regular expression constraint for finding string values that match
+     * the provided regular expression.
+     * This may be slow for large datasets.
+     *
+     * @param string $key       The key that the string to match is stored in.
+     * @param string $regex     The regular expression pattern to match.
+     * @param string $modifiers  Modifies the search, supports i, m
+     *
+     * @return ParseQuery Returns the query, so you can chain this call.
+     */
+    public function matches($key, $regex, $modifiers = '')
+    {
+        $this->addCondition($key, '$regex', $regex);
+        if (strlen($modifiers)) {
+            $this->addCondition($key, '$options', $modifiers);
+        }
+
+        return $this;
+    }
+
+    /**
      * Add a constraint that requires that a key's value matches a ParseQuery
      * constraint.
      *
