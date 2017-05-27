@@ -909,11 +909,11 @@ class ParseObject implements Encodable
                 $out[$key] = $value->_encode();
             } elseif (is_array($value)) {
                 $out[$key] = [];
-                foreach ($value as $item) {
+                foreach ($value as $itemKey => $item) {
                     if (is_object($item) && $item instanceof Encodable) {
-                        $out[$key][] = $item->_encode();
+                        $out[$key][$itemKey] = $item->_encode();
                     } else {
-                        $out[$key][] = $item;
+                        $out[$key][$itemKey] = $item;
                     }
                 }
             } else {
@@ -934,7 +934,7 @@ class ParseObject implements Encodable
         $this->beforeSave();
         return ParseClient::_encode($this->operationSet, true);
     }
-    
+
     /**
      * Before save stub
      *

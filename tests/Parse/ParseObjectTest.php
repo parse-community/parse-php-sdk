@@ -728,6 +728,29 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($decoded->foo));
     }
 
+    public function testAssocToJSONSavedObject()
+    {
+        $obj = ParseObject::create('TestObject');
+        $assoc = ["foo" => "bar", "baz" => "yay"];
+        $obj->setAssociativeArray('obj', $assoc);
+        $obj->save();
+        $json = $obj->_encode();
+        $decoded = json_decode($json, true);
+        $this->assertEquals($decoded['obj'], $assoc);
+        $this->assertEquals($obj->get('obj'), $assoc);
+    }
+
+    public function testAssocToJSONUnsavedObject()
+    {
+        $obj = ParseObject::create('TestObject');
+        $assoc = ["foo" => "bar", "baz" => "yay"];
+        $obj->setAssociativeArray('obj', $assoc);
+        $json = $obj->_encode();
+        $decoded = json_decode($json, true);
+        $this->assertEquals($decoded['obj'], $assoc);
+        $this->assertEquals($obj->get('obj'), $assoc);
+    }
+
     public function testRemoveOperation()
     {
         $obj = ParseObject::create('TestObject');
@@ -1229,7 +1252,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         );
         $obj = new ParseObject('TestClass');
         $obj->set('key', ['is-an-array' => 'yes']);
-        
+
     }
 
     public function testSetArrayNullKey()
