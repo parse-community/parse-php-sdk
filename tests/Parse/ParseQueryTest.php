@@ -418,6 +418,15 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMatchesBadOptions()
+    {
+        $this->provideTestObjects(10);
+        $query = new ParseQuery('TestObject');
+        $query->matches('foo', 'bar', 'z');
+        $this->setExpectedException('Parse\ParseException', 'Bad $options value for query: z', 102);
+        $query->find();
+    }
+
     public function testContainsSingle()
     {
         $testObject = ParseObject::create('TestObject');
