@@ -422,8 +422,8 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->provideTestObjects(10);
         $query = new ParseQuery('TestObject');
-        $query->matches('foo', 'bar', 'z');
-        $this->setExpectedException('Parse\ParseException', 'Bad $options value for query: z', 102);
+        $query->matches('foo', 'bar', 'not-a-real-modifier');
+        $this->setExpectedException('Parse\ParseException', 'Bad $options value for query: not-a-real-modifier', 102);
         $query->find();
     }
 
