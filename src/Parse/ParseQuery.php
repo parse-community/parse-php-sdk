@@ -623,6 +623,26 @@ class ParseQuery
     }
 
     /**
+     * Add a constraint to the query that requires a particular key's
+     * coordinates be contained within a given polygon
+     *
+     * @param string        $key       The key of the ParseGeoPoint
+     * @param array         $points    Array of ParseGeoPoint
+     *
+     * @return ParseQuery Returns this query, so you can chain this call.
+     */
+    public function withinPolygon($key, $points)
+    {
+        $this->addCondition(
+            $key,
+            '$geoWithin',
+            ['$polygon' => $points]
+        );
+
+        return $this;
+    }
+
+    /**
      * Add a constraint to the query that requires a particular key's value to
      * be contained in the provided list of values.
      *

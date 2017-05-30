@@ -200,20 +200,41 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
         $query->withinMiles('location', $point, 10.0);
         $results = $query->find();
         $this->assertEquals(0, count($results));
-
     }
 
     public function testBadLatitude() {
         $this->setExpectedException('\Parse\ParseException',
             'Latitude must be within range [-90.0, 90.0]');
         new ParseGeoPoint(-180, 32);
-
     }
 
     public function testBadLongitude() {
         $this->setExpectedException('\Parse\ParseException',
             'Longitude must be within range [-180.0, 180.0]');
         new ParseGeoPoint(32, -360);
+    }
 
+    public function testWithinPolygon() {
+        $obj1 = ParseObject::create('TestObject');
+        $obj2 = ParseObject::create('TestObject');
+        $obj3 = ParseObject::create('TestObject');
+
+        $obj1->set('location', new ParseGeoPoint(1.5, 1.5));
+        $obj2->set('location', new ParseGeoPoint(2, 8));
+        $obj3->set('location', new ParseGeoPoint(20, 20));
+
+        ParseObject::saveAll([$obj1, $obj2, $obj3]);
+
+        $points = [
+            new ParseGeoPoint(0, 0),
+            new ParseGeoPoint(0, 10),
+            new ParseGeoPoint(10, 10),
+            new ParseGeoPoint(10, 0)
+        ];
+
+        $query = new ParseQuery('TestObject');
+        $query->withinPolygon('location', $points);
+        $results = $query->find();
+        $this->assertEquals(2, count($results));
     }
 }
