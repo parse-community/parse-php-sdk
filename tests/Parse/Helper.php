@@ -15,7 +15,7 @@ class Helper
      * Application Id
      * @var string
      */
-    public static $appId      = 'app-id-here';
+    public static $appId      = 'MK5KVBqIzhhM5tIwX9hrKnQLLKpHeJ9O0VHS4Fqp';
 
     /**
      * Rest API Key
@@ -27,7 +27,7 @@ class Helper
      * Master Key
      * @var string
      */
-    public static $masterKey  = 'master-key-here';
+    public static $masterKey  = 'G1QPMwxoMOfCNALvY7RrQkk9Z2X2yin7kQkemghg';
 
     /**
      * Account Key (for parse.com)

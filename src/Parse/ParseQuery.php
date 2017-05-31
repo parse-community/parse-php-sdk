@@ -624,7 +624,10 @@ class ParseQuery
 
     /**
      * Add a constraint to the query that requires a particular key's
-     * coordinates be contained within a given polygon
+     * coordinates be contained within and on the bounds of a given polygon
+     * Supports closed and open (last point is connected to first) paths
+     *
+     * Polygon must have at least 3 points
      *
      * @param string        $key       The key of the ParseGeoPoint
      * @param array         $points    Array of ParseGeoPoint
