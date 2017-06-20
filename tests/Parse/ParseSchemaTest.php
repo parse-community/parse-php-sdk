@@ -334,7 +334,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaGet()
     {
-        $this->setExpectedException(ParseException::class);
+        $this->setExpectedException('\Parse\ParseException');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -351,7 +351,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaSave()
     {
-        $this->setExpectedException(ParseException::class);
+        $this->setExpectedException('\Parse\ParseException');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -368,7 +368,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaUpdate()
     {
-        $this->setExpectedException(ParseException::class);
+        $this->setExpectedException('\Parse\ParseException');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -385,7 +385,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaDelete()
     {
-        $this->setExpectedException(ParseException::class);
+        $this->setExpectedException('\Parse\ParseException');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
