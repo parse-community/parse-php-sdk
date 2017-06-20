@@ -1,6 +1,9 @@
 Parse PHP SDK
 -------------
 
+[![codecov](https://codecov.io/gh/parse-community/parse-php-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/parse-community/parse-php-sdk)
+[![Build Status](https://travis-ci.org/parse-community/parse-php-sdk.svg?branch=master)](https://travis-ci.org/parse-community/parse-php-sdk)
+
 The Parse PHP SDK gives you access to the powerful Parse cloud platform
 from your PHP app or script.  Updated to work with the self-hosted Parse Server: https://github.com/parse-community/parse-server
 
