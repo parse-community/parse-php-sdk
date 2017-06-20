@@ -17,5 +17,7 @@ before_script:
   - mongodb-runner --start
 script:
   - nohup npm start 1>&2 &
-  - sleep 5
+  - sleep 10
   - ./vendor/bin/phpunit
+after_script:
+  - cat nohup.out
