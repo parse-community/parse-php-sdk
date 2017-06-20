@@ -11,7 +11,7 @@ before_install:
   - nvm install 6.0
 install: 
   - composer install
-  - npm i process-nextick-args util-deprecate
+  - npm install process-nextick-args util-deprecate isarray
   - npm install
 before_script:
   - npm start 1>&2
