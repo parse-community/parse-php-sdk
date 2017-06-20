@@ -14,5 +14,6 @@ install:
   - npm install
 before_script:
   - npm start 1>&2
+  - sleep 3
 script:
   - ./vendor/bin/phpunit
