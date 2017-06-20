@@ -9,6 +9,7 @@ php:
   - nightly
 install: 
   - composer install
+  - brew install nvm
   - nvm use 6
   - npm install
 before_script:
