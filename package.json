@@ -15,6 +15,7 @@
     "parse-server-test": "*",
     "process-nextick-args" : "*",
     "util-deprecate" : "*",
-    "isarray" : "*"
+    "isarray" : "*",
+    "buffer-shims" : "*"
   }
 }
