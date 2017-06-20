@@ -11,7 +11,7 @@ before_install:
   - nvm install 6.0
 install: 
   - composer install
-  - npm i -g process-nextick-args util-deprecate
+  - npm i process-nextick-args util-deprecate
   - npm install
 before_script:
   - npm start 1>&2
