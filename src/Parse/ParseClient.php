@@ -497,7 +497,7 @@ final class ParseClient
         if(!isset($decoded) && $response !== '') {
             throw new ParseException(
                 'Bad Request. Could not decode Response: '.
-                '('.json_last_error().') '.json_last_error_msg(),
+                '('.json_last_error().') '.self::getLastJSONErrorMsg(),
                 -1
             );
 
@@ -519,6 +519,35 @@ final class ParseClient
         }
 
         return $decoded;
+
+    }
+
+    /**
+     * Returns the last error message from a failed json_decode call
+     *
+     * @return string
+     */
+    private static function getLastJSONErrorMsg()
+    {
+        // check if json_last_error_msg is defined (>= 5.5.0)
+        if (!function_exists('json_last_error_msg')) {
+            // return custom error messages for each code
+            $error_strings = array(
+                JSON_ERROR_NONE             => 'No error',
+                JSON_ERROR_DEPTH            => 'Maximum stack depth exceeded',
+                JSON_ERROR_STATE_MISMATCH   => 'State mismatch (invalid or malformed JSON)',
+                JSON_ERROR_CTRL_CHAR        => 'Control character error, potentially incorrectly encoded',
+                JSON_ERROR_SYNTAX           => 'Syntax error',
+                JSON_ERROR_UTF8             => 'Malformed UTF-8 characters, potentially incorrectly encoded'
+            );
+
+            $error = json_last_error();
+            return isset($error_strings[$error]) ? $error_strings[$error] : 'Unknown error';
+
+        }
+
+        // use existing function
+        return json_last_error_msg();
 
     }
 

@@ -2243,7 +2243,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testOrQueriesVaryingClasses()
     {
-        $this->setExpectedException(\Exception::class,
+        $this->setExpectedException('\Exception',
             'All queries must be for the same class');
         ParseQuery::orQueries([
             new ParseQuery('Class1'),
@@ -2275,7 +2275,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testBadConditions()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             "Conditions must be in an array");
 
         $query = new ParseQuery('TestObject');

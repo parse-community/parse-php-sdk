@@ -71,7 +71,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      * @group client-not-initialized
      */
     public function testAppNotNotInitialized() {
-        $this->setExpectedException(\Exception::class,
+        $this->setExpectedException('\Exception',
             'You must call Parse::initialize(..., $accountKey) before making any app requests. '.
             'Your account key must not be null or empty.'
         );
@@ -508,7 +508,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadApiResponse()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'Bad Request. Could not decode Response: (4) Syntax error');
 
         $httpClient = ParseClient::getHttpClient();

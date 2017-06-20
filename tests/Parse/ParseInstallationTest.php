@@ -23,7 +23,7 @@ class ParseInstallationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingIdentifyingField()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'at least one ID field (deviceToken, installationId) must be specified in this operation');
 
         (new ParseInstallation())->save();
@@ -34,7 +34,7 @@ class ParseInstallationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingDeviceType()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'deviceType must be specified in this operation');
 
         $installation = new ParseInstallation();
@@ -48,7 +48,7 @@ class ParseInstallationTest extends \PHPUnit_Framework_TestCase
      */
     public function testClientsCannotFindWithoutMasterKey()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'Clients aren\'t allowed to perform the find operation on the installation collection.');
 
         $query = ParseInstallation::query();
@@ -66,7 +66,7 @@ class ParseInstallationTest extends \PHPUnit_Framework_TestCase
         $installation->set('deviceType', 'android');
         $installation->save();
 
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             "Clients aren't allowed to perform the delete operation on the installation collection.");
 
         // try destroying, without using the master key
