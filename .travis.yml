@@ -16,5 +16,6 @@ install:
 before_script:
   - mongodb-runner --start
   - npm start 1>&2 &
+  - sleep 5
 script:
   - ./vendor/bin/phpunit
