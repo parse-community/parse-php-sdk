@@ -529,7 +529,9 @@ final class ParseClient
      */
     private static function getLastJSONErrorMsg()
     {
+        // check if json_last_error_msg is defined (>= 5.5.0)
         if (!function_exists('json_last_error_msg')) {
+            // return custom error messages for each code
             $error_strings = array(
                 JSON_ERROR_NONE             => 'No error',
                 JSON_ERROR_DEPTH            => 'Maximum stack depth exceeded',
@@ -544,6 +546,7 @@ final class ParseClient
 
         }
 
+        // use existing function
         return json_last_error_msg();
 
     }
