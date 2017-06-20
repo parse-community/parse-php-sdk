@@ -235,7 +235,7 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingNonStringAsName()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             "A role's name must be a string.");
         $role = new ParseRole();
         $role->setName(12345);
@@ -247,7 +247,7 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
      */
     public function testSavingWithoutName()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'Roles must have a name.');
         $role = new ParseRole();
         $role->setACL(new ParseACL());

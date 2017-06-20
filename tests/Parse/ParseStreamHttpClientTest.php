@@ -34,7 +34,7 @@ class ParseStreamHttpClientTest extends \PHPUnit_Framework_TestCase
     {
         $url = 'http://example.com/lots of spaces here';
 
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'Url may not contain spaces for stream client: '
             .$url);
 

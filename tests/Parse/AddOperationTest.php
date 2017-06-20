@@ -40,7 +40,7 @@ class AddOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadObjects()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'AddOperation requires an array.');
         new AddOperation('not an array');
 
@@ -84,7 +84,7 @@ class AddOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'Operation is invalid after previous operation.');
         $addOp = new AddOperation([
             'key1'          => 'value1'

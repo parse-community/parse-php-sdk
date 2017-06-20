@@ -16,7 +16,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 {
     public function testBadExec()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'You must call ParseCurl::init first');
 
         $parseCurl = new ParseCurl();
@@ -26,7 +26,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadSetOption()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'You must call ParseCurl::init first');
 
         $parseCurl = new ParseCurl();
@@ -36,7 +36,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadSetOptionsArray()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'You must call ParseCurl::init first');
 
         $parseCurl = new ParseCurl();
@@ -46,7 +46,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadGetInfo()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'You must call ParseCurl::init first');
 
         $parseCurl = new ParseCurl();
@@ -56,7 +56,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadGetError()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'You must call ParseCurl::init first');
 
         $parseCurl = new ParseCurl();
@@ -66,7 +66,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadErrorCode()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'You must call ParseCurl::init first');
 
         $parseCurl = new ParseCurl();
@@ -76,7 +76,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadClose()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'You must call ParseCurl::init first');
 
         $parseCurl = new ParseCurl();

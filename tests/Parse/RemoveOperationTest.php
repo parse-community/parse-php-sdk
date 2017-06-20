@@ -22,7 +22,7 @@ class RemoveOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingArray()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'RemoveOperation requires an array.');
         new RemoveOperation('not an array');
 
@@ -65,7 +65,7 @@ class RemoveOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException(ParseException::class,
+        $this->setExpectedException('\Parse\ParseException',
             'Operation is invalid after previous operation.');
         $removeOp = new RemoveOperation([
             'key1'          => 'value1'
