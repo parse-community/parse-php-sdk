@@ -12,9 +12,6 @@
   "license": "https://github.com/parse-community/parse-php-sdk/blob/master/LICENSE",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "dependencies": {
-    "parse-server-test": "*",
-    "process-nextick-args" : "*",
-    "util-deprecate" : "*",
-    "isarray" : "*"
+    "parse-server-test": "*"
   }
 }
