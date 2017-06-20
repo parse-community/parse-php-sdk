@@ -7,3 +7,10 @@ php:
   - '7.1'
   - hhvm # on Trusty only
   - nightly
+install: 
+  - composer install
+  - npm install
+before_script:
+  - npm start 1>&2
+script:
+  - ./vendor/bin/phpunit
