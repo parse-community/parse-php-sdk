@@ -200,20 +200,136 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
         $query->withinMiles('location', $point, 10.0);
         $results = $query->find();
         $this->assertEquals(0, count($results));
-
     }
 
-    public function testBadLatitude() {
-        $this->setExpectedException('\Parse\ParseException',
-            'Latitude must be within range [-90.0, 90.0]');
+    public function testBadLatitude()
+    {
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Latitude must be within range [-90.0, 90.0]'
+        );
         new ParseGeoPoint(-180, 32);
-
     }
 
-    public function testBadLongitude() {
-        $this->setExpectedException('\Parse\ParseException',
-            'Longitude must be within range [-180.0, 180.0]');
+    public function testBadLongitude()
+    {
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Longitude must be within range [-180.0, 180.0]'
+        );
         new ParseGeoPoint(32, -360);
+    }
 
+    public function testWithinPolygonOpenPath()
+    {
+        $inbound = ParseObject::create('TestObject');
+        $onbound = ParseObject::create('TestObject');
+        $outbound = ParseObject::create('TestObject');
+
+        $inbound->set('location', new ParseGeoPoint(1, 1));
+        $onbound->set('location', new ParseGeoPoint(10, 10));
+        $outbound->set('location', new ParseGeoPoint(20, 20));
+
+        ParseObject::saveAll([$inbound, $onbound, $outbound]);
+
+        $points = [
+            new ParseGeoPoint(0, 0),
+            new ParseGeoPoint(0, 10),
+            new ParseGeoPoint(10, 10),
+            new ParseGeoPoint(10, 0)
+        ];
+        $query = new ParseQuery('TestObject');
+        $query->withinPolygon('location', $points);
+        $results = $query->find();
+        $this->assertEquals(2, count($results));
+    }
+
+    public function testWithinPolygonClosedPath()
+    {
+        $inbound = ParseObject::create('TestObject');
+        $onbound = ParseObject::create('TestObject');
+        $outbound = ParseObject::create('TestObject');
+
+        $inbound->set('location', new ParseGeoPoint(1, 1));
+        $onbound->set('location', new ParseGeoPoint(10, 10));
+        $outbound->set('location', new ParseGeoPoint(20, 20));
+
+        ParseObject::saveAll([$inbound, $onbound, $outbound]);
+
+        $points = [
+            new ParseGeoPoint(0, 0),
+            new ParseGeoPoint(0, 10),
+            new ParseGeoPoint(10, 10),
+            new ParseGeoPoint(10, 0),
+            new ParseGeoPoint(0, 0)
+        ];
+        $query = new ParseQuery('TestObject');
+        $query->withinPolygon('location', $points);
+        $results = $query->find();
+        $this->assertEquals(2, count($results));
+    }
+
+    public function testWithinPolygonEmpty()
+    {
+        $obj = ParseObject::create('TestObject');
+        $obj->set('location', new ParseGeoPoint(1.5, 1.5));
+        $obj->save();
+
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'bad $geoWithin value; $polygon should contain at least 3 GeoPoints'
+        );
+        $query = new ParseQuery('TestObject');
+        $query->withinPolygon('location', []);
+        $query->find();
+    }
+
+    public function testWithinPolygonTwoGeoPoints()
+    {
+        $obj = ParseObject::create('TestObject');
+        $obj->set('location', new ParseGeoPoint(1.5, 1.5));
+        $obj->save();
+
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'bad $geoWithin value; $polygon should contain at least 3 GeoPoints'
+        );
+        $points = [
+            new ParseGeoPoint(0, 0),
+            new ParseGeoPoint(10, 10)
+        ];
+        $query = new ParseQuery('TestObject');
+        $query->withinPolygon('location', $points);
+        $query->find();
+    }
+
+    public function testWithinPolygonNonArray()
+    {
+        $obj = ParseObject::create('TestObject');
+        $obj->set('location', new ParseGeoPoint(1.5, 1.5));
+        $obj->save();
+
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'bad $geoWithin value; $polygon should contain at least 3 GeoPoints'
+        );
+        $query = new ParseQuery('TestObject');
+        $query->withinPolygon('location', 1234);
+        $query->find();
+    }
+
+    public function testWithinPolygonInvalidArray()
+    {
+        $obj = ParseObject::create('TestObject');
+        $obj->set('location', new ParseGeoPoint(1.5, 1.5));
+        $obj->save();
+
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'bad $geoWithin value; $polygon should contain at least 3 GeoPoints'
+        );
+        $query = new ParseQuery('TestObject');
+        $query->withinPolygon('location', [$obj]);
+        $query->find();
     }
 }
