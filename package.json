@@ -3,7 +3,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start" : "./node_modules/parse-server-test/run-server",
-    "stop"  : "mongodb-runner stop"
+    "stop"  : "./node_modules/parse-server-test/stop-server"
   },
   "repository": {
     "type": "git",
