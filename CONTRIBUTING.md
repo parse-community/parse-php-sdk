@@ -65,7 +65,7 @@ You should now be able to execute the tests, from project root folder:
 
     `npm test`
 
-Make sure your code is linted with phpcs
+Make sure your code is linted with phpcs (PSR-2 Coding Style)
 
     `npm run lint`
 
