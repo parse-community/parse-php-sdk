@@ -71,7 +71,7 @@ Make sure your code is linted with phpcs
 
 You can automatically fix lint errors with phpcbf
 
-    `npm run lint-fix`
+    `npm run lint:fix`
 
 The test suite is setup for code coverage if you have [XDebug] installed and setup.
 Coverage is outputted as text and as html in the phpunit-test-results/ directory within the project root.

@@ -2,8 +2,9 @@
   "name": "parse-php-sdk",
   "scripts": {
     "test": "./vendor/bin/phpunit",
+    "test:coverage": "./vendor/bin/phpunit --coverage-clover=coverage.xml",
     "lint": "./vendor/bin/phpcs --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
-    "lint-fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
+    "lint:fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "start" : "./node_modules/parse-server-test/run-server",
     "stop"  : "./node_modules/parse-server-test/stop-server"
   },
