@@ -8,7 +8,6 @@
 
 namespace Parse\Test;
 
-
 use Parse\HttpClients\ParseCurlHttpClient;
 use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\ParseClient;
@@ -31,8 +30,6 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
     {
         Helper::setServerURL();
         Helper::setHttpClient();
-
-
     }
 
     public function tearDown()
@@ -41,13 +38,13 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         // unset CA file
         ParseClient::setCAFile(null);
-
     }
 
     /**
      * @group client-not-initialized
      */
-    public function testParseNotInitialized() {
+    public function testParseNotInitialized()
+    {
         $this->setExpectedException(
             '\Exception',
             'You must call Parse::initialize() before making any requests.'
@@ -63,15 +60,15 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
             '',
             ''
         );
-
-
     }
 
     /**
      * @group client-not-initialized
      */
-    public function testAppNotNotInitialized() {
-        $this->setExpectedException('\Exception',
+    public function testAppNotNotInitialized()
+    {
+        $this->setExpectedException(
+            '\Exception',
             'You must call Parse::initialize(..., $accountKey) before making any app requests. '.
             'Your account key must not be null or empty.'
         );
@@ -90,13 +87,13 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
             false,
             true
         );
-
     }
 
     /**
      * @group client-init
      */
-    public function testInitialize() {
+    public function testInitialize()
+    {
 
         // unregister associated sub classes
         ParseUser::_unregisterSubclass();
@@ -122,13 +119,13 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         // verify storage is now set
         $this->assertNotNull(ParseClient::getStorage());
-
     }
 
     /**
      * @group client-storage
      */
-    public function testStorage() {
+    public function testStorage()
+    {
 
         // unset storage
         ParseClient::_unsetStorage();
@@ -143,8 +140,10 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         );
 
         $storage = ParseClient::getStorage();
-        $this->assertTrue($storage instanceof ParseMemoryStorage,
-            'Not an instance of ParseMemoryStorage');
+        $this->assertTrue(
+            $storage instanceof ParseMemoryStorage,
+            'Not an instance of ParseMemoryStorage'
+        );
 
         /* TODO can't get session storage test to pass properly
         // unset storage
@@ -180,69 +179,78 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
     /**
      * @group client-test
      */
-    public function testSetServerURL() {
+    public function testSetServerURL()
+    {
         // add extra slashes to test removal
         ParseClient::setServerURL('https://example.com//', '//parse//');
 
         // verify APIUrl
         $this->assertEquals(
             'https://example.com/parse/',
-            ParseClient::getAPIUrl());
+            ParseClient::getAPIUrl()
+        );
 
         // verify mount path
         $this->assertEquals(
             'parse/',
             ParseClient::getMountPath()
         );
-
     }
 
     /**
      * @group client-test
      */
-    public function testRootMountPath() {
+    public function testRootMountPath()
+    {
         ParseClient::setServerURL('https://example.com', '/');
         $this->assertEquals(
             '',
             ParseClient::getMountPath(),
-            'Mount path was not reduced to an empty sequence for root');
-
+            'Mount path was not reduced to an empty sequence for root'
+        );
     }
 
     /**
      * @group client-test
      */
-    public function testBadServerURL() {
-        $this->setExpectedException('\Exception',
-            'Invalid Server URL.');
+    public function testBadServerURL()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'Invalid Server URL.'
+        );
         ParseClient::setServerURL(null, 'parse');
-
     }
 
     /**
      * @group client-test
      */
-    public function testBadMountPath() {
-        $this->setExpectedException('\Exception',
-            'Invalid Mount Path.');
+    public function testBadMountPath()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'Invalid Mount Path.'
+        );
         ParseClient::setServerURL('https://example.com', null);
-
     }
 
     /**
      * @group encoding-error
      */
-    public function testEncodingError() {
-        $this->setExpectedException('\Exception',
-            'Invalid type encountered.');
+    public function testEncodingError()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'Invalid type encountered.'
+        );
         ParseClient::_encode(new Helper(), false);
-
     }
 
     /**
      * @group client-decoding
      */
-    public function testDecodingStdClass() {
+    public function testDecodingStdClass()
+    {
         $obj = new \stdClass();
         $obj->property = 'value';
 
@@ -252,13 +260,13 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         $emptyClass = new \stdClass();
         $this->assertEquals($emptyClass, ParseClient::_decode($emptyClass));
-
     }
 
     /**
      * @group timeouts
      */
-    public function testCurlTimeout() {
+    public function testCurlTimeout()
+    {
 
         ParseClient::setTimeout(3000);
 
@@ -273,13 +281,13 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         // clear timeout
         ParseClient::setTimeout(null);
-
     }
 
     /**
      * @group timeouts
      */
-    public function testCurlConnectionTimeout() {
+    public function testCurlConnectionTimeout()
+    {
         ParseClient::setConnectionTimeout(3000);
 
         // perform a standard save
@@ -293,13 +301,13 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         // clear timeout
         ParseClient::setConnectionTimeout(null);
-
     }
 
     /**
      * @group timeouts
      */
-    public function testStreamTimeout() {
+    public function testStreamTimeout()
+    {
 
         ParseClient::setHttpClient(new ParseStreamHttpClient());
 
@@ -316,13 +324,13 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         // clear timeout
         ParseClient::setTimeout(null);
-
     }
 
     /**
      * @group timeouts
      */
-    public function testStreamConnectionTimeout() {
+    public function testStreamConnectionTimeout()
+    {
 
         ParseClient::setHttpClient(new ParseStreamHttpClient());
 
@@ -339,32 +347,33 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         // clear timeout
         ParseClient::setConnectionTimeout(null);
-
     }
 
     /**
      * @group no-curl-exceptions
      */
-    public function testNoCurlExceptions() {
+    public function testNoCurlExceptions()
+    {
         Helper::setUpWithoutCURLExceptions();
 
         ParseClient::setServerURL('http://404.example.com', 'parse');
         $result = ParseClient::_request(
             'GET',
             'not-a-real-endpoint-to-reach',
-            null);
+            null
+        );
 
         $this->assertFalse($result);
 
         // put back
         Helper::setUp();
-
     }
 
     /**
      * @group curl-exceptions
      */
-    public function testCurlException() {
+    public function testCurlException()
+    {
 
         ParseClient::setHttpClient(new ParseCurlHttpClient());
 
@@ -374,14 +383,15 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         ParseClient::_request(
             'GET',
             'not-a-real-endpoint-to-reach',
-            null);
-
+            null
+        );
     }
 
     /**
      * @group stream-exceptions
      */
-    public function testStreamException() {
+    public function testStreamException()
+    {
 
         ParseClient::setHttpClient(new ParseStreamHttpClient());
 
@@ -391,8 +401,8 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         ParseClient::_request(
             'GET',
             'not-a-real-endpoint-to-reach',
-            null);
-
+            null
+        );
     }
 
     /**
@@ -406,8 +416,10 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadStreamRequest()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            "Bad Request");
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            "Bad Request"
+        );
 
         ParseClient::setHttpClient(new ParseStreamHttpClient());
 
@@ -415,7 +427,8 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         ParseClient::_request(
             'GET',
             '',
-            null);
+            null
+        );
     }
 
     /**
@@ -423,8 +436,10 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testCurlBadRequest()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            "Bad Request");
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            "Bad Request"
+        );
 
         ParseClient::setHttpClient(new ParseCurlHttpClient());
 
@@ -432,8 +447,8 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         ParseClient::_request(
             'GET',
             '',
-            null);
-
+            null
+        );
     }
 
     /**
@@ -447,16 +462,13 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         // get default client
         $default = ParseClient::getHttpClient();
 
-        if(function_exists('curl_init')) {
+        if (function_exists('curl_init')) {
             // should be a curl client
             $this->assertTrue($default instanceof ParseCurlHttpClient);
-
         } else {
             // should be a stream client
             $this->assertTrue($default instanceof ParseStreamHttpClient);
-
         }
-
     }
 
     /**
@@ -470,15 +482,17 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         // not a real ca file, just testing setting
         ParseClient::setCAFile("not-real-ca-file");
 
-        $this->setExpectedException('\Parse\ParseException',
-            "Bad Request");
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            "Bad Request"
+        );
 
         ParseClient::setServerURL('http://example.com', '/');
         ParseClient::_request(
             'GET',
             '',
-            null);
-
+            null
+        );
     }
 
     /**
@@ -492,15 +506,17 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         // not a real ca file, just testing setting
         ParseClient::setCAFile("not-real-ca-file");
 
-        $this->setExpectedException('\Parse\ParseException',
-            "Bad Request");
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            "Bad Request"
+        );
 
         ParseClient::setServerURL('http://example.com', '/');
         ParseClient::_request(
             'GET',
             '',
-            null);
-
+            null
+        );
     }
 
     /**
@@ -508,8 +524,10 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadApiResponse()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            'Bad Request. Could not decode Response: (4) Syntax error');
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Bad Request. Could not decode Response: (4) Syntax error'
+        );
 
         $httpClient = ParseClient::getHttpClient();
 
@@ -533,7 +551,5 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         // attempt to save, which should not fire our given code
         $obj = new ParseObject('TestingClass');
         $obj->save();
-
     }
-
 }

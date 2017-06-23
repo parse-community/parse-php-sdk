@@ -173,7 +173,6 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
             'bar0',
             'EndsWith function did not return the correct object.'
         );
-
     }
 
     public function testStartsWithSingle()
@@ -212,9 +211,8 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
         $user = ParseUser::getCurrentUser();
 
-        if(isset($user)) {
+        if (isset($user)) {
             throw new ParseException($user->_encode());
-
         }
 
         $this->provideTestObjects(10);
@@ -1604,13 +1602,12 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $numbers = [3, 1, 2];
         $objects = [];
 
-        foreach($numbers as $num) {
+        foreach ($numbers as $num) {
             $obj = ParseObject::create('TestObject');
             $obj->set('number', $num);
             $obj->save();
             $objects[]  = $obj;
             sleep(1);
-
         }
 
         $objects[1]->set('number', 4);
@@ -1642,13 +1639,12 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $numbers = [3, 1, 2];
         $objects = [];
 
-        foreach($numbers as $num) {
+        foreach ($numbers as $num) {
             $obj = ParseObject::create('TestObject');
             $obj->set('number', $num);
             $obj->save();
             $objects[]  = $obj;
             sleep(1);
-
         }
 
         $objects[1]->set('number', 4);
@@ -2213,7 +2209,8 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $count);
     }
 
-    public function testAscendingByArray() {
+    public function testAscendingByArray()
+    {
         $obj = new ParseObject('TestObject');
         $obj->set('name', 'John');
         $obj->set('country', 'US');
@@ -2238,18 +2235,18 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Joel', $results[0]->name);
         $this->assertEquals('Bob', $results[1]->name);
         $this->assertEquals('John', $results[2]->name);
-
     }
 
     public function testOrQueriesVaryingClasses()
     {
-        $this->setExpectedException('\Exception',
-            'All queries must be for the same class');
+        $this->setExpectedException(
+            '\Exception',
+            'All queries must be for the same class'
+        );
         ParseQuery::orQueries([
             new ParseQuery('Class1'),
             new ParseQuery('Class2')
         ]);
-
     }
 
     /**
@@ -2275,11 +2272,12 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testBadConditions()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            "Conditions must be in an array");
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            "Conditions must be in an array"
+        );
 
         $query = new ParseQuery('TestObject');
         $query->_setConditions('not-an-array');
-
     }
 }

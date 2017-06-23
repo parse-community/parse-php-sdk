@@ -8,7 +8,6 @@
 
 namespace Parse\Test;
 
-
 use Parse\Internal\AddOperation;
 use Parse\Internal\DeleteOperation;
 use Parse\Internal\IncrementOperation;
@@ -29,7 +28,6 @@ class IncrementOperationTest extends \PHPUnit_Framework_TestCase
     {
         $addOp = new IncrementOperation(32);
         $this->assertEquals(32, $addOp->getValue());
-
     }
 
     /**
@@ -54,7 +52,6 @@ class IncrementOperationTest extends \PHPUnit_Framework_TestCase
         $merged = $addOp->_mergeWithPrevious(new IncrementOperation(32));
         $this->assertTrue($merged instanceof IncrementOperation);
         $this->assertEquals(33, $merged->getValue(), 'Value was not as expected');
-
     }
 
     /**
@@ -62,10 +59,11 @@ class IncrementOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            'Operation is invalid after previous operation.');
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Operation is invalid after previous operation.'
+        );
         $addOp = new IncrementOperation();
         $addOp->_mergeWithPrevious(new AddOperation(['key'  => 'value']));
-
     }
 }

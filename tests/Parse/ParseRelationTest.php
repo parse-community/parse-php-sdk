@@ -186,7 +186,6 @@ class ParseRelationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, count($children));
         $this->assertEquals('child3', $children[0]->get('name'));
-
     }
 
     /**
@@ -216,7 +215,5 @@ class ParseRelationTest extends \PHPUnit_Framework_TestCase
 
         $child2->save();
         $parent->save();
-
     }
-
 }

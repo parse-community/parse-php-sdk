@@ -39,7 +39,6 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         self::$schema = new ParseSchema('SchemaTest');
         Helper::clearClass('_User');
         Helper::setHttpClient();
-
     }
 
     public function tearDown()
@@ -159,7 +158,6 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertNotNull($result['fields']['quantity']);
         $this->assertNotNull($result['fields']['status']);
-
     }
 
     public function testUpdateSchemaCurl()
@@ -184,7 +182,6 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertNotNull($result['fields']['quantity']);
         $this->assertNotNull($result['fields']['status']);
-
     }
 
     public function testUpdateWrongFieldType()
@@ -205,8 +202,10 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $deleteSchema->delete();
 
         $getSchema = new ParseSchema('SchemaDeleteTest');
-        $this->setExpectedException('Parse\ParseException',
-            'Class SchemaDeleteTest does not exist.');
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'Class SchemaDeleteTest does not exist.'
+        );
         $getSchema->get();
     }
 
@@ -343,7 +342,6 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 
         $schema = new ParseSchema(self::$badClassName);
         $schema->get();
-
     }
 
     /**
@@ -360,7 +358,6 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 
         $schema = new ParseSchema(self::$badClassName);
         $schema->save();
-
     }
 
     /**
@@ -377,7 +374,6 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 
         $schema = new ParseSchema(self::$badClassName);
         $schema->update();
-
     }
 
     /**
@@ -394,7 +390,5 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 
         $schema = new ParseSchema(self::$badClassName);
         $schema->delete();
-
     }
-
 }

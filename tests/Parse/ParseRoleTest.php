@@ -91,10 +91,11 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         $role = ParseRole::createRole('Admin', $this->aclPublic());
         $role->save();
         $role2 = ParseRole::createRole('Admin', $this->aclPublic());
-        $this->setExpectedException('Parse\ParseException',
-            "Cannot add duplicate role name of 'Admin'");
+        $this->setExpectedException(
+            'Parse\ParseException',
+            "Cannot add duplicate role name of 'Admin'"
+        );
         $role2->save();
-
     }
 
     /**
@@ -164,7 +165,6 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         $roleAgain->save();
 
         ParseUser::logOut();
-
     }
 
     /**
@@ -235,11 +235,12 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingNonStringAsName()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            "A role's name must be a string.");
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            "A role's name must be a string."
+        );
         $role = new ParseRole();
         $role->setName(12345);
-
     }
 
     /**
@@ -247,11 +248,12 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
      */
     public function testSavingWithoutName()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            'Roles must have a name.');
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Roles must have a name.'
+        );
         $role = new ParseRole();
         $role->setACL(new ParseACL());
         $role->save();
-
     }
 }

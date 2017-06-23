@@ -27,7 +27,7 @@ To setup the Test Parse Server:
 * Run `npm install` from the project root to download the server and it's dependencies.
 * When you're ready to run tests use `npm start` from the project root to boot up the test server.
 
-The embedded test server utilizes this [parse server test] project. 
+The embedded test server utilizes this [parse server test] project.
 It's setup with the appropriate configuration to run the php sdk test suite.
 Additionally it handles setting up mongodb for the server.
 
@@ -63,7 +63,15 @@ Alternately you can configure a compatible test server as follows:
 
 You should now be able to execute the tests, from project root folder:
 
-    ./vendor/bin/phpunit
+    `npm test`
+
+Make sure your code is linted with phpcs
+
+    `npm run lint`
+
+You can automatically fix lint errors with phpcbf
+
+    `npm run lint-fix`
 
 The test suite is setup for code coverage if you have [XDebug] installed and setup.
 Coverage is outputted as text and as html in the phpunit-test-results/ directory within the project root.

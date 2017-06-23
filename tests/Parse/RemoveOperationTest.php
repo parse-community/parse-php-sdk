@@ -8,7 +8,6 @@
 
 namespace Parse\Test;
 
-
 use Parse\Internal\AddOperation;
 use Parse\Internal\DeleteOperation;
 use Parse\Internal\RemoveOperation;
@@ -22,10 +21,11 @@ class RemoveOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingArray()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            'RemoveOperation requires an array.');
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'RemoveOperation requires an array.'
+        );
         new RemoveOperation('not an array');
-
     }
 
     /**
@@ -57,7 +57,6 @@ class RemoveOperationTest extends \PHPUnit_Framework_TestCase
             'key2'  => 'value2',
             'key1'  => 'value1'
         ], $merged->getValue(), 'Value was not as expected');
-
     }
 
     /**
@@ -65,13 +64,14 @@ class RemoveOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            'Operation is invalid after previous operation.');
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Operation is invalid after previous operation.'
+        );
         $removeOp = new RemoveOperation([
             'key1'          => 'value1'
         ]);
         $removeOp->_mergeWithPrevious(new AddOperation(['key'=>'value']));
-
     }
 
     /**
@@ -83,6 +83,5 @@ class RemoveOperationTest extends \PHPUnit_Framework_TestCase
             'key1'          => 'value1'
         ]);
         $this->assertEmpty($removeOp->_apply([], null, null));
-
     }
 }

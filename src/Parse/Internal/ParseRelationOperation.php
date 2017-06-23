@@ -63,9 +63,8 @@ class ParseRelationOperation implements FieldOperation
      */
     private function checkAndAssignClassName($objects)
     {
-        if(!is_array($objects)) {
+        if (!is_array($objects)) {
             $objects = [$objects];
-
         }
 
         foreach ($objects as $object) {

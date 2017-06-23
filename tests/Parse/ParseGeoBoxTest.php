@@ -63,7 +63,8 @@ class ParseGeoBoxTest extends \PHPUnit_Framework_TestCase
         /* , should fail because it crosses the dateline
         try {
             $results = $query->find();
-            $this->assertTrue(false, 'Query should fail because it crosses dateline, with results:'.json_encode($results[0]));
+            $this->assertTrue(false, 'Query should fail because it crosses
+            dateline with results:'.json_encode($results[0]));
         } catch (ParseException $e) {
         }
         */

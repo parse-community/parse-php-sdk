@@ -8,7 +8,6 @@
 
 namespace Parse\Test;
 
-
 use Parse\Internal\AddOperation;
 use Parse\Internal\DeleteOperation;
 use Parse\Internal\SetOperation;
@@ -32,7 +31,6 @@ class AddOperationTest extends \PHPUnit_Framework_TestCase
         $addOp = new AddOperation($objects);
 
         $this->assertEquals($objects, $addOp->getValue());
-
     }
 
     /**
@@ -40,10 +38,11 @@ class AddOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadObjects()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            'AddOperation requires an array.');
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'AddOperation requires an array.'
+        );
         new AddOperation('not an array');
-
     }
 
     /**
@@ -76,7 +75,6 @@ class AddOperationTest extends \PHPUnit_Framework_TestCase
             'key2'  => 'value2',
             'key1'  => 'value1'
         ], $merged->getValue(), 'Value was not as expected');
-
     }
 
     /**
@@ -84,12 +82,13 @@ class AddOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            'Operation is invalid after previous operation.');
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Operation is invalid after previous operation.'
+        );
         $addOp = new AddOperation([
             'key1'          => 'value1'
         ]);
         $addOp->_mergeWithPrevious(new \DateTime());
-
     }
 }

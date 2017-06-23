@@ -42,6 +42,5 @@ class ParseConfig
     public function getConfig()
     {
         return $this->currentConfig;
-
     }
 }

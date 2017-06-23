@@ -17,27 +17,27 @@ class ParseCloudTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $user = ParseUser::getCurrentUser();
-        if(isset($user)) {
+        if (isset($user)) {
             ParseUser::logOut();
             $user->destroy(true);
-
         }
     }
 
     /**
      * @group cloud-code
      */
-    public function testFunctionCall() {
+    public function testFunctionCall()
+    {
         $response = ParseCloud::run('bar', [
             'key1'  => 'value2',
             'key2'  => 'value1'
         ]);
 
         $this->assertEquals('Foo', $response);
-
     }
 
-    public function testFunctionCallWithUser() {
+    public function testFunctionCallWithUser()
+    {
         $user = new ParseUser();
         $user->setUsername("someuser");
         $user->setPassword("somepassword");
@@ -52,15 +52,17 @@ class ParseCloudTest extends \PHPUnit_Framework_TestCase
 
         ParseUser::logOut();
         $user->destroy(true);
-
     }
 
     /**
      * @group cloud-code
      */
-    public function testFunctionCallException() {
-        $this->setExpectedException('\Parse\ParseException',
-            'bad stuff happened');
+    public function testFunctionCallException()
+    {
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'bad stuff happened'
+        );
 
         ParseCloud::run('bar', [
             'key1'  => 'value1',
@@ -80,7 +82,6 @@ class ParseCloudTest extends \PHPUnit_Framework_TestCase
         $params = ['key1' => $obj];
         $this->setExpectedException('\Exception', 'ParseObjects not allowed');
         ParseCloud::run('foo', $params);
-
     }
 
     /**
@@ -89,8 +90,10 @@ class ParseCloudTest extends \PHPUnit_Framework_TestCase
     public function testFunctionsWithGeoPointParamsDoNotThrow()
     {
         $params = ['key1' => new ParseGeoPoint(50, 50)];
-        $this->setExpectedException('Parse\ParseException',
-            'Invalid function: "unknown_function"');
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'Invalid function: "unknown_function"'
+        );
         ParseCloud::run('unknown_function', $params);
     }
 
@@ -100,8 +103,10 @@ class ParseCloudTest extends \PHPUnit_Framework_TestCase
     public function testUnknownFunctionFailure()
     {
         $params = ['key1' => 'value1'];
-        $this->setExpectedException('Parse\ParseException',
-            'Invalid function: "unknown_function"');
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'Invalid function: "unknown_function"'
+        );
         ParseCloud::run('unknown_function', $params);
     }
 }

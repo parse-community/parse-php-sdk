@@ -8,7 +8,6 @@
 
 namespace Parse\Test;
 
-
 use Parse\ParseObject;
 
 class ParseObjectMock extends ParseObject

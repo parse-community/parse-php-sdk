@@ -34,13 +34,10 @@ class ParsePushStatus extends ParseObject
             // return the associated PushStatus object
             $query = new ParseQuery(self::$parseClassName);
             return $query->get($id, true);
-
         } catch (ParseException $pe) {
             // no push found
             return null;
-
         }
-
     }
 
     /**
@@ -51,7 +48,6 @@ class ParsePushStatus extends ParseObject
     public function getPushTime()
     {
         return new \DateTime($this->get("pushTime"));
-
     }
 
     /**
@@ -73,7 +69,6 @@ class ParsePushStatus extends ParseObject
         $query->_setConditions($queryConditions);
 
         return $query;
-
     }
 
     /**
@@ -84,7 +79,6 @@ class ParsePushStatus extends ParseObject
     public function getPushPayload()
     {
         return json_decode($this->get("payload"), true);
-
     }
 
     /**
@@ -95,7 +89,6 @@ class ParsePushStatus extends ParseObject
     public function getPushSource()
     {
         return $this->get("source");
-
     }
 
     /**
@@ -106,7 +99,6 @@ class ParsePushStatus extends ParseObject
     public function getPushStatus()
     {
         return $this->get("status");
-
     }
 
     /**
@@ -117,7 +109,6 @@ class ParsePushStatus extends ParseObject
     public function isScheduled()
     {
         return $this->getPushStatus() === self::STATUS_SCHEDULED;
-
     }
 
     /**
@@ -128,7 +119,6 @@ class ParsePushStatus extends ParseObject
     public function isPending()
     {
         return $this->getPushStatus() === self::STATUS_PENDING;
-
     }
 
     /**
@@ -139,7 +129,6 @@ class ParsePushStatus extends ParseObject
     public function isRunning()
     {
         return $this->getPushStatus() === self::STATUS_RUNNING;
-
     }
 
     /**
@@ -150,7 +139,6 @@ class ParsePushStatus extends ParseObject
     public function hasSucceeded()
     {
         return $this->getPushStatus() === self::STATUS_SUCCEEDED;
-
     }
 
     /**
@@ -161,7 +149,6 @@ class ParsePushStatus extends ParseObject
     public function hasFailed()
     {
         return $this->getPushStatus() === self::STATUS_FAILED;
-
     }
 
     /**
@@ -172,7 +159,6 @@ class ParsePushStatus extends ParseObject
     public function getPushesSent()
     {
         return $this->get("numSent");
-
     }
 
     /**
@@ -183,7 +169,6 @@ class ParsePushStatus extends ParseObject
     public function getPushHash()
     {
         return $this->get("pushHash");
-
     }
 
     /**
@@ -194,6 +179,5 @@ class ParsePushStatus extends ParseObject
     public function getPushesFailed()
     {
         return $this->get("numFailed");
-
     }
 }

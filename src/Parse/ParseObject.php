@@ -230,7 +230,6 @@ class ParseObject implements Encodable
     public function has($key)
     {
         return isset($this->estimatedData[$key]);
-
     }
 
     /**
@@ -807,6 +806,7 @@ class ParseObject implements Encodable
      */
     private static function destroyBatch(array $objects, $useMasterKey = false)
     {
+        //@codingStandardsIgnoreStart
         $data = [];
         $errors = [];
         foreach ($objects as $object) {
@@ -815,6 +815,7 @@ class ParseObject implements Encodable
                 'path'   => '/'.ParseClient::getMountPath().'classes/'.$object->getClassName().'/'.$object->getObjectId(),
             ];
         }
+        //@codingStandardsIgnoreEnd
         $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
@@ -940,7 +941,9 @@ class ParseObject implements Encodable
      *
      * @return void
      */
-    public function beforeSave(){}
+    public function beforeSave()
+    {
+    }
 
     /**
      * Save Object to Parse.
@@ -1112,7 +1115,6 @@ class ParseObject implements Encodable
                         $unsavedFiles[] = $obj;
                     }
                 }
-
             }
         );
     }

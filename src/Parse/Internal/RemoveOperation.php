@@ -106,9 +106,8 @@ class RemoveOperation implements FieldOperation
             return [];
         }
 
-        if(!is_array($oldValue)) {
+        if (!is_array($oldValue)) {
             $oldValue = [$oldValue];
-
         }
 
         $newValue = [];
