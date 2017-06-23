@@ -99,7 +99,7 @@ class ParsePolygonTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\Parse\ParseException',
-            'Polygon must have at least 3 points'
+            'Polygon must have at least 3 GeoPoints or Points'
         );
         $polygon = new ParsePolygon([[0,0]]);
         $obj = ParseObject::create('TestObject');
@@ -111,9 +111,21 @@ class ParsePolygonTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\Parse\ParseException',
-            'Polygon must have at least 3 points'
+            'Coordinates must be an Array'
         );
         $polygon = new ParsePolygon(1234);
+        $obj = ParseObject::create('TestObject');
+        $obj->set('polygon', $polygon);
+        $obj->save();
+    }
+
+    public function testPolygonInvalidArray()
+    {
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Coordinates must be an Array of GeoPoints or Points'
+        );
+        $polygon = new ParsePolygon([['str1'],['str2'],['str3']]);
         $obj = ParseObject::create('TestObject');
         $obj->set('polygon', $polygon);
         $obj->save();
@@ -146,7 +158,7 @@ class ParsePolygonTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($results));
     }
 
-    public function testPolygonContainsInvalid()
+    public function testPolygonContainsInvalidInput()
     {
         $this->setExpectedException(
             '\Parse\ParseException',

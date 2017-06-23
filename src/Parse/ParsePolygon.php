@@ -38,14 +38,21 @@ class ParsePolygon implements Encodable
      */
     public function setCoordinates($coords)
     {
-        if (count($coords) < 3 || !is_array($coords)) {
-            throw new ParseException('Polygon must have at least 3 points');
+        if (!is_array($coords)) {
+            throw new ParseException('Coordinates must be an Array');
+        }
+        if (count($coords) < 3) {
+            throw new ParseException('Polygon must have at least 3 GeoPoints or Points');
         }
         $points = [];
         foreach ($coords as $coord) {
-            $geoPoint = $coord;
-            if (is_array($coord)) {
+            $geoPoint;
+            if ($coord instanceof ParseGeoPoint) {
+                $geoPoint = $coord;
+            } elseif (is_array($coord) && count($coord) === 2) {
                 $geoPoint = new ParseGeoPoint($coord[0], $coord[1]);
+            } else {
+                throw new ParseException('Coordinates must be an Array of GeoPoints or Points');
             }
             $points[] = [$geoPoint->getLatitude(), $geoPoint->getLongitude()];
         }
