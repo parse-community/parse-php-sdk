@@ -7,7 +7,7 @@ use Parse\ParsePolygon;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
+class ParsePolygonTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
