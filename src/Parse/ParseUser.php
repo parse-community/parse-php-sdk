@@ -192,7 +192,8 @@ class ParseUser extends ParseObject
         $screen_name,
         $consumer_key,
         $consumer_secret = null,
-        $auth_token, //@codingStandardsIgnoreLine
+        //@codingStandardsIgnoreLine
+        $auth_token,
         $auth_token_secret
     ) {
 
@@ -247,11 +248,16 @@ class ParseUser extends ParseObject
          * @link https://en.wikipedia.org/wiki/Universally_unique_identifier
          */
         $uuid_parts = str_split(md5(mt_rand()), 4);
-        //@codingStandardsIgnoreStart
         $authData = [
-            'id' => $uuid_parts[0].$uuid_parts[1].'-'.$uuid_parts[2].'-'.$uuid_parts[3].'-'.$uuid_parts[4].'-'.$uuid_parts[5].$uuid_parts[6].$uuid_parts[7],
+            'id' => $uuid_parts[0].
+                    $uuid_parts[1].'-'.
+                    $uuid_parts[2].'-'.
+                    $uuid_parts[3].'-'.
+                    $uuid_parts[4].'-'.
+                    $uuid_parts[5].
+                    $uuid_parts[6].
+                    $uuid_parts[7],
         ];
-        //@codingStandardsIgnoreEnd
         return self::logInWith('anonymous', $authData);
     }
 
@@ -342,7 +348,8 @@ class ParseUser extends ParseObject
         $screen_name,
         $consumer_key,
         $consumer_secret = null,
-        $auth_token, //@codingStandardsIgnoreLine
+        //@codingStandardsIgnoreLine
+        $auth_token,
         $auth_token_secret,
         $useMasterKey = false
     ) {

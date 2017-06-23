@@ -63,15 +63,19 @@ Alternately you can configure a compatible test server as follows:
 
 You should now be able to execute the tests, from project root folder:
 
-    `npm test`
+    ./vendor/bin/phpunit
+
+You may also run tests directly using phpunit as follows:
+
+    npm test
 
 Make sure your code is linted with phpcs (PSR-2 Coding Style)
 
-    `npm run lint`
+    npm run lint
 
 You can automatically fix lint errors with phpcbf
 
-    `npm run lint:fix`
+    npm run lint:fix
 
 The test suite is setup for code coverage if you have [XDebug] installed and setup.
 Coverage is outputted as text and as html in the phpunit-test-results/ directory within the project root.

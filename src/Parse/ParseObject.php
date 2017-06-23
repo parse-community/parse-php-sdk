@@ -806,16 +806,16 @@ class ParseObject implements Encodable
      */
     private static function destroyBatch(array $objects, $useMasterKey = false)
     {
-        //@codingStandardsIgnoreStart
         $data = [];
         $errors = [];
         foreach ($objects as $object) {
             $data[] = [
                 'method' => 'DELETE',
-                'path'   => '/'.ParseClient::getMountPath().'classes/'.$object->getClassName().'/'.$object->getObjectId(),
+                'path'   => '/'.ParseClient::getMountPath().
+                'classes/'.$object->getClassName().
+                '/'.$object->getObjectId(),
             ];
         }
-        //@codingStandardsIgnoreEnd
         $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();

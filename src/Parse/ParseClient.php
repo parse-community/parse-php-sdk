@@ -124,9 +124,13 @@ final class ParseClient
      *
      * @throws Exception
      */
-    //@codingStandardsIgnoreLine
-    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true, $account_key = null)
-    {
+    public static function initialize(
+        $app_id,
+        $rest_key,
+        $master_key,
+        $enableCurlExceptions = true,
+        $account_key = null
+    ) {
         if (!ParseObject::hasRegisteredSubclass('_User')) {
             ParseUser::registerSubclass();
         }
