@@ -10,3 +10,5 @@ logs
 phpunit-test-results
 
 *.log
+
+coverage.xml
