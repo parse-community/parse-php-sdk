@@ -646,6 +646,26 @@ class ParseQuery
     }
 
     /**
+     * Add a constraint to the query that requires a particular key's
+     * coordinates that contains a ParseGeoPoint
+     *
+     * @param string        $key       The key of the ParsePolygon
+     * @param array         $point    ParseGeoPoint
+     *
+     * @return ParseQuery Returns this query, so you can chain this call.
+     */
+    public function polygonContains($key, $point)
+    {
+        $this->addCondition(
+            $key,
+            '$geoIntersects',
+            ['$point' => $point]
+        );
+
+        return $this;
+    }
+
+    /**
      * Add a constraint to the query that requires a particular key's value to
      * be contained in the provided list of values.
      *
