@@ -99,7 +99,6 @@ class ParseFile implements Encodable
             null,
             $useMasterKey
         );
-
     }
 
     /**
@@ -109,16 +108,14 @@ class ParseFile implements Encodable
      */
     public function getMimeType()
     {
-        if(isset($this->mimeType)) {
+        if (isset($this->mimeType)) {
             // return the mime type
             return $this->mimeType;
-
         } else {
             // return an inferred mime type instead
             $fileParts = explode('.', $this->getName());
             $extension = array_pop($fileParts);
             return $this->getMimeTypeForExtension($extension);
-
         }
     }
 
@@ -231,7 +228,6 @@ class ParseFile implements Encodable
             false,
             $mimeType
         );
-
     }
 
     private function download()

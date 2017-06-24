@@ -20,7 +20,8 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
         Helper::tearDown();
     }
 
-    public function testNoMasterKey() {
+    public function testNoMasterKey()
+    {
         $this->setExpectedException('\Parse\ParseException');
 
         ParsePush::send(
@@ -37,8 +38,9 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
             [
             'channels' => [''],
             'data'     => ['alert' => 'sample message'],
-            ]
-        , true);
+            ],
+            true
+        );
     }
 
     /**
@@ -46,15 +48,16 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingWhereAndChannels()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            "Sending a push requires either \"channels\" or a \"where\" query.");
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            "Sending a push requires either \"channels\" or a \"where\" query."
+        );
 
         ParsePush::send([
             'data'  => [
                 'alert' => 'are we missing something?'
             ]
         ], true);
-
     }
 
     /**
@@ -62,8 +65,10 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhereAndChannels()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            "Channels and query can not be set at the same time.");
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            "Channels and query can not be set at the same time."
+        );
 
         $query = ParseInstallation::query();
         $query->equalTo('key', 'value');
@@ -78,7 +83,6 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
             ],
             'where'     => $query
         ], true);
-
     }
 
     public function testPushToQuery()
@@ -89,9 +93,9 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
             [
             'data'  => ['alert' => 'iPhone 5 is out!'],
             'where' => $query,
-            ]
-        , true);
-
+            ],
+            true
+        );
     }
 
     public function testPushToQueryWithoutWhere()
@@ -101,22 +105,24 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
             [
                 'data'  => ['alert' => 'Done without conditions!'],
                 'where' => $query,
-            ]
-            , true);
-
+            ],
+            true
+        );
     }
 
     public function testNonQueryWhere()
     {
-        $this->setExpectedException('\Exception',
-            'Where parameter for Parse Push must be of type ParseQuery');
+        $this->setExpectedException(
+            '\Exception',
+            'Where parameter for Parse Push must be of type ParseQuery'
+        );
         ParsePush::send(
             [
                 'data'  => ['alert' => 'Will this really work?'],
                 'where' => 'not-a-query',
-            ]
-            , true);
-
+            ],
+            true
+        );
     }
 
     public function testPushDates()
@@ -127,14 +133,17 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
                 'push_time'       => new \DateTime(),
                 'expiration_time' => new \DateTime(),
                 'channels'        => [],
-            ]
-        , true);
+            ],
+            true
+        );
     }
 
     public function testExpirationTimeAndIntervalSet()
     {
-        $this->setExpectedException('\Exception',
-            'Both expiration_time and expiration_interval can\'t be set.');
+        $this->setExpectedException(
+            '\Exception',
+            'Both expiration_time and expiration_interval can\'t be set.'
+        );
         ParsePush::send(
             [
                 'data'            => ['alert' => 'iPhone 5 is out!'],
@@ -142,9 +151,9 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
                 'expiration_time' => new \DateTime(),
                 'expiration_interval'   => 90,
                 'channels'        => [],
-            ]
-            , true);
-
+            ],
+            true
+        );
     }
 
     /**
@@ -156,12 +165,12 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
             [
                 'channels' => [''],
                 'data'     => ['alert' => 'sample message'],
-            ]
-        , true);
+            ],
+            true
+        );
 
         // verify headers are present
         $this->assertArrayHasKey('_headers', $response);
-
     }
 
     /**
@@ -177,8 +186,9 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
             [
                 'channels' => [''],
                 'data'     => $payload,
-            ]
-            , true);
+            ],
+            true
+        );
 
         // verify push status id is present
         $this->assertTrue(isset($response['_headers']['X-Parse-Push-Status-Id']));
@@ -192,8 +202,10 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($pushStatus);
 
         // verify values
-        $this->assertTrue($pushStatus->getPushTime() instanceof \DateTime,
-            'Push time was not as expected');
+        $this->assertTrue(
+            $pushStatus->getPushTime() instanceof \DateTime,
+            'Push time was not as expected'
+        );
 
         $query = $pushStatus->getPushQuery();
         $options = $query->_getOptions();
@@ -208,12 +220,18 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
         ], $options);
 
         // verify payload
-        $this->assertEquals($payload, $pushStatus->getPushPayload(),
-            'Payload did not match');
+        $this->assertEquals(
+            $payload,
+            $pushStatus->getPushPayload(),
+            'Payload did not match'
+        );
 
         // verify source
-        $this->assertEquals("rest", $pushStatus->getPushSource(),
-            'Source was not rest');
+        $this->assertEquals(
+            "rest",
+            $pushStatus->getPushSource(),
+            'Source was not rest'
+        );
 
         // verify not scheduled
         $this->assertFalse($pushStatus->isScheduled());
@@ -222,24 +240,33 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($pushStatus->isPending());
 
         // verify 'running'
-        $this->assertTrue($pushStatus->isRunning(),
-            'Push did not succeed');
+        $this->assertTrue(
+            $pushStatus->isRunning(),
+            'Push did not succeed'
+        );
 
 
 
         // verify # sent & failed
-        $this->assertEquals(0, $pushStatus->getPushesSent(),
-            'More than 0 pushes sent');
-        $this->assertEquals(0, $pushStatus->getPushesFailed(),
-            'More than 0 pushes failed');
+        $this->assertEquals(
+            0,
+            $pushStatus->getPushesSent(),
+            'More than 0 pushes sent'
+        );
+        $this->assertEquals(
+            0,
+            $pushStatus->getPushesFailed(),
+            'More than 0 pushes failed'
+        );
 
-        $this->assertNotNull($pushStatus->getPushHash(),
-            'Hash not present');
+        $this->assertNotNull(
+            $pushStatus->getPushHash(),
+            'Hash not present'
+        );
 
         // verify we have neither failed or succeeded
         $this->assertFalse($pushStatus->hasFailed());
         $this->assertFalse($pushStatus->hasSucceeded());
-
     }
 
     /**
@@ -249,13 +276,11 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
     {
         $pushStatus = ParsePushStatus::getFromId('not-a-real-id');
         $this->assertNull($pushStatus);
-
     }
 
     public function testDoesNotHaveStatus()
     {
         $this->assertFalse(ParsePush::hasStatus([]));
-
     }
 
     public function testGetStatus()
@@ -274,6 +299,5 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
                 'X-Parse-Push-Status-Id'    => 'not-a-real-id'
             ]
         ]));
-
     }
 }

@@ -8,3 +8,7 @@ logs
 
 # ignore test results
 phpunit-test-results
+
+*.log
+
+coverage.xml

@@ -192,9 +192,11 @@ class ParseUser extends ParseObject
         $screen_name,
         $consumer_key,
         $consumer_secret = null,
+        //@codingStandardsIgnoreLine
         $auth_token,
-        $auth_token_secret)
-    {
+        $auth_token_secret
+    ) {
+
         if (!$id) {
             throw new ParseException('Cannot log in Twitter user without an id.');
         }
@@ -247,9 +249,15 @@ class ParseUser extends ParseObject
          */
         $uuid_parts = str_split(md5(mt_rand()), 4);
         $authData = [
-            'id' => $uuid_parts[0].$uuid_parts[1].'-'.$uuid_parts[2].'-'.$uuid_parts[3].'-'.$uuid_parts[4].'-'.$uuid_parts[5].$uuid_parts[6].$uuid_parts[7],
+            'id' => $uuid_parts[0].
+                    $uuid_parts[1].'-'.
+                    $uuid_parts[2].'-'.
+                    $uuid_parts[3].'-'.
+                    $uuid_parts[4].'-'.
+                    $uuid_parts[5].
+                    $uuid_parts[6].
+                    $uuid_parts[7],
         ];
-
         return self::logInWith('anonymous', $authData);
     }
 
@@ -291,11 +299,13 @@ class ParseUser extends ParseObject
         $id,
         $access_token,
         $expiration_date = null,
-        $useMasterKey = false)
-    {
+        $useMasterKey = false
+    ) {
+
         if (!$this->getObjectId()) {
             throw new ParseException(
-                'Cannot link an unsaved user, use ParseUser::logInWithFacebook');
+                'Cannot link an unsaved user, use ParseUser::logInWithFacebook'
+            );
         }
         if (!$id) {
             throw new ParseException('Cannot link Facebook user without an id.');
@@ -338,10 +348,12 @@ class ParseUser extends ParseObject
         $screen_name,
         $consumer_key,
         $consumer_secret = null,
+        //@codingStandardsIgnoreLine
         $auth_token,
         $auth_token_secret,
-        $useMasterKey = false)
-    {
+        $useMasterKey = false
+    ) {
+
         if (!$this->getObjectId()) {
             throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithTwitter');
         }

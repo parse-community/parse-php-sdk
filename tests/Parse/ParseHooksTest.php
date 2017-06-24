@@ -44,7 +44,6 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
         ], $function);
 
         self::$hooks->deleteFunction('baz');
-
     }
 
     public function testSingleFunctionNotFound()
@@ -82,8 +81,10 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
         try {
             self::$hooks->createFunction('baz', 'https://api.example.com/baz');
         } catch (ParseException $ex) {
-            $this->assertEquals('function name: baz already exits',
-                $ex->getMessage());
+            $this->assertEquals(
+                'function name: baz already exits',
+                $ex->getMessage()
+            );
         }
 
         self::$hooks->deleteFunction('baz');
@@ -122,9 +123,10 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
             self::$hooks->createTrigger('Game', 'beforeDelete', 'https://api.example.com/Game/beforeDelete');
             $this->fail();
         } catch (ParseException $ex) {
-            $this->assertEquals('class Game already has trigger beforeDelete',
-                $ex->getMessage());
-
+            $this->assertEquals(
+                'class Game already has trigger beforeDelete',
+                $ex->getMessage()
+            );
         }
 
         self::$hooks->deleteTrigger('Game', 'beforeDelete');
@@ -202,6 +204,5 @@ class ParseHooksTest extends PHPUnit_Framework_TestCase
         self::$hooks->deleteFunction('func1');
         self::$hooks->deleteFunction('func2');
         self::$hooks->deleteFunction('func3');
-
     }
 }

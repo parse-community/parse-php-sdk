@@ -7,7 +7,6 @@
 
 namespace Parse\HttpClients;
 
-
 interface ParseHttpable
 {
     /**
@@ -88,5 +87,4 @@ interface ParseHttpable
      * @return string
      */
     public function send($url, $method = 'GET', $data = array());
-
 }

@@ -124,8 +124,13 @@ final class ParseClient
      *
      * @throws Exception
      */
-    public static function initialize($app_id, $rest_key, $master_key, $enableCurlExceptions = true, $account_key = null)
-    {
+    public static function initialize(
+        $app_id,
+        $rest_key,
+        $master_key,
+        $enableCurlExceptions = true,
+        $account_key = null
+    ) {
         if (!ParseObject::hasRegisteredSubclass('_User')) {
             ParseUser::registerSubclass();
         }
@@ -138,7 +143,7 @@ final class ParseClient
             ParseInstallation::registerSubclass();
         }
 
-        if(!ParseObject::hasRegisteredSubclass('_PushStatus')) {
+        if (!ParseObject::hasRegisteredSubclass('_PushStatus')) {
             ParsePushStatus::registerSubclass();
         }
 
@@ -165,19 +170,20 @@ final class ParseClient
      * @throws \Exception
      *
      */
-    public static function setServerURL($serverURL, $mountPath) {
+    public static function setServerURL($serverURL, $mountPath)
+    {
         if (!$serverURL) {
             throw new Exception('Invalid Server URL.');
         }
-        if( !$mountPath) {
+        if (!$mountPath) {
             throw new Exception('Invalid Mount Path.');
         }
 
-        self::$serverURL = rtrim($serverURL,'/');
-        self::$mountPath = trim($mountPath,'/') . '/';
+        self::$serverURL = rtrim($serverURL, '/');
+        self::$mountPath = trim($mountPath, '/') . '/';
 
         // check if mount path is root
-        if(self::$mountPath == "/") {
+        if (self::$mountPath == "/") {
             // root path should have no mount path
             self::$mountPath = "";
         }
@@ -191,7 +197,6 @@ final class ParseClient
     public static function setHttpClient(ParseHttpable $httpClient)
     {
         self::$httpClient = $httpClient;
-
     }
 
     /**
@@ -204,13 +209,10 @@ final class ParseClient
         if (static::$httpClient) {
             // use existing client
             return static::$httpClient;
-
         } else {
             // default to cURL/stream
             return function_exists('curl_init') ? new ParseCurlHttpClient() : new ParseStreamHttpClient();
-
         }
-
     }
 
     /**
@@ -219,7 +221,6 @@ final class ParseClient
     public static function clearHttpClient()
     {
         self::$httpClient = null;
-
     }
 
     /**
@@ -230,7 +231,6 @@ final class ParseClient
     public static function setCAFile($caFile)
     {
         self::$caFile = $caFile;
-
     }
 
     /**
@@ -399,10 +399,9 @@ final class ParseClient
         // setup
         $httpClient->setup();
 
-        if(isset(self::$caFile)) {
+        if (isset(self::$caFile)) {
             // set CA file
             $httpClient->setCAFile(self::$caFile);
-
         }
 
         if ($appRequest) {
@@ -410,7 +409,6 @@ final class ParseClient
             self::assertAppInitialized();
 
             $httpClient->addRequestHeader('X-Parse-Account-Key', self::$accountKey);
-
         } else {
             self::assertParseInitialized();
 
@@ -422,25 +420,20 @@ final class ParseClient
             if ($sessionToken) {
                 // add our current session token
                 $httpClient->addRequestHeader('X-Parse-Session-Token', $sessionToken);
-
             }
 
             if ($useMasterKey) {
                 // pass master key
                 $httpClient->addRequestHeader('X-Parse-Master-Key', self::$masterKey);
-
-            } else if(isset(self::$restKey)) {
+            } elseif (isset(self::$restKey)) {
                 // pass REST key
                 $httpClient->addRequestHeader('X-Parse-REST-API-Key', self::$restKey);
-
             }
 
             if (self::$forceRevocableSession) {
                 // indicate we are using revocable sessions
                 $httpClient->addRequestHeader('X-Parse-Revocable-Session', '1');
-
             }
-
         }
 
         /*
@@ -453,22 +446,19 @@ final class ParseClient
         // create request url
         $url = self::$serverURL . '/' . self::$mountPath.ltrim($relativeUrl, '/');
 
-        if($method === 'POST' || $method === 'PUT') {
+        if ($method === 'POST' || $method === 'PUT') {
             // add content type to the request
             $httpClient->addRequestHeader('Content-type', $contentType);
-
         }
 
         if (!is_null(self::$connectionTimeout)) {
             // set connection timeout
             $httpClient->setConnectionTimeout(self::$connectionTimeout);
-
         }
 
         if (!is_null(self::$timeout)) {
             // set request/response timeout
             $httpClient->setTimeout(self::$timeout);
-
         }
 
         // send our request
@@ -479,28 +469,24 @@ final class ParseClient
 
         if (strpos($contentType, 'text/html') !== false) {
             throw new ParseException('Bad Request', -1);
-
         }
 
-        if($httpClient->getErrorCode()) {
-            if(self::$enableCurlExceptions) {
+        if ($httpClient->getErrorCode()) {
+            if (self::$enableCurlExceptions) {
                 throw new ParseException($httpClient->getErrorMessage(), $httpClient->getErrorCode());
-
             } else {
                 return false;
-
             }
         }
 
         $decoded = json_decode($response, true);
 
-        if(!isset($decoded) && $response !== '') {
+        if (!isset($decoded) && $response !== '') {
             throw new ParseException(
                 'Bad Request. Could not decode Response: '.
                 '('.json_last_error().') '.self::getLastJSONErrorMsg(),
                 -1
             );
-
         }
 
         if (isset($decoded['error'])) {
@@ -515,11 +501,9 @@ final class ParseClient
 
         if ($returnHeaders) {
             $decoded['_headers'] = $httpClient->getResponseHeaders();
-
         }
 
         return $decoded;
-
     }
 
     /**
@@ -543,12 +527,10 @@ final class ParseClient
 
             $error = json_last_error();
             return isset($error_strings[$error]) ? $error_strings[$error] : 'Unknown error';
-
         }
 
         // use existing function
         return json_last_error_msg();
-
     }
 
     /**

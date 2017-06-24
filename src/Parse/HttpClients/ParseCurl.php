@@ -7,7 +7,6 @@
 
 namespace Parse\HttpClients;
 
-
 use Parse\ParseException;
 
 /**
@@ -27,11 +26,9 @@ class ParseCurl
      */
     public function init()
     {
-        if($this->curl === null) {
+        if ($this->curl === null) {
             $this->curl = curl_init();
-
         }
-
     }
 
     /**
@@ -42,9 +39,8 @@ class ParseCurl
      */
     public function exec()
     {
-        if(!isset($this->curl)) {
+        if (!isset($this->curl)) {
             throw new ParseException('You must call ParseCurl::init first');
-
         }
 
         return curl_exec($this->curl);
@@ -59,13 +55,11 @@ class ParseCurl
      */
     public function setOption($option, $value)
     {
-        if(!isset($this->curl)) {
+        if (!isset($this->curl)) {
             throw new ParseException('You must call ParseCurl::init first');
-
         }
 
         curl_setopt($this->curl, $option, $value);
-
     }
 
     /**
@@ -76,13 +70,11 @@ class ParseCurl
      */
     public function setOptionsArray($options)
     {
-        if(!isset($this->curl)) {
+        if (!isset($this->curl)) {
             throw new ParseException('You must call ParseCurl::init first');
-
         }
 
         curl_setopt_array($this->curl, $options);
-
     }
 
     /**
@@ -94,13 +86,11 @@ class ParseCurl
      */
     public function getInfo($info)
     {
-        if(!isset($this->curl)) {
+        if (!isset($this->curl)) {
             throw new ParseException('You must call ParseCurl::init first');
-
         }
 
         return curl_getinfo($this->curl, $info);
-
     }
 
     /**
@@ -111,13 +101,11 @@ class ParseCurl
      */
     public function getError()
     {
-        if(!isset($this->curl)) {
+        if (!isset($this->curl)) {
             throw new ParseException('You must call ParseCurl::init first');
-
         }
 
         return curl_error($this->curl);
-
     }
 
     /**
@@ -128,13 +116,11 @@ class ParseCurl
      */
     public function getErrorCode()
     {
-        if(!isset($this->curl)) {
+        if (!isset($this->curl)) {
             throw new ParseException('You must call ParseCurl::init first');
-
         }
 
         return curl_errno($this->curl);
-
     }
 
     /**
@@ -142,9 +128,8 @@ class ParseCurl
      */
     public function close()
     {
-        if(!isset($this->curl)) {
+        if (!isset($this->curl)) {
             throw new ParseException('You must call ParseCurl::init first');
-
         }
 
         // close our handle
@@ -152,7 +137,5 @@ class ParseCurl
 
         // unset our curl handle
         $this->curl = null;
-
     }
-
 }
