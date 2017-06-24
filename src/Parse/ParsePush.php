@@ -91,7 +91,6 @@ class ParsePush
             isset($response['_headers']) &&
             isset($response['_headers']['X-Parse-Push-Status-Id'])
         );
-
     }
 
     /**
@@ -102,18 +101,16 @@ class ParsePush
      */
     public static function getStatus($response)
     {
-        if(!isset($response['_headers'])) {
+        if (!isset($response['_headers'])) {
             // missing headers
             return null;
-
         }
 
         $headers = $response['_headers'];
 
-        if(!isset($headers['X-Parse-Push-Status-Id'])) {
+        if (!isset($headers['X-Parse-Push-Status-Id'])) {
             // missing push status id
             return null;
-
         }
 
         // get our push status id
@@ -121,6 +118,5 @@ class ParsePush
 
         // return our push status if it exists
         return ParsePushStatus::getFromId($pushStatusId);
-
     }
 }

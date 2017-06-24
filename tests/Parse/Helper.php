@@ -51,7 +51,6 @@ class Helper
         );
         self::setServerURL();
         self::setHttpClient();
-
     }
 
     public static function setHttpClient()
@@ -64,20 +63,18 @@ class Helper
         // ParseStreamHttpClient
         //
 
-        if(function_exists('curl_init')) {
+        if (function_exists('curl_init')) {
             // cURL client
             ParseClient::setHttpClient(new ParseCurlHttpClient());
-
         } else {
             // stream client
             ParseClient::setHttpClient(new ParseStreamHttpClient());
         }
-
     }
 
     public static function setServerURL()
     {
-        ParseClient::setServerURL('http://localhost:1337','parse');
+        ParseClient::setServerURL('http://localhost:1337', 'parse');
     }
 
     public static function tearDown()
@@ -104,6 +101,5 @@ class Helper
             false,
             self::$accountKey
         );
-
     }
 }

@@ -7,7 +7,6 @@
 
 namespace Parse\HttpClients;
 
-
 use Parse\ParseException;
 
 class ParseStreamHttpClient implements ParseHttpable
@@ -74,9 +73,8 @@ class ParseStreamHttpClient implements ParseHttpable
 
     public function __construct()
     {
-        if(!isset($this->parseStream)) {
+        if (!isset($this->parseStream)) {
             $this->parseStream = new ParseStream();
-
         }
     }
 
@@ -91,7 +89,6 @@ class ParseStreamHttpClient implements ParseHttpable
     public function addRequestHeader($key, $value)
     {
         $this->headers[$key]    = $value;
-
     }
 
     /**
@@ -102,7 +99,6 @@ class ParseStreamHttpClient implements ParseHttpable
     public function getResponseHeaders()
     {
         return $this->responseHeaders;
-
     }
 
     /**
@@ -113,7 +109,6 @@ class ParseStreamHttpClient implements ParseHttpable
     public function getResponseStatusCode()
     {
         return $this->responseCode;
-
     }
 
     /**
@@ -124,7 +119,6 @@ class ParseStreamHttpClient implements ParseHttpable
     public function getResponseContentType()
     {
         return $this->responseContentType;
-
     }
 
     /**
@@ -136,20 +130,17 @@ class ParseStreamHttpClient implements ParseHttpable
     {
         // coalesce our header key/value pairs
         $headers = [];
-        foreach($this->headers as $key => $value) {
-            if($key == 'Expect' && $value == '') {
+        foreach ($this->headers as $key => $value) {
+            if ($key == 'Expect' && $value == '') {
                 // drop this pair
                 continue;
-
             }
 
             // add this header key/value pair
             $headers[] = $key.': '.$value;
-
         }
 
         return implode("\r\n", $headers);
-
     }
 
     public function setup()
@@ -161,22 +152,19 @@ class ParseStreamHttpClient implements ParseHttpable
             'allow_self_signed' => true, // All root certificates are self-signed
             'follow_location'   => 1
         );
-
     }
 
     public function send($url, $method = 'GET', $data = array())
     {
 
         // verify this url
-        if(preg_match('/\s/', trim($url))) {
+        if (preg_match('/\s/', trim($url))) {
             throw new ParseException('Url may not contain spaces for stream client: '.$url);
-
         }
 
-        if(isset($this->caFile)) {
+        if (isset($this->caFile)) {
             // set CA file as well
             $this->options['ssl']['cafile'] = $this->caFile;
-
         }
 
         // add additional options for this request
@@ -185,28 +173,23 @@ class ParseStreamHttpClient implements ParseHttpable
             'ignore_errors' => true
         );
 
-        if(isset($this->timeout)) {
+        if (isset($this->timeout)) {
             $this->options['http']['timeout']   = $this->timeout;
-
         }
 
-        if(isset($data) && $data != "{}") {
+        if (isset($data) && $data != "{}") {
             if ($method == "GET") {
                 // handle GET
                 $query = http_build_query($data, null, '&');
                 $this->options['http']['content'] = $query;
                 $this->addRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-            } else if ($method == "POST") {
+            } elseif ($method == "POST") {
                 // handle POST
                 $this->options['http']['content'] = $data;
-
-            } else if ($method == "PUT") {
+            } elseif ($method == "PUT") {
                 // handle PUT
                 $this->options['http']['content'] = $data;
-
             }
-
         }
 
         // set headers
@@ -225,21 +208,17 @@ class ParseStreamHttpClient implements ParseHttpable
             // set an error and code
             $this->streamErrorMessage   = $this->parseStream->getErrorMessage();
             $this->streamErrorCode      = $this->parseStream->getErrorCode();
-
         } else {
-
             // set our response headers
             $this->responseHeaders = self::formatHeaders($rawHeaders);
 
             // get and set content type, if present
-            if(isset($this->responseHeaders['Content-Type'])) {
+            if (isset($this->responseHeaders['Content-Type'])) {
                 $this->responseContentType = $this->responseHeaders['Content-Type'];
-
             }
 
             // set our http status code
             $this->responseCode = self::getStatusCodeFromHeader($this->responseHeaders['http_code']);
-
         }
 
         // clear options
@@ -249,7 +228,6 @@ class ParseStreamHttpClient implements ParseHttpable
         $this->headers = array();
 
         return $response;
-
     }
 
     /**
@@ -267,17 +245,14 @@ class ParseStreamHttpClient implements ParseHttpable
             if (strpos($line, ':') === false) {
                 // set our http status code
                 $headers['http_code'] = $line;
-
             } else {
                 // set this header entry
                 list ($key, $value) = explode(': ', $line);
                 $headers[$key]      = $value;
-
             }
         }
 
         return $headers;
-
     }
     /**
      * Extracts the Http status code from the given header
@@ -290,7 +265,6 @@ class ParseStreamHttpClient implements ParseHttpable
     {
         preg_match('{HTTP/\d\.\d\s+(\d+)\s+.*}', $header, $match);
         return (int) $match[1];
-
     }
 
     /**
@@ -301,7 +275,6 @@ class ParseStreamHttpClient implements ParseHttpable
     public function getErrorCode()
     {
         return $this->streamErrorCode;
-
     }
 
     /**
@@ -312,7 +285,6 @@ class ParseStreamHttpClient implements ParseHttpable
     public function getErrorMessage()
     {
         return $this->streamErrorMessage;
-
     }
 
     public function setConnectionTimeout($timeout)
@@ -328,7 +300,6 @@ class ParseStreamHttpClient implements ParseHttpable
     public function setCAFile($caFile)
     {
         $this->caFile = $caFile;
-
     }
 
     /**
@@ -339,8 +310,5 @@ class ParseStreamHttpClient implements ParseHttpable
     public function setTimeout($timeout)
     {
         $this->timeout = $timeout;
-
     }
-
-
 }

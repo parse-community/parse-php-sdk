@@ -9,14 +9,15 @@ php:
 #  - nightly
 before_install:
   - nvm install 6.11
-install: 
+install:
   - composer install
   - npm install
 before_script:
   - npm start 1>&2
   - sleep 3
+  - npm run lint
 script:
-    - ./vendor/bin/phpunit --coverage-clover=coverage.xml
+    - npm run test:coverage
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)

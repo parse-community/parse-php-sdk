@@ -8,7 +8,6 @@
 
 namespace Parse\Test;
 
-
 use Parse\Internal\AddUniqueOperation;
 use Parse\Internal\DeleteOperation;
 use Parse\Internal\IncrementOperation;
@@ -42,7 +41,6 @@ class AddUniqueOperationTest extends \PHPUnit_Framework_TestCase
         $addUnique = new AddUniqueOperation($objects);
 
         $this->assertEquals($objects, $addUnique->getValue());
-
     }
 
     /**
@@ -50,10 +48,11 @@ class AddUniqueOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadObjects()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            'AddUniqueOperation requires an array.');
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'AddUniqueOperation requires an array.'
+        );
         $addUnique = new AddUniqueOperation('not-an-array');
-
     }
 
     /**
@@ -73,7 +72,6 @@ class AddUniqueOperationTest extends \PHPUnit_Framework_TestCase
             '__op'      => 'AddUnique',
             'objects'   => ParseClient::_encode($objects, true)
         ], $encoded);
-
     }
 
     /**
@@ -106,7 +104,6 @@ class AddUniqueOperationTest extends \PHPUnit_Framework_TestCase
             'key2'  => 'value2',
             'value1'
         ], $merged->getValue(), 'Value was not as expected');
-
     }
 
     /**
@@ -114,13 +111,14 @@ class AddUniqueOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException('\Parse\ParseException',
-            'Operation is invalid after previous operation.');
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Operation is invalid after previous operation.'
+        );
         $addOp = new AddUniqueOperation([
             'key1'          => 'value1'
         ]);
         $addOp->_mergeWithPrevious(new IncrementOperation());
-
     }
 
     /**
@@ -160,6 +158,5 @@ class AddUniqueOperationTest extends \PHPUnit_Framework_TestCase
         ]);
         $oldValue = $addOp->_apply($obj1, null, null);
         $this->assertEquals($obj1, $oldValue[0]);
-
     }
 }

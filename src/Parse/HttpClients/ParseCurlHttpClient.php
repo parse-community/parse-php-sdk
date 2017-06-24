@@ -7,7 +7,6 @@
 
 namespace Parse\HttpClients;
 
-
 use Parse\ParseException;
 
 /**
@@ -77,9 +76,8 @@ class ParseCurlHttpClient implements ParseHttpable
 
     public function __construct()
     {
-        if(!isset($this->parseCurl)) {
+        if (!isset($this->parseCurl)) {
             $this->parseCurl = new ParseCurl();
-
         }
     }
 
@@ -92,7 +90,6 @@ class ParseCurlHttpClient implements ParseHttpable
     public function addRequestHeader($key, $value)
     {
         $this->headers[$key]    = $value;
-
     }
 
     /**
@@ -104,13 +101,11 @@ class ParseCurlHttpClient implements ParseHttpable
     {
         // coalesce our header key/value pairs
         $headers = [];
-        foreach($this->headers as $key => $value) {
+        foreach ($this->headers as $key => $value) {
             $headers[] = $key.': '.$value;
-
         }
 
         return $headers;
-
     }
 
     /**
@@ -121,7 +116,6 @@ class ParseCurlHttpClient implements ParseHttpable
     public function getResponseHeaders()
     {
         return $this->responseHeaders;
-
     }
 
     /**
@@ -132,7 +126,6 @@ class ParseCurlHttpClient implements ParseHttpable
     public function getResponseStatusCode()
     {
         return $this->responseCode;
-
     }
 
     /**
@@ -143,7 +136,6 @@ class ParseCurlHttpClient implements ParseHttpable
     public function getResponseContentType()
     {
         return $this->responseContentType;
-
     }
 
     /**
@@ -161,7 +153,6 @@ class ParseCurlHttpClient implements ParseHttpable
             CURLOPT_SSL_VERIFYPEER  => true,
             CURLOPT_SSL_VERIFYHOST  => 2,
         ));
-
     }
 
     /**
@@ -176,34 +167,29 @@ class ParseCurlHttpClient implements ParseHttpable
     public function send($url, $method = 'GET', $data = array())
     {
 
-        if($method == "GET" && !empty($data)) {
+        if ($method == "GET" && !empty($data)) {
             // handle get
             $url .= '?'.http_build_query($data, null, '&');
-
-        } else if($method == "POST") {
+        } elseif ($method == "POST") {
             // handle post
             $this->parseCurl->setOptionsArray(array(
                 CURLOPT_POST        => 1,
                 CURLOPT_POSTFIELDS  => $data
             ));
-
-        } else if($method == "PUT") {
+        } elseif ($method == "PUT") {
             // handle put
             $this->parseCurl->setOptionsArray(array(
                 CURLOPT_CUSTOMREQUEST   => $method,
                 CURLOPT_POSTFIELDS      => $data
             ));
-
-        } else if($method == "DELETE") {
+        } elseif ($method == "DELETE") {
             // handle delete
             $this->parseCurl->setOption(CURLOPT_CUSTOMREQUEST, $method);
-
         }
 
-        if(count($this->headers) > 0) {
+        if (count($this->headers) > 0) {
             // set our custom request headers
             $this->parseCurl->setOption(CURLOPT_HTTPHEADER, $this->buildRequestHeaders());
-
         }
 
         // set url
@@ -239,7 +225,6 @@ class ParseCurlHttpClient implements ParseHttpable
         $this->headers = array();
 
         return $response;
-
     }
 
     /**
@@ -264,23 +249,19 @@ class ParseCurlHttpClient implements ParseHttpable
         // sepearate our header components
         $headerComponents = explode("\n", $rawHeaders);
 
-        foreach($headerComponents as $component) {
+        foreach ($headerComponents as $component) {
             if (strpos($component, ': ') === false) {
                 // set our http_code
                 $headers['http_code'] = $component;
-
-
             } else {
                 // set this header key/value pair
                 list($key, $value) = explode(': ', $component);
                 $headers[$key]      = $value;
-
             }
         }
 
         // return our completed headers
         return $headers;
-
     }
 
 
@@ -292,7 +273,6 @@ class ParseCurlHttpClient implements ParseHttpable
     public function setConnectionTimeout($timeout)
     {
         $this->parseCurl->setOption(CURLOPT_CONNECTTIMEOUT, $timeout);
-
     }
 
     /**
@@ -303,7 +283,6 @@ class ParseCurlHttpClient implements ParseHttpable
     public function setTimeout($timeout)
     {
         $this->parseCurl->setOption(CURLOPT_TIMEOUT, $timeout);
-
     }
 
     /**
@@ -315,7 +294,6 @@ class ParseCurlHttpClient implements ParseHttpable
     {
         // name of a file holding one or more certificates to verify the peer with
         $this->parseCurl->setOption(CURLOPT_CAINFO, $caFile);
-
     }
 
     /**
@@ -326,7 +304,6 @@ class ParseCurlHttpClient implements ParseHttpable
     public function getErrorCode()
     {
         return $this->curlErrorCode;
-
     }
 
     /**
@@ -337,7 +314,6 @@ class ParseCurlHttpClient implements ParseHttpable
     public function getErrorMessage()
     {
         return $this->curlErrorMessage;
-
     }
 
     /**
@@ -351,19 +327,15 @@ class ParseCurlHttpClient implements ParseHttpable
 
         // This corrects a Curl bug where header size does not account
         // for additional Proxy headers.
-        if ( $this->needsCurlProxyFix() ) {
-
+        if ($this->needsCurlProxyFix()) {
             // Additional way to calculate the request body size.
             if (preg_match('/Content-Length: (\d+)/', $this->response, $match)) {
                 $headerSize = mb_strlen($this->response) - $match[1];
-
             } elseif (stripos($this->response, self::CONNECTION_ESTABLISHED) !== false) {
                 $headerSize += mb_strlen(self::CONNECTION_ESTABLISHED);
-
             }
         }
         return $headerSize;
-
     }
 
     /**
@@ -378,7 +350,5 @@ class ParseCurlHttpClient implements ParseHttpable
         $version    = $versionDat['version_number'];
 
         return $version < self::CURL_PROXY_QUIRK_VER;
-
     }
-
 }

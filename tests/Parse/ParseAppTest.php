@@ -14,8 +14,10 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testFetchingApps()
     {
-        $this->setExpectedException('Parse\ParseException',
-            'unauthorized');
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'unauthorized'
+        );
 
         self::_createApp(self::_getNewName());
         self::_createApp(self::_getNewName());
@@ -26,8 +28,10 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testFetchSingleApp()
     {
-        $this->setExpectedException('Parse\ParseException',
-            'unauthorized');
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'unauthorized'
+        );
 
         $app_created = self::_createApp(self::_getNewName());
 
@@ -46,8 +50,10 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testCreateApp()
     {
-        $this->setExpectedException('Parse\ParseException',
-            'unauthorized');
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'unauthorized'
+        );
 
         $app_name = self::_getNewName();
 
@@ -64,8 +70,10 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testNameAlreadyInAccount()
     {
-        $this->setExpectedException('Parse\ParseException',
-            'unauthorized');
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'unauthorized'
+        );
 
         $app_name = self::_getNewName();
 
@@ -81,8 +89,10 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testUpdateApp()
     {
-        $this->setExpectedException('Parse\ParseException',
-            'unauthorized');
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'unauthorized'
+        );
 
         $app_name = self::_getNewName();
         $updated_name = self::_getNewName();

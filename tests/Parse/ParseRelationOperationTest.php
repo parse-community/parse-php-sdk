@@ -8,7 +8,6 @@
 
 namespace Parse\Test;
 
-
 use Parse\Internal\ParseRelationOperation;
 use Parse\ParseObject;
 use Parse\ParseRelation;
@@ -30,10 +29,11 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingObjects()
     {
-        $this->setExpectedException('\Exception',
-            'Cannot create a ParseRelationOperation with no objects.');
+        $this->setExpectedException(
+            '\Exception',
+            'Cannot create a ParseRelationOperation with no objects.'
+        );
         new ParseRelationOperation(null, null);
-
     }
 
     /**
@@ -41,15 +41,16 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMixedClasses()
     {
-        $this->setExpectedException('\Exception',
-            'All objects in a relation must be of the same class.');
+        $this->setExpectedException(
+            '\Exception',
+            'All objects in a relation must be of the same class.'
+        );
 
         $objects = [];
         $objects[] = new ParseObject('Class1');
         $objects[] = new ParseObject('Class2');
 
         new ParseRelationOperation($objects, null);
-
     }
 
     /**
@@ -66,11 +67,10 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
 
         $encoded = $op->_encode();
 
-        $this->assertEquals('AddRelation' ,$encoded['ops'][0]['__op']);
-        $this->assertEquals('RemoveRelation' ,$encoded['ops'][1]['__op']);
+        $this->assertEquals('AddRelation', $encoded['ops'][0]['__op']);
+        $this->assertEquals('RemoveRelation', $encoded['ops'][1]['__op']);
 
         ParseObject::destroyAll([$addObj, $delObj]);
-
     }
 
     /**
@@ -78,17 +78,18 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testApplyDifferentClassRelation()
     {
-        $this->setExpectedException('\Exception',
+        $this->setExpectedException(
+            '\Exception',
             'Related object object must be of class '
             .'Class1, but DifferentClass'
-            .' was passed in.');
+            .' was passed in.'
+        );
 
         // create one op
         $addObj = new ParseObject('Class1');
         $relOp1 = new ParseRelationOperation($addObj, null);
 
         $relOp1->_apply(new ParseRelation(null, null, 'DifferentClass'), null, null);
-
     }
 
     /**
@@ -96,12 +97,13 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidApply()
     {
-        $this->setExpectedException('\Exception',
-            'Operation is invalid after previous operation.');
+        $this->setExpectedException(
+            '\Exception',
+            'Operation is invalid after previous operation.'
+        );
         $addObj = new ParseObject('Class1');
         $op = new ParseRelationOperation($addObj, null);
         $op->_apply('bad value', null, null);
-
     }
 
     /**
@@ -112,7 +114,6 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
         $addObj = new ParseObject('Class1');
         $op = new ParseRelationOperation($addObj, null);
         $this->assertEquals($op, $op->_mergeWithPrevious(null));
-
     }
 
     /**
@@ -120,10 +121,12 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testMergeDifferentClass()
     {
-        $this->setExpectedException('\Exception',
+        $this->setExpectedException(
+            '\Exception',
             'Related object object must be of class '
             .'Class1, but AnotherClass'
-            .' was passed in.');
+            .' was passed in.'
+        );
 
         $addObj = new ParseObject('Class1');
         $op = new ParseRelationOperation($addObj, null);
@@ -132,7 +135,6 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
         $mergeOp = new ParseRelationOperation($diffObj, null);
 
         $this->assertEquals($op, $op->_mergeWithPrevious($mergeOp));
-
     }
 
     /**
@@ -140,12 +142,13 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException('\Exception',
-            'Operation is invalid after previous operation.');
+        $this->setExpectedException(
+            '\Exception',
+            'Operation is invalid after previous operation.'
+        );
         $obj = new ParseObject('Class1');
         $op = new ParseRelationOperation($obj, null);
         $op->_mergeWithPrevious('not a relational op');
-
     }
 
     /**
@@ -160,6 +163,5 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
         ParseRelationOperation::removeElementsFromArray('removeThis', $array);
 
         $this->assertEmpty($array);
-
     }
 }

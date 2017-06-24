@@ -19,7 +19,6 @@ class ParseInstallation extends ParseObject
     public function getInstallationId()
     {
         return $this->get('installationId');
-
     }
 
     /**
@@ -30,7 +29,6 @@ class ParseInstallation extends ParseObject
     public function getDeviceToken()
     {
         return $this->get('deviceToken');
-
     }
 
     /**
@@ -41,7 +39,6 @@ class ParseInstallation extends ParseObject
     public function getChannels()
     {
         return $this->get('channels');
-
     }
 
     /**
@@ -52,7 +49,6 @@ class ParseInstallation extends ParseObject
     public function getDeviceType()
     {
         return $this->get('deviceType');
-
     }
 
     /**
@@ -63,7 +59,6 @@ class ParseInstallation extends ParseObject
     public function getPushType()
     {
         return $this->get('pushType');
-
     }
 
     /**
@@ -74,7 +69,6 @@ class ParseInstallation extends ParseObject
     public function getGCMSenderId()
     {
         return $this->get('GCMSenderId');
-
     }
 
     /**
@@ -85,7 +79,6 @@ class ParseInstallation extends ParseObject
     public function getTimeZone()
     {
         return $this->get('timeZone');
-
     }
 
     /**
@@ -96,7 +89,6 @@ class ParseInstallation extends ParseObject
     public function getLocaleIdentifier()
     {
         return $this->get('localeIdentifier');
-
     }
 
     /**
@@ -107,7 +99,6 @@ class ParseInstallation extends ParseObject
     public function getBadge()
     {
         return $this->get('badge');
-
     }
 
     /**
@@ -118,7 +109,6 @@ class ParseInstallation extends ParseObject
     public function getAppVersion()
     {
         return $this->get('appVersion');
-
     }
 
     /**
@@ -129,7 +119,6 @@ class ParseInstallation extends ParseObject
     public function getAppName()
     {
         return $this->get('appName');
-
     }
 
     /**
@@ -140,7 +129,6 @@ class ParseInstallation extends ParseObject
     public function getAppIdentifier()
     {
         return $this->get('appIdentifier');
-
     }
 
     /**
@@ -151,7 +139,5 @@ class ParseInstallation extends ParseObject
     public function getParseVersion()
     {
         return $this->get('parseVersion');
-
     }
-
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="phpcsignore">
+ <description>PHPCS Ignore Rule</description>
+ <rule ref="PSR2" />
+ <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+   <severity>0</severity>
+ </rule>
+ <rule ref="PSR2.Methods.MethodDeclaration">
+  <severity>0</severity>
+ </rule>
+ <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
+  <severity>0</severity>
+ </rule>
+</ruleset>

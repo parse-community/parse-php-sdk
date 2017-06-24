@@ -45,7 +45,6 @@ class ParseStream
     public function createContext($options)
     {
         $this->stream = stream_context_create($options);
-
     }
 
     /**
@@ -59,20 +58,17 @@ class ParseStream
         try {
             // get our response
             $response = file_get_contents($url, false, $this->stream);
-
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             // set our error message/code and return false
             $this->errorMessage = $e->getMessage();
             $this->errorCode    = $e->getCode();
             return false;
-
         }
 
         // set response headers
         $this->responseHeaders = $http_response_header;
 
         return $response;
-
     }
 
     /**
@@ -83,7 +79,6 @@ class ParseStream
     public function getResponseHeaders()
     {
         return $this->responseHeaders;
-
     }
 
     /**
@@ -94,7 +89,6 @@ class ParseStream
     public function getErrorMessage()
     {
         return $this->errorMessage;
-
     }
 
     /**
@@ -105,7 +99,5 @@ class ParseStream
     public function getErrorCode()
     {
         return $this->errorCode;
-
     }
-
 }

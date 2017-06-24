@@ -142,20 +142,16 @@ class ParseQuery
      */
     public function _setConditions($conditions)
     {
-        if(!is_array($conditions)) {
+        if (!is_array($conditions)) {
             throw new ParseException("Conditions must be in an array");
-
         }
 
         // iterate over and add each condition
-        foreach($conditions as $key => $entry) {
-            foreach($entry as $condition => $value) {
+        foreach ($conditions as $key => $entry) {
+            foreach ($entry as $condition => $value) {
                 $this->addCondition($key, $condition, $value);
-
             }
-
         }
-
     }
 
     /**

@@ -57,8 +57,8 @@ class ParseGeoPoint implements Encodable
     public function setLatitude($lat)
     {
         if (is_numeric($lat) && !is_float($lat)) {
-            $lat = (float)$lat;    
-        }      
+            $lat = (float)$lat;
+        }
         if ($lat > 90.0 || $lat < -90.0) {
             throw new ParseException('Latitude must be within range [-90.0, 90.0]');
         }
@@ -85,8 +85,8 @@ class ParseGeoPoint implements Encodable
     public function setLongitude($lon)
     {
         if (is_numeric($lon) && !is_float($lon)) {
-            $lon = (float)$lon;    
-        }      
+            $lon = (float)$lon;
+        }
         if ($lon > 180.0 || $lon < -180.0) {
             throw new ParseException(
                 'Longitude must be within range [-180.0, 180.0]'

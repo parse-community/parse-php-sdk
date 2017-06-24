@@ -18,7 +18,6 @@ class ParseConfigTest extends \PHPUnit_Framework_TestCase
     {
         $config = new ParseConfig();
         $this->assertEquals([], $config->getConfig());
-
     }
 
     /**
@@ -35,13 +34,13 @@ class ParseConfigTest extends \PHPUnit_Framework_TestCase
 
         // check html value
         $this->assertEquals('<value>', $config->get('another'));
-
     }
 
     /**
      * @group parse-config
      */
-    public function testEscapeConfig() {
+    public function testEscapeConfig()
+    {
         $config = new ConfigMock();
 
         // check html encoded value
@@ -52,6 +51,5 @@ class ParseConfigTest extends \PHPUnit_Framework_TestCase
 
         // check normal value
         $this->assertEquals('bar', $config->escape('foo'));
-
     }
 }

@@ -84,7 +84,6 @@ class ParseSessionStorageTest extends \PHPUnit_Framework_TestCase
     {
         // does nothing
         self::$parseStorage->save();
-
     }
 
     /**
@@ -99,6 +98,5 @@ class ParseSessionStorageTest extends \PHPUnit_Framework_TestCase
         new ParseSessionStorage();
 
         $this->assertEmpty($_SESSION['parseData']);
-
     }
 }
