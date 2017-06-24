@@ -69,11 +69,11 @@ You may also run tests directly using phpunit as follows:
 
     npm test
 
-Make sure your code is linted with phpcs (PSR-2 Coding Style)
+Make sure your code is linted with phpcs ([PSR-2 Coding Style]):
 
     npm run lint
 
-You can automatically fix lint errors with phpcbf
+You can automatically fix lint errors with phpcbf:
 
     npm run lint:fix
 
@@ -91,3 +91,5 @@ If you have XDebug setup and can view code coverage please ensure that you do yo
 [XDebug]: https://xdebug.org/
 [parse server test]: https://github.com/montymxb/parse-server-test
 [Setup a local Parse Server instance]: https://github.com/parse-community/parse-server#user-content-locally
+[PSR-2 Coding Style]: http://www.php-fig.org/psr/psr-2/
+
