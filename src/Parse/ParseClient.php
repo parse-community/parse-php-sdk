@@ -111,7 +111,7 @@ final class ParseClient
      *
      * @var string
      */
-    const VERSION_STRING = 'php1.2.8';
+    const VERSION_STRING = 'php1.2.9';
 
     /**
      * Parse\Client::initialize, must be called before using Parse features.
