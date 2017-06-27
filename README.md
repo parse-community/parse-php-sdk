@@ -66,6 +66,12 @@ For example if your parse server's url is `http://example.com:1337/parse` then y
 
 `ParseClient::setServerURL('https://example.com:1337','parse');`
 
+Getting Started
+---------------
+
+We highly recommend you read through the [guide](http://docs.parseplatform.org/php/guide/) first. This will walk you through the basics of working with this sdk, as well as provide insight into how to best develop your project.
+
+If want to know more about what makes the php sdk tick you can read our [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/Parse.html) and flip through the code on [github](https://github.com/parse-community/parse-php-sdk/).
 
 Http Clients
 ------------
