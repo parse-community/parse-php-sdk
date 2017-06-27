@@ -8,8 +8,8 @@ namespace Parse;
 use Parse\Internal\ParseRelationOperation;
 
 /**
- * Class ParseRelation - A class that is used to access all of the children of a many-to-many relationship. Each instance
- * of ParseRelation is associated with a particular parent object and key.
+ * Class ParseRelation - A class that is used to access all of the children of a many-to-many relationship.
+ * Each instance of ParseRelation is associated with a particular parent object and key.
  *
  * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
  * @package Parse

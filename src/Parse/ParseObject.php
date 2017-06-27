@@ -1325,7 +1325,6 @@ class ParseObject implements Encodable
         }
 
         return $acl;
-
     }
 
     /**
