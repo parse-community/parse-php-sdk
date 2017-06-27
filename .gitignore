@@ -1,0 +1,20 @@
+# ignore .idea folder
+.idea/
+
+# ignore composer lock
+composer.lock
+
+# ignore logs
+logs/
+
+# ignore node modules
+node_modules/
+
+# ignore output folder
+output/
+
+# ignore phpunit
+phpunit-test-results/
+
+# ignore composer dependencies
+vendor/
