@@ -1,13 +1,17 @@
 <?php
+/**
+ * Class ParseBytes | Parse/ParseBytes.php
+ */
 
 namespace Parse;
 
 use Parse\Internal\Encodable;
 
 /**
- * ParseBytes - Representation of a Byte array for storage on a Parse Object.
+ * Class ParseBytes - Representation of a Byte array for storage on a Parse Object.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseBytes implements Encodable
 {
@@ -48,12 +52,22 @@ class ParseBytes implements Encodable
         return $bytes;
     }
 
+    /**
+     * Decodes and unpacks a given base64 encoded array of data
+     *
+     * @param $base64Data
+     */
     private function setBase64Data($base64Data)
     {
         $byteArray = unpack('C*', base64_decode($base64Data));
         $this->setByteArray($byteArray);
     }
 
+    /**
+     * Sets a new byte array
+     *
+     * @param array $byteArray  Byte array to set
+     */
     private function setByteArray(array $byteArray)
     {
         $this->byteArray = $byteArray;

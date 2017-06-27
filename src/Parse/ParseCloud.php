@@ -1,11 +1,15 @@
 <?php
+/**
+ * Class ParseCloud | Parse/ParseCloud.php
+ */
 
 namespace Parse;
 
 /**
- * ParseCloud - Facilitates calling Parse Cloud functions.
+ * Class ParseCloud - Facilitates calling Parse Cloud functions.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseCloud
 {

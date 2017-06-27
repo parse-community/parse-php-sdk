@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class IncrementOperation | Parse/Internal/IncrementOperation.php
+ */
 
 namespace Parse\Internal;
 
@@ -8,6 +11,7 @@ use Parse\ParseException;
  * Class IncrementOperation - Operation to increment numeric object key.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse\Internal
  */
 class IncrementOperation implements FieldOperation
 {

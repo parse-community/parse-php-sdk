@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class ParseObject | Parse/ParseObject.php
+ */
 
 namespace Parse;
 
@@ -13,9 +16,10 @@ use Parse\Internal\RemoveOperation;
 use Parse\Internal\SetOperation;
 
 /**
- * ParseObject - Representation of an object stored on Parse.
+ * Class ParseObject - Representation of an object stored on Parse.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseObject implements Encodable
 {
@@ -259,7 +263,7 @@ class ParseObject implements Encodable
      * Detects if the object (and optionally the child objects) has unsaved
      * changes.
      *
-     * @param $considerChildren
+     * @param bool $considerChildren    Whether to consider children when checking for dirty state
      *
      * @return bool
      */
@@ -270,6 +274,11 @@ class ParseObject implements Encodable
             ($considerChildren && $this->hasDirtyChildren());
     }
 
+    /**
+     * Determines whether this object has child objects that are dirty
+     *
+     * @return bool
+     */
     private function hasDirtyChildren()
     {
         $result = false;
@@ -459,6 +468,12 @@ class ParseObject implements Encodable
         return $this->hasBeenFetched;
     }
 
+    /**
+     * Returns whether or not data is available for a given key
+     *
+     * @param string $key   Key to check availability of
+     * @return bool
+     */
     private function _isDataAvailable($key)
     {
         return $this->isDataAvailable() || isset($this->dataAvailability[$key]);
@@ -543,6 +558,13 @@ class ParseObject implements Encodable
         return static::updateWithFetchedResults($objects, $results);
     }
 
+    /**
+     * Creates an array of object ids from a given array of ParseObjects
+     *
+     * @param array $objects    Objects to create id array from
+     * @return array
+     * @throws ParseException
+     */
     private static function toObjectIdArray(array $objects)
     {
         $objectIds = [];
@@ -564,6 +586,14 @@ class ParseObject implements Encodable
         return $objectIds;
     }
 
+    /**
+     * Merges an existing array of objects with their fetched counterparts
+     *
+     * @param array $objects    Original objects to update
+     * @param array $fetched    Fetched object data to update with
+     * @return array
+     * @throws ParseException
+     */
     private static function updateWithFetchedResults(array $objects, array $fetched)
     {
         $fetchedObjectsById = [];
@@ -1269,7 +1299,7 @@ class ParseObject implements Encodable
     }
 
     /**
-     * Get ACL assigned to the object.
+     * Get the ACL assigned to the object.
      *
      * @return ParseACL
      */
@@ -1278,6 +1308,12 @@ class ParseObject implements Encodable
         return $this->getACLWithCopy(true);
     }
 
+    /**
+     * Internally retrieves the ACL assigned to this object, conditionally returning a copy of the existing one
+     *
+     * @param bool $mayCopy Whether to return a copy of this acl or not
+     * @return ParseACL
+     */
     private function getACLWithCopy($mayCopy)
     {
         if (!isset($this->estimatedData['ACL'])) {
@@ -1289,6 +1325,7 @@ class ParseObject implements Encodable
         }
 
         return $acl;
+
     }
 
     /**

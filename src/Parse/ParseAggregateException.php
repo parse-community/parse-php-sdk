@@ -1,14 +1,23 @@
 <?php
+/**
+ * Class ParseAggregateException | Parse/ParseAggregateException.php
+ */
 
 namespace Parse;
 
 /**
- * ParseAggregateException - Multiple error condition.
+ * Class ParseAggregateException - Multiple error condition.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseAggregateException extends ParseException
 {
+    /**
+     * Collection of error values
+     *
+     * @var array
+     */
     private $errors;
 
     /**

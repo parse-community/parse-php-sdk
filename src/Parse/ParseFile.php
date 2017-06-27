@@ -1,13 +1,17 @@
 <?php
+/**
+ * Class ParseFile | Parse/ParseFile.php
+ */
 
 namespace Parse;
 
 use Parse\Internal\Encodable;
 
 /**
- * ParseFile - Representation of a Parse File object.
+ * Class ParseFile - Representation of a Parse File object.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseFile implements Encodable
 {
@@ -230,6 +234,12 @@ class ParseFile implements Encodable
         );
     }
 
+    /**
+     * Attempts to download and return the contents of a ParseFile's url
+     *
+     * @return mixed
+     * @throws ParseException
+     */
     private function download()
     {
         $rest = curl_init();
@@ -251,6 +261,12 @@ class ParseFile implements Encodable
         return $response;
     }
 
+    /**
+     * Returns the mimetype for a given extension
+     *
+     * @param string $extension Extension to return type for
+     * @return string
+     */
     private function getMimeTypeForExtension($extension)
     {
         $knownTypes = [

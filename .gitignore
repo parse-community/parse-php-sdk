@@ -12,3 +12,6 @@ phpunit-test-results
 *.log
 
 coverage.xml
+
+# ignore phpdoc
+output/

@@ -1,11 +1,15 @@
 <?php
+/**
+ * Class ParseStorageInterface | Parse/ParseStorageInterface.php
+ */
 
 namespace Parse;
 
 /**
- * ParseStorageInterface - Specifies an interface for implementing persistence.
+ * Class ParseStorageInterface - Specifies an interface for implementing persistence.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 interface ParseStorageInterface
 {

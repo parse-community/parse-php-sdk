@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class SetOperation | Parse/Internal/SetOperation.php
+ */
 
 namespace Parse\Internal;
 
@@ -8,6 +11,7 @@ use Parse\ParseClient;
  * Class SetOperation - Operation to set a value for an object key.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse\Internal
  */
 class SetOperation implements FieldOperation
 {

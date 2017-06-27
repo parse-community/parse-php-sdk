@@ -1,13 +1,17 @@
 <?php
+/**
+ * Class ParseQuery | Parse/ParseQuery.php
+ */
 
 namespace Parse;
 
 use Exception;
 
 /**
- * ParseQuery - Handles querying data from Parse.
+ * Class ParseQuery - Handles querying data from Parse.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseQuery
 {

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class RemoveOperation | Parse/Internal/RemoveOperation.php
+ */
 
 namespace Parse\Internal;
 
@@ -11,6 +14,7 @@ use Parse\ParseObject;
  * fields.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse\Internal
  */
 class RemoveOperation implements FieldOperation
 {

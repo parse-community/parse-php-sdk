@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class ParseACL | Parse/ParseACL.php
+ */
 
 namespace Parse;
 
@@ -6,7 +9,7 @@ use Exception;
 use Parse\Internal\Encodable;
 
 /**
- * ParseACL - is used to control which users can access or modify a particular
+ * Class ParseACL - is used to control which users can access or modify a particular
  * object. Each ParseObject can have its own ParseACL. You can grant read and
  * write permissions separately to specific users, to groups of users that
  * belong to roles, or you can grant permissions to "the public" so that, for
@@ -14,37 +17,50 @@ use Parse\Internal\Encodable;
  * of users could write to that object.
  *
  * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
+ * @package Parse
  */
 class ParseACL implements Encodable
 {
     const PUBLIC_KEY = '*';
 
     /**
+     * Array of permissions by id
+     *
      * @var array
      */
     private $permissionsById = [];
 
     /**
+     * Whether this ACL is shared
+     *
      * @var bool
      */
     private $shared = false;
 
     /**
+     * The last known current user
+     *
      * @var ParseUser
      */
     private static $lastCurrentUser = null;
 
     /**
+     * An ACL with defaults set with the current user
+     *
      * @var ParseACL
      */
     private static $defaultACLWithCurrentUser = null;
 
     /**
+     * An ACL with defaults set
+     *
      * @var ParseACL
      */
     private static $defaultACL = null;
 
     /**
+     * Whether the default acl uses the current user or not
+     *
      * @var bool
      */
     private static $defaultACLUsesCurrentUser = false;
@@ -119,6 +135,11 @@ class ParseACL implements Encodable
         $this->shared = $shared;
     }
 
+    /**
+     * Returns an associate array encoding of this ParseACL instance.
+     *
+     * @return mixed
+     */
     public function _encode()
     {
         if (empty($this->permissionsById)) {

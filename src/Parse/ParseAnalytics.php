@@ -1,13 +1,17 @@
 <?php
+/**
+ * Class ParseAnalytics | Parse/ParseAnalytics.php
+ */
 
 namespace Parse;
 
 use Exception;
 
 /**
- * ParseAnalytics - Handles sending app-open and custom analytics events.
+ * Class ParseAnalytics - Handles sending app-open and custom analytics events.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseAnalytics
 {
@@ -62,6 +66,12 @@ class ParseAnalytics
         );
     }
 
+    /**
+     * Encodes and returns the given data as a json object
+     *
+     * @param array $data   Data to encode
+     * @return string
+     */
     public static function _toSaveJSON($data)
     {
         return json_encode(

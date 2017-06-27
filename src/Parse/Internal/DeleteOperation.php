@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class DeleteOperation | Parse/Internal/DeleteOperation.php
+ */
 
 namespace Parse\Internal;
 
@@ -6,6 +9,7 @@ namespace Parse\Internal;
  * Class DeleteOperation - FieldOperation to remove a key from an object.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse\Internal
  */
 class DeleteOperation implements FieldOperation
 {
