@@ -149,7 +149,7 @@
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                                                                        <li class="method public">
         <a href="#method__mergeAfterFetch" title="_mergeAfterFetch :: Merges data received from the server.">
             <span class="description">Merges data received from the server.</span><pre>_mergeAfterFetch</pre>
         </a>
@@ -197,7 +197,13 @@
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
+        <a href="#method_beforeSave" title="beforeSave :: Before save stub">
+            <span class="description">Before save stub</span><pre>beforeSave</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public">
         <a href="#method_clear" title="clear :: Clear all keys on this object by creating delete operations
 for each key.">
             <span class="description">Clear all keys on this object by creating delete operations
@@ -213,7 +219,7 @@ Optionally creates a pointer object if the objectId is provided.</span><pre>crea
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_delete" title="delete :: Delete a key from an object.">
             <span class="description">Delete a key from an object.</span><pre>delete</pre>
         </a>
@@ -231,27 +237,33 @@ Optionally creates a pointer object if the objectId is provided.</span><pre>crea
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_fetch" title="fetch :: Fetch the whole object from the server and update the local object.">
             <span class="description">Fetch the whole object from the server and update the local object.</span><pre>fetch</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_fetchAll" title="fetchAll :: Fetch an array of Parse objects from the server">
-            <span class="description">Fetch an array of Parse objects from the server</span><pre>fetchAll</pre>
+        <a href="#method_fetchAll" title="fetchAll :: Fetch an array of Parse objects from the server.">
+            <span class="description">Fetch an array of Parse objects from the server.</span><pre>fetchAll</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_get" title="get :: Get current value for an object property.">
             <span class="description">Get current value for an object property.</span><pre>get</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_getACL" title="getACL :: Get ACL assigned to the object.">
-            <span class="description">Get ACL assigned to the object.</span><pre>getACL</pre>
+        <a href="#method_getACL" title="getACL :: Get the ACL assigned to the object.">
+            <span class="description">Get the ACL assigned to the object.</span><pre>getACL</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_getAllKeys" title="getAllKeys :: Get values for all keys of an object.">
+            <span class="description">Get values for all keys of an object.</span><pre>getAllKeys</pre>
         </a>
     </li>
 
@@ -287,7 +299,7 @@ if no subclass is registered.</span><pre>getRegisteredSubclass</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                                                                        <li class="method public">
         <a href="#method_getUpdatedAt" title="getUpdatedAt :: Get the updatedAt for the object, or null if unsaved.">
             <span class="description">Get the updatedAt for the object, or null if unsaved.</span><pre>getUpdatedAt</pre>
         </a>
@@ -299,9 +311,9 @@ if no subclass is registered.</span><pre>getRegisteredSubclass</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
-        <a href="#method_hasRegisteredSubclass" title="hasRegisteredSubclass :: Check whether there is a subclass registered for a given parse class">
-            <span class="description">Check whether there is a subclass registered for a given parse class</span><pre>hasRegisteredSubclass</pre>
+                                                                                                                                                                <li class="method public">
+        <a href="#method_hasRegisteredSubclass" title="hasRegisteredSubclass :: Check whether there is a subclass registered for a given parse class.">
+            <span class="description">Check whether there is a subclass registered for a given parse class.</span><pre>hasRegisteredSubclass</pre>
         </a>
     </li>
 
@@ -331,13 +343,13 @@ added/updated/removed and not saved yet.</span><pre>isKeyDirty</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                                                                                                                                <li class="method public">
         <a href="#method_query" title="query :: Creates a ParseQuery for the subclass of ParseObject.">
             <span class="description">Creates a ParseQuery for the subclass of ParseObject.</span><pre>query</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_registerSubclass" title="registerSubclass :: Register a subclass.    Should be called before any other Parse functions.">
             <span class="description">Register a subclass.    Should be called before any other Parse functions.</span><pre>registerSubclass</pre>
         </a>
@@ -391,15 +403,116 @@ added/updated/removed and not saved yet.</span><pre>isKeyDirty</pre>
         </a>
     </li>
 
-                                                </ul>
+                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                                                                                                    <li class="method protected">
+                            <a href="#method__isDirty" title="_isDirty :: Detects if the object (and optionally the child objects) has unsaved
+changes.">
+                                <span class="description">Detects if the object (and optionally the child objects) has unsaved
+changes.</span><pre>_isDirty</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method protected">
+                            <a href="#method_rebuildEstimatedData" title="rebuildEstimatedData :: Start from serverData and process operations to generate the current
+value set for an object.">
+                                <span class="description">Start from serverData and process operations to generate the current
+value set for an object.</span><pre>rebuildEstimatedData</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                                                                <li class="method private">
+                            <a href="#method__isDataAvailable" title="_isDataAvailable :: Returns whether or not data is available for a given key">
+                                <span class="description">Returns whether or not data is available for a given key</span><pre>_isDataAvailable</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method private">
+                            <a href="#method_applyOperations" title="applyOperations :: Apply operations to a target object.">
+                                <span class="description">Apply operations to a target object.</span><pre>applyOperations</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method private">
+                            <a href="#method_canBeSerialized" title="canBeSerialized :: Determine if the current object can be serialized for saving.">
+                                <span class="description">Determine if the current object can be serialized for saving.</span><pre>canBeSerialized</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_canBeSerializedAsValue" title="canBeSerializedAsValue :: Checks the given object and any children to see if the whole object
+can be serialized for saving.">
+                                <span class="description">Checks the given object and any children to see if the whole object
+can be serialized for saving.</span><pre>canBeSerializedAsValue</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_deepSave" title="deepSave :: Save object and unsaved children within.">
+                                <span class="description">Save object and unsaved children within.</span><pre>deepSave</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                            <li class="method private">
+                            <a href="#method_destroyBatch" title="destroyBatch :: Destroy batch of objects.">
+                                <span class="description">Destroy batch of objects.</span><pre>destroyBatch</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_findUnsavedChildren" title="findUnsavedChildren :: Find unsaved children inside an object.">
+                                <span class="description">Find unsaved children inside an object.</span><pre>findUnsavedChildren</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_getACLWithCopy" title="getACLWithCopy :: Internally retrieves the ACL assigned to this object, conditionally returning a copy of the existing one">
+                                <span class="description">Internally retrieves the ACL assigned to this object, conditionally returning a copy of the existing one</span><pre>getACLWithCopy</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                        <li class="method private">
+                            <a href="#method_getSaveJSON" title="getSaveJSON :: Returns JSON object of the unsaved operations.">
+                                <span class="description">Returns JSON object of the unsaved operations.</span><pre>getSaveJSON</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_getSubclass" title="getSubclass :: Gets the Subclass className if exists, otherwise false.">
+                                <span class="description">Gets the Subclass className if exists, otherwise false.</span><pre>getSubclass</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_hasDirtyChildren" title="hasDirtyChildren :: Determines whether this object has child objects that are dirty">
+                                <span class="description">Determines whether this object has child objects that are dirty</span><pre>hasDirtyChildren</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                    <li class="method private">
+                            <a href="#method_mergeAfterSave" title="mergeAfterSave :: Merge server data after a save completes.">
+                                <span class="description">Merge server data after a save completes.</span><pre>mergeAfterSave</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_mergeFromObject" title="mergeFromObject :: Merge data from other object.">
+                                <span class="description">Merge data from other object.</span><pre>mergeFromObject</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_mergeFromServer" title="mergeFromServer :: Merges data received from the server.">
+                                <span class="description">Merges data received from the server.</span><pre>mergeFromServer</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li class="method private">
+                            <a href="#method_toObjectIdArray" title="toObjectIdArray :: Creates an array of object ids from a given array of ParseObjects">
+                                <span class="description">Creates an array of object ids from a given array of ParseObjects</span><pre>toObjectIdArray</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_traverse" title="traverse :: Traverse object to find children.">
+                                <span class="description">Traverse object to find children.</span><pre>traverse</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_updateWithFetchedResults" title="updateWithFetchedResults :: Merges an existing array of objects with their fetched counterparts">
+                                <span class="description">Merges an existing array of objects with their fetched counterparts</span><pre>updateWithFetchedResults</pre>
+                            </a>
+                        </li>
+                                                </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -415,9 +528,9 @@ added/updated/removed and not saved yet.</span><pre>isKeyDirty</pre>
             <div class="element class">
                 <h1>ParseObject</h1>
                 <small style="display: block; text-align: right">
-                                                                Implements \Parse\Internal\Encodable
+                                                                Implements <a href="../classes/Parse.Internal.Encodable.html">\Parse\Internal\Encodable</a>
                                     </small>
-                <p class="short_description">ParseObject - Representation of an object stored on Parse.</p>
+                <p class="short_description">Class ParseObject - Representation of an object stored on Parse.</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -438,7 +551,7 @@ added/updated/removed and not saved yet.</span><pre>isKeyDirty</pre>
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>Default</p>
+                                                                                <p>Parse</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                                                                                                                                                                             </table>
@@ -460,19 +573,19 @@ otherwise creates a new object.</p></div>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
                                                     
                                                 </th>
                                                 <td>
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -507,7 +620,7 @@ otherwise creates a new object.</p></div>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -534,7 +647,7 @@ otherwise creates a new object.</p></div>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -551,7 +664,7 @@ otherwise creates a new object.</p></div>
                                             <a id="method___set"></a>
                         <div class="element clickable method public  method___set" data-toggle="collapse" data-target=".method___set .collapse">
                             <h2>Setter to catch property calls and protect certain fields.</h2>
-                            <pre>__set(string $key, mixed $value) : null</pre>
+                            <pre>__set(string $key, mixed $value) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -563,12 +676,19 @@ otherwise creates a new object.</p></div>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
+                                                    
                                                 </th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -582,8 +702,6 @@ otherwise creates a new object.</p></div>
                                                 <code>mixed</code><p><p>Value to assign.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -608,7 +726,7 @@ otherwise creates a new object.</p></div>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -617,10 +735,10 @@ otherwise creates a new object.</p></div>
                             </div>
 
                         </div>
-                                            <a id="method__mergeAfterFetch"></a>
-                        <div class="element clickable method public  method__mergeAfterFetch" data-toggle="collapse" data-target=".method__mergeAfterFetch .collapse">
-                            <h2>Merges data received from the server.</h2>
-                            <pre>_mergeAfterFetch(array $result, boolean $completeData = true) : null</pre>
+                                            <a id="method__isDataAvailable"></a>
+                        <div class="element clickable method private  method__isDataAvailable" data-toggle="collapse" data-target=".method__isDataAvailable .collapse">
+                            <h2>Returns whether or not data is available for a given key</h2>
+                            <pre>_isDataAvailable(string $key) : boolean</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -630,7 +748,69 @@ otherwise creates a new object.</p></div>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>Key to check availability of</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__isDirty"></a>
+                        <div class="element clickable method protected  method__isDirty" data-toggle="collapse" data-target=".method__isDirty .collapse">
+                            <h2>Detects if the object (and optionally the child objects) has unsaved
+changes.</h2>
+                            <pre>_isDirty(boolean $considerChildren) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$considerChildren</h4>
+                                                <code>boolean</code><p><p>Whether to consider children when checking for dirty state</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__mergeAfterFetch"></a>
+                        <div class="element clickable method public  method__mergeAfterFetch" data-toggle="collapse" data-target=".method__mergeAfterFetch .collapse">
+                            <h2>Merges data received from the server.</h2>
+                            <pre>_mergeAfterFetch(array $result, boolean $completeData = true) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -642,8 +822,6 @@ otherwise creates a new object.</p></div>
                                                 <code>boolean</code><p><p>Fetch all data or not.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -651,7 +829,7 @@ otherwise creates a new object.</p></div>
                                             <a id="method__mergeAfterFetchWithSelectedKeys"></a>
                         <div class="element clickable method public  method__mergeAfterFetchWithSelectedKeys" data-toggle="collapse" data-target=".method__mergeAfterFetchWithSelectedKeys .collapse">
                             <h2>Merges data received from the server with a given selected keys.</h2>
-                            <pre>_mergeAfterFetchWithSelectedKeys(array $result, array $selectedKeys) : null</pre>
+                            <pre>_mergeAfterFetchWithSelectedKeys(array $result, array $selectedKeys) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -661,7 +839,14 @@ otherwise creates a new object.</p></div>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -670,12 +855,10 @@ otherwise creates a new object.</p></div>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$selectedKeys</h4>
-                                                <code>array</code><p><p>Keys to be fetched. Null or empty means all</p>
-<pre><code>                       data will be fetched.</code></pre></p>
+                                                <code>array</code><p><p>Keys to be fetched. Null or empty means all
+data will be fetched.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -683,7 +866,7 @@ otherwise creates a new object.</p></div>
                                             <a id="method__mergeMagicFields"></a>
                         <div class="element clickable method public  method__mergeMagicFields" data-toggle="collapse" data-target=".method__mergeMagicFields .collapse">
                             <h2>Handle merging of special fields for the object.</h2>
-                            <pre>_mergeMagicFields( &$data) : null</pre>
+                            <pre>_mergeMagicFields( &$data) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -693,7 +876,14 @@ otherwise creates a new object.</p></div>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -701,8 +891,6 @@ otherwise creates a new object.</p></div>
                                                 <code></code><p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -710,7 +898,7 @@ otherwise creates a new object.</p></div>
                                             <a id="method__performOperation"></a>
                         <div class="element clickable method public  method__performOperation" data-toggle="collapse" data-target=".method__performOperation .collapse">
                             <h2>Perform an operation on an object property.</h2>
-                            <pre>_performOperation(string $key, \Parse\Internal\FieldOperation $operation) : null</pre>
+                            <pre>_performOperation(string $key, \Parse\Internal\FieldOperation $operation) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -720,7 +908,14 @@ otherwise creates a new object.</p></div>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -729,11 +924,9 @@ otherwise creates a new object.</p></div>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$operation</h4>
-                                                <code>\Parse\Internal\FieldOperation</code><p><p>Operation to perform.</p></p>
+                                                <code><a href="../classes/Parse.Internal.FieldOperation.html">\Parse\Internal\FieldOperation</a></code><p><p>Operation to perform.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -753,19 +946,19 @@ otherwise creates a new object.</p></div>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
                                                     
                                                 </th>
                                                 <td>
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -803,7 +996,7 @@ otherwise creates a new object.</p></div>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                     </div>
@@ -813,70 +1006,7 @@ otherwise creates a new object.</p></div>
                                             <a id="method_add"></a>
                         <div class="element clickable method public  method_add" data-toggle="collapse" data-target=".method_add .collapse">
                             <h2>Add a value to an array property.</h2>
-                            <pre>add(string $key, mixed $value) : null</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$key</h4>
-                                                <code>string</code><p><p>Key for array value on object to add a value to.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$value</h4>
-                                                <code>mixed</code><p><p>Value to add.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_addUnique"></a>
-                        <div class="element clickable method public  method_addUnique" data-toggle="collapse" data-target=".method_addUnique .collapse">
-                            <h2>Add unique values to an array property.</h2>
-                            <pre>addUnique(string $key, mixed $value) : null</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$key</h4>
-                                                <code>string</code><p><p>Key for array value on object.</p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$value</h4>
-                                                <code>mixed</code><p><p>Value list to add uniquely.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_clear"></a>
-                        <div class="element clickable method public  method_clear" data-toggle="collapse" data-target=".method_clear .collapse">
-                            <h2>Clear all keys on this object by creating delete operations
-for each key.</h2>
-                            <pre>clear() : null</pre>
+                            <pre>add(string $key, mixed $value) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -893,20 +1023,155 @@ for each key.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
-                                    
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>Key for array value on object to add a value to.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>Value to add.</p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_create"></a>
-                        <div class="element clickable method public  method_create" data-toggle="collapse" data-target=".method_create .collapse">
-                            <h2>Static method which returns a new Parse Object for a given class
-Optionally creates a pointer object if the objectId is provided.</h2>
-                            <pre>create(string $className, string $objectId = null, boolean $isPointer = false) : Object</pre>
+                                            <a id="method_addUnique"></a>
+                        <div class="element clickable method public  method_addUnique" data-toggle="collapse" data-target=".method_addUnique .collapse">
+                            <h2>Add unique values to an array property.</h2>
+                            <pre>addUnique(string $key, mixed $value) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>Key for array value on object.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>Value list to add uniquely.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_applyOperations"></a>
+                        <div class="element clickable method private  method_applyOperations" data-toggle="collapse" data-target=".method_applyOperations .collapse">
+                            <h2>Apply operations to a target object.</h2>
+                            <pre>applyOperations(array $operations,  &$target) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$operations</h4>
+                                                <code>array</code><p><p>Operations set to apply.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$target</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_beforeSave"></a>
+                        <div class="element clickable method public  method_beforeSave" data-toggle="collapse" data-target=".method_beforeSave .collapse">
+                            <h2>Before save stub</h2>
+                            <pre>beforeSave() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_canBeSerialized"></a>
+                        <div class="element clickable method private  method_canBeSerialized" data-toggle="collapse" data-target=".method_canBeSerialized .collapse">
+                            <h2>Determine if the current object can be serialized for saving.</h2>
+                            <pre>canBeSerialized() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_canBeSerializedAsValue"></a>
+                        <div class="element clickable method private  method_canBeSerializedAsValue" data-toggle="collapse" data-target=".method_canBeSerializedAsValue .collapse">
+                            <h2>Checks the given object and any children to see if the whole object
+can be serialized for saving.</h2>
+                            <pre>canBeSerializedAsValue(mixed $object) : boolean</pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
 
@@ -916,7 +1181,70 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$object</h4>
+                                                <code>mixed</code><p><p>The value to check.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clear"></a>
+                        <div class="element clickable method public  method_clear" data-toggle="collapse" data-target=".method_clear .collapse">
+                            <h2>Clear all keys on this object by creating delete operations
+for each key.</h2>
+                            <pre>clear() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_create"></a>
+                        <div class="element clickable method public  method_create" data-toggle="collapse" data-target=".method_create .collapse">
+                            <h2>Static method which returns a new Parse Object for a given class
+Optionally creates a pointer object if the objectId is provided.</h2>
+                            <pre>create(string $className, string $objectId = null, boolean $isPointer = false) : \Parse\ParseObject</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -933,69 +1261,15 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code>Object</code><p></p>
+                                        <code><a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a></code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_delete"></a>
-                        <div class="element clickable method public  method_delete" data-toggle="collapse" data-target=".method_delete .collapse">
-                            <h2>Delete a key from an object.</h2>
-                            <pre>delete(string $key) : null</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$key</h4>
-                                                <code>string</code><p><p>Key to remove from object.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_destroy"></a>
-                        <div class="element clickable method public  method_destroy" data-toggle="collapse" data-target=".method_destroy .collapse">
-                            <h2>Delete the object from Parse.</h2>
-                            <pre>destroy(boolean $useMasterKey = false) : null</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$useMasterKey</h4>
-                                                <code>boolean</code><p><p>Whether to use the master key.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_destroyAll"></a>
-                        <div class="element clickable method public  method_destroyAll" data-toggle="collapse" data-target=".method_destroyAll .collapse">
-                            <h2>Delete an array of objects.</h2>
-                            <pre>destroyAll(array $objects, boolean $useMasterKey = false) : null</pre>
+                                            <a id="method_deepSave"></a>
+                        <div class="element clickable method private  method_deepSave" data-toggle="collapse" data-target=".method_deepSave .collapse">
+                            <h2>Save object and unsaved children within.</h2>
+                            <pre>deepSave(\Parse\ParseObject|array $target, boolean $useMasterKey = false) </pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
 
@@ -1007,12 +1281,132 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
+                                                    
                                                 </th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                            <dt>\Parse\ParseAggregateException</dt>
+                                                        <dd></dd>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$target</h4>
+                                                <code><a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a>|array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_delete"></a>
+                        <div class="element clickable method public  method_delete" data-toggle="collapse" data-target=".method_delete .collapse">
+                            <h2>Delete a key from an object.</h2>
+                            <pre>delete(string $key) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>Key to remove from object.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_destroy"></a>
+                        <div class="element clickable method public  method_destroy" data-toggle="collapse" data-target=".method_destroy .collapse">
+                            <h2>Delete the object from Parse.</h2>
+                            <pre>destroy(boolean $useMasterKey = false) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the master key.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_destroyAll"></a>
+                        <div class="element clickable method public  method_destroyAll" data-toggle="collapse" data-target=".method_destroyAll .collapse">
+                            <h2>Delete an array of objects.</h2>
+                            <pre>destroyAll(array $objects, boolean $useMasterKey = false) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseAggregateException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1026,8 +1420,46 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                                 <code>boolean</code><p><p>Whether to use the master key or not.</p></p>
                                             </div>
                                                                             
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_destroyBatch"></a>
+                        <div class="element clickable method private  method_destroyBatch" data-toggle="collapse" data-target=".method_destroyBatch .collapse">
+                            <h2>Destroy batch of objects.</h2>
+                            <pre>destroyBatch(array&lt;mixed,\Parse\ParseObject&gt; $objects, boolean $useMasterKey = false) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$objects</h4>
+                                                <code>array&lt;mixed,<a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a>&gt;</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
                                                                             <h3>Response</h3>
-                                        <code>null</code><p></p>
+                                        <code>array</code><p></p>
                                                                     </div>
                             </div>
 
@@ -1045,7 +1477,7 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1061,7 +1493,7 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                         </div>
                                             <a id="method_fetchAll"></a>
                         <div class="element clickable method public  method_fetchAll" data-toggle="collapse" data-target=".method_fetchAll .collapse">
-                            <h2>Fetch an array of Parse objects from the server</h2>
+                            <h2>Fetch an array of Parse objects from the server.</h2>
                             <pre>fetchAll(array $objects, boolean $useMasterKey = false) : array</pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
@@ -1072,7 +1504,7 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1090,6 +1522,46 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                             </div>
 
                         </div>
+                                            <a id="method_findUnsavedChildren"></a>
+                        <div class="element clickable method private  method_findUnsavedChildren" data-toggle="collapse" data-target=".method_findUnsavedChildren .collapse">
+                            <h2>Find unsaved children inside an object.</h2>
+                            <pre>findUnsavedChildren(\Parse\ParseObject $object,  &$unsavedChildren,  &$unsavedFiles) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$object</h4>
+                                                <code><a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a></code><p><p>Object to search.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$unsavedChildren</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$unsavedFiles</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
                                             <a id="method_get"></a>
                         <div class="element clickable method public  method_get" data-toggle="collapse" data-target=".method_get .collapse">
                             <h2>Get current value for an object property.</h2>
@@ -1103,14 +1575,14 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1128,7 +1600,7 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                         </div>
                                             <a id="method_getACL"></a>
                         <div class="element clickable method public  method_getACL" data-toggle="collapse" data-target=".method_getACL .collapse">
-                            <h2>Get ACL assigned to the object.</h2>
+                            <h2>Get the ACL assigned to the object.</h2>
                             <pre>getACL() : \Parse\ParseACL</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
@@ -1146,11 +1618,67 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
                                         <code><a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getACLWithCopy"></a>
+                        <div class="element clickable method private  method_getACLWithCopy" data-toggle="collapse" data-target=".method_getACLWithCopy .collapse">
+                            <h2>Internally retrieves the ACL assigned to this object, conditionally returning a copy of the existing one</h2>
+                            <pre>getACLWithCopy(boolean $mayCopy) : \Parse\ParseACL</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mayCopy</h4>
+                                                <code>boolean</code><p><p>Whether to return a copy of this acl or not</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAllKeys"></a>
+                        <div class="element clickable method public  method_getAllKeys" data-toggle="collapse" data-target=".method_getAllKeys .collapse">
+                            <h2>Get values for all keys of an object.</h2>
+                            <pre>getAllKeys() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
                                                                     </div>
                             </div>
 
@@ -1175,7 +1703,7 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -1204,7 +1732,7 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -1233,7 +1761,7 @@ Optionally creates a pointer object if the objectId is provided.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -1256,7 +1784,7 @@ if no subclass is registered.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1273,7 +1801,7 @@ if no subclass is registered.</h2>
                                             <a id="method_getRelation"></a>
                         <div class="element clickable method public  method_getRelation" data-toggle="collapse" data-target=".method_getRelation .collapse">
                             <h2>Access or create a Relation value for a key.</h2>
-                            <pre>getRelation(string $key) : \Parse\ParseRelation</pre>
+                            <pre>getRelation(string $key, string $className = null) : \Parse\ParseRelation</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -1283,17 +1811,84 @@ if no subclass is registered.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
                                                 <code>string</code><p><p>The key to access the relation for.</p></p>
                                             </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p><p>The target class name.</p></p>
+                                            </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code><a href="../classes/Parse.ParseRelation.html">\Parse\ParseRelation</a></code><p><p>The ParseRelation object if the relation already</p>
-<pre><code>                  exists for the key or can be created for this key.</code></pre></p>
+                                        <code><a href="../classes/Parse.ParseRelation.html">\Parse\ParseRelation</a></code><p><p>The ParseRelation object if the relation already
+exists for the key or can be created for this key.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSaveJSON"></a>
+                        <div class="element clickable method private  method_getSaveJSON" data-toggle="collapse" data-target=".method_getSaveJSON .collapse">
+                            <h2>Returns JSON object of the unsaved operations.</h2>
+                            <pre>getSaveJSON() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSubclass"></a>
+                        <div class="element clickable method private  method_getSubclass" data-toggle="collapse" data-target=".method_getSubclass .collapse">
+                            <h2>Gets the Subclass className if exists, otherwise false.</h2>
+                            <pre>getSubclass() </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
                                                                     </div>
                             </div>
 
@@ -1318,7 +1913,7 @@ if no subclass is registered.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -1340,7 +1935,7 @@ if no subclass is registered.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1354,9 +1949,38 @@ if no subclass is registered.</h2>
                             </div>
 
                         </div>
+                                            <a id="method_hasDirtyChildren"></a>
+                        <div class="element clickable method private  method_hasDirtyChildren" data-toggle="collapse" data-target=".method_hasDirtyChildren .collapse">
+                            <h2>Determines whether this object has child objects that are dirty</h2>
+                            <pre>hasDirtyChildren() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
                                             <a id="method_hasRegisteredSubclass"></a>
                         <div class="element clickable method public  method_hasRegisteredSubclass" data-toggle="collapse" data-target=".method_hasRegisteredSubclass .collapse">
-                            <h2>Check whether there is a subclass registered for a given parse class</h2>
+                            <h2>Check whether there is a subclass registered for a given parse class.</h2>
                             <pre>hasRegisteredSubclass( $parseClassName) : boolean</pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
@@ -1367,7 +1991,7 @@ if no subclass is registered.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1384,7 +2008,7 @@ if no subclass is registered.</h2>
                                             <a id="method_increment"></a>
                         <div class="element clickable method public  method_increment" data-toggle="collapse" data-target=".method_increment .collapse">
                             <h2>Increment a numeric key by a certain value.</h2>
-                            <pre>increment(string $key, integer $value = 1) : null</pre>
+                            <pre>increment(string $key, integer $value = 1) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -1394,7 +2018,14 @@ if no subclass is registered.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1406,8 +2037,6 @@ if no subclass is registered.</h2>
                                                 <code>integer</code><p><p>Value to increment by.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -1432,7 +2061,7 @@ if no subclass is registered.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -1461,7 +2090,7 @@ if no subclass is registered.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -1484,7 +2113,7 @@ added/updated/removed and not saved yet.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1494,6 +2123,106 @@ added/updated/removed and not saved yet.</h2>
                                                                             
                                                                             <h3>Response</h3>
                                         <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_mergeAfterSave"></a>
+                        <div class="element clickable method private  method_mergeAfterSave" data-toggle="collapse" data-target=".method_mergeAfterSave .collapse">
+                            <h2>Merge server data after a save completes.</h2>
+                            <pre>mergeAfterSave(array $result) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$result</h4>
+                                                <code>array</code><p><p>Data retrieved from server.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_mergeFromObject"></a>
+                        <div class="element clickable method private  method_mergeFromObject" data-toggle="collapse" data-target=".method_mergeFromObject .collapse">
+                            <h2>Merge data from other object.</h2>
+                            <pre>mergeFromObject(\Parse\ParseObject $other) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$other</h4>
+                                                <code><a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_mergeFromServer"></a>
+                        <div class="element clickable method private  method_mergeFromServer" data-toggle="collapse" data-target=".method_mergeFromServer .collapse">
+                            <h2>Merges data received from the server.</h2>
+                            <pre>mergeFromServer(array $data, boolean $completeData = true) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>array</code><p><p>Data retrieved from server.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$completeData</h4>
+                                                <code>boolean</code><p><p>Fetch all data or not.</p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
 
@@ -1513,11 +2242,48 @@ added/updated/removed and not saved yet.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
+                                                    
                                                 </th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_rebuildEstimatedData"></a>
+                        <div class="element clickable method protected  method_rebuildEstimatedData" data-toggle="collapse" data-target=".method_rebuildEstimatedData .collapse">
+                            <h2>Start from serverData and process operations to generate the current
+value set for an object.</h2>
+                            <pre>rebuildEstimatedData() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
                                                                                                     </td>
                                             </tr>
                                                                                     <tr>
@@ -1527,11 +2293,9 @@ added/updated/removed and not saved yet.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
-                                                                            <h3>Response</h3>
-                                        <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p></p>
                                                                     </div>
                             </div>
 
@@ -1551,15 +2315,6 @@ added/updated/removed and not saved yet.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
                                                     
                                                 </th>
                                                 <td>
@@ -1571,6 +2326,15 @@ added/updated/removed and not saved yet.</h2>
                                                 </th>
                                                 <td>
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1582,7 +2346,7 @@ added/updated/removed and not saved yet.</h2>
                                             <a id="method_remove"></a>
                         <div class="element clickable method public  method_remove" data-toggle="collapse" data-target=".method_remove .collapse">
                             <h2>Remove a value from an array for an object key.</h2>
-                            <pre>remove(string $key, mixed $value) : null</pre>
+                            <pre>remove(string $key, mixed $value) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -1594,12 +2358,19 @@ added/updated/removed and not saved yet.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
+                                                    
                                                 </th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1613,8 +2384,6 @@ added/updated/removed and not saved yet.</h2>
                                                 <code>mixed</code><p><p>Value to remove from the array.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -1622,7 +2391,7 @@ added/updated/removed and not saved yet.</h2>
                                             <a id="method_revert"></a>
                         <div class="element clickable method public  method_revert" data-toggle="collapse" data-target=".method_revert .collapse">
                             <h2>Revert all unsaved operations.</h2>
-                            <pre>revert() : null</pre>
+                            <pre>revert() </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -1639,11 +2408,16 @@ added/updated/removed and not saved yet.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
                                     
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -1651,65 +2425,7 @@ added/updated/removed and not saved yet.</h2>
                                             <a id="method_save"></a>
                         <div class="element clickable method public  method_save" data-toggle="collapse" data-target=".method_save .collapse">
                             <h2>Save Object to Parse.</h2>
-                            <pre>save(boolean $useMasterKey = false) : null</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$useMasterKey</h4>
-                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_saveAll"></a>
-                        <div class="element clickable method public  method_saveAll" data-toggle="collapse" data-target=".method_saveAll .collapse">
-                            <h2>Save all the objects in the provided array.</h2>
-                            <pre>saveAll(array $list, boolean $useMasterKey = false) : null</pre>
-                            <div class="labels">
-                                                                <span class="label">static</span>                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$list</h4>
-                                                <code>array</code><p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$useMasterKey</h4>
-                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_set"></a>
-                        <div class="element clickable method public  method_set" data-toggle="collapse" data-target=".method_set .collapse">
-                            <h2>Validate and set a value for an object key.</h2>
-                            <pre>set(string $key, mixed $value) : null</pre>
+                            <pre>save(boolean $useMasterKey = false) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -1721,12 +2437,87 @@ added/updated/removed and not saved yet.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
+                                                    
                                                 </th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
                                                                                                     </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_saveAll"></a>
+                        <div class="element clickable method public  method_saveAll" data-toggle="collapse" data-target=".method_saveAll .collapse">
+                            <h2>Save all the objects in the provided array.</h2>
+                            <pre>saveAll(array $list, boolean $useMasterKey = false) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$list</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_set"></a>
+                        <div class="element clickable method public  method_set" data-toggle="collapse" data-target=".method_set .collapse">
+                            <h2>Validate and set a value for an object key.</h2>
+                            <pre>set(string $key, mixed $value) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1740,8 +2531,6 @@ added/updated/removed and not saved yet.</h2>
                                                 <code>mixed</code><p><p>Value to set on the key.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -1766,7 +2555,7 @@ added/updated/removed and not saved yet.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1781,7 +2570,7 @@ added/updated/removed and not saved yet.</h2>
                                             <a id="method_setArray"></a>
                         <div class="element clickable method public  method_setArray" data-toggle="collapse" data-target=".method_setArray .collapse">
                             <h2>Set an array value for an object key.</h2>
-                            <pre>setArray(string $key, array $value) : null</pre>
+                            <pre>setArray(string $key, array $value) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -1793,12 +2582,19 @@ added/updated/removed and not saved yet.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
+                                                    
                                                 </th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1812,8 +2608,6 @@ added/updated/removed and not saved yet.</h2>
                                                 <code>array</code><p><p>Value to set on the key.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
@@ -1821,7 +2615,7 @@ added/updated/removed and not saved yet.</h2>
                                             <a id="method_setAssociativeArray"></a>
                         <div class="element clickable method public  method_setAssociativeArray" data-toggle="collapse" data-target=".method_setAssociativeArray .collapse">
                             <h2>Set an associative array value for an object key.</h2>
-                            <pre>setAssociativeArray(string $key, array $value) : null</pre>
+                            <pre>setAssociativeArray(string $key, array $value) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -1833,12 +2627,19 @@ added/updated/removed and not saved yet.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
+                                                    
                                                 </th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1852,15 +2653,389 @@ added/updated/removed and not saved yet.</h2>
                                                 <code>array</code><p><p>Value to set on the key.</p></p>
                                             </div>
                                                                             
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_toObjectIdArray"></a>
+                        <div class="element clickable method private  method_toObjectIdArray" data-toggle="collapse" data-target=".method_toObjectIdArray .collapse">
+                            <h2>Creates an array of object ids from a given array of ParseObjects</h2>
+                            <pre>toObjectIdArray(array $objects) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$objects</h4>
+                                                <code>array</code><p><p>Objects to create id array from</p></p>
+                                            </div>
+                                                                            
                                                                             <h3>Response</h3>
-                                        <code>null</code><p></p>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_traverse"></a>
+                        <div class="element clickable method private  method_traverse" data-toggle="collapse" data-target=".method_traverse .collapse">
+                            <h2>Traverse object to find children.</h2>
+                            <pre>traverse(boolean $deep,  &$object, callable $mapFunction, array $seen = array()) : mixed</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$deep</h4>
+                                                <code>boolean</code><p><p>Should this call traverse deeply</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$object</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mapFunction</h4>
+                                                <code>callable</code><p><p>Function to call for every item.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$seen</h4>
+                                                <code>array</code><p><p>Objects already seen.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>The result of calling mapFunction on the root object.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_updateWithFetchedResults"></a>
+                        <div class="element clickable method private  method_updateWithFetchedResults" data-toggle="collapse" data-target=".method_updateWithFetchedResults .collapse">
+                            <h2>Merges an existing array of objects with their fetched counterparts</h2>
+                            <pre>updateWithFetchedResults(array $objects, array $fetched) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$objects</h4>
+                                                <code>array</code><p><p>Original objects to update</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fetched</h4>
+                                                <code>array</code><p><p>Fetched object data to update with</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
                     
                     
-                                                        </div>
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_serverData"> </a>
+                            <div class="element clickable property  protected property_serverData" data-toggle="collapse" data-target=".property_serverData .collapse">
+                                <h2>Data as it exists on the server.</h2>
+                                <pre>serverData : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_operationSet"> </a>
+                            <div class="element clickable property  protected property_operationSet" data-toggle="collapse" data-target=".property_operationSet .collapse">
+                                <h2>Set of unsaved operations.</h2>
+                                <pre>operationSet : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_estimatedData"> </a>
+                            <div class="element clickable property  private property_estimatedData" data-toggle="collapse" data-target=".property_estimatedData .collapse">
+                                <h2>Estimated value of applying operationSet to serverData.</h2>
+                                <pre>estimatedData : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_dataAvailability"> </a>
+                            <div class="element clickable property  private property_dataAvailability" data-toggle="collapse" data-target=".property_dataAvailability .collapse">
+                                <h2>Determine if data available for a given key or not.</h2>
+                                <pre>dataAvailability : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_className"> </a>
+                            <div class="element clickable property  private property_className" data-toggle="collapse" data-target=".property_className .collapse">
+                                <h2>Class name for data on Parse.</h2>
+                                <pre>className : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_objectId"> </a>
+                            <div class="element clickable property  private property_objectId" data-toggle="collapse" data-target=".property_objectId .collapse">
+                                <h2>Unique identifier on Parse.</h2>
+                                <pre>objectId : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_createdAt"> </a>
+                            <div class="element clickable property  private property_createdAt" data-toggle="collapse" data-target=".property_createdAt .collapse">
+                                <h2>Timestamp when object was created.</h2>
+                                <pre>createdAt : \DateTime</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\DateTime</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_updatedAt"> </a>
+                            <div class="element clickable property  private property_updatedAt" data-toggle="collapse" data-target=".property_updatedAt .collapse">
+                                <h2>Timestamp when object was last updated.</h2>
+                                <pre>updatedAt : \DateTime</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\DateTime</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_hasBeenFetched"> </a>
+                            <div class="element clickable property  private property_hasBeenFetched" data-toggle="collapse" data-target=".property_hasBeenFetched .collapse">
+                                <h2>Whether the object has been fully fetched from Parse.</h2>
+                                <pre>hasBeenFetched : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_registeredSubclasses"> </a>
+                            <div class="element clickable property  private property_registeredSubclasses" data-toggle="collapse" data-target=".property_registeredSubclasses .collapse">
+                                <h2>Holds the registered subclasses and Parse class names.</h2>
+                                <pre>registeredSubclasses : array</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
             </div>
             <a id="\Parse\ParseObject"></a>
             <ul class="breadcrumb">
@@ -1880,9 +3055,7 @@ added/updated/removed and not saved yet.</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on 
-Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
-Thu, 06 Aug 2015 21:21:48 +0000.<br/>
+            generated on Tue, 27 Jun 2017 19:58:27 +0000.<br/>
     </footer>
     </body>
 </html>

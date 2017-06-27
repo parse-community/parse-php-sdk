@@ -133,19 +133,19 @@
 
                                                                                                         <li class="method public">
         <a href="#method_createFromData" title="createFromData :: Create a Parse File from data
-i.e. $file = ParseFile::createFromData(&quot;hello world!&quot;, &quot;hi.txt&quot;);.">
+i.e. $file = ParseFile::createFromData(&#039;hello world!&#039;, &#039;hi.txt&#039;);.">
             <span class="description">Create a Parse File from data
-i.e. $file = ParseFile::createFromData(&quot;hello world!&quot;, &quot;hi.txt&quot;);.</span><pre>createFromData</pre>
+i.e. $file = ParseFile::createFromData(&#039;hello world!&#039;, &#039;hi.txt&#039;);.</span><pre>createFromData</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
         <a href="#method_createFromFile" title="createFromFile :: Create a Parse File from the contents of a local file
-i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
-&quot;foo.bar&quot;);.">
+i.e. $file = ParseFile::createFromFile(&#039;/tmp/foo.bar&#039;,
+&#039;foo.bar&#039;);.">
             <span class="description">Create a Parse File from the contents of a local file
-i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
-&quot;foo.bar&quot;);.</span><pre>createFromFile</pre>
+i.e. $file = ParseFile::createFromFile(&#039;/tmp/foo.bar&#039;,
+&#039;foo.bar&#039;);.</span><pre>createFromFile</pre>
         </a>
     </li>
 
@@ -155,7 +155,7 @@ i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_getData" title="getData :: Return the data for the file, downloading it if not already present.">
             <span class="description">Return the data for the file, downloading it if not already present.</span><pre>getData</pre>
         </a>
@@ -167,7 +167,7 @@ i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_getName" title="getName :: Return the name for the file
 Upon saving to Parse, the name will change to a unique identifier.">
             <span class="description">Return the name for the file
@@ -187,15 +187,30 @@ Upon saving to Parse, the name will change to a unique identifier.</span><pre>ge
         </a>
     </li>
 
-                                                </ul>
+                                                                                                        </ul>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                <li class="method private">
+                            <a href="#method_download" title="download :: Attempts to download and return the contents of a ParseFile&#039;s url">
+                                <span class="description">Attempts to download and return the contents of a ParseFile&#039;s url</span><pre>download</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_getMimeTypeForExtension" title="getMimeTypeForExtension :: Returns the mimetype for a given extension">
+                                <span class="description">Returns the mimetype for a given extension</span><pre>getMimeTypeForExtension</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                            <li class="method private">
+                            <a href="#method_upload" title="upload :: Internally uploads the contents of the file to a Parse Server">
+                                <span class="description">Internally uploads the contents of the file to a Parse Server</span><pre>upload</pre>
+                            </a>
+                        </li>
+                                                </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -211,9 +226,9 @@ Upon saving to Parse, the name will change to a unique identifier.</span><pre>ge
             <div class="element class">
                 <h1>ParseFile</h1>
                 <small style="display: block; text-align: right">
-                                                                Implements \Parse\Internal\Encodable
+                                                                Implements <a href="../classes/Parse.Internal.Encodable.html">\Parse\Internal\Encodable</a>
                                     </small>
-                <p class="short_description">ParseFile - Representation of a Parse File object.</p>
+                <p class="short_description">Class ParseFile - Representation of a Parse File object.</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -234,7 +249,7 @@ Upon saving to Parse, the name will change to a unique identifier.</span><pre>ge
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>Default</p>
+                                                                                <p>Parse</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                 </table>
@@ -253,7 +268,7 @@ Upon saving to Parse, the name will change to a unique identifier.</span><pre>ge
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -291,7 +306,7 @@ Upon saving to Parse, the name will change to a unique identifier.</span><pre>ge
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -303,7 +318,7 @@ Upon saving to Parse, the name will change to a unique identifier.</span><pre>ge
                                             <a id="method_createFromData"></a>
                         <div class="element clickable method public  method_createFromData" data-toggle="collapse" data-target=".method_createFromData .collapse">
                             <h2>Create a Parse File from data
-i.e. $file = ParseFile::createFromData(&quot;hello world!&quot;, &quot;hi.txt&quot;);.</h2>
+i.e. $file = ParseFile::createFromData(&#039;hello world!&#039;, &#039;hi.txt&#039;);.</h2>
                             <pre>createFromData(mixed $contents, string $name, string $mimeType = null) : \Parse\ParseFile</pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
@@ -314,7 +329,7 @@ i.e. $file = ParseFile::createFromData(&quot;hello world!&quot;, &quot;hi.txt&qu
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -339,8 +354,8 @@ i.e. $file = ParseFile::createFromData(&quot;hello world!&quot;, &quot;hi.txt&qu
                                             <a id="method_createFromFile"></a>
                         <div class="element clickable method public  method_createFromFile" data-toggle="collapse" data-target=".method_createFromFile .collapse">
                             <h2>Create a Parse File from the contents of a local file
-i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
-&quot;foo.bar&quot;);.</h2>
+i.e. $file = ParseFile::createFromFile(&#039;/tmp/foo.bar&#039;,
+&#039;foo.bar&#039;);.</h2>
                             <pre>createFromFile(string $path, string $name, string $mimeType = null) : \Parse\ParseFile</pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
@@ -351,7 +366,7 @@ i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -376,7 +391,7 @@ i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
                                             <a id="method_delete"></a>
                         <div class="element clickable method public  method_delete" data-toggle="collapse" data-target=".method_delete .collapse">
                             <h2>Send a REST request to delete the ParseFile.</h2>
-                            <pre>delete() </pre>
+                            <pre>delete(boolean $useMasterKey = true) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -388,13 +403,45 @@ i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
+                                                    
                                                 </th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
                                                                                                     </td>
                                             </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_download"></a>
+                        <div class="element clickable method private  method_download" data-toggle="collapse" data-target=".method_download .collapse">
+                            <h2>Attempts to download and return the contents of a ParseFile&#039;s url</h2>
+                            <pre>download() : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
                                                                                     <tr>
                                                 <th>
                                                     
@@ -402,16 +449,20 @@ i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
                                     
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
                                                                     </div>
                             </div>
 
@@ -431,19 +482,19 @@ i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
                                                     
                                                 </th>
                                                 <td>
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -474,11 +525,38 @@ i.e. $file = ParseFile::createFromFile(&quot;/tmp/foo.bar&quot;,
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
                                         <code>string|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMimeTypeForExtension"></a>
+                        <div class="element clickable method private  method_getMimeTypeForExtension" data-toggle="collapse" data-target=".method_getMimeTypeForExtension .collapse">
+                            <h2>Returns the mimetype for a given extension</h2>
+                            <pre>getMimeTypeForExtension(string $extension) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$extension</h4>
+                                                <code>string</code><p><p>Extension to return type for</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
                                                                     </div>
                             </div>
 
@@ -504,7 +582,7 @@ Upon saving to Parse, the name will change to a unique identifier.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -533,7 +611,7 @@ Upon saving to Parse, the name will change to a unique identifier.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -545,7 +623,7 @@ Upon saving to Parse, the name will change to a unique identifier.</h2>
                                             <a id="method_save"></a>
                         <div class="element clickable method public  method_save" data-toggle="collapse" data-target=".method_save .collapse">
                             <h2>Uploads the file contents to Parse, if not saved.</h2>
-                            <pre>save() : boolean</pre>
+                            <pre>save(boolean $useMasterKey = false) : boolean</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -555,25 +633,164 @@ Upon saving to Parse, the name will change to a unique identifier.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
-                                    
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
+                                            </div>
+                                                                            
                                                                             <h3>Response</h3>
                                         <code>boolean</code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
+                                            <a id="method_upload"></a>
+                        <div class="element clickable method private  method_upload" data-toggle="collapse" data-target=".method_upload .collapse">
+                            <h2>Internally uploads the contents of the file to a Parse Server</h2>
+                            <pre>upload(boolean $useMasterKey = false) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$useMasterKey</h4>
+                                                <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Result from Parse API Call.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
                     
                     
-                                                        </div>
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_name"> </a>
+                            <div class="element clickable property  private property_name" data-toggle="collapse" data-target=".property_name .collapse">
+                                <h2>The filename.</h2>
+                                <pre>name : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_url"> </a>
+                            <div class="element clickable property  private property_url" data-toggle="collapse" data-target=".property_url .collapse">
+                                <h2>The URL of file data stored on Parse.</h2>
+                                <pre>url : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_data"> </a>
+                            <div class="element clickable property  private property_data" data-toggle="collapse" data-target=".property_data .collapse">
+                                <h2>The data.</h2>
+                                <pre>data : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_mimeType"> </a>
+                            <div class="element clickable property  private property_mimeType" data-toggle="collapse" data-target=".property_mimeType .collapse">
+                                <h2>The mime type.</h2>
+                                <pre>mimeType : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
             </div>
             <a id="\Parse\ParseFile"></a>
             <ul class="breadcrumb">
@@ -593,9 +810,7 @@ Upon saving to Parse, the name will change to a unique identifier.</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on 
-Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
-Thu, 06 Aug 2015 21:21:48 +0000.<br/>
+            generated on Tue, 27 Jun 2017 19:58:27 +0000.<br/>
     </footer>
     </body>
 </html>

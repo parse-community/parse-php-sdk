@@ -126,8 +126,8 @@
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method__encode" title="_encode :: ">
-            <span class="description"></span><pre>_encode</pre>
+        <a href="#method__encode" title="_encode :: Returns an associate array encoding of this ParseACL instance.">
+            <span class="description">Returns an associate array encoding of this ParseACL instance.</span><pre>_encode</pre>
         </a>
     </li>
 
@@ -155,7 +155,7 @@
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_getPublicReadAccess" title="getPublicReadAccess :: Get whether the public is allowed to read this object.">
             <span class="description">Get whether the public is allowed to read this object.</span><pre>getPublicReadAccess</pre>
         </a>
@@ -247,7 +247,7 @@ user belongs to has write access.</span><pre>getWriteAccess</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_setDefaultACL" title="setDefaultACL :: Sets a default ACL that will be applied to all ParseObjects when they
 are created.">
             <span class="description">Sets a default ACL that will be applied to all ParseObjects when they
@@ -327,15 +327,32 @@ are allowed to write this object.</span><pre>setRoleWriteAccessWithName</pre>
         </a>
     </li>
 
-                                                </ul>
+                                                                                                        </ul>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                                                                                                                    <li class="method private">
+                            <a href="#method_getAccess" title="getAccess :: Get if the given userId has a permission for the given access type or not.">
+                                <span class="description">Get if the given userId has a permission for the given access type or not.</span><pre>getAccess</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method private">
+                            <a href="#method_setAccess" title="setAccess :: Set access permission with access name, user id and if
+the user has permission for accessing or not.">
+                                <span class="description">Set access permission with access name, user id and if
+the user has permission for accessing or not.</span><pre>setAccess</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li class="method private">
+                            <a href="#method_validateRoleState" title="validateRoleState :: Check whether the role is valid or not.">
+                                <span class="description">Check whether the role is valid or not.</span><pre>validateRoleState</pre>
+                            </a>
+                        </li>
+                                                </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -356,9 +373,9 @@ are allowed to write this object.</span><pre>setRoleWriteAccessWithName</pre>
             <div class="element class">
                 <h1>ParseACL</h1>
                 <small style="display: block; text-align: right">
-                                                                Implements \Parse\Internal\Encodable
+                                                                Implements <a href="../classes/Parse.Internal.Encodable.html">\Parse\Internal\Encodable</a>
                                     </small>
-                <p class="short_description">ParseACL - is used to control which users can access or modify a particular
+                <p class="short_description">Class ParseACL - is used to control which users can access or modify a particular
 object. Each ParseObject can have its own ParseACL. You can grant read and
 write permissions separately to specific users, to groups of users that
 belong to roles, or you can grant permissions to &quot;the public&quot; so that, for
@@ -384,7 +401,7 @@ of users could write to that object.</p>
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>Default</p>
+                                                                                <p>Parse</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                 </table>
@@ -403,14 +420,14 @@ of users could write to that object.</p>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -428,8 +445,8 @@ of users could write to that object.</p>
                         </div>
                                             <a id="method__encode"></a>
                         <div class="element clickable method public  method__encode" data-toggle="collapse" data-target=".method__encode .collapse">
-                            <h2>_encode</h2>
-                            <pre>_encode() </pre>
+                            <h2>Returns an associate array encoding of this ParseACL instance.</h2>
+                            <pre>_encode() : mixed</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -446,16 +463,11 @@ of users could write to that object.</p>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
                                                                     </div>
                             </div>
 
@@ -480,7 +492,7 @@ of users could write to that object.</p>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -509,7 +521,7 @@ of users could write to that object.</p>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -538,7 +550,7 @@ of users could write to that object.</p>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -563,7 +575,7 @@ of users could write to that object.</p>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -573,6 +585,37 @@ of users could write to that object.</p>
                                                                             
                                                                             <h3>Response</h3>
                                         <code><a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAccess"></a>
+                        <div class="element clickable method private  method_getAccess" data-toggle="collapse" data-target=".method_getAccess .collapse">
+                            <h2>Get if the given userId has a permission for the given access type or not.</h2>
+                            <pre>getAccess(string $accessType, string $userId) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$accessType</h4>
+                                                <code>string</code><p><p>Access name.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$userId</h4>
+                                                <code>string</code><p><p>User id.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
                                                                     </div>
                             </div>
 
@@ -597,7 +640,7 @@ of users could write to that object.</p>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -626,7 +669,7 @@ of users could write to that object.</p>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -651,14 +694,14 @@ user belongs to has read access.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -690,7 +733,7 @@ the server and its data must have been fetched in order to use this method.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -719,7 +762,7 @@ still be able to read it if a parent role has read access.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -749,7 +792,7 @@ the server and its data must have been fetched in order to use this method.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -778,7 +821,7 @@ still be able to write it if a parent role has write access.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -807,14 +850,14 @@ getPublicReadAccess returns true or a role that the user belongs to has
 read access.</p></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -845,14 +888,14 @@ getPublicWriteAccess returns true or a role that the user belongs to has
 write access.</p></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -884,14 +927,14 @@ user belongs to has write access.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -903,6 +946,56 @@ user belongs to has write access.</h2>
                                                                             
                                                                             <h3>Response</h3>
                                         <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setAccess"></a>
+                        <div class="element clickable method private  method_setAccess" data-toggle="collapse" data-target=".method_setAccess .collapse">
+                            <h2>Set access permission with access name, user id and if
+the user has permission for accessing or not.</h2>
+                            <pre>setAccess(string $accessType, string $userId, boolean $allowed) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$accessType</h4>
+                                                <code>string</code><p><p>Access name.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$userId</h4>
+                                                <code>string</code><p><p>User id.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$allowed</h4>
+                                                <code>boolean</code><p><p>If user allowed to access or not.</p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
 
@@ -928,26 +1021,26 @@ are created.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$acl</h4>
-                                                <code><a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a></code><p><p>The ACL to use as a template for all ParseObjects</p>
-<pre><code>                                      created after setDefaultACL has been called. This
-                                      value will be copied and used as a template for the
-                                      creation of new ACLs, so changes to the instance
-                                      after setDefaultACL() has been called will not be
-                                      reflected in new ParseObjects.</code></pre></p>
+                                                <code><a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a></code><p><p>The ACL to use as a template for all ParseObjects
+created after setDefaultACL has been called. This
+value will be copied and used as a template for the
+creation of new ACLs, so changes to the instance
+after setDefaultACL() has been called will not be
+reflected in new ParseObjects.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$withAccessForCurrentUser</h4>
-                                                <code>boolean</code><p><p>If true, the ParseACL that is applied to</p>
-<pre><code>                                      newly-created ParseObjects will provide read
-                                      and write access to the ParseUser#getCurrentUser()
-                                      at the time of creation. If false, the provided
-                                      ACL will be used without modification. If acl is
-                                      null, this value is ignored.</code></pre></p>
+                                                <code>boolean</code><p><p>If true, the ParseACL that is applied to
+newly-created ParseObjects will provide read
+and write access to the ParseUser#getCurrentUser()
+at the time of creation. If false, the provided
+ACL will be used without modification. If acl is
+null, this value is ignored.</p></p>
                                             </div>
                                                                             
                                                                     </div>
@@ -974,7 +1067,7 @@ are created.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1006,7 +1099,7 @@ are created.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1033,19 +1126,19 @@ are created.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
                                                     
                                                 </th>
                                                 <td>
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1085,7 +1178,7 @@ have been fetched in order to use this method.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1122,7 +1215,7 @@ are allowed to read this object.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1160,7 +1253,7 @@ have been fetched in order to use this method.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1197,7 +1290,7 @@ are allowed to write this object.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1228,19 +1321,19 @@ are allowed to write this object.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
                                                     
                                                 </th>
                                                 <td>
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1273,19 +1366,19 @@ are allowed to write this object.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
                                                     
                                                 </th>
                                                 <td>
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1318,19 +1411,19 @@ are allowed to write this object.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
                                                     
                                                 </th>
                                                 <td>
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1342,6 +1435,47 @@ are allowed to write this object.</h2>
                                                                                     <div class="subelement argument">
                                                 <h4>$allowed</h4>
                                                 <code>boolean</code><p><p>If user allowed to write or not.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_validateRoleState"></a>
+                        <div class="element clickable method private  method_validateRoleState" data-toggle="collapse" data-target=".method_validateRoleState .collapse">
+                            <h2>Check whether the role is valid or not.</h2>
+                            <pre>validateRoleState(\Parse\ParseRole $role) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$role</h4>
+                                                <code><a href="../classes/Parse.ParseRole.html">\Parse\ParseRole</a></code><p></p>
                                             </div>
                                                                             
                                                                     </div>
@@ -1372,7 +1506,164 @@ are allowed to write this object.</h2>
                                 </div>
                             </div>
                                             
-                                                        </div>
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_permissionsById"> </a>
+                            <div class="element clickable property  private property_permissionsById" data-toggle="collapse" data-target=".property_permissionsById .collapse">
+                                <h2>Array of permissions by id</h2>
+                                <pre>permissionsById : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_shared"> </a>
+                            <div class="element clickable property  private property_shared" data-toggle="collapse" data-target=".property_shared .collapse">
+                                <h2>Whether this ACL is shared</h2>
+                                <pre>shared : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_lastCurrentUser"> </a>
+                            <div class="element clickable property  private property_lastCurrentUser" data-toggle="collapse" data-target=".property_lastCurrentUser .collapse">
+                                <h2>The last known current user</h2>
+                                <pre>lastCurrentUser : \Parse\ParseUser</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Parse.ParseUser.html">\Parse\ParseUser</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultACLWithCurrentUser"> </a>
+                            <div class="element clickable property  private property_defaultACLWithCurrentUser" data-toggle="collapse" data-target=".property_defaultACLWithCurrentUser .collapse">
+                                <h2>An ACL with defaults set with the current user</h2>
+                                <pre>defaultACLWithCurrentUser : \Parse\ParseACL</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultACL"> </a>
+                            <div class="element clickable property  private property_defaultACL" data-toggle="collapse" data-target=".property_defaultACL .collapse">
+                                <h2>An ACL with defaults set</h2>
+                                <pre>defaultACL : \Parse\ParseACL</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Parse.ParseACL.html">\Parse\ParseACL</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultACLUsesCurrentUser"> </a>
+                            <div class="element clickable property  private property_defaultACLUsesCurrentUser" data-toggle="collapse" data-target=".property_defaultACLUsesCurrentUser .collapse">
+                                <h2>Whether the default acl uses the current user or not</h2>
+                                <pre>defaultACLUsesCurrentUser : boolean</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
             </div>
             <a id="\Parse\ParseACL"></a>
             <ul class="breadcrumb">
@@ -1392,9 +1683,7 @@ are allowed to write this object.</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on 
-Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
-Thu, 06 Aug 2015 21:21:48 +0000.<br/>
+            generated on Tue, 27 Jun 2017 19:58:27 +0000.<br/>
     </footer>
     </body>
 </html>

@@ -131,6 +131,12 @@
         </a>
     </li>
 
+                                                                                                                                                                <li class="method public">
+        <a href="#method__setConditions" title="_setConditions :: Sets the conditions of this parse query from an array">
+            <span class="description">Sets the conditions of this parse query from an array</span><pre>_setConditions</pre>
+        </a>
+    </li>
+
                                                                                                         <li class="method public">
         <a href="#method_addAscending" title="addAscending :: Set the query orderBy to ascending for the given key(s). It can also add
 secondary sort descriptors without overwriting the existing order.">
@@ -139,7 +145,7 @@ secondary sort descriptors without overwriting the existing order.</span><pre>ad
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_addDescending" title="addDescending :: Set the query orderBy to descending for a given key(s). It can also add
 secondary sort descriptors without overwriting the existing order.">
             <span class="description">Set the query orderBy to descending for a given key(s). It can also add
@@ -155,11 +161,19 @@ existing order criteria.</span><pre>ascending</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_containedIn" title="containedIn :: Add a constraint to the query that requires a particular key&#039;s value to
 be contained in the provided list of values.">
             <span class="description">Add a constraint to the query that requires a particular key&#039;s value to
 be contained in the provided list of values.</span><pre>containedIn</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_contains" title="contains :: Adds a constraint for finding string values that contain a provided
+string. This may be slow for large datasets.">
+            <span class="description">Adds a constraint for finding string values that contain a provided
+string. This may be slow for large datasets.</span><pre>contains</pre>
         </a>
     </li>
 
@@ -214,6 +228,14 @@ sort order, and may not use limit or skip.">
             <span class="description">Iterates over each result of a query, calling a callback for each one. The
 items are processed in an unspecified order. The query may not have any
 sort order, and may not use limit or skip.</span><pre>each</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_endsWith" title="endsWith :: Add a constraint to the query that requires a particular key&#039;s value to
+end with the provided value.">
+            <span class="description">Add a constraint to the query that requires a particular key&#039;s value to
+end with the provided value.</span><pre>endsWith</pre>
         </a>
     </li>
 
@@ -294,6 +316,14 @@ be less than or equal to the provided value.</span><pre>lessThanOrEqualTo</pre>
     </li>
 
                                                                                                         <li class="method public">
+        <a href="#method_matches" title="matches :: Adds a regular expression constraint for finding string values that match
+the provided regular expression.">
+            <span class="description">Adds a regular expression constraint for finding string values that match
+the provided regular expression.</span><pre>matches</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_matchesKeyInQuery" title="matchesKeyInQuery :: Add a constraint that requires that a key&#039;s value matches a value in an
 object returned by the given query.">
             <span class="description">Add a constraint that requires that a key&#039;s value matches a value in an
@@ -339,7 +369,7 @@ be not equal to the provided value.</span><pre>notEqualTo</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
+                                                                                                                                                                <li class="method public">
         <a href="#method_relatedTo" title="relatedTo :: Add constraint for parse relation.">
             <span class="description">Add constraint for parse relation.</span><pre>relatedTo</pre>
         </a>
@@ -396,6 +426,16 @@ values near the point given and within the maximum distance given.</span><pre>wi
     </li>
 
                                                                                                         <li class="method public">
+        <a href="#method_withinPolygon" title="withinPolygon :: Add a constraint to the query that requires a particular key&#039;s
+coordinates be contained within and on the bounds of a given polygon
+Supports closed and open (last point is connected to first) paths">
+            <span class="description">Add a constraint to the query that requires a particular key&#039;s
+coordinates be contained within and on the bounds of a given polygon
+Supports closed and open (last point is connected to first) paths</span><pre>withinPolygon</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_withinRadians" title="withinRadians :: Add a proximity based constraint for finding objects with key point
 values near the point given and within the maximum distance given.">
             <span class="description">Add a proximity based constraint for finding objects with key point
@@ -407,11 +447,31 @@ values near the point given and within the maximum distance given.</span><pre>wi
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+                                                                                                                                                    <li class="method private">
+                            <a href="#method__or" title="_or :: Add constraint that at least one of the passed in queries matches.">
+                                <span class="description">Add constraint that at least one of the passed in queries matches.</span><pre>_or</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_addCondition" title="addCondition :: Helper for condition queries.">
+                                <span class="description">Helper for condition queries.</span><pre>addCondition</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_buildQueryString" title="buildQueryString :: Build query string from query constraints.">
+                                <span class="description">Build query string from query constraints.</span><pre>buildQueryString</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method private">
+                            <a href="#method_quote" title="quote :: Converts a string into a regex that matches it.">
+                                <span class="description">Converts a string into a regex that matches it.</span><pre>quote</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                    </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -428,7 +488,7 @@ values near the point given and within the maximum distance given.</span><pre>wi
                 <h1>ParseQuery</h1>
                 <small style="display: block; text-align: right">
                                                         </small>
-                <p class="short_description">ParseQuery - Handles querying data from Parse.</p>
+                <p class="short_description">Class ParseQuery - Handles querying data from Parse.</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -449,7 +509,7 @@ values near the point given and within the maximum distance given.</span><pre>wi
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>Default</p>
+                                                                                <p>Parse</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                 </table>
@@ -475,7 +535,7 @@ values near the point given and within the maximum distance given.</span><pre>wi
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -507,11 +567,79 @@ values near the point given and within the maximum distance given.</span><pre>wi
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
                                         <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__or"></a>
+                        <div class="element clickable method private  method__or" data-toggle="collapse" data-target=".method__or .collapse">
+                            <h2>Add constraint that at least one of the passed in queries matches.</h2>
+                            <pre>_or(array $queries) : \Parse\ParseQuery</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$queries</h4>
+                                                <code>array</code><p><p>The list of queries to OR.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__setConditions"></a>
+                        <div class="element clickable method public  method__setConditions" data-toggle="collapse" data-target=".method__setConditions .collapse">
+                            <h2>Sets the conditions of this parse query from an array</h2>
+                            <pre>_setConditions(array $conditions) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$conditions</h4>
+                                                <code>array</code><p><p>Array of Conditions to set</p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
 
@@ -530,7 +658,7 @@ secondary sort descriptors without overwriting the existing order.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -540,6 +668,55 @@ secondary sort descriptors without overwriting the existing order.</h2>
                                                                             
                                                                             <h3>Response</h3>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addCondition"></a>
+                        <div class="element clickable method private  method_addCondition" data-toggle="collapse" data-target=".method_addCondition .collapse">
+                            <h2>Helper for condition queries.</h2>
+                            <pre>addCondition(string $key, string $condition, mixed $value) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>The key to where constraints</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$condition</h4>
+                                                <code>string</code><p><p>The condition name</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>The condition value, can be a string or an array of strings</p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
 
@@ -558,7 +735,7 @@ secondary sort descriptors without overwriting the existing order.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -586,7 +763,7 @@ existing order criteria.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -596,6 +773,33 @@ existing order criteria.</h2>
                                                                             
                                                                             <h3>Response</h3>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_buildQueryString"></a>
+                        <div class="element clickable method private  method_buildQueryString" data-toggle="collapse" data-target=".method_buildQueryString .collapse">
+                            <h2>Build query string from query constraints.</h2>
+                            <pre>buildQueryString(array $queryOptions) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$queryOptions</h4>
+                                                <code>array</code><p><p>Associative array of the query constraints.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>Query string.</p></p>
                                                                     </div>
                             </div>
 
@@ -614,7 +818,7 @@ be contained in the provided list of values.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -628,6 +832,38 @@ be contained in the provided list of values.</h2>
                                                                             
                                                                             <h3>Response</h3>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_contains"></a>
+                        <div class="element clickable method public  method_contains" data-toggle="collapse" data-target=".method_contains .collapse">
+                            <h2>Adds a constraint for finding string values that contain a provided
+string. This may be slow for large datasets.</h2>
+                            <pre>contains(string $key, mixed $value) : \Parse\ParseQuery</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>The key to check.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>The substring that the value must contain.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
 
@@ -646,7 +882,7 @@ contain each one of the provided list of values.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -677,7 +913,7 @@ contain each one of the provided list of values.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -705,7 +941,7 @@ existing order criteria.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -732,7 +968,7 @@ existing order criteria.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -760,18 +996,18 @@ object returned by the given query.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
-                                                <code>string</code><p><p>The key that contains teh value that is being</p>
-<pre><code>                        excluded.</code></pre></p>
+                                                <code>string</code><p><p>The key that contains teh value that is being
+excluded.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$queryKey</h4>
-                                                <code>string</code><p><p>The key in objects returned by the query to</p>
-<pre><code>                        match against.</code></pre></p>
+                                                <code>string</code><p><p>The key in objects returned by the query to
+match against.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$query</h4>
@@ -798,13 +1034,13 @@ constraint.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
-                                                <code>string</code><p><p>The key that the contains the object not to</p>
-<pre><code>                     match the query.</code></pre></p>
+                                                <code>string</code><p><p>The key that the contains the object not to
+match the query.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$query</h4>
@@ -834,27 +1070,27 @@ sort order, and may not use limit or skip.</h2>
                                     <table class="table">
                                                                                     <tr>
                                                 <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>If query has sort, skip, or limit.</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
                                                     
                                                 </th>
                                                 <td>
                                                                                                     </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd><p>If query has sort, skip, or limit.</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$callback</h4>
-                                                <code>callable</code><p><p>Callback that will be called with each result</p>
-<pre><code>                          of the query.</code></pre></p>
+                                                <code>callable</code><p><p>Callback that will be called with each result
+of the query.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$useMasterKey</h4>
@@ -865,6 +1101,38 @@ sort order, and may not use limit or skip.</h2>
                                                 <code>integer</code><p></p>
                                             </div>
                                                                             
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_endsWith"></a>
+                        <div class="element clickable method public  method_endsWith" data-toggle="collapse" data-target=".method_endsWith .collapse">
+                            <h2>Add a constraint to the query that requires a particular key&#039;s value to
+end with the provided value.</h2>
+                            <pre>endsWith(string $key, mixed $value) : \Parse\ParseQuery</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>The key to check.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>The substring that the value must end with.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
 
@@ -882,7 +1150,7 @@ sort order, and may not use limit or skip.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -913,7 +1181,7 @@ sort order, and may not use limit or skip.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -930,7 +1198,7 @@ sort order, and may not use limit or skip.</h2>
                                             <a id="method_find"></a>
                         <div class="element clickable method public  method_find" data-toggle="collapse" data-target=".method_find .collapse">
                             <h2>Execute a find query and return the results.</h2>
-                            <pre>find(boolean $useMasterKey = false) : array</pre>
+                            <pre>find(boolean $useMasterKey = false) : array&lt;mixed,\Parse\ParseObject&gt;</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -940,7 +1208,7 @@ sort order, and may not use limit or skip.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -949,7 +1217,7 @@ sort order, and may not use limit or skip.</h2>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code>array</code><p></p>
+                                        <code>array&lt;mixed,<a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a>&gt;</code><p></p>
                                                                     </div>
                             </div>
 
@@ -957,7 +1225,7 @@ sort order, and may not use limit or skip.</h2>
                                             <a id="method_first"></a>
                         <div class="element clickable method public  method_first" data-toggle="collapse" data-target=".method_first .collapse">
                             <h2>Execute a query to get only the first result.</h2>
-                            <pre>first(boolean $useMasterKey = false) : array</pre>
+                            <pre>first(boolean $useMasterKey = false) : array|\Parse\ParseObject</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -967,7 +1235,7 @@ sort order, and may not use limit or skip.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -976,7 +1244,7 @@ sort order, and may not use limit or skip.</h2>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code>array</code><p></p>
+                                        <code>array|<a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a></code><p><p>Returns the first object or an empty array</p></p>
                                                                     </div>
                             </div>
 
@@ -984,7 +1252,7 @@ sort order, and may not use limit or skip.</h2>
                                             <a id="method_get"></a>
                         <div class="element clickable method public  method_get" data-toggle="collapse" data-target=".method_get .collapse">
                             <h2>Execute a query to retrieve a specific object.</h2>
-                            <pre>get(string $objectId, boolean $useMasterKey = false) : array</pre>
+                            <pre>get(string $objectId, boolean $useMasterKey = false) : array|\Parse\ParseObject</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -994,14 +1262,14 @@ sort order, and may not use limit or skip.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Parse\ParseException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1016,7 +1284,7 @@ sort order, and may not use limit or skip.</h2>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code>array</code><p></p>
+                                        <code>array|<a href="../classes/Parse.ParseObject.html">\Parse\ParseObject</a></code><p><p>Returns the selected object or an empty array</p></p>
                                                                     </div>
                             </div>
 
@@ -1035,7 +1303,7 @@ be greater than the provided value.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1067,7 +1335,7 @@ be greater than or equal to the provided value.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1099,13 +1367,13 @@ notation to specify which fields in the included object are also fetch.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
-                                                <code>mixed</code><p><p>The name(s) of the key(s) to include. It could be</p>
-<pre><code>              string, or an Array of string.</code></pre></p>
+                                                <code>mixed</code><p><p>The name(s) of the key(s) to include. It could be
+string, or an Array of string.</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
@@ -1128,7 +1396,7 @@ be less than the provided value.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1160,7 +1428,7 @@ be less than or equal to the provided value.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1191,7 +1459,7 @@ be less than or equal to the provided value.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1201,6 +1469,42 @@ be less than or equal to the provided value.</h2>
                                                                             
                                                                             <h3>Response</h3>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_matches"></a>
+                        <div class="element clickable method public  method_matches" data-toggle="collapse" data-target=".method_matches .collapse">
+                            <h2>Adds a regular expression constraint for finding string values that match
+the provided regular expression.</h2>
+                            <pre>matches(string $key, string $regex, string $modifiers = &#039;&#039;) : \Parse\ParseQuery</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This may be slow for large datasets.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>The key that the string to match is stored in.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$regex</h4>
+                                                <code>string</code><p><p>The regular expression pattern to match.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$modifiers</h4>
+                                                <code>string</code><p><p>Modifies the search, supports i, m</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns the query, so you can chain this call.</p></p>
                                                                     </div>
                             </div>
 
@@ -1219,18 +1523,18 @@ object returned by the given query.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
-                                                <code>string</code><p><p>The key that contains teh value that is being</p>
-<pre><code>                        matched.</code></pre></p>
+                                                <code>string</code><p><p>The key that contains teh value that is being
+matched.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$queryKey</h4>
-                                                <code>string</code><p><p>The key in objects returned by the query to</p>
-<pre><code>                        match against.</code></pre></p>
+                                                <code>string</code><p><p>The key in objects returned by the query to
+match against.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$query</h4>
@@ -1257,13 +1561,13 @@ constraint.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
-                                                <code>string</code><p><p>The key that the contains the object to match</p>
-<pre><code>                     the query.</code></pre></p>
+                                                <code>string</code><p><p>The key that the contains the object to match
+the query.</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$query</h4>
@@ -1290,7 +1594,7 @@ values near the point given.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1322,7 +1626,7 @@ not be contained in the provided list of values.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1354,7 +1658,7 @@ be not equal to the provided value.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1385,14 +1689,14 @@ be not equal to the provided value.</h2>
                                     <div class="long_description"><p>All queries must have same class name.</p></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>If all queries don't have same class.</p>
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd><p>If all queries don't have same class.</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -1404,6 +1708,34 @@ be not equal to the provided value.</h2>
                                                                             
                                                                             <h3>Response</h3>
                                         <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>The query that is the OR of the passed in queries.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_quote"></a>
+                        <div class="element clickable method private  method_quote" data-toggle="collapse" data-target=".method_quote .collapse">
+                            <h2>Converts a string into a regex that matches it.</h2>
+                            <pre>quote(mixed $s) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Surrounding with \Q .. \E does this, we just need to escape \E's in
+the text separately.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$s</h4>
+                                                <code>mixed</code><p><p>The string or array being replaced.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>Returns the string converted.</p></p>
                                                                     </div>
                             </div>
 
@@ -1421,7 +1753,7 @@ be not equal to the provided value.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1454,13 +1786,13 @@ specified in each of the calls will be included.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
-                                                <code>mixed</code><p><p>The name(s) of the key(s) to include. It could be</p>
-<pre><code>              string, or an Array of string.</code></pre></p>
+                                                <code>mixed</code><p><p>The name(s) of the key(s) to include. It could be
+string, or an Array of string.</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
@@ -1482,7 +1814,7 @@ specified in each of the calls will be included.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1510,7 +1842,7 @@ start with the provided value.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1543,7 +1875,7 @@ box.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1579,7 +1911,7 @@ values near the point given and within the maximum distance given.</h2>
                                     <div class="long_description"><p>Radius of earth used is 6371.0 kilometers.</p></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1615,7 +1947,7 @@ values near the point given and within the maximum distance given.</h2>
                                     <div class="long_description"><p>Radius of earth used is 3958.5 miles.</p></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1629,6 +1961,39 @@ values near the point given and within the maximum distance given.</h2>
                                                                                     <div class="subelement argument">
                                                 <h4>$maxDistance</h4>
                                                 <code>integer</code><p><p>Maximum distance (in miles)</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Parse.ParseQuery.html">\Parse\ParseQuery</a></code><p><p>Returns this query, so you can chain this call.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_withinPolygon"></a>
+                        <div class="element clickable method public  method_withinPolygon" data-toggle="collapse" data-target=".method_withinPolygon .collapse">
+                            <h2>Add a constraint to the query that requires a particular key&#039;s
+coordinates be contained within and on the bounds of a given polygon
+Supports closed and open (last point is connected to first) paths</h2>
+                            <pre>withinPolygon(string $key, array $points) : \Parse\ParseQuery</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Polygon must have at least 3 points</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>The key of the ParseGeoPoint</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$points</h4>
+                                                <code>array</code><p><p>Array of ParseGeoPoint</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
@@ -1651,7 +2016,7 @@ values near the point given and within the maximum distance given.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -1675,7 +2040,216 @@ values near the point given and within the maximum distance given.</h2>
                         </div>
                     
                     
-                                                        </div>
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_className"> </a>
+                            <div class="element clickable property  private property_className" data-toggle="collapse" data-target=".property_className .collapse">
+                                <h2>Class name for data stored on Parse.</h2>
+                                <pre>className : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_where"> </a>
+                            <div class="element clickable property  private property_where" data-toggle="collapse" data-target=".property_where .collapse">
+                                <h2>Where constraints.</h2>
+                                <pre>where : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_orderBy"> </a>
+                            <div class="element clickable property  private property_orderBy" data-toggle="collapse" data-target=".property_orderBy .collapse">
+                                <h2>Order By keys.</h2>
+                                <pre>orderBy : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_includes"> </a>
+                            <div class="element clickable property  private property_includes" data-toggle="collapse" data-target=".property_includes .collapse">
+                                <h2>Include nested objects.</h2>
+                                <pre>includes : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_selectedKeys"> </a>
+                            <div class="element clickable property  private property_selectedKeys" data-toggle="collapse" data-target=".property_selectedKeys .collapse">
+                                <h2>Include certain keys only.</h2>
+                                <pre>selectedKeys : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_skip"> </a>
+                            <div class="element clickable property  private property_skip" data-toggle="collapse" data-target=".property_skip .collapse">
+                                <h2>Skip from the beginning of the search results.</h2>
+                                <pre>skip : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_count"> </a>
+                            <div class="element clickable property  private property_count" data-toggle="collapse" data-target=".property_count .collapse">
+                                <h2>Determines if the query is a count query or a results query.</h2>
+                                <pre>count : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_limit"> </a>
+                            <div class="element clickable property  private property_limit" data-toggle="collapse" data-target=".property_limit .collapse">
+                                <h2>Limit of results, defaults to 100 when not explicitly set.</h2>
+                                <pre>limit : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
             </div>
             <a id="\Parse\ParseQuery"></a>
             <ul class="breadcrumb">
@@ -1695,9 +2269,7 @@ values near the point given and within the maximum distance given.</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on 
-Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
-Thu, 06 Aug 2015 21:21:48 +0000.<br/>
+            generated on Tue, 27 Jun 2017 19:58:27 +0000.<br/>
     </footer>
     </body>
 </html>

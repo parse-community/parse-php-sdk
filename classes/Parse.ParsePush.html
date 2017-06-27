@@ -120,6 +120,20 @@
             <i class="icon-custom icon-method"></i> Methods
             <ul>
                                                                                                     <li class="method public">
+        <a href="#method_getStatus" title="getStatus :: Returns the PushStatus for a response from ParsePush::send">
+            <span class="description">Returns the PushStatus for a response from ParsePush::send</span><pre>getStatus</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasStatus" title="hasStatus :: Returns whether or not the given response has a push status
+Checks to see if X-Push-Status-Id is present in $response">
+            <span class="description">Returns whether or not the given response has a push status
+Checks to see if X-Push-Status-Id is present in $response</span><pre>hasStatus</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_send" title="send :: Sends a push notification.">
             <span class="description">Sends a push notification.</span><pre>send</pre>
         </a>
@@ -129,11 +143,11 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                </ul>
+                                                                                                                                                        </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                </ul>
+                                                                                                                                                        </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -150,7 +164,7 @@
                 <h1>ParsePush</h1>
                 <small style="display: block; text-align: right">
                                                         </small>
-                <p class="short_description">ParsePush - Handles sending push notifications with Parse.</p>
+                <p class="short_description">Class ParsePush - Handles sending push notifications with Parse.</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -171,13 +185,68 @@
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>Default</p>
+                                                                                <p>Parse</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                 </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method_send"></a>
+                                                                <a id="method_getStatus"></a>
+                        <div class="element clickable method public  method_getStatus" data-toggle="collapse" data-target=".method_getStatus .collapse">
+                            <h2>Returns the PushStatus for a response from ParsePush::send</h2>
+                            <pre>getStatus(array $response) : null|\Parse\ParsePushStatus</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$response</h4>
+                                                <code>array</code><p><p>Response from ParsePush::send</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>null|<a href="../classes/Parse.ParsePushStatus.html">\Parse\ParsePushStatus</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasStatus"></a>
+                        <div class="element clickable method public  method_hasStatus" data-toggle="collapse" data-target=".method_hasStatus .collapse">
+                            <h2>Returns whether or not the given response has a push status
+Checks to see if X-Push-Status-Id is present in $response</h2>
+                            <pre>hasStatus(array $response) : boolean</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$response</h4>
+                                                <code>array</code><p><p>Response from ParsePush::send</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_send"></a>
                         <div class="element clickable method public  method_send" data-toggle="collapse" data-target=".method_send .collapse">
                             <h2>Sends a push notification.</h2>
                             <pre>send(array $data, boolean $useMasterKey = false) : mixed</pre>
@@ -190,30 +259,30 @@
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>ParseException</p>
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception,</dt>
+                                                        <dd><p>ParseException</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$data</h4>
-                                                <code>array</code><p><p>The data of the push notification.    Valid fields</p>
-<pre><code>                         are:
-                         channels - An Array of channels to push to.
-                         push_time - A Date object for when to send the push.
-                         expiration_time -    A Date object for when to expire
-                         the push.
-                         expiration_interval - The seconds from now to expire the push.
-                         where - A ParseQuery over ParseInstallation that is used to match
-                         a set of installations to push to.
-                         data - The data to send as part of the push</code></pre></p>
+                                                <code>array</code><p><p>The data of the push notification.    Valid fields
+are:
+channels - An Array of channels to push to.
+push_time - A Date object for when to send the push.
+expiration_time -    A Date object for when to expire
+the push.
+expiration_interval - The seconds from now to expire the push.
+where - A ParseQuery over ParseInstallation that is used to match
+a set of installations to push to.
+data - The data to send as part of the push</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$useMasterKey</h4>
@@ -248,9 +317,7 @@
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on 
-Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
-Thu, 06 Aug 2015 21:21:48 +0000.<br/>
+            generated on Tue, 27 Jun 2017 19:58:27 +0000.<br/>
     </footer>
     </body>
 </html>

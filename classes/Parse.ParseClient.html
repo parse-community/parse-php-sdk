@@ -138,12 +138,6 @@
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method__getRequestHeaders" title="_getRequestHeaders :: ">
-            <span class="description"></span><pre>_getRequestHeaders</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
         <a href="#method__request" title="_request :: Parse\Client::_request, internal method for communicating with Parse.">
             <span class="description">Parse\Client::_request, internal method for communicating with Parse.</span><pre>_request</pre>
         </a>
@@ -155,6 +149,12 @@
         </a>
     </li>
 
+                                                                                                                                                                                                                        <li class="method public">
+        <a href="#method_clearHttpClient" title="clearHttpClient :: Clears the currently set http client">
+            <span class="description">Clears the currently set http client</span><pre>clearHttpClient</pre>
+        </a>
+    </li>
+
                                                                                                         <li class="method public">
         <a href="#method_enableRevocableSessions" title="enableRevocableSessions :: Allows an existing application to start using revocable sessions, without forcing
 all requests for the app to use them.    After calling this method, login &amp; signup requests
@@ -162,6 +162,24 @@ will be returned a unique and revocable session token.">
             <span class="description">Allows an existing application to start using revocable sessions, without forcing
 all requests for the app to use them.    After calling this method, login &amp; signup requests
 will be returned a unique and revocable session token.</span><pre>enableRevocableSessions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getAPIUrl" title="getAPIUrl :: Get remote Parse API url.">
+            <span class="description">Get remote Parse API url.</span><pre>getAPIUrl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getHttpClient" title="getHttpClient :: Gets the current Http client, or creates one to suite the need">
+            <span class="description">Gets the current Http client, or creates one to suite the need</span><pre>getHttpClient</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_getMountPath" title="getMountPath :: Get remote Parse API mount path">
+            <span class="description">Get remote Parse API mount path</span><pre>getMountPath</pre>
         </a>
     </li>
 
@@ -192,6 +210,30 @@ persistence.</span><pre>getStorage</pre>
     </li>
 
                                                                                                         <li class="method public">
+        <a href="#method_setCAFile" title="setCAFile :: Sets a CA file to validate peers of our requests with">
+            <span class="description">Sets a CA file to validate peers of our requests with</span><pre>setCAFile</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setConnectionTimeout" title="setConnectionTimeout :: Sets number of seconds to wait while trying to connect. Use 0 to wait indefinitely, null to default behaviour.">
+            <span class="description">Sets number of seconds to wait while trying to connect. Use 0 to wait indefinitely, null to default behaviour.</span><pre>setConnectionTimeout</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setHttpClient" title="setHttpClient :: Sets the Http client to use for requests">
+            <span class="description">Sets the Http client to use for requests</span><pre>setHttpClient</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setServerURL" title="setServerURL :: ParseClient::setServerURL, to change the Parse Server address &amp; mount path for this app">
+            <span class="description">ParseClient::setServerURL, to change the Parse Server address &amp; mount path for this app</span><pre>setServerURL</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
         <a href="#method_setStorage" title="setStorage :: ParseClient::setStorage, will update the storage object used for
 persistence.">
             <span class="description">ParseClient::setStorage, will update the storage object used for
@@ -199,27 +241,43 @@ persistence.</span><pre>setStorage</pre>
         </a>
     </li>
 
+                                                                                                        <li class="method public">
+        <a href="#method_setTimeout" title="setTimeout :: Sets maximum number of seconds of request/response operation.">
+            <span class="description">Sets maximum number of seconds of request/response operation.</span><pre>setTimeout</pre>
+        </a>
+    </li>
+
                                                 </ul>
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                                                                <li class="method private">
+                            <a href="#method_assertAppInitialized" title="assertAppInitialized :: Asserts that the sdk has been initialized with a valid account key">
+                                <span class="description">Asserts that the sdk has been initialized with a valid account key</span><pre>assertAppInitialized</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_assertParseInitialized" title="assertParseInitialized :: Asserts that the sdk has been initialized with a valid application id">
+                                <span class="description">Asserts that the sdk has been initialized with a valid application id</span><pre>assertParseInitialized</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                <li class="method private">
+                            <a href="#method_getLastJSONErrorMsg" title="getLastJSONErrorMsg :: Returns the last error message from a failed json_decode call">
+                                <span class="description">Returns the last error message from a failed json_decode call</span><pre>getLastJSONErrorMsg</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
             <ul>
                                 <li class="constant ">
-                    <a href="#constant_HOST_NAME" title="HOST_NAME :: Constant for the API Server Host Address.">
-                        <span class="description">Constant for the API Server Host Address.</span><pre>HOST_NAME</pre>
-                    </a>
-                </li>
-                                <li class="constant ">
-                    <a href="#constant_VERSION_STRING" title="VERSION_STRING :: Constant for version string to include with requests.">
-                        <span class="description">Constant for version string to include with requests.</span><pre>VERSION_STRING</pre>
+                    <a href="#constant_VERSION_STRING" title="VERSION_STRING :: Constant for version string to include with requests. Currently 1.2.9.">
+                        <span class="description">Constant for version string to include with requests. Currently 1.2.9.</span><pre>VERSION_STRING</pre>
                     </a>
                 </li>
                             </ul>
@@ -234,7 +292,7 @@ persistence.</span><pre>setStorage</pre>
                 <h1>ParseClient</h1>
                 <small style="display: block; text-align: right">
                                                         </small>
-                <p class="short_description">ParseClient - Main class for Parse initialization and communication.</p>
+                <p class="short_description">Class ParseClient - Main class for Parse initialization and communication.</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -255,7 +313,7 @@ persistence.</span><pre>setStorage</pre>
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>Default</p>
+                                                                                <p>Parse</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                 </table>
@@ -274,7 +332,7 @@ persistence.</span><pre>setStorage</pre>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -301,14 +359,14 @@ persistence.</span><pre>setStorage</pre>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -341,7 +399,7 @@ persistence.</span><pre>setStorage</pre>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -359,41 +417,10 @@ persistence.</span><pre>setStorage</pre>
                             </div>
 
                         </div>
-                                            <a id="method__getRequestHeaders"></a>
-                        <div class="element clickable method public  method__getRequestHeaders" data-toggle="collapse" data-target=".method__getRequestHeaders .collapse">
-                            <h2>_getRequestHeaders</h2>
-                            <pre>_getRequestHeaders( $sessionToken,  $useMasterKey) : array</pre>
-                            <div class="labels">
-                                                                <span class="label">static</span>                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$sessionToken</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                                    <div class="subelement argument">
-                                                <h4>$useMasterKey</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>array</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
                                             <a id="method__request"></a>
                         <div class="element clickable method public  method__request" data-toggle="collapse" data-target=".method__request .collapse">
                             <h2>Parse\Client::_request, internal method for communicating with Parse.</h2>
-                            <pre>_request(string $method, string $relativeUrl, null $sessionToken = null, null $data = null, boolean $useMasterKey = false) : mixed</pre>
+                            <pre>_request(string $method, string $relativeUrl, null $sessionToken = null, null $data = null, boolean $useMasterKey = false, boolean $appRequest = false, string $contentType = &#039;application/json&#039;, boolean $returnHeaders = false) : mixed</pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
 
@@ -403,14 +430,14 @@ persistence.</span><pre>setStorage</pre>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
                                                 <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
                                             </tr>
                                                                             </table>
 
@@ -435,6 +462,18 @@ persistence.</span><pre>setStorage</pre>
                                                 <h4>$useMasterKey</h4>
                                                 <code>boolean</code><p><p>Whether to use the Master Key.</p></p>
                                             </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$appRequest</h4>
+                                                <code>boolean</code><p><p>App request to create or modify a application</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$contentType</h4>
+                                                <code>string</code><p><p>The content type for this request, default is application/json</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$returnHeaders</h4>
+                                                <code>boolean</code><p><p>Allow to return response headers</p></p>
+                                            </div>
                                                                             
                                                                             <h3>Response</h3>
                                         <code>mixed</code><p><p>Result from Parse API Call.</p></p>
@@ -445,15 +484,15 @@ persistence.</span><pre>setStorage</pre>
                                             <a id="method__unsetStorage"></a>
                         <div class="element clickable method public  method__unsetStorage" data-toggle="collapse" data-target=".method__unsetStorage .collapse">
                             <h2>ParseClient::_unsetStorage, will null the storage object.</h2>
-                            <pre>_unsetStorage() : null</pre>
+                            <pre>_unsetStorage() </pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
 
                             
                             <div class="row collapse">
                                 <div class="detail-description">
-                                    <div class="long_description"><p>Without some ability to clear the storage objects, all test cases would</p>
-<pre><code>use the first assigned storage object.</code></pre></div>
+                                    <div class="long_description"><p>Without some ability to clear the storage objects, all test cases would
+use the first assigned storage object.</p></div>
 
                                     <table class="table">
                                                                                     <tr>
@@ -463,21 +502,24 @@ persistence.</span><pre>setStorage</pre>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
                                     
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_enableRevocableSessions"></a>
-                        <div class="element clickable method public  method_enableRevocableSessions" data-toggle="collapse" data-target=".method_enableRevocableSessions .collapse">
-                            <h2>Allows an existing application to start using revocable sessions, without forcing
-all requests for the app to use them.    After calling this method, login &amp; signup requests
-will be returned a unique and revocable session token.</h2>
-                            <pre>enableRevocableSessions() : null</pre>
+                                            <a id="method_assertAppInitialized"></a>
+                        <div class="element clickable method private  method_assertAppInitialized" data-toggle="collapse" data-target=".method_assertAppInitialized .collapse">
+                            <h2>Asserts that the sdk has been initialized with a valid account key</h2>
+                            <pre>assertAppInitialized() </pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
 
@@ -494,11 +536,254 @@ will be returned a unique and revocable session token.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
                                                                             </table>
 
                                     
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_assertParseInitialized"></a>
+                        <div class="element clickable method private  method_assertParseInitialized" data-toggle="collapse" data-target=".method_assertParseInitialized .collapse">
+                            <h2>Asserts that the sdk has been initialized with a valid application id</h2>
+                            <pre>assertParseInitialized() </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearHttpClient"></a>
+                        <div class="element clickable method public  method_clearHttpClient" data-toggle="collapse" data-target=".method_clearHttpClient .collapse">
+                            <h2>Clears the currently set http client</h2>
+                            <pre>clearHttpClient() </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_enableRevocableSessions"></a>
+                        <div class="element clickable method public  method_enableRevocableSessions" data-toggle="collapse" data-target=".method_enableRevocableSessions .collapse">
+                            <h2>Allows an existing application to start using revocable sessions, without forcing
+all requests for the app to use them.    After calling this method, login &amp; signup requests
+will be returned a unique and revocable session token.</h2>
+                            <pre>enableRevocableSessions() </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAPIUrl"></a>
+                        <div class="element clickable method public  method_getAPIUrl" data-toggle="collapse" data-target=".method_getAPIUrl .collapse">
+                            <h2>Get remote Parse API url.</h2>
+                            <pre>getAPIUrl() : string</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
                                                                             <h3>Response</h3>
-                                        <code>null</code><p></p>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getHttpClient"></a>
+                        <div class="element clickable method public  method_getHttpClient" data-toggle="collapse" data-target=".method_getHttpClient .collapse">
+                            <h2>Gets the current Http client, or creates one to suite the need</h2>
+                            <pre>getHttpClient() : \Parse\HttpClients\ParseHttpable</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Parse.HttpClients.ParseHttpable.html">\Parse\HttpClients\ParseHttpable</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getLastJSONErrorMsg"></a>
+                        <div class="element clickable method private  method_getLastJSONErrorMsg" data-toggle="collapse" data-target=".method_getLastJSONErrorMsg .collapse">
+                            <h2>Returns the last error message from a failed json_decode call</h2>
+                            <pre>getLastJSONErrorMsg() : string</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMountPath"></a>
+                        <div class="element clickable method public  method_getMountPath" data-toggle="collapse" data-target=".method_getMountPath .collapse">
+                            <h2>Get remote Parse API mount path</h2>
+                            <pre>getMountPath() : string</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
                                                                     </div>
                             </div>
 
@@ -517,7 +802,7 @@ will be returned a unique and revocable session token.</h2>
 PHP provides 6 digits for the microseconds (u) so we have to chop 3 off.</p></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -545,7 +830,7 @@ PHP provides 6 digits for the microseconds (u) so we have to chop 3 off.</p></di
 Format from Parse doc: an ISO 8601 date without a time zone, i.e. 2014-10-16T12:00:00 .</p></div>
 
                                     <table class="table">
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -584,7 +869,7 @@ persistence.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -596,7 +881,7 @@ persistence.</h2>
                                             <a id="method_initialize"></a>
                         <div class="element clickable method public  method_initialize" data-toggle="collapse" data-target=".method_initialize .collapse">
                             <h2>Parse\Client::initialize, must be called before using Parse features.</h2>
-                            <pre>initialize(string $app_id, string $rest_key, string $master_key, boolean $enableCurlExceptions = true) : null</pre>
+                            <pre>initialize(string $app_id, string $rest_key, string $master_key, boolean $enableCurlExceptions = true, string $account_key = null) </pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
 
@@ -606,6 +891,22 @@ persistence.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
                                                                             </table>
 
                                                                             <h3>Arguments</h3>
@@ -625,18 +926,19 @@ persistence.</h2>
                                                 <h4>$enableCurlExceptions</h4>
                                                 <code>boolean</code><p><p>Enable or disable Parse curl exceptions</p></p>
                                             </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$account_key</h4>
+                                                <code>string</code><p><p>An account key from Parse.com can enable creating apps via API.</p></p>
+                                            </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_setStorage"></a>
-                        <div class="element clickable method public  method_setStorage" data-toggle="collapse" data-target=".method_setStorage .collapse">
-                            <h2>ParseClient::setStorage, will update the storage object used for
-persistence.</h2>
-                            <pre>setStorage(\Parse\ParseStorageInterface $storageObject) : null</pre>
+                                            <a id="method_setCAFile"></a>
+                        <div class="element clickable method public  method_setCAFile" data-toggle="collapse" data-target=".method_setCAFile .collapse">
+                            <h2>Sets a CA file to validate peers of our requests with</h2>
+                            <pre>setCAFile(string $caFile) </pre>
                             <div class="labels">
                                                                 <span class="label">static</span>                                                                                                                            </div>
 
@@ -646,7 +948,156 @@ persistence.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$caFile</h4>
+                                                <code>string</code><p><p>CA file to set</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setConnectionTimeout"></a>
+                        <div class="element clickable method public  method_setConnectionTimeout" data-toggle="collapse" data-target=".method_setConnectionTimeout .collapse">
+                            <h2>Sets number of seconds to wait while trying to connect. Use 0 to wait indefinitely, null to default behaviour.</h2>
+                            <pre>setConnectionTimeout(integer|null $connectionTimeout) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$connectionTimeout</h4>
+                                                <code>integer|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setHttpClient"></a>
+                        <div class="element clickable method public  method_setHttpClient" data-toggle="collapse" data-target=".method_setHttpClient .collapse">
+                            <h2>Sets the Http client to use for requests</h2>
+                            <pre>setHttpClient(\Parse\HttpClients\ParseHttpable $httpClient) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$httpClient</h4>
+                                                <code><a href="../classes/Parse.HttpClients.ParseHttpable.html">\Parse\HttpClients\ParseHttpable</a></code><p><p>Http client to use</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setServerURL"></a>
+                        <div class="element clickable method public  method_setServerURL" data-toggle="collapse" data-target=".method_setServerURL .collapse">
+                            <h2>ParseClient::setServerURL, to change the Parse Server address &amp; mount path for this app</h2>
+                            <pre>setServerURL(string $serverURL, string $mountPath) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Exception</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
                                                                             </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$serverURL</h4>
+                                                <code>string</code><p><p>The remote server url</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mountPath</h4>
+                                                <code>string</code><p><p>The mount path for this server</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setStorage"></a>
+                        <div class="element clickable method public  method_setStorage" data-toggle="collapse" data-target=".method_setStorage .collapse">
+                            <h2>ParseClient::setStorage, will update the storage object used for
+persistence.</h2>
+                            <pre>setStorage(\Parse\ParseStorageInterface $storageObject) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
@@ -654,38 +1105,47 @@ persistence.</h2>
                                                 <code><a href="../classes/Parse.ParseStorageInterface.html">\Parse\ParseStorageInterface</a></code><p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTimeout"></a>
+                        <div class="element clickable method public  method_setTimeout" data-toggle="collapse" data-target=".method_setTimeout .collapse">
+                            <h2>Sets maximum number of seconds of request/response operation.</h2>
+                            <pre>setTimeout(integer|null $timeout) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Use 0 to wait indefinitely, null to default behaviour.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$timeout</h4>
+                                                <code>integer|null</code><p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
 
                         </div>
                     
                                             <h3><i class="icon-custom icon-constant"></i> Constants</h3>
-                                                    <a id="constant_HOST_NAME"> </a>
-                            <div class="element clickable constant  constant_HOST_NAME" data-toggle="collapse" data-target=".constant_HOST_NAME .collapse">
-                                <h2>Constant for the API Server Host Address.</h2>
-                                <pre>HOST_NAME</pre>
-                                <div class="labels">
-                                                                    </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-                                    </div>
-                                </div>
-                            </div>
                                                     <a id="constant_VERSION_STRING"> </a>
                             <div class="element clickable constant  constant_VERSION_STRING" data-toggle="collapse" data-target=".constant_VERSION_STRING .collapse">
-                                <h2>Constant for version string to include with requests.</h2>
+                                <h2>Constant for version string to include with requests. Currently 1.2.9.</h2>
                                 <pre>VERSION_STRING</pre>
                                 <div class="labels">
                                                                     </div>
@@ -706,7 +1166,346 @@ persistence.</h2>
                                 </div>
                             </div>
                                             
-                                                        </div>
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_serverURL"> </a>
+                            <div class="element clickable property  private property_serverURL" data-toggle="collapse" data-target=".property_serverURL .collapse">
+                                <h2>The remote Parse Server to communicate with</h2>
+                                <pre>serverURL : string</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_mountPath"> </a>
+                            <div class="element clickable property  private property_mountPath" data-toggle="collapse" data-target=".property_mountPath .collapse">
+                                <h2>The mount path for the current parse server</h2>
+                                <pre>mountPath : string</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_applicationId"> </a>
+                            <div class="element clickable property  private property_applicationId" data-toggle="collapse" data-target=".property_applicationId .collapse">
+                                <h2>The application id.</h2>
+                                <pre>applicationId : string</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_restKey"> </a>
+                            <div class="element clickable property  private property_restKey" data-toggle="collapse" data-target=".property_restKey .collapse">
+                                <h2>The REST API Key.</h2>
+                                <pre>restKey : string|null</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_masterKey"> </a>
+                            <div class="element clickable property  private property_masterKey" data-toggle="collapse" data-target=".property_masterKey .collapse">
+                                <h2>The Master Key.</h2>
+                                <pre>masterKey : string</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_enableCurlExceptions"> </a>
+                            <div class="element clickable property  private property_enableCurlExceptions" data-toggle="collapse" data-target=".property_enableCurlExceptions .collapse">
+                                <h2>Enable/Disable curl exceptions.</h2>
+                                <pre>enableCurlExceptions : boolean</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_accountKey"> </a>
+                            <div class="element clickable property  private property_accountKey" data-toggle="collapse" data-target=".property_accountKey .collapse">
+                                <h2>The account key.</h2>
+                                <pre>accountKey : string</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_storage"> </a>
+                            <div class="element clickable property  private property_storage" data-toggle="collapse" data-target=".property_storage .collapse">
+                                <h2>The object for managing persistence.</h2>
+                                <pre>storage : \Parse\ParseStorageInterface</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Parse.ParseStorageInterface.html">\Parse\ParseStorageInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_forceRevocableSession"> </a>
+                            <div class="element clickable property  private property_forceRevocableSession" data-toggle="collapse" data-target=".property_forceRevocableSession .collapse">
+                                <h2>Are revocable sessions enabled?</h2>
+                                <pre>forceRevocableSession : boolean</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_connectionTimeout"> </a>
+                            <div class="element clickable property  private property_connectionTimeout" data-toggle="collapse" data-target=".property_connectionTimeout .collapse">
+                                <h2>Number of seconds to wait while trying to connect. Use 0 to wait indefinitely.</h2>
+                                <pre>connectionTimeout : integer</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_timeout"> </a>
+                            <div class="element clickable property  private property_timeout" data-toggle="collapse" data-target=".property_timeout .collapse">
+                                <h2>Maximum number of seconds of request/response operation.</h2>
+                                <pre>timeout : integer</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_httpClient"> </a>
+                            <div class="element clickable property  private property_httpClient" data-toggle="collapse" data-target=".property_httpClient .collapse">
+                                <h2>Http client for requests</h2>
+                                <pre>httpClient : \Parse\HttpClients\ParseHttpable</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Parse.HttpClients.ParseHttpable.html">\Parse\HttpClients\ParseHttpable</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_caFile"> </a>
+                            <div class="element clickable property  private property_caFile" data-toggle="collapse" data-target=".property_caFile .collapse">
+                                <h2>CA file holding one or more certificates to verify a peer</h2>
+                                <pre>caFile : string</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
             </div>
             <a id="\Parse\ParseClient"></a>
             <ul class="breadcrumb">
@@ -726,9 +1525,7 @@ persistence.</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on 
-Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
-Thu, 06 Aug 2015 21:21:48 +0000.<br/>
+            generated on Tue, 27 Jun 2017 19:58:27 +0000.<br/>
     </footer>
     </body>
 </html>

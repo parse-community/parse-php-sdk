@@ -150,12 +150,8 @@
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_save" title="save :: Save the data, if necessary.    This would be a no-op when using the
-$_SESSION implementation, but could be used for saving to file or
-database as an action instead of on every set.">
-            <span class="description">Save the data, if necessary.    This would be a no-op when using the
-$_SESSION implementation, but could be used for saving to file or
-database as an action instead of on every set.</span><pre>save</pre>
+        <a href="#method_save" title="save :: Save the data, if necessary. Not implemented.">
+            <span class="description">Save the data, if necessary. Not implemented.</span><pre>save</pre>
         </a>
     </li>
 
@@ -191,7 +187,7 @@ database as an action instead of on every set.</span><pre>save</pre>
                 <small style="display: block; text-align: right">
                                                                 Implements <a href="../classes/Parse.ParseStorageInterface.html">\Parse\ParseStorageInterface</a>
                                     </small>
-                <p class="short_description">ParseMemoryStorage - Uses non-persisted memory for storage.</p>
+                <p class="short_description">Class ParseMemoryStorage - Uses non-persisted memory for storage.</p>
                 <div class="details">
                     <div class="long_description">
                         <p>This is used by default if a PHP Session is not active.</p>
@@ -212,7 +208,7 @@ database as an action instead of on every set.</span><pre>save</pre>
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>Default</p>
+                                                                                <p>Parse</p>
                                     </td>
                                 </tr>
                                                                                                                                                                                 </table>
@@ -238,14 +234,7 @@ database as an action instead of on every set.</span><pre>save</pre>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -257,7 +246,7 @@ database as an action instead of on every set.</span><pre>save</pre>
                                             <a id="method_get"></a>
                         <div class="element clickable method public  method_get" data-toggle="collapse" data-target=".method_get .collapse">
                             <h2>Gets the value for a key from storage.</h2>
-                            <pre>get( $key) : mixed</pre>
+                            <pre>get(string $key) : mixed</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -267,26 +256,12 @@ database as an action instead of on every set.</span><pre>save</pre>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
-                                                <code></code><p></p>
+                                                <code>string</code><p><p>The key to get the value for</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
@@ -315,14 +290,7 @@ database as an action instead of on every set.</span><pre>save</pre>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -351,14 +319,7 @@ database as an action instead of on every set.</span><pre>save</pre>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -370,7 +331,7 @@ database as an action instead of on every set.</span><pre>save</pre>
                                             <a id="method_remove"></a>
                         <div class="element clickable method public  method_remove" data-toggle="collapse" data-target=".method_remove .collapse">
                             <h2>Remove a key from storage.</h2>
-                            <pre>remove( $key) : null</pre>
+                            <pre>remove(string $key) : void</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -380,39 +341,21 @@ database as an action instead of on every set.</span><pre>save</pre>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
-                                                <code></code><p></p>
+                                                <code>string</code><p><p>The key to remove.</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
                                             <a id="method_save"></a>
                         <div class="element clickable method public  method_save" data-toggle="collapse" data-target=".method_save .collapse">
-                            <h2>Save the data, if necessary.    This would be a no-op when using the
-$_SESSION implementation, but could be used for saving to file or
-database as an action instead of on every set.</h2>
+                            <h2>Save the data, if necessary. Not implemented.</h2>
                             <pre>save() : null</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
@@ -437,7 +380,7 @@ database as an action instead of on every set.</h2>
                                                 <td>
                                                                                                     </td>
                                             </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                     
                                                                             <h3>Response</h3>
@@ -449,7 +392,7 @@ database as an action instead of on every set.</h2>
                                             <a id="method_set"></a>
                         <div class="element clickable method public  method_set" data-toggle="collapse" data-target=".method_set .collapse">
                             <h2>Sets a key-value pair in storage.</h2>
-                            <pre>set( $key,  $value) : null</pre>
+                            <pre>set(string $key, mixed $value) : void</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -459,41 +402,52 @@ database as an action instead of on every set.</h2>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
+                                                                                                                    </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$key</h4>
-                                                <code></code><p></p>
+                                                <code>string</code><p><p>The key to set</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
                                                 <h4>$value</h4>
-                                                <code></code><p></p>
+                                                <code>mixed</code><p><p>The value to set</p></p>
                                             </div>
                                                                             
-                                                                            <h3>Response</h3>
-                                        <code>null</code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
                     
                     
-                                                        </div>
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_storage"> </a>
+                            <div class="element clickable property  private property_storage" data-toggle="collapse" data-target=".property_storage .collapse">
+                                <h2>Memory storage</h2>
+                                <pre>storage : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
             </div>
             <a id="\Parse\ParseMemoryStorage"></a>
             <ul class="breadcrumb">
@@ -513,9 +467,7 @@ database as an action instead of on every set.</h2>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on 
-Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/fjm/parse/parse-php-sdk/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
-Thu, 06 Aug 2015 21:21:48 +0000.<br/>
+            generated on Tue, 27 Jun 2017 19:58:27 +0000.<br/>
     </footer>
     </body>
 </html>
