@@ -1,13 +1,17 @@
 <?php
+/**
+ * Class ParsePush | Parse/ParsePush.php
+ */
 
 namespace Parse;
 
 use Exception;
 
 /**
- * ParsePush - Handles sending push notifications with Parse.
+ * Class ParsePush - Handles sending push notifications with Parse.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParsePush
 {

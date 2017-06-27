@@ -1,8 +1,6 @@
 <?php
 /**
- * ParseCurlHttpClient - Curl http client
- *
- * @author Ben Friedman <ben@axolsoft.com>
+ * Class ParseCurlHttpClient | Parse/HttpClients/ParseCurlHttpClient.php
  */
 
 namespace Parse\HttpClients;
@@ -10,49 +8,58 @@ namespace Parse\HttpClients;
 use Parse\ParseException;
 
 /**
- * Class ParseCurlHttpClient
+ * Class ParseCurlHttpClient - Curl http client
+ *
+ * @author Ben Friedman <ben@axolsoft.com>
  * @package Parse\HttpClients
  */
 class ParseCurlHttpClient implements ParseHttpable
 {
     /**
      * Curl handle
+     *
      * @var ParseCurl
      */
     private $parseCurl;
 
     /**
      * Request Headers
+     *
      * @var array
      */
     private $headers = array();
 
     /**
      * Response headers
+     *
      * @var array
      */
     private $responseHeaders = array();
 
     /**
      * Response code
+     *
      * @var int
      */
     private $responseCode = 0;
 
     /**
      * Content type of our response
+     *
      * @var string|null
      */
     private $responseContentType;
 
     /**
      * cURL error code
+     *
      * @var int
      */
     private $curlErrorCode;
 
     /**
      * cURL error message
+     *
      * @var string
      */
     private $curlErrorMessage;
@@ -69,11 +76,14 @@ class ParseCurlHttpClient implements ParseHttpable
 
     /**
      * Response from our request
+     *
      * @var string
      */
     private $response;
 
-
+    /**
+     * ParseCurlHttpClient constructor.
+     */
     public function __construct()
     {
         if (!isset($this->parseCurl)) {

@@ -1,13 +1,17 @@
 <?php
+/**
+ * Class ParseGeoPoint | Parse/ParseGeoPoint.php
+ */
 
 namespace Parse;
 
 use Parse\Internal\Encodable;
 
 /**
- * ParseGeoPoint - Representation of a Parse GeoPoint object.
+ * Class ParseGeoPoint - Representation of a Parse GeoPoint object.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseGeoPoint implements Encodable
 {

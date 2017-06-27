@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class AddOperation | Parse/Internal/AddOperation.php
+ */
 
 namespace Parse\Internal;
 
@@ -9,6 +12,7 @@ use Parse\ParseException;
  * Class AddOperation - FieldOperation for adding object(s) to array fields.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse\Internal
  */
 class AddOperation implements FieldOperation
 {

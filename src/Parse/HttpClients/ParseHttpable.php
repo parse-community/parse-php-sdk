@@ -1,12 +1,16 @@
 <?php
 /**
- * ParseHttpable - Interface for an HTTPable client
- *
- * @author Ben Friedman <ben@axolsoft.com>
+ * Class ParseHttpable | Parse/HttpClients/ParseHttpable.php
  */
 
 namespace Parse\HttpClients;
 
+/**
+ * Class ParseHttpable - Interface for an HTTPable client
+ *
+ * @author Ben Friedman <ben@axolsoft.com>
+ * @package Parse\HttpClients
+ */
 interface ParseHttpable
 {
     /**

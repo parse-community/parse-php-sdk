@@ -4,7 +4,7 @@
 /**
  * ParseSchema Tests.
  *
- * @see https://parse.com/docs/rest/guide#schemas
+ * @see http://docs.parseplatform.org/rest/guide/#schema
  *
  * @author Júlio César Gonçalves de Oliveira <julio@pinguineras.com.br>
  */

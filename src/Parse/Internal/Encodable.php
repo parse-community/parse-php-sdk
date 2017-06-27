@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class Encodable | Parse/Internal/Encodable.php
+ */
 
 namespace Parse\Internal;
 
@@ -7,6 +10,7 @@ namespace Parse\Internal;
  * method.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse\Internal
  */
 interface Encodable
 {

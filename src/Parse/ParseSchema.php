@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class ParseSchema | Parse/ParseSchema.php
+ */
 
 namespace Parse;
 
@@ -6,24 +9,84 @@ use Exception;
 use InvalidArgumentException;
 
 /**
- * ParseSchema - Handles schemas data from Parse.
- * All the schemas methods needs use the master key of your application.
+ * Class ParseSchema - Handles schemas data from Parse.
+ * All the schemas methods need use of the master key for your application.
  *
- * @see https://parse.com/docs/rest/guide#schemas
+ * @see http://docs.parseplatform.org/rest/guide/#schema
  *
  * @author Júlio César Gonçalves de Oliveira <julio@pinguineras.com.br>
+ * @package Parse
  */
 class ParseSchema
 {
+    /**
+     * String data type
+     *
+     * @var string
+     */
     public static $STRING = 'String';
+
+    /**
+     * Number data type
+     *
+     * @var string
+     */
     public static $NUMBER = 'Number';
+
+    /**
+     * Boolean data type
+     *
+     * @var string
+     */
     public static $BOOLEAN = 'Boolean';
+
+    /**
+     * Date data type
+     *
+     * @var string
+     */
     public static $DATE = 'Date';
+
+    /**
+     * File data type
+     *
+     * @var string
+     */
     public static $FILE = 'File';
+
+    /**
+     * GeoPoint data type
+     *
+     * @var string
+     */
     public static $GEO_POINT = 'GeoPoint';
+
+    /**
+     * Array data type
+     *
+     * @var string
+     */
     public static $ARRAY = 'Array';
+
+    /**
+     * Object data type
+     *
+     * @var string
+     */
     public static $OBJECT = 'Object';
+
+    /**
+     * Pointer data type
+     *
+     * @var string
+     */
     public static $POINTER = 'Pointer';
+
+    /**
+     * Relation data type
+     *
+     * @var string
+     */
     public static $RELATION = 'Relation';
 
     /**
@@ -43,7 +106,7 @@ class ParseSchema
     /**
      * Force to use master key in Schema Methods.
      *
-     * @see https://parse.com/docs/rest/guide#schemas
+     * @see http://docs.parseplatform.org/rest/guide/#schema
      *
      * @var bool
      */

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class ParseClient | Parse/ParseClient.php
+ */
 
 namespace Parse;
 
@@ -9,9 +12,10 @@ use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\Internal\Encodable;
 
 /**
- * ParseClient - Main class for Parse initialization and communication.
+ * Class ParseClient - Main class for Parse initialization and communication.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 final class ParseClient
 {
@@ -107,7 +111,7 @@ final class ParseClient
     private static $caFile;
 
     /**
-     * Constant for version string to include with requests.
+     * Constant for version string to include with requests. Currently 1.2.9.
      *
      * @var string
      */
@@ -570,6 +574,11 @@ final class ParseClient
         self::$storage = null;
     }
 
+    /**
+     * Asserts that the sdk has been initialized with a valid application id
+     *
+     * @throws Exception
+     */
     private static function assertParseInitialized()
     {
         if (self::$applicationId === null) {
@@ -580,6 +589,8 @@ final class ParseClient
     }
 
     /**
+     * Asserts that the sdk has been initialized with a valid account key
+     *
      * @throws Exception
      */
     private static function assertAppInitialized()

@@ -1,20 +1,59 @@
 <?php
+/**
+ * Class ParseApp | Parse/ParseApp.php
+ */
 
 namespace Parse;
 
+/**
+ * Class ParseApp - Used to manage individual app instances on parse.com.
+ * Note that with the open source parse-server this is not used as each parse-server is a singular app instance.
+ *
+ * @deprecated Not available on the open source parse-server.
+ * @package Parse
+ */
 class ParseApp
 {
+    /**
+     * App name key
+     *
+     * @var string
+     */
     public static $APP_NAME = 'appName';
+
+    /**
+     * Class creation key
+     *
+     * @var string
+     */
     public static $CLIENT_CLASS_CREATION_ENABLED = 'clientClassCreationEnabled';
+
+    /**
+     * Client push enabled key
+     *
+     * @var string
+     */
     public static $CLIENT_PUSH_ENABLED = 'clientPushEnabled';
+
+    /**
+     * Require revocable session key
+     *
+     * @var string
+     */
     public static $REQUIRE_REVOCABLE_SESSION = 'requireRevocableSessions';
+
+    /**
+     * Revoke session on password change key
+     *
+     * @var string
+     */
     public static $REVOKE_SESSION_ON_PASSWORD_CHANGE = 'revokeSessionOnPasswordChange';
 
     /**
      * To fetch the keys and settings for all of the apps that you are a collaborator on.
      *
      * @throws ParseException
-     *
+     * @deprecated Not available on the open source parse-server.
      * @return array Containing the keys and settings for your apps.
      */
     public static function fetchApps()
@@ -37,7 +76,7 @@ class ParseApp
      * @param string $application_id
      *
      * @throws ParseException
-     *
+     * @deprecated Not available on the open source parse-server.
      * @return array Containing the keys and settings for your app.
      */
     public static function fetchApp($application_id)
@@ -60,7 +99,7 @@ class ParseApp
      * @param array $data
      *
      * @throws ParseException
-     *
+     * @deprecated Not available on the open source parse-server.
      * @return array
      */
     public static function createApp(array $data)
@@ -84,7 +123,7 @@ class ParseApp
      * @param array  $data
      *
      * @throws ParseException
-     *
+     * @deprecated Not available on the open source parse-server.
      * @return array
      */
     public static function updateApp($application_id, array $data)

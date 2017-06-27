@@ -1,13 +1,17 @@
 <?php
+/**
+ * Class ParseException | Parse/ParseException.php
+ */
 
 namespace Parse;
 
 use Exception;
 
 /**
- * ParseException - Wrapper for \Exception class.
+ * Class ParseException - Wrapper for \Exception class.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseException extends Exception
 {

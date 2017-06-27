@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class FieldOperation | Parse/Internal/FieldOperation.php
+ */
 
 namespace Parse\Internal;
 
@@ -6,6 +9,7 @@ namespace Parse\Internal;
  * Class FieldOperation - Interface for all Parse Field Operations.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse\Internal
  */
 interface FieldOperation extends Encodable
 {

@@ -1,16 +1,30 @@
 <?php
+/**
+ * Class ParseSession | Parse/ParseSession.php
+ */
 
 namespace Parse;
 
 /**
- * ParseSession - Representation of an expiring user session.
+ * Class ParseSession - Representation of an expiring user session.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseSession extends ParseObject
 {
+    /**
+     * Parse Class name
+     *
+     * @var string
+     */
     public static $parseClassName = '_Session';
 
+    /**
+     * Session token string
+     *
+     * @var null|string
+     */
     private $_sessionToken = null;
 
     /**

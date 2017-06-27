@@ -1,19 +1,20 @@
 <?php
 /**
- * ParseStream - Wrapper for abstracted stream usage
- *
- * @author Ben Friedman <ben@axolsoft.com>
+ * Class ParseStream | Parse/HttpClients/ParseStream.php
  */
 
 namespace Parse\HttpClients;
 
 /**
- * Class ParseStream
+ * Class ParseStream - Wrapper for abstracted stream usage
+ *
+ * @author Ben Friedman <ben@axolsoft.com>
  * @package Parse\HttpClients
  */
 class ParseStream
 {
     /**
+     * Stream context
      *
      * @var resource
      */
@@ -21,18 +22,21 @@ class ParseStream
 
     /**
      * Response headers
+     *
      * @var array|null
      */
     private $responseHeaders;
 
     /**
      * Error message
+     *
      * @var string
      */
     private $errorMessage;
 
     /**
      * Error code
+     *
      * @var int
      */
     private $errorCode;

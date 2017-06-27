@@ -1,76 +1,93 @@
 <?php
 /**
- * ParseStreamHttpClient - Stream http client
- *
- * @author Ben Friedman <ben@axolsoft.com>
+ * Class ParseStreamHttpClient | Parse/HttpClients/ParseStreamHttpClient.php
  */
 
 namespace Parse\HttpClients;
 
 use Parse\ParseException;
 
+/**
+ * Class ParseStreamHttpClient - Stream http client
+ *
+ * @author Ben Friedman <ben@axolsoft.com>
+ * @package Parse\HttpClients
+ */
 class ParseStreamHttpClient implements ParseHttpable
 {
     /**
      * Stream handle
+     *
      * @var ParseStream
      */
     private $parseStream;
 
     /**
      * Request Headers
+     *
      * @var array
      */
     private $headers = array();
 
     /**
      * Response headers
+     *
      * @var array
      */
     private $responseHeaders = array();
 
     /**
      * Response code
+     *
      * @var int
      */
     private $responseCode = 0;
 
     /**
      * Content type of our response
+     *
      * @var string|null
      */
     private $responseContentType;
 
     /**
      * Stream error code
+     *
      * @var int
      */
     private $streamErrorCode;
 
     /**
      * Stream error message
+     *
      * @var string
      */
     private $streamErrorMessage;
 
     /**
      * Options to pass to our stream
+     *
      * @var array
      */
     private $options = array();
 
     /**
      * Optional CA file to verify our peers with
+     *
      * @var string
      */
     private $caFile;
 
     /**
      * Response from our request
+     *
      * @var string
      */
     private $response;
 
+    /**
+     * ParseStreamHttpClient constructor.
+     */
     public function __construct()
     {
         if (!isset($this->parseStream)) {
@@ -143,6 +160,9 @@ class ParseStreamHttpClient implements ParseHttpable
         return implode("\r\n", $headers);
     }
 
+    /**
+     * Sets up ssl related options for the stream context
+     */
     public function setup()
     {
         // setup ssl options
@@ -154,6 +174,15 @@ class ParseStreamHttpClient implements ParseHttpable
         );
     }
 
+    /**
+     * Sends an HTTP request
+     *
+     * @param string $url       Url to send this request to
+     * @param string $method    Method to send this request via
+     * @param array $data       Data to send in this request
+     * @return string
+     * @throws ParseException
+     */
     public function send($url, $method = 'GET', $data = array())
     {
 
@@ -287,6 +316,11 @@ class ParseStreamHttpClient implements ParseHttpable
         return $this->streamErrorMessage;
     }
 
+    /**
+     * Sets a connection timeout. UNUSED in the stream client.
+     *
+     * @param int $timeout  Timeout to set
+     */
     public function setConnectionTimeout($timeout)
     {
         // do nothing
