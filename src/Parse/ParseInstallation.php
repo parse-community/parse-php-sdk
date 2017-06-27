@@ -1,14 +1,23 @@
 <?php
+/**
+ * Class ParseHooks | Parse/ParseHooks.php
+ */
 
 namespace Parse;
 
 /**
- * ParseInstallation - Representation of an Installation stored on Parse.
+ * Class ParseInstallation - Representation of an Installation stored on Parse.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseInstallation extends ParseObject
 {
+    /**
+     * Parse Class name
+     *
+     * @var string
+     */
     public static $parseClassName = '_Installation';
 
     /**

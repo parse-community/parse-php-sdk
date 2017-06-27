@@ -1,14 +1,23 @@
 <?php
+/**
+ * Class ParsePushStatus | Parse/ParsePushStatus.php
+ */
 
 namespace Parse;
 
 /**
- * ParsePushStatus - Representation of PushStatus for push notifications
+ * Class ParsePushStatus - Representation of PushStatus for push notifications
  *
  * @author Ben Friedman <ben@axolsoft.com>
+ * @package Parse
  */
 class ParsePushStatus extends ParseObject
 {
+    /**
+     * Parse Class name
+     *
+     * @var string
+     */
     public static $parseClassName = '_PushStatus';
 
     // possible push status values from parse server

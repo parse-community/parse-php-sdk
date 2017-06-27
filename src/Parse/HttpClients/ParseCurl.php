@@ -1,8 +1,6 @@
 <?php
 /**
- * ParseCurl - Wrapper for abstracted curl usage
- *
- * @author Ben Friedman <ben@axolsoft.com>
+ * Class ParseCurl | Parse/HttpClients/ParseCurl.php
  */
 
 namespace Parse\HttpClients;
@@ -10,13 +8,16 @@ namespace Parse\HttpClients;
 use Parse\ParseException;
 
 /**
- * Class ParseCurl
+ * Class ParseCurl - Wrapper for abstracted curl usage
+ *
+ * @author Ben Friedman <ben@axolsoft.com>
  * @package Parse\HttpClients
  */
 class ParseCurl
 {
     /**
      * Curl handle
+     *
      * @var resource
      */
     private $curl;

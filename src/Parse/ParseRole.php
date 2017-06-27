@@ -1,14 +1,23 @@
 <?php
+/**
+ * Class ParseRole | Parse/ParseRole.php
+ */
 
 namespace Parse;
 
 /**
- * ParseRole - Representation of an access Role.
+ * Class ParseRole - Representation of an access Role.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseRole extends ParseObject
 {
+    /**
+     * Parse Class name
+     *
+     * @var string
+     */
     public static $parseClassName = '_Role';
 
     /**

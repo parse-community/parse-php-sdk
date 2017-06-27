@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class AddUniqueOperation | Parse/Internal/AddUniqueOperation.php
+ */
 
 namespace Parse\Internal;
 
@@ -10,6 +13,7 @@ use Parse\ParseObject;
  * Class AddUniqueOperation - Operation to add unique objects to an array key.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse\Internal
  */
 class AddUniqueOperation implements FieldOperation
 {
@@ -126,6 +130,13 @@ class AddUniqueOperation implements FieldOperation
         return $oldValue;
     }
 
+    /**
+     * Checks if a parse object is contained in a given array of values
+     *
+     * @param ParseObject $parseObject  ParseObject to check for existence of
+     * @param array $oldValue           Array to check if ParseObject is present in
+     * @return bool
+     */
     private function isParseObjectInArray($parseObject, $oldValue)
     {
         foreach ($oldValue as $object) {

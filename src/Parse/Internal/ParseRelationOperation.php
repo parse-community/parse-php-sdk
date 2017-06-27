@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class ParseRelationOperation | Parse/Internal/ParseRelationOperation.php
+ */
 
 namespace Parse\Internal;
 
@@ -8,9 +11,10 @@ use Parse\ParseObject;
 use Parse\ParseRelation;
 
 /**
- * ParseRelationOperation - A class that is used to manage ParseRelation changes such as object add or remove.
+ * Class ParseRelationOperation - A class that is used to manage ParseRelation changes such as object add or remove.
  *
  * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
+ * @package Parse\Internal
  */
 class ParseRelationOperation implements FieldOperation
 {
@@ -35,6 +39,13 @@ class ParseRelationOperation implements FieldOperation
      */
     private $relationsToRemove = [];
 
+    /**
+     * ParseRelationOperation constructor.
+     *
+     * @param ParseObject[] $objectsToAdd       ParseObjects to add
+     * @param ParseObject[] $objectsToRemove    ParseObjects to remove
+     * @throws Exception
+     */
     public function __construct($objectsToAdd, $objectsToRemove)
     {
         $this->targetClassName = null;
@@ -258,6 +269,11 @@ class ParseRelationOperation implements FieldOperation
         return empty($addRelation['objects']) ? $removeRelation : $addRelation;
     }
 
+    /**
+     * Gets the className of the target objects.
+     *
+     * @return null|string
+     */
     public function _getTargetClass()
     {
         return $this->targetClassName;

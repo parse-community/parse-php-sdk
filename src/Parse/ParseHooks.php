@@ -1,11 +1,15 @@
 <?php
+/**
+ * Class ParseHooks | Parse/ParseHooks.php
+ */
 
 namespace Parse;
 
 /**
- * ParseHooks - Representation of a Parse Hooks object.
+ * Class ParseHooks - Representation of a Parse Hooks object.
  *
  * @author Phelipe Alves <phelipealvessouza@gmail.com>
+ * @package Parse
  */
 class ParseHooks
 {

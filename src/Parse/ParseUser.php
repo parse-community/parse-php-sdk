@@ -1,14 +1,23 @@
 <?php
+/**
+ * Class ParseUser | Parse/ParseUser.php
+ */
 
 namespace Parse;
 
 /**
- * ParseUser - Representation of a user object stored on Parse.
+ * Class ParseUser - Representation of a user object stored on Parse.
  *
  * @author Fosco Marotto <fjm@fb.com>
+ * @package Parse
  */
 class ParseUser extends ParseObject
 {
+    /**
+     * Parse Class name
+     *
+     * @var string
+     */
     public static $parseClassName = '_User';
 
     /**
@@ -395,8 +404,9 @@ class ParseUser extends ParseObject
     /**
      * Link the user with a service.
      *
-     * @param string $serviceName the name of the service
-     * @param array  $authData    the array of auth data for $serviceName
+     * @param string $serviceName   the name of the service
+     * @param array  $authData      the array of auth data for $serviceName
+     * @param bool $useMasterKey    Whether or not to use the master key, default is false
      *
      * @return ParseUser
      */
@@ -578,6 +588,9 @@ class ParseUser extends ParseObject
         ParseClient::_request('POST', 'requestPasswordReset', null, $json);
     }
 
+    /**
+     * Sets the current user to null. Used internally for testing purposes.
+     */
     public static function _clearCurrentUserVariable()
     {
         static::$currentUser = null;
