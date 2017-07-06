@@ -47,7 +47,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\Exception',
-            'You must call Parse::initialize() before making any requests.'
+            'You must call ParseClient::initialize() before making any requests.'
         );
 
         ParseClient::initialize(
@@ -69,7 +69,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\Exception',
-            'You must call Parse::initialize(..., $accountKey) before making any app requests. '.
+            'You must call ParseClient::initialize(..., $accountKey) before making any app requests. '.
             'Your account key must not be null or empty.'
         );
 
@@ -517,6 +517,40 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
             '',
             null
         );
+    }
+
+    /**
+     * @group api-not-set
+     */
+    public function testURLNotSet()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'Missing a valid server url. '.
+            'You must call ParseClient::setServerURL(\'https://your.parse-server.com\', \'/parse\') '.
+            ' before making any requests.'
+        );
+
+        ParseClient::_clearServerURL();
+        (new ParseObject('TestingClass'))->save();
+
+    }
+
+    /**
+     * @group api-not-set
+     */
+    public function testMountPathNotSet()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'Missing a valid mount path. '.
+            'You must call ParseClient::setServerURL(\'https://your.parse-server.com\', \'/parse\') '.
+            ' before making any requests.'
+        );
+
+        ParseClient::_clearMountPath();
+        (new ParseObject('TestingClass'))->save();
+
     }
 
     /**

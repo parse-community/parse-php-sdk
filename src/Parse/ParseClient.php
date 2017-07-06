@@ -24,14 +24,14 @@ final class ParseClient
      *
      * @var string
      */
-    private static $serverURL = 'https://api.parse.com/';
+    private static $serverURL = null;
 
     /**
      * The mount path for the current parse server
      *
      * @var string
      */
-    private static $mountPath = "1/";
+    private static $mountPath = null;
 
     /**
      * The application id.
@@ -191,6 +191,25 @@ final class ParseClient
             // root path should have no mount path
             self::$mountPath = "";
         }
+    }
+
+    /**
+     * Clears the existing server url.
+     * Used primarily for testing purposes.
+     */
+    public static function _clearServerURL()
+    {
+        self::$serverURL = null;
+
+    }
+
+    /**
+     * Clears the existing mount path.
+     * Used primarily for testing purposes.
+     */
+    public static function _clearMountPath()
+    {
+        self::$mountPath = null;
     }
 
     /**
@@ -408,6 +427,9 @@ final class ParseClient
             $httpClient->setCAFile(self::$caFile);
         }
 
+        // verify the server url and mount path have been set
+        self::assertServerInitialized();
+
         if ($appRequest) {
             // ** 'app' requests are not available in open source parse-server
             self::assertAppInitialized();
@@ -571,6 +593,32 @@ final class ParseClient
     }
 
     /**
+     * Asserts that the server and mount path have been initialized
+     *
+     * @throws Exception
+     */
+    private static function assertServerInitialized()
+    {
+        if (self::$serverURL === null) {
+            throw new Exception(
+                'Missing a valid server url. '.
+                'You must call ParseClient::setServerURL(\'https://your.parse-server.com\', \'/parse\') '.
+                ' before making any requests.'
+            );
+
+        }
+
+        if (self::$mountPath === null) {
+            throw new Exception(
+                'Missing a valid mount path. '.
+                'You must call ParseClient::setServerURL(\'https://your.parse-server.com\', \'/parse\') '.
+                ' before making any requests.'
+            );
+
+        }
+    }
+
+    /**
      * Asserts that the sdk has been initialized with a valid application id
      *
      * @throws Exception
@@ -579,7 +627,7 @@ final class ParseClient
     {
         if (self::$applicationId === null) {
             throw new Exception(
-                'You must call Parse::initialize() before making any requests.'
+                'You must call ParseClient::initialize() before making any requests.'
             );
         }
     }
@@ -593,7 +641,7 @@ final class ParseClient
     {
         if (self::$accountKey === null || empty(self::$accountKey)) {
             throw new Exception(
-                'You must call Parse::initialize(..., $accountKey) before making any app requests. '.
+                'You must call ParseClient::initialize(..., $accountKey) before making any app requests. '.
                 'Your account key must not be null or empty.'
             );
         }
