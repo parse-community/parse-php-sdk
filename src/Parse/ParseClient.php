@@ -200,7 +200,6 @@ final class ParseClient
     public static function _clearServerURL()
     {
         self::$serverURL = null;
-
     }
 
     /**
@@ -605,7 +604,6 @@ final class ParseClient
                 'You must call ParseClient::setServerURL(\'https://your.parse-server.com\', \'/parse\') '.
                 ' before making any requests.'
             );
-
         }
 
         if (self::$mountPath === null) {
@@ -614,7 +612,6 @@ final class ParseClient
                 'You must call ParseClient::setServerURL(\'https://your.parse-server.com\', \'/parse\') '.
                 ' before making any requests.'
             );
-
         }
     }
 

@@ -533,7 +533,6 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         ParseClient::_clearServerURL();
         (new ParseObject('TestingClass'))->save();
-
     }
 
     /**
@@ -550,7 +549,6 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         ParseClient::_clearMountPath();
         (new ParseObject('TestingClass'))->save();
-
     }
 
     /**
