@@ -576,9 +576,9 @@ class ParseObject implements Encodable
         for ($i = 0; $i < $count; ++$i) {
             $obj = $objects[$i];
             if ($obj->getClassName() !== $className) {
-                throw new ParseException('All objects should be of the same class.');
+                throw new ParseException('All objects should be of the same class.', 103);
             } elseif (!$obj->getObjectId()) {
-                throw new ParseException('All objects must have an ID.');
+                throw new ParseException('All objects must have an ID.', 104);
             }
             array_push($objectIds, $obj->getObjectId());
         }
@@ -604,7 +604,7 @@ class ParseObject implements Encodable
         for ($i = 0; $i < $count; ++$i) {
             $obj = $objects[$i];
             if (!isset($fetchedObjectsById[$obj->getObjectId()])) {
-                throw new ParseException('All objects must exist on the server.');
+                throw new ParseException('All objects must exist on the server.', 101);
             }
             $obj->mergeFromObject($fetchedObjectsById[$obj->getObjectId()]);
         }

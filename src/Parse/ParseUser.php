@@ -102,16 +102,18 @@ class ParseUser extends ParseObject
     public function signUp()
     {
         if (!$this->get('username')) {
-            throw new ParseException('Cannot sign up user with an empty name');
+            throw new ParseException('Cannot sign up user with an empty name', 200);
         }
         if (!$this->get('password')) {
             throw new ParseException(
-                'Cannot sign up user with an empty password.'
+                'Cannot sign up user with an empty password.',
+                201
             );
         }
         if ($this->getObjectId()) {
             throw new ParseException(
-                'Cannot sign up an already existing user.'
+                'Cannot sign up an already existing user.',
+                208
             );
         }
         parent::save();
@@ -131,11 +133,12 @@ class ParseUser extends ParseObject
     public static function logIn($username, $password)
     {
         if (!$username) {
-            throw new ParseException('Cannot log in user with an empty name');
+            throw new ParseException('Cannot log in user with an empty name', 200);
         }
         if (!$password) {
             throw new ParseException(
-                'Cannot log in user with an empty password.'
+                'Cannot log in user with an empty password.',
+                201
             );
         }
         $data = ['username' => $username, 'password' => $password];
@@ -162,11 +165,13 @@ class ParseUser extends ParseObject
     public static function logInWithFacebook($id, $access_token, $expiration_date = null)
     {
         if (!$id) {
-            throw new ParseException('Cannot log in Facebook user without an id.');
+            throw new ParseException('Cannot log in Facebook user without an id.',
+                250);
         }
         if (!$access_token) {
             throw new ParseException(
-                'Cannot log in Facebook user without an access token.'
+                'Cannot log in Facebook user without an access token.',
+                251
             );
         }
         if (!$expiration_date) {
@@ -207,26 +212,31 @@ class ParseUser extends ParseObject
     ) {
 
         if (!$id) {
-            throw new ParseException('Cannot log in Twitter user without an id.');
+            throw new ParseException('Cannot log in Twitter user without an id.',
+                250);
         }
         if (!$screen_name) {
             throw new ParseException(
-                'Cannot log in Twitter user without Twitter screen name.'
+                'Cannot log in Twitter user without Twitter screen name.',
+                253
             );
         }
         if (!$consumer_key) {
             throw new ParseException(
-                'Cannot log in Twitter user without a consumer key.'
+                'Cannot log in Twitter user without a consumer key.',
+                253
             );
         }
         if (!$auth_token) {
             throw new ParseException(
-                'Cannot log in Twitter user without an auth token.'
+                'Cannot log in Twitter user without an auth token.',
+                253
             );
         }
         if (!$auth_token_secret) {
             throw new ParseException(
-                'Cannot log in Twitter user without an auth token secret.'
+                'Cannot log in Twitter user without an auth token secret.',
+                253
             );
         }
         $authData = [
@@ -313,15 +323,18 @@ class ParseUser extends ParseObject
 
         if (!$this->getObjectId()) {
             throw new ParseException(
-                'Cannot link an unsaved user, use ParseUser::logInWithFacebook'
+                'Cannot link an unsaved user, use ParseUser::logInWithFacebook',
+                252
             );
         }
         if (!$id) {
-            throw new ParseException('Cannot link Facebook user without an id.');
+            throw new ParseException('Cannot link Facebook user without an id.',
+                250);
         }
         if (!$access_token) {
             throw new ParseException(
-                'Cannot link Facebook user without an access token.'
+                'Cannot link Facebook user without an access token.',
+                253
             );
         }
         if (!$expiration_date) {
@@ -364,29 +377,35 @@ class ParseUser extends ParseObject
     ) {
 
         if (!$this->getObjectId()) {
-            throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithTwitter');
+            throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithTwitter',
+                252);
         }
         if (!$id) {
-            throw new ParseException('Cannot link Twitter user without an id.');
+            throw new ParseException('Cannot link Twitter user without an id.',
+                250);
         }
         if (!$screen_name) {
             throw new ParseException(
-                'Cannot link Twitter user without Twitter screen name.'
+                'Cannot link Twitter user without Twitter screen name.',
+                253
             );
         }
         if (!$consumer_key) {
             throw new ParseException(
-                'Cannot link Twitter user without a consumer key.'
+                'Cannot link Twitter user without a consumer key.',
+                253
             );
         }
         if (!$auth_token) {
             throw new ParseException(
-                'Cannot link Twitter user without an auth token.'
+                'Cannot link Twitter user without an auth token.',
+                253
             );
         }
         if (!$auth_token_secret) {
             throw new ParseException(
-                'Cannot link Twitter user without an auth token secret.'
+                'Cannot link Twitter user without an auth token secret.',
+                253
             );
         }
         $authData = [
@@ -570,7 +589,8 @@ class ParseUser extends ParseObject
             parent::save($useMasterKey);
         } else {
             throw new ParseException(
-                'You must call signUp to create a new User.'
+                'You must call signUp to create a new User.',
+                207
             );
         }
     }

@@ -169,7 +169,8 @@ class ParseACL implements Encodable
         }
         if (!is_string($userId)) {
             throw new ParseException(
-                'Invalid target for access control.'
+                'Invalid target for access control.',
+                104
             );
         }
         if (!isset($this->permissionsById[$userId])) {

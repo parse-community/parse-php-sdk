@@ -56,7 +56,8 @@ class ParseFile implements Encodable
             return $this->data;
         }
         if (!$this->url) {
-            throw new ParseException('Cannot retrieve data for unsaved ParseFile.');
+            throw new ParseException('Cannot retrieve data for unsaved ParseFile.',
+                151);
         }
         $this->data = $this->download();
 
@@ -93,7 +94,8 @@ class ParseFile implements Encodable
     public function delete($useMasterKey = true)
     {
         if (!$this->url) {
-            throw new ParseException('Cannot delete file that has not been saved.');
+            throw new ParseException('Cannot delete file that has not been saved.',
+                151);
         }
 
         ParseClient::_request(
