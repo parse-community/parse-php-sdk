@@ -65,7 +65,7 @@ class Helper
 
         global $USE_CLIENT_STREAM;
 
-        if(isset($USE_CLIENT_STREAM)) {
+        if (isset($USE_CLIENT_STREAM)) {
             // stream client
             ParseClient::setHttpClient(new ParseStreamHttpClient());
         } else {
@@ -77,7 +77,6 @@ class Helper
                 // stream client
                 ParseClient::setHttpClient(new ParseStreamHttpClient());
             }
-
         }
     }
 

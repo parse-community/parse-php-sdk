@@ -385,7 +385,6 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
                 'not-a-real-endpoint-to-reach',
                 null
             );
-
         }
     }
 
@@ -452,7 +451,6 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
                 '',
                 null
             );
-
         }
     }
 
@@ -499,7 +497,6 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
                 '',
                 null
             );
-
         }
     }
 

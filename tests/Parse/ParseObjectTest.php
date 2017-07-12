@@ -122,7 +122,6 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
             $query = new ParseQuery('TestObject');
             $this->setExpectedException('Parse\ParseException', 'Object not found');
             $out = $query->get($obj->getObjectId());
-
         }
     }
 
@@ -976,7 +975,6 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
             $query = new ParseQuery('TestObject');
             $result = $query->find();
             $this->assertEquals(90, count($result));
-
         }
     }
 

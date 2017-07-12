@@ -20,7 +20,6 @@ class ParseCurlHttpClientTest extends \PHPUnit_Framework_TestCase
             $client->send("http://example.com");
 
             $this->assertEquals(200, $client->getResponseStatusCode());
-
         }
     }
 }

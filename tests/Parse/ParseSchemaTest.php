@@ -183,7 +183,6 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
             }
             $this->assertNotNull($result['fields']['quantity']);
             $this->assertNotNull($result['fields']['status']);
-
         }
     }
 
