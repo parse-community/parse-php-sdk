@@ -17,7 +17,16 @@ before_script:
   - sleep 3
   - npm run lint
 script:
-    - npm run test:coverage
-
+  - npm run test:coverage
+  - npm run document-check
+before_deploy:
+  - npm run document
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  local_dir: output
+  on:
+    branch: master
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
