@@ -345,6 +345,10 @@ final class ParseClient
                 return new ParseGeoPoint($data['latitude'], $data['longitude']);
             }
 
+            if ($typeString === 'Polygon') {
+                return new ParsePolygon($data['coordinates']);
+            }
+
             if ($typeString === 'Object') {
                 $output = ParseObject::create($data['className']);
                 $output->_mergeAfterFetch($data);
