@@ -10,6 +10,7 @@ php:
 before_install:
   - nvm install 6.11
 install:
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.4" ]]; then composer require jms/serializer; fi
   - composer install
   - npm install
 before_script:
