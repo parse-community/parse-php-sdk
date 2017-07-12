@@ -83,7 +83,7 @@ class ParseRelationOperation implements FieldOperation
                 $this->targetClassName = $object->getClassName();
             }
             if ($this->targetClassName != $object->getClassName()) {
-                throw new Exception('All objects in a relation must be of the same class.');
+                throw new Exception('All objects in a relation must be of the same class.', 103);
             }
         }
     }
@@ -155,7 +155,8 @@ class ParseRelationOperation implements FieldOperation
                 throw new Exception(
                     'Related object object must be of class '
                     .$this->targetClassName.', but '.$oldValue->getTargetClass()
-                    .' was passed in.'
+                    .' was passed in.',
+                    103
                 );
             }
 
@@ -187,7 +188,8 @@ class ParseRelationOperation implements FieldOperation
                 throw new Exception(
                     'Related object object must be of class '
                     .$this->targetClassName.', but '.$previous->targetClassName
-                    .' was passed in.'
+                    .' was passed in.',
+                    103
                 );
             }
             $newRelationToAdd = self::convertToOneDimensionalArray(

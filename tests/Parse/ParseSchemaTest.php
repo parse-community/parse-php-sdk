@@ -212,7 +212,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
     public function testAssertClassName()
     {
         $schema = new ParseSchema();
-        $this->setExpectedException('\Exception', 'You must set a Class Name before make any request.');
+        $this->setExpectedException('\Exception', 'You must set a Class Name before making any request.');
         $schema->assertClassName();
     }
 
@@ -296,14 +296,14 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
     public function testPointerTargetClassException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'You need set the targetClass of the Pointer.');
+        $this->setExpectedException('\Exception', 'You need to set the targetClass of the Pointer.');
         $schema->addPointer('field', null);
     }
 
     public function testRelationTargetClassException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'You need set the targetClass of the Relation.');
+        $this->setExpectedException('\Exception', 'You need to set the targetClass of the Relation.');
         $schema->addRelation('field', null);
     }
 

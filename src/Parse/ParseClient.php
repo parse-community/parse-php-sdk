@@ -624,7 +624,8 @@ final class ParseClient
     {
         if (self::$applicationId === null) {
             throw new Exception(
-                'You must call ParseClient::initialize() before making any requests.'
+                'You must call ParseClient::initialize() before making any requests.',
+                109
             );
         }
     }
@@ -639,7 +640,8 @@ final class ParseClient
         if (self::$accountKey === null || empty(self::$accountKey)) {
             throw new Exception(
                 'You must call ParseClient::initialize(..., $accountKey) before making any app requests. '.
-                'Your account key must not be null or empty.'
+                'Your account key must not be null or empty.',
+                109
             );
         }
     }

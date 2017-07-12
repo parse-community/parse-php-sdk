@@ -57,15 +57,10 @@ class ParseRole extends ParseObject
     public function setName($name)
     {
         if ($this->getObjectId()) {
-            throw new ParseException(
-                "A role's name can only be set before it has been saved.",
-                139
-            );
+            throw new ParseException("A role's name can only be set before it has been saved.");
         }
         if (!is_string($name)) {
-            throw new ParseException(
-                "A role's name must be a string."
-            );
+            throw new ParseException("A role's name must be a string.", 139);
         }
 
         return $this->set('name', $name);

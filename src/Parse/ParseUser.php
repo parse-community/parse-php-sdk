@@ -228,7 +228,7 @@ class ParseUser extends ParseObject
         if (!$screen_name) {
             throw new ParseException(
                 'Cannot log in Twitter user without Twitter screen name.',
-                253
+                251
             );
         }
         if (!$consumer_key) {
@@ -334,7 +334,7 @@ class ParseUser extends ParseObject
         if (!$this->getObjectId()) {
             throw new ParseException(
                 'Cannot link an unsaved user, use ParseUser::logInWithFacebook',
-                252
+                104
             );
         }
         if (!$id) {
@@ -346,7 +346,7 @@ class ParseUser extends ParseObject
         if (!$access_token) {
             throw new ParseException(
                 'Cannot link Facebook user without an access token.',
-                253
+                251
             );
         }
         if (!$expiration_date) {
@@ -389,13 +389,13 @@ class ParseUser extends ParseObject
     ) {
 
         if (!$this->getObjectId()) {
-            throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithTwitter', 252);
+            throw new ParseException('Cannot link an unsaved user, use ParseUser::logInWithTwitter', 104);
         }
         if (!$id) {
             throw new ParseException('Cannot link Twitter user without an id.', 250);
         }
         if (!$screen_name) {
-            throw new ParseException('Cannot link Twitter user without Twitter screen name.', 253);
+            throw new ParseException('Cannot link Twitter user without Twitter screen name.', 251);
         }
         if (!$consumer_key) {
             throw new ParseException('Cannot link Twitter user without a consumer key.', 253);

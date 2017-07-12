@@ -110,7 +110,8 @@ class ParseObject implements Encodable
         if (empty(self::$registeredSubclasses)) {
             throw new Exception(
                 'You must initialize the ParseClient using ParseClient::initialize '.
-                'and your Parse API keys before you can begin working with Objects.'
+                'and your Parse API keys before you can begin working with Objects.',
+                109
             );
         }
         $subclass = static::getSubclass();
@@ -163,7 +164,7 @@ class ParseObject implements Encodable
         ) {
             $this->set($key, $value);
         } else {
-            throw new Exception('Protected field could not be set.');
+            throw new Exception('Protected field could not be set.', 139);
         }
     }
 
@@ -1279,7 +1280,7 @@ class ParseObject implements Encodable
     public function _toPointer()
     {
         if (!$this->objectId) {
-            throw new Exception("Can't serialize an unsaved Parse.Object");
+            throw new Exception("Can't serialize an unsaved ParseObject", 104);
         }
 
         return [
