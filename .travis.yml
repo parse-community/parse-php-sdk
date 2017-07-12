@@ -18,7 +18,7 @@ before_script:
   - npm run lint
 script:
   - npm run test:coverage
-  - npm run document-check
+  - npm run document-check && if [[ `cat \"output/checkstyle.xml\" | grep \"<error \"` != \"\" ]]; then exit 1; fi
 before_deploy:
   - npm run document
 deploy:
