@@ -8,6 +8,17 @@ namespace Parse;
 use Exception;
 use Parse\Internal\Encodable;
 
+/**
+ * Class ParseACL - is used to control which users can access or modify a particular
+ * object. Each ParseObject can have its own ParseACL. You can grant read and
+ * write permissions separately to specific users, to groups of users that
+ * belong to roles, or you can grant permissions to "the public" so that, for
+ * example, any user could read a particular object but only a particular set
+ * of users could write to that object.
+ *
+ * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
+ * @package Parse
+ */
 class ParseACL implements Encodable
 {
     const PUBLIC_KEY = '*';
