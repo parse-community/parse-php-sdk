@@ -7,6 +7,7 @@
     "lint:fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "start" : "./node_modules/parse-server-test/run-server",
     "stop"  : "./node_modules/parse-server-test/stop-server",
+    "document-check"  : "./vendor/bin/phpdoc -d ./src/ --template=checkstyle",
     "document" : "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
   },
   "repository": {
