@@ -14,10 +14,13 @@ class ParseCurlHttpClientTest extends \PHPUnit_Framework_TestCase
 {
     public function testResponseStatusCode()
     {
-        $client = new ParseCurlHttpClient();
-        $client->setup();
-        $client->send("http://example.com");
+        if (function_exists('curl_init')) {
+            $client = new ParseCurlHttpClient();
+            $client->setup();
+            $client->send("http://example.com");
 
-        $this->assertEquals(200, $client->getResponseStatusCode());
+            $this->assertEquals(200, $client->getResponseStatusCode());
+
+        }
     }
 }

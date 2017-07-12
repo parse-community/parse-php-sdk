@@ -162,26 +162,29 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 
     public function testUpdateSchemaCurl()
     {
-        ParseClient::setHttpClient(new ParseCurlHttpClient());
+        if (function_exists('curl_init')) {
+            ParseClient::setHttpClient(new ParseCurlHttpClient());
 
-        // create
-        $schema = self::$schema;
-        $schema->addString('name');
-        $schema->save();
-        // update
-        $schema->deleteField('name');
-        $schema->addNumber('quantity');
-        $schema->addField('status', 'Boolean');
-        $schema->update();
-        // get
-        $getSchema = new ParseSchema('SchemaTest');
-        $result = $getSchema->get();
+            // create
+            $schema = self::$schema;
+            $schema->addString('name');
+            $schema->save();
+            // update
+            $schema->deleteField('name');
+            $schema->addNumber('quantity');
+            $schema->addField('status', 'Boolean');
+            $schema->update();
+            // get
+            $getSchema = new ParseSchema('SchemaTest');
+            $result = $getSchema->get();
 
-        if (isset($result['fields']['name'])) {
-            $this->fail('Field not deleted in update action');
+            if (isset($result['fields']['name'])) {
+                $this->fail('Field not deleted in update action');
+            }
+            $this->assertNotNull($result['fields']['quantity']);
+            $this->assertNotNull($result['fields']['status']);
+
         }
-        $this->assertNotNull($result['fields']['quantity']);
-        $this->assertNotNull($result['fields']['status']);
     }
 
     public function testUpdateWrongFieldType()

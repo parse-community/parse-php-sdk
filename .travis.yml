@@ -21,7 +21,6 @@ matrix:
 before_install:
   - nvm install 6.11
   - sudo apt-get install graphviz
-  - if [[ ${NO_CURL} == 1 ]]; then phpenv config-rm curl.ini; fi
 
 install:
   # fix for jms/serializer 1.7.1 not being able to run on 5.4
@@ -33,7 +32,8 @@ before_script:
   - sleep 3
   - npm run lint
 script:
-  - npm run test:coverage
+  - if [[ ${NO_CURL} == 1 ]]; then npm run test-nocurl:coverage; fi
+  - if [[ ! ${NO_CURL} ]]; then npm run test:coverage; fi
   - npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi
 
 before_deploy:
