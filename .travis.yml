@@ -9,7 +9,9 @@ php:
 #  - nightly
 before_install:
   - nvm install 6.11
+  - sudo apt-get install graphviz
 install:
+  # fix for jms/serializer 1.7.1 not being able to run on 5.4
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.4" ]]; then composer require jms/serializer; fi
   - composer install
   - npm install
