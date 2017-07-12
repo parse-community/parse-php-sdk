@@ -57,14 +57,10 @@ class ParseRole extends ParseObject
     public function setName($name)
     {
         if ($this->getObjectId()) {
-            throw new ParseException(
-                "A role's name can only be set before it has been saved."
-            );
+            throw new ParseException("A role's name can only be set before it has been saved.");
         }
         if (!is_string($name)) {
-            throw new ParseException(
-                "A role's name must be a string."
-            );
+            throw new ParseException("A role's name must be a string.", 139);
         }
 
         return $this->set('name', $name);
@@ -104,14 +100,10 @@ class ParseRole extends ParseObject
     public function save($useMasterKey = false)
     {
         if (!$this->getACL()) {
-            throw new ParseException(
-                'Roles must have an ACL.'
-            );
+            throw new ParseException('Roles must have an ACL.', 123);
         }
         if (!$this->getName() || !is_string($this->getName())) {
-            throw new ParseException(
-                'Roles must have a name.'
-            );
+            throw new ParseException('Roles must have a name.', 139);
         }
         if ($this->getObjectId() === null) {
             // Not yet saved, verify this name is not taken
@@ -119,7 +111,7 @@ class ParseRole extends ParseObject
             $query = new ParseQuery('_Role');
             $query->equalTo('name', $this->getName());
             if ($query->count(true) > 0) {
-                throw new ParseException("Cannot add duplicate role name of '{$this->getName()}'");
+                throw new ParseException("Cannot add duplicate role name of '{$this->getName()}'", 137);
             }
         }
 

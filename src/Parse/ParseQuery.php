@@ -865,7 +865,7 @@ class ParseQuery
                 $className = $queryObjects[$i]->className;
             }
             if ($className != $queryObjects[$i]->className) {
-                throw new Exception('All queries must be for the same class');
+                throw new Exception('All queries must be for the same class', 103);
             }
         }
         $query = new self($className);

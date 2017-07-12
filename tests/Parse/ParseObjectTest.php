@@ -1418,7 +1418,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\Exception',
-            "Can't serialize an unsaved Parse.Object"
+            "Can't serialize an unsaved ParseObject"
         );
         (new ParseObject('TestClass'))->_toPointer();
     }

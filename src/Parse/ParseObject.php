@@ -110,7 +110,8 @@ class ParseObject implements Encodable
         if (empty(self::$registeredSubclasses)) {
             throw new Exception(
                 'You must initialize the ParseClient using ParseClient::initialize '.
-                'and your Parse API keys before you can begin working with Objects.'
+                'and your Parse API keys before you can begin working with Objects.',
+                109
             );
         }
         $subclass = static::getSubclass();
@@ -163,7 +164,7 @@ class ParseObject implements Encodable
         ) {
             $this->set($key, $value);
         } else {
-            throw new Exception('Protected field could not be set.');
+            throw new Exception('Protected field could not be set.', 139);
         }
     }
 
@@ -576,9 +577,9 @@ class ParseObject implements Encodable
         for ($i = 0; $i < $count; ++$i) {
             $obj = $objects[$i];
             if ($obj->getClassName() !== $className) {
-                throw new ParseException('All objects should be of the same class.');
+                throw new ParseException('All objects should be of the same class.', 103);
             } elseif (!$obj->getObjectId()) {
-                throw new ParseException('All objects must have an ID.');
+                throw new ParseException('All objects must have an ID.', 104);
             }
             array_push($objectIds, $obj->getObjectId());
         }
@@ -604,7 +605,7 @@ class ParseObject implements Encodable
         for ($i = 0; $i < $count; ++$i) {
             $obj = $objects[$i];
             if (!isset($fetchedObjectsById[$obj->getObjectId()])) {
-                throw new ParseException('All objects must exist on the server.');
+                throw new ParseException('All objects must exist on the server.', 101);
             }
             $obj->mergeFromObject($fetchedObjectsById[$obj->getObjectId()]);
         }
@@ -1279,7 +1280,7 @@ class ParseObject implements Encodable
     public function _toPointer()
     {
         if (!$this->objectId) {
-            throw new Exception("Can't serialize an unsaved Parse.Object");
+            throw new Exception("Can't serialize an unsaved ParseObject", 104);
         }
 
         return [
