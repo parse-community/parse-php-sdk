@@ -8,7 +8,6 @@ namespace Parse;
 use Exception;
 use Parse\Internal\Encodable;
 
-
 class ParseACL implements Encodable
 {
     const PUBLIC_KEY = '*';
