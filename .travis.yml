@@ -19,9 +19,22 @@ before_script:
   - npm start 1>&2
   - sleep 3
   - npm run lint
-script:
-  - npm run test:coverage
-  - npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi
+  
+jobs:
+  include:
+    - stage: test
+      - script: npm run test:coverage
+      - script: npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi
+    - stage: stream-test
+      # run one set of tests w/out cURL
+      - php: '5.4'
+      - script: sudo apt-get remove php5-curl
+      - script: npm run test:coverage
+
+#script:
+#  - npm run test:coverage
+#  - npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi
+
 before_deploy:
   - npm run document
 deploy:
