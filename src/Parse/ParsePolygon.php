@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class ParsePolygon | Parse/ParsePolygon.php
+ */
 
 namespace Parse;
 
@@ -9,6 +12,7 @@ use Parse\ParseGeoPoint;
  * ParsePolygon - Representation of a Parse Polygon object.
  *
  * @author Diamond Lewis <findlewis@gmail.com>
+ * @package Parse
  */
 class ParsePolygon implements Encodable
 {

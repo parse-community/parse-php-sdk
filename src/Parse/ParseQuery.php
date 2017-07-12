@@ -649,8 +649,8 @@ class ParseQuery
      * Add a constraint to the query that requires a particular key's
      * coordinates that contains a ParseGeoPoint
      *
-     * @param string        $key       The key of the ParsePolygon
-     * @param array         $point    ParseGeoPoint
+     * @param string        $key      The key of the ParsePolygon
+     * @param ParseGeoPoint $point    The point that will be contained.
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
