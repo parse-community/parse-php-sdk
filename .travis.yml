@@ -1,4 +1,5 @@
 language: php
+dist: trusty
 php:
   - '5.4'
   - '5.5'
@@ -7,21 +8,35 @@ php:
   - '7.1'
 #  - hhvm # on Trusty only
 #  - nightly
+cache:
+  directories:
+    - node_modules
+    - vendor
+
+matrix:
+  include:
+    - php: '5.6'
+      env: STREAM_CLIENT_ONLY=1
+
 before_install:
   - nvm install 6.11
   - sudo apt-get install graphviz
+
 install:
   # fix for jms/serializer 1.7.1 not being able to run on 5.4
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.4" ]]; then composer require jms/serializer; fi
   - composer install
   - npm install
 before_script:
+  - npm stop # clean up cached PID file from prior parse-server
   - npm start 1>&2
   - sleep 3
   - npm run lint
 script:
-  - npm run test:coverage
+  - if [[ ${STREAM_CLIENT_ONLY} == 1 ]]; then npm run test-stream:coverage; fi
+  - if [[ ! ${STREAM_CLIENT_ONLY} ]]; then npm run test:coverage; fi
   - npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi
+
 before_deploy:
   - npm run document
 deploy:
@@ -34,3 +49,4 @@ deploy:
     php: '7.1'
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+

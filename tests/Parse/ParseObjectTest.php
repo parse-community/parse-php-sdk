@@ -112,15 +112,17 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testDeleteCurl()
     {
-        ParseClient::setHttpClient(new ParseCurlHttpClient());
+        if (function_exists('curl_init')) {
+            ParseClient::setHttpClient(new ParseCurlHttpClient());
 
-        $obj = ParseObject::create('TestObject');
-        $obj->set('foo', 'bar');
-        $obj->save();
-        $obj->destroy();
-        $query = new ParseQuery('TestObject');
-        $this->setExpectedException('Parse\ParseException', 'Object not found');
-        $out = $query->get($obj->getObjectId());
+            $obj = ParseObject::create('TestObject');
+            $obj->set('foo', 'bar');
+            $obj->save();
+            $obj->destroy();
+            $query = new ParseQuery('TestObject');
+            $this->setExpectedException('Parse\ParseException', 'Object not found');
+            $out = $query->get($obj->getObjectId());
+        }
     }
 
     public function testFind()
@@ -959,19 +961,21 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testSaveAllCurl()
     {
-        ParseClient::setHttpClient(new ParseCurlHttpClient());
+        if (function_exists('curl_init')) {
+            ParseClient::setHttpClient(new ParseCurlHttpClient());
 
-        Helper::clearClass('TestObject');
-        $objs = [];
-        for ($i = 1; $i <= 90; $i++) {
-            $obj = ParseObject::create('TestObject');
-            $obj->set('test', 'test');
-            $objs[] = $obj;
+            Helper::clearClass('TestObject');
+            $objs = [];
+            for ($i = 1; $i <= 90; $i++) {
+                $obj = ParseObject::create('TestObject');
+                $obj->set('test', 'test');
+                $objs[] = $obj;
+            }
+            ParseObject::saveAll($objs);
+            $query = new ParseQuery('TestObject');
+            $result = $query->find();
+            $this->assertEquals(90, count($result));
         }
-        ParseObject::saveAll($objs);
-        $query = new ParseQuery('TestObject');
-        $result = $query->find();
-        $this->assertEquals(90, count($result));
     }
 
     /**

@@ -63,12 +63,20 @@ class Helper
         // ParseStreamHttpClient
         //
 
-        if (function_exists('curl_init')) {
-            // cURL client
-            ParseClient::setHttpClient(new ParseCurlHttpClient());
-        } else {
+        global $USE_CLIENT_STREAM;
+
+        if (isset($USE_CLIENT_STREAM)) {
             // stream client
             ParseClient::setHttpClient(new ParseStreamHttpClient());
+        } else {
+            // default client set
+            if (function_exists('curl_init')) {
+                // cURL client
+                ParseClient::setHttpClient(new ParseCurlHttpClient());
+            } else {
+                // stream client
+                ParseClient::setHttpClient(new ParseStreamHttpClient());
+            }
         }
     }
 
