@@ -111,11 +111,11 @@ final class ParseClient
     private static $caFile;
 
     /**
-     * Constant for version string to include with requests. Currently 1.2.9.
+     * Constant for version string to include with requests. Currently 1.2.10.
      *
      * @var string
      */
-    const VERSION_STRING = 'php1.2.9';
+    const VERSION_STRING = 'php1.2.10';
 
     /**
      * Parse\Client::initialize, must be called before using Parse features.
