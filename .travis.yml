@@ -38,8 +38,6 @@ script:
   - if [[ ${STREAM_CLIENT_ONLY} == 1 ]]; then npm run test-stream:coverage; fi
   - if [[ ! ${STREAM_CLIENT_ONLY} ]]; then npm run test:coverage; fi
   - npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi
-
-after_script:
   - npm stop # shutdown server & clean up PID file
 
 before_deploy:
