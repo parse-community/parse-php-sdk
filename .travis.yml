@@ -8,6 +8,7 @@ php:
   - '7.1'
 #  - hhvm # on Trusty only
 #  - nightly
+
 cache:
   directories:
     - node_modules
@@ -27,18 +28,21 @@ install:
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.4" ]]; then composer require jms/serializer; fi
   - composer install
   - npm install
+
 before_script:
-  - npm stop # clean up cached PID file from prior parse-server
   - npm start 1>&2
   - sleep 3
   - npm run lint
+
 script:
   - if [[ ${STREAM_CLIENT_ONLY} == 1 ]]; then npm run test-stream:coverage; fi
   - if [[ ! ${STREAM_CLIENT_ONLY} ]]; then npm run test:coverage; fi
   - npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi
+  - npm stop # shutdown server & clean up PID file
 
 before_deploy:
   - npm run document
+
 deploy:
   provider: pages
   skip_cleanup: true
@@ -47,6 +51,7 @@ deploy:
   on:
     branch: master
     php: '7.1'
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
