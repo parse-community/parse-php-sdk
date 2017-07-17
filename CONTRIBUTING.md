@@ -76,6 +76,10 @@ Make sure your code is linted with phpcs ([PSR-2 Coding Style]):
 You can automatically fix lint errors with phpcbf:
 
     npm run lint:fix
+    
+Finally verify that your new changes are acceptable to phpdoc:
+
+    npm run document-check
 
 The test suite is setup for code coverage if you have [XDebug] installed and setup.
 Coverage is outputted as text and as html in the phpunit-test-results/ directory within the project root.

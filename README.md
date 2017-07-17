@@ -324,7 +324,7 @@ if(ParsePush::hasStatus($response)) {
 Contributing / Testing
 ----------------------
 
-See the CONTRIBUTORS.md file for information on testing and contributing to
+See [CONTRIBUTING](CONTRIBUTING.md) for information on testing and contributing to
 the Parse PHP SDK. We welcome fixes and enhancements.
 
 [Get Composer]: https://getcomposer.org/download/
