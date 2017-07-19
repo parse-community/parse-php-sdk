@@ -97,7 +97,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
     {
         global $USE_CLIENT_STREAM;
 
-        if(!isset($USE_CLIENT_STREAM)) {
+        if (!isset($USE_CLIENT_STREAM)) {
             // curl exception expectation
             $this->setExpectedException('\Parse\ParseException', '', 6);
         } else {
@@ -107,7 +107,6 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
 
         $file = ParseFile::_createFromServer('file.txt', 'http://404.example.com');
         $file->getData();
-
     }
 
     /**
