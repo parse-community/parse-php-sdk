@@ -62,6 +62,9 @@ class ParseStream
         try {
             // get our response
             $response = file_get_contents($url, false, $this->stream);
+            $this->errorMessage = null;
+            $this->errorCode    = null;
+
         } catch (\Exception $e) {
             // set our error message/code and return false
             $this->errorMessage = $e->getMessage();

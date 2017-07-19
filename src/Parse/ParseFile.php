@@ -181,7 +181,7 @@ class ParseFile implements Encodable
     /**
      * Encode to associative array representation.
      *
-     * @return string
+     * @return array
      */
     public function _encode()
     {
