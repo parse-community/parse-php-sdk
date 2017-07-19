@@ -2,7 +2,6 @@
 
 namespace Parse\Test;
 
-use Parse\ParseException;
 use Parse\ParseFile;
 use Parse\ParseObject;
 use Parse\ParseQuery;
@@ -93,7 +92,16 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseFileDownloadBadURL()
     {
-        $this->setExpectedException('\Parse\ParseException', '', 6);
+        global $USE_CLIENT_STREAM;
+
+        if (!isset($USE_CLIENT_STREAM)) {
+            // curl exception expectation
+            $this->setExpectedException('\Parse\ParseException', '', 6);
+        } else {
+            // stream exception expectation
+            $this->setExpectedException('\Parse\ParseException', '', 2);
+        }
+
         $file = ParseFile::_createFromServer('file.txt', 'http://404.example.com');
         $file->getData();
     }

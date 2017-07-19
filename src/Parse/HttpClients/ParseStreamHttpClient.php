@@ -169,8 +169,7 @@ class ParseStreamHttpClient implements ParseHttpable
         $this->options['ssl'] = array(
             'verify_peer'       => true,
             'verify_peer_name'  => true,
-            'allow_self_signed' => true, // All root certificates are self-signed
-            'follow_location'   => 1
+            'allow_self_signed' => true // All root certificates are self-signed
         );
     }
 
@@ -233,11 +232,11 @@ class ParseStreamHttpClient implements ParseHttpable
         // get our response headers
         $rawHeaders = $this->parseStream->getResponseHeaders();
 
-        if ($response === false || !$rawHeaders) {
-            // set an error and code
-            $this->streamErrorMessage   = $this->parseStream->getErrorMessage();
-            $this->streamErrorCode      = $this->parseStream->getErrorCode();
-        } else {
+        // set any error and code
+        $this->streamErrorMessage   = $this->parseStream->getErrorMessage();
+        $this->streamErrorCode      = $this->parseStream->getErrorCode();
+
+        if ($response !== false && $rawHeaders) {
             // set our response headers
             $this->responseHeaders = self::formatHeaders($rawHeaders);
 

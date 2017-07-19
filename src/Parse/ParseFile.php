@@ -181,7 +181,7 @@ class ParseFile implements Encodable
     /**
      * Encode to associative array representation.
      *
-     * @return string
+     * @return array
      */
     public function _encode()
     {
@@ -242,21 +242,18 @@ class ParseFile implements Encodable
      */
     private function download()
     {
-        $rest = curl_init();
-        curl_setopt($rest, CURLOPT_URL, $this->url);
-        curl_setopt($rest, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($rest, CURLOPT_BINARYTRANSFER, 1);
-        $response = curl_exec($rest);
-        if (curl_errno($rest)) {
-            throw new ParseException(curl_error($rest), curl_errno($rest));
+        $httpClient = ParseClient::getHttpClient();
+        $httpClient->setup();
+        $response = $httpClient->send($this->url);
+        if ($httpClient->getErrorCode()) {
+            throw new ParseException($httpClient->getErrorMessage(), $httpClient->getErrorCode());
         }
-        $httpStatus = curl_getinfo($rest, CURLINFO_HTTP_CODE);
+        $httpStatus = $httpClient->getResponseStatusCode();
         if ($httpStatus > 399) {
             throw new ParseException('Download failed, file may have been deleted.', $httpStatus);
         }
-        $this->mimeType = curl_getinfo($rest, CURLINFO_CONTENT_TYPE);
+        $this->mimeType = $httpClient->getResponseContentType();
         $this->data = $response;
-        curl_close($rest);
 
         return $response;
     }
