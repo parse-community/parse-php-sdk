@@ -50,7 +50,7 @@ class ParsePolygon implements Encodable
         }
         $points = [];
         foreach ($coords as $coord) {
-            $geoPoint;
+            $geoPoint = null;
             if ($coord instanceof ParseGeoPoint) {
                 $geoPoint = $coord;
             } elseif (is_array($coord) && count($coord) === 2) {
