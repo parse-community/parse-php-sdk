@@ -209,8 +209,17 @@ class ParseStreamHttpClient implements ParseHttpable
             if ($method == "GET") {
                 // handle GET
                 $query = http_build_query($data, null, '&');
-                $this->options['http']['content'] = $query;
+
+                if (!defined('HHVM_VERSION')) {
+                    $this->options['http']['content'] = $query;
+                } else {
+                    // HHVM doesn't reapply 'content' to the url
+                    // have to do it ourselves
+                    $url.='?'.$query;
+                }
+
                 $this->addRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
             } elseif ($method == "POST") {
                 // handle POST
                 $this->options['http']['content'] = $data;
@@ -221,7 +230,24 @@ class ParseStreamHttpClient implements ParseHttpable
         }
 
         // set headers
-        $this->options['http']['header'] = $this->buildRequestHeaders();
+        if (!defined('HHVM_VERSION')) {
+            // default
+            $this->options['http']['header'] = $this->buildRequestHeaders();
+        } else {
+            /**
+             * HHVM bug bypass
+             *
+             * Passing via 'header' ends up duplicating all custom headers submitted due to a bug in HHVM.
+             * We can bypass this through the separate 'user_agent' field, as it is never sanitized,
+             * so we can append our desired headers after the initial user-agent string.
+             * Note that this works in php5 as well (probably 7 and up too),
+             * but for now we use this only where we need it.
+             *
+             * HHVM Code in Question:
+             * https://github.com/facebook/hhvm/blob/master/hphp/runtime/base/http-stream-wrapper.cpp#L92
+             */
+            $this->options['http']['user_agent'] = "parse-php-sdk\r\n".$this->buildRequestHeaders();
+        }
 
         // create a stream context
         $this->parseStream->createContext($this->options);
