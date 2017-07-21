@@ -219,7 +219,6 @@ class ParseStreamHttpClient implements ParseHttpable
                 }
 
                 $this->addRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
             } elseif ($method == "POST") {
                 // handle POST
                 $this->options['http']['content'] = $data;
