@@ -235,15 +235,12 @@ class ParseStreamHttpClient implements ParseHttpable
         } else {
             /**
              * HHVM bug bypass
-             *
              * Passing via 'header' ends up duplicating all custom headers submitted due to a bug in HHVM.
              * We can bypass this through the separate 'user_agent' field, as it is never sanitized,
              * so we can append our desired headers after the initial user-agent string.
              * Note that this works in php5 as well (probably 7 and up too),
              * but for now we use this only where we need it.
-             *
-             * HHVM Code in Question:
-             * https://github.com/facebook/hhvm/blob/master/hphp/runtime/base/http-stream-wrapper.cpp#L92
+             * Source: https://github.com/facebook/hhvm/blob/master/hphp/runtime/base/http-stream-wrapper.cpp#L92
              */
             $this->options['http']['user_agent'] = "parse-php-sdk\r\n".$this->buildRequestHeaders();
         }
