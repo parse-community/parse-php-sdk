@@ -14,6 +14,9 @@ use Parse\ParseException;
 
 class ParseStreamHttpClientTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @group test-get-response
+     */
     public function testGetResponse()
     {
         $client = new ParseStreamHttpClient();
@@ -25,7 +28,7 @@ class ParseStreamHttpClientTest extends \PHPUnit_Framework_TestCase
         // get response headers
         $headers = $client->getResponseHeaders();
 
-        $this->assertEquals('HTTP/1.0 200 OK', $headers['http_code']);
+        $this->assertTrue(preg_match('|HTTP/1\.\d\s200\sOK|', $headers['http_code']) === 1);
     }
 
     public function testInvalidUrl()
