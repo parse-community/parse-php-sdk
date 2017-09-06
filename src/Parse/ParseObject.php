@@ -973,9 +973,36 @@ class ParseObject implements Encodable
      */
     public function encode()
     {
-        // encode & add className
-        $encoded = $this->toArray();
-        $encoded['className'] = $this->className;
+        $encoded = [
+            'className'     => $this->className,
+            'serverData'    => [],
+            'estimatedData' => []
+        ];
+
+        // add special fields
+        if (isset($this->objectId)) {
+            $encoded['objectId']  = $this->objectId;
+        }
+        if (isset($this->createdAt)) {
+            $encoded['serverData']['createdAt'] = ParseClient::_encode(
+                $this->createdAt,
+                false
+            );
+        }
+        if (isset($this->updatedAt)) {
+            $encoded['serverData']['updatedAt'] = ParseClient::_encode(
+                $this->updatedAt,
+                false
+            );
+        }
+
+        // add normal fields
+        foreach ($this->serverData as $key => $value) {
+            $encoded['serverData'][$key] = ParseClient::_encode($value, true);
+        }
+        foreach ($this->estimatedData as $key => $value) {
+            $encoded['estimatedData'][$key] = ParseClient::_encode($value, true);
+        }
         return json_encode($encoded);
     }
 
@@ -987,31 +1014,10 @@ class ParseObject implements Encodable
      */
     public static function decode($encoded)
     {
-        echo "Starting\n".$encoded."\n";
-
-        if(!is_array($encoded)) {
+        if (!is_array($encoded)) {
             // decode this string
             $encoded = json_decode($encoded, true);
         }
-
-        echo "Obtained\n".json_encode($encoded)."\n";
-
-        // convert date times
-        /* TODO CLEANUP
-        foreach($encoded as $key => $value) {
-            if(
-                is_array($value) &&
-                isset($value['date']) &&
-                isset($value['timezone']) &&
-                isset($value['timezone_type'])
-            ) {
-                $encoded[$key] = $encoded[$key]['date'].$encoded[$key]['timezone'];
-            }
-        }
-        */
-
-        $encoded['createdAt'] = $encoded['createdAt']['date'].$encoded['createdAt']['timezone'];
-        $encoded['updatedAt'] = $encoded['updatedAt']['date'].$encoded['updatedAt']['timezone'];
 
         // pull out objectId, if set
         $objectId = isset($encoded['objectId']) ? $encoded['objectId'] : null;
@@ -1019,9 +1025,54 @@ class ParseObject implements Encodable
         // recreate this object
         $obj = ParseObject::create($encoded['className'], $objectId, !isset($objectId));
 
-        $obj->_mergeAfterFetch($encoded);
-        return $obj;
+        if (isset($encoded['serverData']['createdAt'])) {
+            $encoded['serverData']['createdAt'] = ParseClient::getProperDateFormat(
+                ParseClient::_decode($encoded['serverData']['createdAt'])
+            );
+        }
+        if (isset($encoded['serverData']['updatedAt'])) {
+            $encoded['serverData']['updatedAt'] = ParseClient::getProperDateFormat(
+                ParseClient::_decode($encoded['serverData']['updatedAt'])
+            );
+        }
 
+        // unset className
+        unset($encoded['className']);
+
+        // set server data
+        $obj->_mergeAfterFetch($encoded['serverData']);
+
+        // set estimated data
+        foreach ($encoded['estimatedData'] as $key => $value) {
+            $value = ParseClient::_decode($value);
+            if (!is_array($value)) {
+                // set normal value
+                $obj->set($key, $value);
+            } else {
+                if (isset($value['__type']) &&
+                    $value['__type'] === 'Relation'
+                ) {
+                    if (!$obj->has($key)) {
+                        // set relation that is not already present
+                        $obj->set($key, new ParseRelation($obj, $key, $value['className']));
+                    }
+                } elseif ($key == 'ACL') {
+                    // set ACL
+                    $obj->setACL(ParseACL::_createACLFromJSON($value));
+                } else {
+                    // set array
+                    if (count(array_filter(array_keys($value), 'is_string')) > 0) {
+                        // associative (string keys)
+                        $obj->setAssociativeArray($key, $value);
+                    } else {
+                        // sequential
+                        $obj->setArray($key, $value);
+                    }
+                }
+            }
+        }
+
+        return $obj;
     }
 
     /**
