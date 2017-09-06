@@ -1531,7 +1531,6 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
         $child      = new ParseObject('TestClass');
         $child->save();
-        $child->fetch();
 
         $file = ParseFile::createFromData('a file', 'test.txt', 'text/plain');
         $file->save();
@@ -1584,6 +1583,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($assocVal, $decoded->get('assoc_array'), 'Associative arrays did not match');
         $pointee = $decoded->get('pointer');
         $pointee->fetch();
+        $child->fetch();
         $this->assertEquals($child->_encode(), $pointee->_encode(), 'Pointers did not match');
         $this->assertEquals($file->getData(), $decoded->get('file')->getData(), 'Files did not match');
         $this->assertEquals($polygon, $decoded->get('polygon'), 'Polygons did not match');
