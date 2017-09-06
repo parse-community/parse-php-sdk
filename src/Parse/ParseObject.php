@@ -917,11 +917,11 @@ class ParseObject implements Encodable
     }
 
     /**
-     * Return a JSON encoded value of the object.
+     * Returns this object as an array representation
      *
-     * @return string
+     * @return array
      */
-    public function _encode()
+    private function toArray()
     {
         $out = [];
         if ($this->objectId) {
@@ -952,8 +952,76 @@ class ParseObject implements Encodable
                 $out[$key] = $value;
             }
         }
+        return $out;
+    }
 
-        return json_encode($out);
+    /**
+     * Return a JSON encoded value of the object.
+     *
+     * @return string
+     */
+    public function _encode()
+    {
+        return json_encode($this->toArray());
+    }
+
+    /**
+     * Returns a JSON encoded value of a ParseObject,
+     * defers to encodeObject internally
+     *
+     * @return string
+     */
+    public function encode()
+    {
+        // encode & add className
+        $encoded = $this->toArray();
+        $encoded['className'] = $this->className;
+        return json_encode($encoded);
+    }
+
+    /**
+     * Decodes and returns an encoded ParseObject
+     *
+     * @param string|array $encoded Encoded ParseObject to decode
+     * @return ParseObject
+     */
+    public static function decode($encoded)
+    {
+        echo "Starting\n".$encoded."\n";
+
+        if(!is_array($encoded)) {
+            // decode this string
+            $encoded = json_decode($encoded, true);
+        }
+
+        echo "Obtained\n".json_encode($encoded)."\n";
+
+        // convert date times
+        /* TODO CLEANUP
+        foreach($encoded as $key => $value) {
+            if(
+                is_array($value) &&
+                isset($value['date']) &&
+                isset($value['timezone']) &&
+                isset($value['timezone_type'])
+            ) {
+                $encoded[$key] = $encoded[$key]['date'].$encoded[$key]['timezone'];
+            }
+        }
+        */
+
+        $encoded['createdAt'] = $encoded['createdAt']['date'].$encoded['createdAt']['timezone'];
+        $encoded['updatedAt'] = $encoded['updatedAt']['date'].$encoded['updatedAt']['timezone'];
+
+        // pull out objectId, if set
+        $objectId = isset($encoded['objectId']) ? $encoded['objectId'] : null;
+
+        // recreate this object
+        $obj = ParseObject::create($encoded['className'], $objectId, !isset($objectId));
+
+        $obj->_mergeAfterFetch($encoded);
+        return $obj;
+
     }
 
     /**

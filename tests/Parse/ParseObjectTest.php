@@ -7,8 +7,11 @@ use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\Internal\SetOperation;
 use Parse\ParseACL;
 use Parse\ParseClient;
+use Parse\ParseFile;
+use Parse\ParseGeoPoint;
 use Parse\ParseInstallation;
 use Parse\ParseObject;
+use Parse\ParsePolygon;
 use Parse\ParsePushStatus;
 use Parse\ParseQuery;
 use Parse\ParseRole;
@@ -1474,6 +1477,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncodeEncodable()
     {
+
         $obj = new ParseObject('TestClass');
         // set an Encodable value
         $encodable1 = new SetOperation(['key'=>'value']);
@@ -1487,5 +1491,63 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($encoded['key1'], $encodable1->_encode());
         $this->assertEquals($encoded['key2'][0], $encodable2->_encode());
+    }
+
+    /**
+     * @group decode-test
+     */
+    public function testDecode()
+    {
+        $obj = new ParseObject('TestClass');
+
+        $obj->set('foo', 'this-is-foo');
+        $obj->set('number', 32.23);
+        $obj->set('date', new \DateTime());
+        $obj->set('bool', false);
+
+        // will be converted to an array
+        $stdObj = new \stdClass();
+        $stdObj->bacon = 2;
+        $obj->set('object', $stdObj);
+
+        $obj->setArray('array', ['bar1','bar2']);
+        $obj->setAssociativeArray('assoc_array', [
+           'foo1'   => 'bar1'
+        ]);
+
+        // add pointer
+        $child = new ParseObject('TestClass');
+        $child->save();
+        $obj->set('pointer', $child);
+
+        // add relation
+        $relation = $obj->getRelation('relation', 'TestClass');
+        $relation->add([
+            $child
+        ]);
+
+        // add File
+        $file = ParseFile::createFromData('a file', 'test.txt', 'text/plain');
+        $file->save();
+        $obj->set('file', $file);
+
+        // add Polygon
+        $polygon = new ParsePolygon([[0,0],[0,1],[1,1]]);
+        $obj->set('polygon', $polygon);
+
+        // add GeoPoint
+        $geoPoint = new ParseGeoPoint(1, 0);
+        $obj->set('geopoint', $geoPoint);
+
+        $obj->save();
+
+        $encoded = $obj->encode();
+
+        $decoded = ParseObject::decode($encoded);
+
+        $this->assertEquals($encoded, $decoded->encode());
+
+        $decoded->destroy();
+
     }
 }
