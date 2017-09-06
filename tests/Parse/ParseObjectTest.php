@@ -1494,60 +1494,124 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Runs tests on encoding/decoding an unsaved ParseObject
      * @group decode-test
      */
-    public function testDecode()
+    public function testDecodeOnObject()
     {
         $obj = new ParseObject('TestClass');
-
-        $obj->set('foo', 'this-is-foo');
-        $obj->set('number', 32.23);
-        $obj->set('date', new \DateTime());
-        $obj->set('bool', false);
-
-        // will be converted to an array
-        $stdObj = new \stdClass();
-        $stdObj->bacon = 2;
-        $obj->set('object', $stdObj);
-
-        $obj->setArray('array', ['bar1','bar2']);
-        $obj->setAssociativeArray('assoc_array', [
-           'foo1'   => 'bar1'
-        ]);
-
-        // add pointer
-        $child = new ParseObject('TestClass');
-        $child->save();
-        $obj->set('pointer', $child);
-
-        // add relation
-        $relation = $obj->getRelation('relation', 'TestClass');
-        $relation->add([
-            $child
-        ]);
-
-        // add File
-        $file = ParseFile::createFromData('a file', 'test.txt', 'text/plain');
-        $file->save();
-        $obj->set('file', $file);
-
-        // add Polygon
-        $polygon = new ParsePolygon([[0,0],[0,1],[1,1]]);
-        $obj->set('polygon', $polygon);
-
-        // add GeoPoint
-        $geoPoint = new ParseGeoPoint(1, 0);
-        $obj->set('geopoint', $geoPoint);
-
-        $obj->save();
+        $obj->set('value', 'parse-php-sdk!');
 
         $encoded = $obj->encode();
 
         $decoded = ParseObject::decode($encoded);
 
-        $this->assertEquals($encoded, $decoded->encode());
+        $this->assertEquals($obj, $decoded, 'Objects did not match');
+    }
 
+    /**
+     * Runs tests on encoding/decoding a ParseObject that has been saved
+     * @group decode-test
+     */
+    public function testDecodeOnSavedObject()
+    {
+        $obj = new ParseObject('TestClass');
+
+        // setup IVs
+        $stringVal  = 'this-is-foo';
+        $numberVal  = 32.23;
+        $dateVal    = new \DateTime();
+        $boolVal    = false;
+        $stdObj     = new \stdClass();
+        $stdObj->bacon = 2;
+        $arrayVal   = ['bar1','bar2'];
+        $assocVal   = ['foo1' => 'bar1'];
+        $polygon    = new ParsePolygon([[0,0],[0,1],[1,1]]);
+        $geoPoint   = new ParseGeoPoint(1, 0);
+
+        $child      = new ParseObject('TestClass');
+        $child->save();
+        $child->fetch();
+
+        $file = ParseFile::createFromData('a file', 'test.txt', 'text/plain');
+        $file->save();
+
+        $acl = new ParseACL();
+        $acl->setPublicReadAccess(true);
+        $acl->setPublicWriteAccess(true);
+        $obj->setACL($acl);
+
+        // set IVs
+        $obj->set('foo', $stringVal);
+        $obj->set('number', $numberVal);
+        $obj->set('date', $dateVal);
+        $obj->set('bool', $boolVal);
+        // will be converted to an associative array internally
+        $obj->set('object', $stdObj);
+        $obj->setArray('array', $arrayVal);
+        $obj->setAssociativeArray('assoc_array', $assocVal);
+        $obj->set('pointer', $child);
+        $obj->set('file', $file);
+        $obj->set('polygon', $polygon);
+        $obj->set('geopoint', $geoPoint);
+        $relation = $obj->getRelation('relation', 'TestClass');
+        $relation->add([$child]);
+
+        $obj->save();
+
+        // add one unsaved modification to test
+        $obj->set('unsaved', 'not a saved value');
+
+        $encoded = $obj->encode();
+
+        $decoded = ParseObject::decode($encoded);
+
+        $this->assertNotNull($decoded->getCreatedAt(), 'Created at was not set');
+        $this->assertNotNull($decoded->getUpdatedAt(), 'Updated at was not set');
+
+        $this->assertEquals($encoded, $decoded->encode(), 'Encoded strings did not match');
+
+        // verify IVs
+        $this->assertEquals($obj->getObjectId(), $decoded->getObjectId(), 'Object ids did not match');
+        $this->assertEquals($obj->getCreatedAt(), $decoded->getCreatedAt(), 'Created at did not match');
+        $this->assertEquals($obj->getUpdatedAt(), $decoded->getUpdatedAt(), 'Updated at did not match');
+        $this->assertEquals($stringVal, $decoded->get('foo'), 'Strings did not match');
+        $this->assertEquals($numberVal, $decoded->get('number'), 'Numbers did not match');
+        $this->assertEquals($dateVal, $decoded->get('date'), 'Dates did not match');
+        $this->assertEquals($boolVal, $decoded->get('bool'), 'Booleans did not match');
+        $this->assertEquals(json_decode(json_encode($stdObj), true), $decoded->get('object'), 'Objects did not match');
+        $this->assertEquals($arrayVal, $decoded->get('array'), 'Arrays did not match');
+        $this->assertEquals($assocVal, $decoded->get('assoc_array'), 'Associative arrays did not match');
+        $pointee = $decoded->get('pointer');
+        $pointee->fetch();
+        $this->assertEquals($child->_encode(), $pointee->_encode(), 'Pointers did not match');
+        $this->assertEquals($file->getData(), $decoded->get('file')->getData(), 'Files did not match');
+        $this->assertEquals($polygon, $decoded->get('polygon'), 'Polygons did not match');
+        $this->assertEquals($geoPoint, $decoded->get('geopoint'), 'Geopoints did not match');
+
+        // verify unsaved key/value is present as well
+        $this->assertEquals('not a saved value', $decoded->get('unsaved'));
+
+        // verify relation
+        $relation = $decoded->getRelation('relation', 'TestClass');
+        $query = $relation->getQuery();
+        $found = $query->first();
+        $this->assertNotNull($found);
+        $this->assertEquals($child->getObjectId(), $found->getObjectId());
+
+        // attempt to add another object to this relation
+        $child2 = new ParseObject('TestClass');
+        $child2->save();
+        $relation->add([$child2]);
+        $decoded->save();
+        $this->assertEquals(2, $query->count());
+
+        // attempt to remove objects from this relation
+        $relation->remove([$child, $child2]);
+        $decoded->save();
+        $this->assertEquals(0, $query->count());
+
+        // cleanup
         $decoded->destroy();
-
     }
 }
