@@ -126,15 +126,16 @@ class ParseRelation implements Encodable
         return $query;
     }
 
+    /**
+     * Return an encoded array of this relation.
+     *
+     * @return array
+     */
     public function _encode()
     {
         return [
             '__type'    => 'Relation',
-            'parent'    => $this->parent,
-            'key'       => $this->key,
             'className' => $this->targetClassName
         ];
     }
-
-
 }
