@@ -917,11 +917,11 @@ class ParseObject implements Encodable
     }
 
     /**
-     * Returns this object as an array representation
+     * Return a JSON encoded value of the object.
      *
-     * @return array
+     * @return string
      */
-    private function toArray()
+    public function _encode()
     {
         $out = [];
         if ($this->objectId) {
@@ -952,17 +952,7 @@ class ParseObject implements Encodable
                 $out[$key] = $value;
             }
         }
-        return $out;
-    }
-
-    /**
-     * Return a JSON encoded value of the object.
-     *
-     * @return string
-     */
-    public function _encode()
-    {
-        return json_encode($this->toArray());
+        return json_encode($out);
     }
 
     /**
