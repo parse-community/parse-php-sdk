@@ -685,13 +685,10 @@ class ParseObject implements Encodable
     /**
      * Merge data from other object.
      *
-     * @param ParseObject $other
+     * @param ParseObject $other Other object to merge data from
      */
     private function mergeFromObject($other)
     {
-        if (!$other) {
-            return;
-        }
         $this->objectId = $other->getObjectId();
         $this->createdAt = $other->getCreatedAt();
         $this->updatedAt = $other->getUpdatedAt();

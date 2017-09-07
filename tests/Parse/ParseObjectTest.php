@@ -14,6 +14,7 @@ use Parse\ParseObject;
 use Parse\ParsePolygon;
 use Parse\ParsePushStatus;
 use Parse\ParseQuery;
+use Parse\ParseRelation;
 use Parse\ParseRole;
 use Parse\ParseSession;
 use Parse\ParseUser;
@@ -1383,6 +1384,9 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $obj->destroy();
     }
 
+    /**
+     * @group merge-from-server
+     */
     public function testMergeFromServer()
     {
         $obj = new ParseObject('TestClass');
@@ -1501,6 +1505,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
     {
         $obj = new ParseObject('TestClass');
         $obj->set('value', 'parse-php-sdk!');
+        $obj->set('relation', new ParseRelation($obj, 'relation', 'TestClass'));
 
         $encoded = $obj->encode();
 

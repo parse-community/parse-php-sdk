@@ -123,7 +123,7 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\Exception',
-            'Related object object must be of class '
+            'Related object must be of class '
             .'Class1, but AnotherClass'
             .' was passed in.'
         );
@@ -163,5 +163,15 @@ class ParseRelationOperationTest extends \PHPUnit_Framework_TestCase
         ParseRelationOperation::removeElementsFromArray('removeThis', $array);
 
         $this->assertEmpty($array);
+    }
+
+    /**
+     * @group relation-remove-missing-object-id
+     */
+    public function testRemoveMissingObjectId()
+    {
+        $obj = new ParseObject('Class1');
+        $op = new ParseRelationOperation(null, $obj);
+        $op->_mergeWithPrevious(new ParseRelationOperation(null, $obj));
     }
 }
