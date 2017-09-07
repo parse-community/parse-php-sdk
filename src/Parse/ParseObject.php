@@ -673,9 +673,6 @@ class ParseObject implements Encodable
                         $decodedValue = new ParseRelation($this, $key, $className);
                     }
                 }
-                if ($key == 'ACL') {
-                    $decodedValue = ParseACL::_createACLFromJSON($decodedValue);
-                }
             }
             $this->serverData[$key] = $decodedValue;
             $this->dataAvailability[$key] = true;
