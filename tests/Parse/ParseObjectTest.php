@@ -1509,7 +1509,12 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         // setup IVs
         $stringVal  = 'this-is-foo';
         $numberVal  = 32.23;
+
+        // use a 'clean' date value
         $dateVal    = new \DateTime();
+        $dateVal    = ParseClient::_encode($dateVal, false);
+        $dateVal    = ParseClient::_decode($dateVal);
+
         $boolVal    = false;
         $arrayVal   = ['bar1','bar2'];
         $assocVal   = ['foo1' => 'bar1'];
@@ -1582,7 +1587,6 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         // setup IVs
         $stringVal  = 'this-is-foo';
         $numberVal  = 32.23;
-        $dateVal    = new \DateTime();
         $boolVal    = false;
         $arrayVal   = ['bar1','bar2'];
         $assocVal   = ['foo1' => 'bar1'];
@@ -1626,7 +1630,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($stringVal, $decoded->get('foo'), 'Strings did not match');
         $this->assertEquals($numberVal, $decoded->get('number'), 'Numbers did not match');
         $this->assertEquals(
-            ParseClient::getProperDateFormat($dateVal),
+            ParseClient::getProperDateFormat($obj->get('date')),
             ParseClient::getProperDateFormat($decoded->get('date')),
             'Dates did not match'
         );
