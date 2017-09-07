@@ -117,9 +117,6 @@ class ParseRelationOperation implements FieldOperation
      */
     private function removeObjects($objects, &$container)
     {
-        if (!is_array($objects)) {
-            $objects = [$objects];
-        }
         $nullObjects = [];
         foreach ($objects as $object) {
             if ($object->getObjectId() == null) {
@@ -186,7 +183,7 @@ class ParseRelationOperation implements FieldOperation
                 && $previous->targetClassName != $this->targetClassName
             ) {
                 throw new Exception(
-                    'Related object object must be of class '
+                    'Related object must be of class '
                     .$this->targetClassName.', but '.$previous->targetClassName
                     .' was passed in.',
                     103
