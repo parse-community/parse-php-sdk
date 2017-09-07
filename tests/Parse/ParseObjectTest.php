@@ -1736,6 +1736,5 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
             '__op'  => 'Unrecognized'
         ];
         ParseObject::decode($encoded);
-
     }
 }

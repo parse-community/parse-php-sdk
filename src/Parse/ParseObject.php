@@ -1082,29 +1082,24 @@ class ParseObject implements Encodable
                     } else {
                         throw new ParseException("Unrecognized op '{$op}' found during decode.");
                     }
-
                 } else {
                     if (isset($value['__type'])) {
                         // encoded object
                         $obj->_performOperation($key, new SetOperation(ParseClient::_decode($value)));
-
                     } elseif ($key === 'ACL') {
                         // encoded ACL
                         $obj->_performOperation($key, new SetOperation(ParseACL::_createACLFromJSON($value)));
-
                     } else {
                         // array
                         if (count(array_filter(array_keys($value), 'is_string')) > 0) {
                             // associative
                             $obj->_performOperation($key, new SetOperation($value, true));
-
                         } else {
                             // sequential
                             $obj->_performOperation($key, new SetOperation($value));
                         }
                     }
                 }
-
             } else {
                 // set op (not an associative array)
                 $obj->_performOperation($key, new SetOperation($value));
