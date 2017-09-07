@@ -1576,7 +1576,11 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($obj->getUpdatedAt(), $decoded->getUpdatedAt(), 'Updated at did not match');
         $this->assertEquals($stringVal, $decoded->get('foo'), 'Strings did not match');
         $this->assertEquals($numberVal, $decoded->get('number'), 'Numbers did not match');
-        $this->assertEquals($dateVal, $decoded->get('date'), 'Dates did not match');
+        $this->assertEquals(
+            ParseClient::getProperDateFormat($dateVal),
+            ParseClient::getProperDateFormat($decoded->get('date')),
+            'Dates did not match'
+        );
         $this->assertEquals($boolVal, $decoded->get('bool'), 'Booleans did not match');
         $this->assertEquals(json_decode(json_encode($stdObj), true), $decoded->get('object'), 'Objects did not match');
         $this->assertEquals($arrayVal, $decoded->get('array'), 'Arrays did not match');
