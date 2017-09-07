@@ -1572,6 +1572,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         // check files separately
         $this->assertEquals($origFile->_encode(), $decodedFile->_encode(), 'Files did not match');
 
+        // check that we can still revert these changes
         $this->assertTrue($obj->has('foo'));
         $obj->revert();
         $this->assertFalse($obj->has('foo'));
