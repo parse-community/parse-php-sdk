@@ -1498,27 +1498,11 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Runs tests on encoding/decoding an unsaved ParseObject
-     * @group decode-test
+     * Returns an object with one of every type set
+     *
+     * @return ParseObject
      */
-    public function testDecodeOnObject()
-    {
-        $obj = new ParseObject('TestClass');
-        $obj->set('value', 'parse-php-sdk!');
-        $obj->set('relation', new ParseRelation($obj, 'relation', 'TestClass'));
-
-        $encoded = $obj->encode();
-
-        $decoded = ParseObject::decode($encoded);
-
-        $this->assertEquals($obj, $decoded, 'Objects did not match');
-    }
-
-    /**
-     * Runs tests on encoding/decoding a ParseObject that has been saved
-     * @group decode-test
-     */
-    public function testDecodeOnSavedObject()
+    private function getTestObject()
     {
         $obj = new ParseObject('TestClass');
 
@@ -1527,8 +1511,6 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $numberVal  = 32.23;
         $dateVal    = new \DateTime();
         $boolVal    = false;
-        $stdObj     = new \stdClass();
-        $stdObj->bacon = 2;
         $arrayVal   = ['bar1','bar2'];
         $assocVal   = ['foo1' => 'bar1'];
         $polygon    = new ParsePolygon([[0,0],[0,1],[1,1]]);
@@ -1536,6 +1518,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
 
         $child      = new ParseObject('TestClass');
         $child->save();
+        $child      = ParseObject::create('TestClass', $child->getObjectId());
 
         $file = ParseFile::createFromData('a file', 'test.txt', 'text/plain');
         $file->save();
@@ -1550,8 +1533,6 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $obj->set('number', $numberVal);
         $obj->set('date', $dateVal);
         $obj->set('bool', $boolVal);
-        // will be converted to an associative array internally
-        $obj->set('object', $stdObj);
         $obj->setArray('array', $arrayVal);
         $obj->setAssociativeArray('assoc_array', $assocVal);
         $obj->set('pointer', $child);
@@ -1561,9 +1542,71 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $relation = $obj->getRelation('relation', 'TestClass');
         $relation->add([$child]);
 
+        return $obj;
+    }
+
+    /**
+     * Runs tests on encoding/decoding an unsaved ParseObject
+     * @group decode-test
+     */
+    public function testDecodeOnObject()
+    {
+        $obj = $this->getTestObject();
+
+        $encoded = $obj->encode();
+        $decoded = ParseObject::decode($encoded);
+
+        // pull out file to compare separately
+        $decodedFile = $decoded->get('file');
+        $origFile    = $obj->get('file');
+        $decoded->delete('file');
+        $obj->delete('file');
+
+        $this->assertEquals($obj, $decoded, 'Objects did not match');
+
+        // check files separately
+        $this->assertEquals($origFile->_encode(), $decodedFile->_encode(), 'Files did not match');
+
+        $this->assertTrue($obj->has('foo'));
+        $obj->revert();
+        $this->assertFalse($obj->has('foo'));
+    }
+
+    /**
+     * Runs tests on encoding/decoding a ParseObject that has been saved
+     *
+     * @group decode-test
+     */
+    public function testDecodeOnSavedObject()
+    {
+        // setup IVs
+        $stringVal  = 'this-is-foo';
+        $numberVal  = 32.23;
+        $dateVal    = new \DateTime();
+        $boolVal    = false;
+        $arrayVal   = ['bar1','bar2'];
+        $assocVal   = ['foo1' => 'bar1'];
+        $polygon    = new ParsePolygon([[0,0],[0,1],[1,1]]);
+        $geoPoint   = new ParseGeoPoint(1, 0);
+
+        $child      = new ParseObject('TestClass');
+        $child->save();
+        $child      = ParseObject::create('TestClass', $child->getObjectId());
+
+        $obj = $this->getTestObject();
+
+        // change to a pointer we can check against
+        $obj->set('pointer', $child);
+        $relation = $obj->getRelation('relation', 'TestClass');
+        $relation->remove([$child]);
+
+        // not testing file comparisons, as the the content type differs slightly
+        // this is tested above in 'testDecodeOnObject'
+        $obj->delete('file');
+
         $obj->save();
 
-        // add one unsaved modification to test
+        // add an unsaved modifications
         $obj->set('unsaved', 'not a saved value');
 
         $encoded = $obj->encode();
@@ -1573,7 +1616,8 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($decoded->getCreatedAt(), 'Created at was not set');
         $this->assertNotNull($decoded->getUpdatedAt(), 'Updated at was not set');
 
-        $this->assertEquals($encoded, $decoded->encode(), 'Encoded strings did not match');
+        //$this->assertEquals($encoded, $decoded->encode(), 'Encoded strings did not match');
+        $this->assertEquals($obj, $decoded, 'Decoded object did not match original');
 
         // verify IVs
         $this->assertEquals($obj->getObjectId(), $decoded->getObjectId(), 'Object ids did not match');
@@ -1587,14 +1631,12 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
             'Dates did not match'
         );
         $this->assertEquals($boolVal, $decoded->get('bool'), 'Booleans did not match');
-        $this->assertEquals(json_decode(json_encode($stdObj), true), $decoded->get('object'), 'Objects did not match');
         $this->assertEquals($arrayVal, $decoded->get('array'), 'Arrays did not match');
         $this->assertEquals($assocVal, $decoded->get('assoc_array'), 'Associative arrays did not match');
         $pointee = $decoded->get('pointer');
         $pointee->fetch();
         $child->fetch();
         $this->assertEquals($child->_encode(), $pointee->_encode(), 'Pointers did not match');
-        $this->assertEquals($file->getData(), $decoded->get('file')->getData(), 'Files did not match');
         $this->assertEquals($polygon, $decoded->get('polygon'), 'Polygons did not match');
         $this->assertEquals($geoPoint, $decoded->get('geopoint'), 'Geopoints did not match');
 
@@ -1604,9 +1646,8 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         // verify relation
         $relation = $decoded->getRelation('relation', 'TestClass');
         $query = $relation->getQuery();
-        $found = $query->first();
-        $this->assertNotNull($found);
-        $this->assertEquals($child->getObjectId(), $found->getObjectId());
+        $found = $query->find();
+        $this->assertEquals(1, count($found));
 
         // attempt to add another object to this relation
         $child2 = new ParseObject('TestClass');
@@ -1616,11 +1657,85 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $query->count());
 
         // attempt to remove objects from this relation
-        $relation->remove([$child, $child2]);
+        $relation->remove([$found[0], $child2]);
         $decoded->save();
         $this->assertEquals(0, $query->count());
 
         // cleanup
-        $decoded->destroy();
+        ParseObject::destroyAll([$decoded,$child]);
+    }
+
+    /**
+     * Tests decoding with various ops
+     *
+     * @group decode-test
+     */
+    public function testDecodeWithOps()
+    {
+        $obj = new ParseObject('TestClass');
+        $obj->set('number', 5);
+        $obj->setArray('array', ['apples']);
+        $obj->setArray('uniquearray', ['apples']);
+        $obj->setArray('removearray', ['apples']);
+        $obj->save();
+
+        // add op
+        $obj->add('array', ['bananas']);
+
+        // unique op
+        $obj->addUnique('uniquearray', ['unique-value']);
+
+        // remove op
+        $obj->remove('removearray', 'apples');
+
+        // delete op
+        $obj->delete('foo');
+
+        // increment op
+        $obj->increment('number', 5);
+
+        // remove relation op
+        $child = new ParseObject('TestClass');
+        $child->save();
+        $child = ParseObject::create('TestClass', $child->getObjectId());
+
+        $child2 = new ParseObject('TestClass');
+        $child2->save();
+        $child2 = ParseObject::create('TestClass', $child2->getObjectId());
+
+        $relation = $obj->getRelation('relation3', 'TestClass');
+        $relation->add([$child]);
+        $relation->remove([$child2]);
+
+        $relation = $obj->getRelation('relation4', 'TestClass');
+        $relation->remove([$child]);
+
+        $encoded = $obj->encode();
+
+        $decoded = ParseObject::decode($encoded);
+
+        $this->assertEquals($obj, $decoded, 'Decoded object did not match');
+    }
+
+    /**
+     * Tests decoding with an unrecognized op
+     *
+     * @group decode-unrecognized-test
+     */
+    public function testUnrecognizedOp()
+    {
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            "Unrecognized op 'Unrecognized' found during decode."
+        );
+
+        $obj = new ParseObject('TestClass');
+        $encoded = $obj->encode();
+        $encoded = json_decode($encoded, true);
+        $encoded['operationSet'][] = [
+            '__op'  => 'Unrecognized'
+        ];
+        ParseObject::decode($encoded);
+
     }
 }
