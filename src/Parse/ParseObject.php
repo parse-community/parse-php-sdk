@@ -952,8 +952,7 @@ class ParseObject implements Encodable
     }
 
     /**
-     * Returns a JSON encoded value of a ParseObject,
-     * defers to encodeObject internally
+     * Returns a JSON encoded array of a ParseObject
      *
      * @return string
      */
@@ -996,7 +995,7 @@ class ParseObject implements Encodable
     }
 
     /**
-     * Decodes and returns an encoded ParseObject
+     * Decodes and returns a ParseObject from an encoded object
      *
      * @param string|array $encoded Encoded ParseObject to decode
      * @return ParseObject
