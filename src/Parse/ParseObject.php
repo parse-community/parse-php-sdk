@@ -12,6 +12,7 @@ use Parse\Internal\DeleteOperation;
 use Parse\Internal\Encodable;
 use Parse\Internal\FieldOperation;
 use Parse\Internal\IncrementOperation;
+use Parse\Internal\ParseRelationOperation;
 use Parse\Internal\RemoveOperation;
 use Parse\Internal\SetOperation;
 
@@ -673,9 +674,6 @@ class ParseObject implements Encodable
                         $decodedValue = new ParseRelation($this, $key, $className);
                     }
                 }
-                if ($key == 'ACL') {
-                    $decodedValue = ParseACL::_createACLFromJSON($decodedValue);
-                }
             }
             $this->serverData[$key] = $decodedValue;
             $this->dataAvailability[$key] = true;
@@ -688,13 +686,10 @@ class ParseObject implements Encodable
     /**
      * Merge data from other object.
      *
-     * @param ParseObject $other
+     * @param ParseObject $other Other object to merge data from
      */
     private function mergeFromObject($other)
     {
-        if (!$other) {
-            return;
-        }
         $this->objectId = $other->getObjectId();
         $this->createdAt = $other->getCreatedAt();
         $this->updatedAt = $other->getUpdatedAt();
@@ -726,6 +721,7 @@ class ParseObject implements Encodable
         if (isset($data['ACL'])) {
             $acl = ParseACL::_createACLFromJSON($data['ACL']);
             $this->serverData['ACL'] = $acl;
+            $this->dataAvailability['ACL'] = true;
             unset($data['ACL']);
         }
     }
@@ -952,8 +948,165 @@ class ParseObject implements Encodable
                 $out[$key] = $value;
             }
         }
-
         return json_encode($out);
+    }
+
+    /**
+     * Returns a JSON encoded value of a ParseObject,
+     * defers to encodeObject internally
+     *
+     * @return string
+     */
+    public function encode()
+    {
+        $encoded = [
+            'className'     => $this->className,
+            'serverData'    => [],
+            'operationSet'  => []
+        ];
+
+        // add special fields
+        if (isset($this->objectId)) {
+            $encoded['objectId']  = $this->objectId;
+        }
+        if (isset($this->createdAt)) {
+            $encoded['serverData']['createdAt'] = ParseClient::_encode(
+                $this->createdAt,
+                false
+            );
+        }
+        if (isset($this->updatedAt)) {
+            $encoded['serverData']['updatedAt'] = ParseClient::_encode(
+                $this->updatedAt,
+                false
+            );
+        }
+
+        // add server data
+        foreach ($this->serverData as $key => $value) {
+            $encoded['serverData'][$key] = ParseClient::_encode($value, true);
+        }
+
+        // add pending ops
+        foreach ($this->operationSet as $key => $op) {
+            $encoded['operationSet'][$key] = $op->_encode();
+        }
+
+        return json_encode($encoded);
+    }
+
+    /**
+     * Decodes and returns an encoded ParseObject
+     *
+     * @param string|array $encoded Encoded ParseObject to decode
+     * @return ParseObject
+     * @throws ParseException
+     */
+    public static function decode($encoded)
+    {
+        if (!is_array($encoded)) {
+            // decode this string
+            $encoded = json_decode($encoded, true);
+        }
+
+        // pull out objectId, if set
+        $objectId = isset($encoded['objectId']) ? $encoded['objectId'] : null;
+
+        // recreate this object
+        $obj = ParseObject::create($encoded['className'], $objectId, !isset($objectId));
+
+        if (isset($encoded['serverData']['createdAt'])) {
+            $encoded['serverData']['createdAt'] = ParseClient::getProperDateFormat(
+                ParseClient::_decode($encoded['serverData']['createdAt'])
+            );
+        }
+        if (isset($encoded['serverData']['updatedAt'])) {
+            $encoded['serverData']['updatedAt'] = ParseClient::getProperDateFormat(
+                ParseClient::_decode($encoded['serverData']['updatedAt'])
+            );
+        }
+
+        // unset className
+        unset($encoded['className']);
+
+        // set server data
+        $obj->_mergeAfterFetch($encoded['serverData']);
+
+        // reinstate op set
+        foreach ($encoded['operationSet'] as $key => $value) {
+            if (is_array($value)) {
+                if (isset($value['__op'])) {
+                    $op = $value['__op'];
+
+                    if ($op === 'Add') {
+                        $obj->_performOperation(
+                            $key,
+                            new AddOperation(ParseClient::_decode($value['objects']))
+                        );
+                    } elseif ($op === 'AddUnique') {
+                        $obj->_performOperation(
+                            $key,
+                            new AddUniqueOperation(ParseClient::_decode($value['objects']))
+                        );
+                    } elseif ($op === 'Delete') {
+                        $obj->_performOperation($key, new DeleteOperation());
+                    } elseif ($op === 'Increment') {
+                        $obj->_performOperation(
+                            $key,
+                            new IncrementOperation($value['amount'])
+                        );
+                    } elseif ($op === 'AddRelation') {
+                        $obj->_performOperation(
+                            $key,
+                            new ParseRelationOperation(ParseClient::_decode($value['objects']), null)
+                        );
+                    } elseif ($op === 'RemoveRelation') {
+                        $obj->_performOperation(
+                            $key,
+                            new ParseRelationOperation(null, ParseClient::_decode($value['objects']))
+                        );
+                    } elseif ($op === 'Batch') {
+                        $ops = $value['ops'];
+                        $obj->_performOperation(
+                            $key,
+                            new ParseRelationOperation(
+                                ParseClient::_decode($ops[0]['objects']),
+                                ParseClient::_decode($ops[1]['objects'])
+                            )
+                        );
+                    } elseif ($op === 'Remove') {
+                        $obj->_performOperation(
+                            $key,
+                            new RemoveOperation(ParseClient::_decode($value['objects']))
+                        );
+                    } else {
+                        throw new ParseException("Unrecognized op '{$op}' found during decode.");
+                    }
+                } else {
+                    if (isset($value['__type'])) {
+                        // encoded object
+                        $obj->_performOperation($key, new SetOperation(ParseClient::_decode($value)));
+                    } elseif ($key === 'ACL') {
+                        // encoded ACL
+                        $obj->_performOperation($key, new SetOperation(ParseACL::_createACLFromJSON($value)));
+                    } else {
+                        // array
+                        if (count(array_filter(array_keys($value), 'is_string')) > 0) {
+                            // associative
+                            $obj->_performOperation($key, new SetOperation($value, true));
+                        } else {
+                            // sequential
+                            $obj->_performOperation($key, new SetOperation($value));
+                        }
+                    }
+                }
+            } else {
+                // set op (not an associative array)
+                $obj->_performOperation($key, new SetOperation($value));
+            }
+        }
+
+        return $obj;
     }
 
     /**

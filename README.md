@@ -59,12 +59,13 @@ ParseClient::initialize( $app_id, null, $master_key );
 ParseClient::setServerURL('https://my-parse-server.com:port','parse');
 ```
 
-Notice
-Parse server's default port is `1337` and the second parameter `parse` is the route prefix of your parse server.
+Notice Parse server's default port is `1337` and the second parameter `parse` is the route prefix of your parse server.
 
 For example if your parse server's url is `http://example.com:1337/parse` then you can set the server url using the following snippet
 
-`ParseClient::setServerURL('https://example.com:1337','parse');`
+```php
+ParseClient::setServerURL('https://example.com:1337','parse');
+```
 
 Getting Started
 ---------------

@@ -5,6 +5,7 @@
 
 namespace Parse;
 
+use Parse\Internal\Encodable;
 use Parse\Internal\ParseRelationOperation;
 
 /**
@@ -14,7 +15,7 @@ use Parse\Internal\ParseRelationOperation;
  * @author Mohamed Madbouli <mohamedmadbouli@fb.com>
  * @package Parse
  */
-class ParseRelation
+class ParseRelation implements Encodable
 {
     /**
      * The parent of this relation.
@@ -123,5 +124,18 @@ class ParseRelation
         $query->relatedTo('key', $this->key);
 
         return $query;
+    }
+
+    /**
+     * Return an encoded array of this relation.
+     *
+     * @return array
+     */
+    public function _encode()
+    {
+        return [
+            '__type'    => 'Relation',
+            'className' => $this->targetClassName
+        ];
     }
 }
