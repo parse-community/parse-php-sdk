@@ -16,7 +16,7 @@ Installation
 ```json
 {
     "require": {
-        "parse/php-sdk" : "1.2.*"
+        "parse/php-sdk" : "1.3.*"
     }
 }
 ```
@@ -152,6 +152,12 @@ $object->save();
 
 // Or pass true to use the master key to override ACLs when saving:
 $object->save(true);
+
+// encode an object for later use
+$encoded = $object->encode();
+
+// decode an object
+$decodedObject = ParseObject::decode($encoded);
 ```
 
 Users:
