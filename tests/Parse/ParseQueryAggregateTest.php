@@ -196,7 +196,7 @@ class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
         $results = $query->aggregate($pipeline);
     }
 
-     public function testAggregateGroupObjectIdRequired()
+    public function testAggregateGroupObjectIdRequired()
     {
         $pipeline = [
             'group' => []
