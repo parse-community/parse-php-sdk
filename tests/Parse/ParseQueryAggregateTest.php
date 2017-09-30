@@ -89,6 +89,35 @@ class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($results));
     }
 
+    public function testDisinctOnUsers()
+    {
+        Helper::clearClass(ParseUser::$parseClassName);
+        $user1 = new ParseUser();
+        $user1->setUsername('foo');
+        $user1->setPassword('password');
+        $user1->set('score', 10);
+        $user1->signUp();
+
+        $user2 = new ParseUser();
+        $user2->setUsername('bar');
+        $user2->setPassword('password');
+        $user2->set('score', 10);
+        $user2->signUp();
+
+        $user3 = new ParseUser();
+        $user3->setUsername('hello');
+        $user3->setPassword('password');
+        $user3->set('score', 20);
+        $user3->signUp();
+
+        $query = ParseUser::query();
+        $results = $query->distinct('score');
+
+        $this->assertEquals(2, count($results));
+        $this->assertEquals($results[0], 10);
+        $this->assertEquals($results[1], 20);
+    }
+
     public function testAggregateGroupQuery()
     {
         $pipeline = [
@@ -209,5 +238,39 @@ class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
             102
         );
         $results = $query->aggregate($pipeline);
+    }
+
+    public function testAggregateOnUsers()
+    {
+        Helper::clearClass(ParseUser::$parseClassName);
+        $user1 = new ParseUser();
+        $user1->setUsername('foo');
+        $user1->setPassword('password');
+        $user1->set('score', 10);
+        $user1->signUp();
+
+        $user2 = new ParseUser();
+        $user2->setUsername('bar');
+        $user2->setPassword('password');
+        $user2->set('score', 10);
+        $user2->signUp();
+
+        $user3 = new ParseUser();
+        $user3->setUsername('hello');
+        $user3->setPassword('password');
+        $user3->set('score', 20);
+        $user3->signUp();
+
+        $pipeline = [
+            'match' => [
+                'score' => [ '$gt' => 15 ]
+            ]
+        ];
+
+        $query = ParseUser::query();
+        $results = $query->aggregate($pipeline);
+
+        $this->assertEquals(1, count($results));
+        $this->assertEquals($results[0], 20);
     }
 }

@@ -425,8 +425,8 @@ class ParseQuery
     public function distinct($key)
     {
         $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
+        if ($user = ParseUser::getCurrentUser()) {
+            $sessionToken = $user->getSessionToken();
         }
          $opts = [];
         if (!empty($this->where)) {
@@ -446,7 +446,7 @@ class ParseQuery
     }
 
     /**
-     * Execute a aggregate query and returns aggregate results.
+     * Execute an aggregate query and returns aggregate results.
      *
      * @param array $pipeline stages to process query
      *
@@ -455,8 +455,8 @@ class ParseQuery
     public function aggregate($pipeline)
     {
         $sessionToken = null;
-        if (ParseUser::getCurrentUser()) {
-            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
+        if ($user = ParseUser::getCurrentUser()) {
+            $sessionToken = $user->getSessionToken();
         }
         $stages = [];
         foreach ($pipeline as $stage => $value) {
