@@ -393,4 +393,105 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema = new ParseSchema(self::$badClassName);
         $schema->delete();
     }
+
+    public function testCreateIndexSchemaStream()
+    {
+        ParseClient::setHttpClient(new ParseStreamHttpClient());
+
+        $schema = self::$schema;
+        $schema->addString('name');
+        $index = [ 'name' => 1 ];
+        $schema->addIndex('test_index', $index);
+        $schema->save();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertNotNull($result['indexes']['test_index']);
+    }
+
+    public function testCreateIndexSchemaCurl()
+    {
+        if (function_exists('curl_init')) {
+            ParseClient::setHttpClient(new ParseCurlHttpClient());
+
+            $schema = self::$schema;
+            $schema->addString('name');
+            $index = [ 'name' => 1 ];
+            $schema->addIndex('test_index', $index);
+            $schema->save();
+
+            $getSchema = new ParseSchema('SchemaTest');
+            $result = $getSchema->get();
+            $this->assertNotNull($result['indexes']['test_index']);
+        }
+    }
+
+    public function testUpdateIndexSchemaStream()
+    {
+        ParseClient::setHttpClient(new ParseStreamHttpClient());
+
+        $schema = self::$schema;
+        $schema->save();
+        $schema->addString('name');
+        $index = [ 'name' => 1 ];
+        $schema->addIndex('test_index', $index);
+        $schema->update();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertNotNull($result['indexes']['test_index']);
+    }
+
+    public function testUpdateIndexSchemaCurl()
+    {
+        if (function_exists('curl_init')) {
+            ParseClient::setHttpClient(new ParseCurlHttpClient());
+
+            $schema = self::$schema;
+            $schema->save();
+            $schema->addString('name');
+            $index = [ 'name' => 1 ];
+            $schema->addIndex('test_index', $index);
+            $schema->update();
+
+            $getSchema = new ParseSchema('SchemaTest');
+            $result = $getSchema->get();
+            $this->assertNotNull($result['indexes']['test_index']);
+        }
+    }
+
+    public function testDeleteIndexSchema()
+    {
+        ParseClient::setHttpClient(new ParseStreamHttpClient());
+
+        $schema = self::$schema;
+        $schema->save();
+        $schema->addString('name');
+        $index = [ 'name' => 1 ];
+        $schema->addIndex('test_index', $index);
+        $schema->update();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertNotNull($result['indexes']['test_index']);
+
+        $schema->deleteIndex('test_index');
+        $schema->update();
+        $result = $getSchema->get();
+        $this->assertEquals(array_key_exists('indexes', $result), false);
+    }
+
+    public function testIndexNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'index name may not be null.');
+        $schema->addIndex(null, null);
+    }
+
+    public function testIndexException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'index may not be null.');
+        $schema->addIndex('name', null);
+    }
 }

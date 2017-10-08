@@ -104,6 +104,13 @@ class ParseSchema
     private $fields = [];
 
     /**
+     * Indexes to create.
+     *
+     * @var array
+     */
+    private $indexes = [];
+
+    /**
      * Force to use master key in Schema Methods.
      *
      * @see http://docs.parseplatform.org/rest/guide/#schema
@@ -208,6 +215,10 @@ class ParseSchema
             $schema['fields'] = $this->fields;
         }
 
+        if (!empty($this->indexes)) {
+            $schema['indexes'] = $this->indexes;
+        }
+
         $result = ParseClient::_request(
             'POST',
             'schemas/'.$this->className,
@@ -242,6 +253,7 @@ class ParseSchema
         // Schema
         $Schema['className'] = $this->className;
         $Schema['fields'] = $this->fields;
+        $Schema['indexes'] = $this->indexes;
 
         $result = ParseClient::_request(
             'PUT',
@@ -314,6 +326,30 @@ class ParseSchema
         $this->fields[$fieldName] = [
             'type' => $fieldType,
         ];
+
+        return $this;
+    }
+
+      /**
+     * Adding an Index to Create / Update a Schema.
+     *
+     * @param string $IndexName Name of the index will created on Parse
+     *
+     * @throws \Exception
+     *
+     * @return ParseSchema indexes return self to create index on Parse
+     */
+    public function addIndex($indexName = null, $index = null)
+    {
+        if (!$indexName) {
+            throw new Exception('index name may not be null.', 105);
+        }
+
+        if (!$index) {
+            throw new Exception('index may not be null.', 105);
+        }
+
+        $this->indexes[$indexName] = $index;
 
         return $this;
     }
@@ -562,6 +598,19 @@ class ParseSchema
     public function deleteField($fieldName = null)
     {
         $this->fields[$fieldName] = [
+            '__op' => 'Delete',
+        ];
+    }
+
+    /**
+     * Deleting a Index to Update on a Schema.
+     *
+     * @param string $indexName Name of the index will be deleted
+     */
+    public function deleteIndex($indexName = null)
+    {
+        $this->fields = [];
+        $this->indexes[$indexName] = [
             '__op' => 'Delete',
         ];
     }
