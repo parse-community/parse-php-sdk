@@ -251,15 +251,18 @@ class ParseSchema
         }
 
         // Schema
-        $Schema['className'] = $this->className;
-        $Schema['fields'] = $this->fields;
-        $Schema['indexes'] = $this->indexes;
+        $schema['className'] = $this->className;
+        $schema['fields'] = $this->fields;
+        $schema['indexes'] = $this->indexes;
+
+        $this->fields = [];
+        $this->indexes = [];
 
         $result = ParseClient::_request(
             'PUT',
             'schemas/'.$this->className,
             $sessionToken,
-            json_encode($Schema),
+            json_encode($schema),
             $this->useMasterKey
         );
 
@@ -609,7 +612,6 @@ class ParseSchema
      */
     public function deleteIndex($indexName = null)
     {
-        $this->fields = [];
         $this->indexes[$indexName] = [
             '__op' => 'Delete',
         ];

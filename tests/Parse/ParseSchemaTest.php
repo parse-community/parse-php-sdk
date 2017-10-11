@@ -160,6 +160,23 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($result['fields']['status']);
     }
 
+    public function testUpdateMultipleSchemaStream()
+    {
+        ParseClient::setHttpClient(new ParseStreamHttpClient());
+
+        $schema = self::$schema;
+        $schema->save();
+
+        $schema->addString('name');
+        $schema->update();
+        $schema->update();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+
+        $this->assertEquals(count($result['fields']), 5);
+    }
+
     public function testUpdateSchemaCurl()
     {
         if (function_exists('curl_init')) {
