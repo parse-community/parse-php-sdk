@@ -31,7 +31,7 @@ require 'vendor/autoload.php';
 Note: The Parse PHP SDK requires PHP 5.4 or newer.
 
 Alternative Method
-------------------
+------------------ 
 
 If you don't want to use Composer, you can include the ```autoload.php```
 file in your code to automatically load the Parse SDK classes.
