@@ -192,6 +192,24 @@ class ParseQuery
 
     /**
      * Add a constraint to the query that requires a particular key's value to
+     * be less than the provided date string.
+     *
+     * @param string $key           The key to check.
+     * @param string $timeString    The time string that provides an upper bound
+     *
+     * @return ParseQuery Returns this query, so you can chain this call.
+     */
+    public function lessThanTime($key, $timeString)
+    {
+        $this->lessThan($key, [
+            '$relativeTime' => $timeString
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * Add a constraint to the query that requires a particular key's value to
      * be greater than the provided value.
      *
      * @param string $key   The key to check.
@@ -202,6 +220,24 @@ class ParseQuery
     public function greaterThan($key, $value)
     {
         $this->addCondition($key, '$gt', $value);
+
+        return $this;
+    }
+
+    /**
+     * Add a constraint to the query that requires a particular key's value to
+     * be greater than the provided date string.
+     *
+     * @param string $key          The key to check.
+     * @param string $timeString   The value that provides a lower bound
+     *
+     * @return ParseQuery Returns this query, so you can chain this call.
+     */
+    public function greaterThanTime($key, $timeString)
+    {
+        $this->greaterThan($key, [
+            '$relativeTime' => $timeString
+        ]);
 
         return $this;
     }
@@ -224,6 +260,24 @@ class ParseQuery
 
     /**
      * Add a constraint to the query that requires a particular key's value to
+     * be greater than or equal to the provided date string.
+     *
+     * @param string $key           The key to check.
+     * @param mixed  $timeString    The time string that provides a lower bound
+     *
+     * @return ParseQuery Returns this query, so you can chain this call.
+     */
+    public function greaterThanOrEqualToTime($key, $timeString)
+    {
+        $this->greaterThanOrEqualTo($key, [
+            '$relativeTime' => $timeString
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * Add a constraint to the query that requires a particular key's value to
      * be less than or equal to the provided value.
      *
      * @param string $key   The key to check.
@@ -234,6 +288,24 @@ class ParseQuery
     public function lessThanOrEqualTo($key, $value)
     {
         $this->addCondition($key, '$lte', $value);
+
+        return $this;
+    }
+
+    /**
+     * Add a constraint to the query that requires a particular key's value to
+     * be less than or equal to the provided date string.
+     *
+     * @param string $key           The key to check.
+     * @param mixed  $timeString    The time string that provides an upper bound
+     *
+     * @return ParseQuery Returns this query, so you can chain this call.
+     */
+    public function lessThanOrEqualToTime($key, $timeString)
+    {
+        $this->lessThanOrEqualTo($key, [
+            '$relativeTime' => $timeString
+        ]);
 
         return $this;
     }
