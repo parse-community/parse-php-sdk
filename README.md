@@ -328,6 +328,40 @@ if(ParsePush::hasStatus($response)) {
 }
 ```
 
+Server Info:
+
+Get information regarding the configuration of the server you are connecting to.
+```php
+// get the current version of the server you are connected to (2.6.5, 2.5.4, etc.)
+$version = ParseServerInfo::getVersion();
+
+// get various features
+$globalConfigFeatures = ParseServerInfo::getGlobalConfigFeatures();
+/**
+ * Returns json of the related features
+ * {
+ *    "create" : true,
+ *    "read"   : true,
+ *    "update" : true,
+ *    "delete" : true
+ * }
+ */
+```
+
+ You can get details on the following features as well:
+
+ ```php
+ ParseServerInfo::getHooksFeatures();
+ ParseServerInfo::getCloudCodeFeatures();
+ ParseServerInfo::getLogsFeatures();
+ ParseServerInfo::getPushFeatures();
+ ParseServerInfo::getSchemasFeatures();
+
+ // additional features can be obtained manually using 'get'
+ $feature = ParseServerInfo::get('new-feature');
+
+ ```
+
 Contributing / Testing
 ----------------------
 
