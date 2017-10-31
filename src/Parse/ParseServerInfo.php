@@ -38,7 +38,7 @@ class ParseServerInfo
      */
     private static function getServerInfo()
     {
-        if(!isset(self::$serverFeatures) || !isset(self::$serverVersion)) {
+        if (!isset(self::$serverFeatures) || !isset(self::$serverVersion)) {
             $info = ParseClient::_request(
                 'GET',
                 'serverInfo/',
