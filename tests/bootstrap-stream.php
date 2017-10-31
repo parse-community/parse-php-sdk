@@ -9,6 +9,8 @@
 
 namespace Parse;
 
+use Parse\Test\Helper;
+
 require_once dirname(__DIR__).'/vendor/autoload.php';
 
 define('APPLICATION_PATH', dirname(__DIR__));
@@ -16,4 +18,8 @@ define('APPLICATION_PATH', dirname(__DIR__));
 // use the steam client
 $USE_CLIENT_STREAM = true;
 
-echo "[ testing with stream client ]\n";
+// indicate which server version & client we're testing against
+Helper::setUp();
+$version = ParseServerInfo::getVersion();
+
+echo "[ testing against {$version} with stream client ]\n";
