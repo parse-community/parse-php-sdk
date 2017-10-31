@@ -54,7 +54,7 @@ class ParseServerInfo
             }
 
             if (!isset($info['parseServerVersion'])) {
-                throw new ParseException('Missing version in server info');
+                throw new ParseException('Missing version in server info.');
             }
 
             self::$serverFeatures = $info['features'];

@@ -8,10 +8,17 @@
 
 namespace Parse\Test;
 
+use Parse\ParseClient;
+use Parse\ParseException;
 use Parse\ParseServerInfo;
 
 class ParseServerInfoTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        Helper::setHttpClient();
+    }
+
     public function testDirectGet()
     {
         $logs = ParseServerInfo::get('logs');
@@ -45,6 +52,76 @@ class ParseServerInfoTest extends \PHPUnit_Framework_TestCase
         $version = '1.2.3';
         ParseServerInfo::_setServerVersion($version);
         $this->assertEquals($version, ParseServerInfo::getVersion());
+    }
+
+    /**
+     * @group server-info-missing-features
+     */
+    public function testMissingFeatures()
+    {
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'Missing features in server info.'
+        );
+
+        $httpClient = ParseClient::getHttpClient();
+
+        // create a mock of the current http client
+        $stubClient = $this->getMockBuilder(get_class($httpClient))
+            ->getMock();
+
+        // stub the response type to return
+        // something we will try to work with
+        $stubClient
+            ->method('getResponseContentType')
+            ->willReturn('application/octet-stream');
+
+        $stubClient
+            ->method('send')
+            ->willReturn(json_encode([
+                'empty' => true
+            ]));
+
+        // replace the client with our stub
+        ParseClient::setHttpClient($stubClient);
+
+        ParseServerInfo::_setServerVersion(null);
+        ParseServerInfo::getFeatures();
+    }
+
+    /**
+     * @group server-info-missing-version
+     */
+    public function testMissingVersion()
+    {
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'Missing version in server info.'
+        );
+
+        $httpClient = ParseClient::getHttpClient();
+
+        // create a mock of the current http client
+        $stubClient = $this->getMockBuilder(get_class($httpClient))
+            ->getMock();
+
+        // stub the response type to return
+        // something we will try to work with
+        $stubClient
+            ->method('getResponseContentType')
+            ->willReturn('application/octet-stream');
+
+        $stubClient
+            ->method('send')
+            ->willReturn(json_encode([
+                'features' => []
+            ]));
+
+        // replace the client with our stub
+        ParseClient::setHttpClient($stubClient);
+
+        ParseServerInfo::_setServerVersion(null);
+        ParseServerInfo::getFeatures();
     }
 
     public function testGlobalConfigFeatures()
