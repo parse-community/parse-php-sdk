@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 10/30/17
- * Time: 15:56
+ * Class ParseServerInfo | Parse/ParseServerInfo.php
  */
 
 namespace Parse;
@@ -11,7 +8,7 @@ namespace Parse;
 /**
  * Class ParseFeatures - Representation of server-side features
  *
- * @author Ben Friedman <ben@axolsoft.com>
+ * @author Ben Friedman <friedman.benjamin@gmail.com>
  * @package Parse
  */
 class ParseServerInfo
