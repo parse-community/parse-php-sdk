@@ -47,11 +47,11 @@ class ParseServerInfo
 
         // validate we have features & version
 
-        if(!isset($info['features'])) {
+        if (!isset($info['features'])) {
             throw new ParseException('Missing features in server info.');
         }
 
-        if(!isset($info['parseServerVersion'])) {
+        if (!isset($info['parseServerVersion'])) {
             throw new ParseException('Missing version in server info');
         }
 
@@ -67,7 +67,7 @@ class ParseServerInfo
      */
     public static function get($key)
     {
-        if(!isset(self::$serverFeatures)) {
+        if (!isset(self::$serverFeatures)) {
             self::setServerInfo();
         }
         return self::$serverFeatures[$key];
@@ -80,7 +80,7 @@ class ParseServerInfo
      */
     public static function getFeatures()
     {
-        if(!isset(self::$serverFeatures)) {
+        if (!isset(self::$serverFeatures)) {
             self::setServerInfo();
         }
         return self::$serverFeatures;
@@ -93,7 +93,7 @@ class ParseServerInfo
      */
     public static function getVersion()
     {
-        if(!isset(self::$serverVersion)) {
+        if (!isset(self::$serverVersion)) {
             self::setServerInfo();
         }
         return self::$serverVersion;

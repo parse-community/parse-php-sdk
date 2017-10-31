@@ -8,7 +8,6 @@
 
 namespace Parse\Test;
 
-
 use Parse\ParseServerInfo;
 
 class ParseServerInfoTest extends \PHPUnit_Framework_TestCase
@@ -90,5 +89,4 @@ class ParseServerInfoTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($schemasFeatures['editClassLevelPermissions']);
         $this->assertTrue($schemasFeatures['editPointerPermissions']);
     }
-
 }
