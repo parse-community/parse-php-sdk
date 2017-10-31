@@ -24,10 +24,27 @@ class ParseServerInfoTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($features);
     }
 
+    /**
+     * @group test-get-version
+     */
     public function testGetVersion()
     {
+        ParseServerInfo::_setServerVersion(null);
         $version = ParseServerInfo::getVersion();
         $this->assertNotNull($version);
+    }
+
+    public function testSetVersion()
+    {
+        /**
+         * Tests setting the version.
+         * /health may return the version in the future as well.
+         * Rather than fetch that information again we can always have the option
+         * to set it from wherever we happen to get it.
+         */
+        $version = '1.2.3';
+        ParseServerInfo::_setServerVersion($version);
+        $this->assertEquals($version, ParseServerInfo::getVersion());
     }
 
     public function testGlobalConfigFeatures()

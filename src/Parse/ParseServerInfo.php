@@ -31,32 +31,52 @@ class ParseServerInfo
     private static $serverVersion;
 
     /**
-     * Requests and sets server features and version
+     * Requests, sets and returns server features and version
      *
+     * @return array
      * @throws ParseException
      */
-    private static function setServerInfo()
+    private static function getServerInfo()
     {
-        $info = ParseClient::_request(
-            'GET',
-            'serverInfo/',
-            null,
-            null,
-            true
-        );
+        if(!isset(self::$serverFeatures) || !isset(self::$serverVersion)) {
+            $info = ParseClient::_request(
+                'GET',
+                'serverInfo/',
+                null,
+                null,
+                true
+            );
 
-        // validate we have features & version
+            // validate we have features & version
 
-        if (!isset($info['features'])) {
-            throw new ParseException('Missing features in server info.');
+            if (!isset($info['features'])) {
+                throw new ParseException('Missing features in server info.');
+            }
+
+            if (!isset($info['parseServerVersion'])) {
+                throw new ParseException('Missing version in server info');
+            }
+
+            self::$serverFeatures = $info['features'];
+            self::_setServerVersion($info['parseServerVersion']);
         }
 
-        if (!isset($info['parseServerVersion'])) {
-            throw new ParseException('Missing version in server info');
-        }
+        return [
+            'features'  => self::$serverFeatures,
+            'version'   => self::$serverVersion
+        ];
+    }
 
-        self::$serverFeatures = $info['features'];
-        self::$serverVersion  = $info['parseServerVersion'];
+    /**
+     * Sets the current server version.
+     * Allows setting the server version to avoid making an additional request
+     * if the version is obtained elsewhere.
+     *
+     * @param string $version   Version to set
+     */
+    public static function _setServerVersion($version)
+    {
+        self::$serverVersion = $version;
     }
 
     /**
@@ -67,10 +87,7 @@ class ParseServerInfo
      */
     public static function get($key)
     {
-        if (!isset(self::$serverFeatures)) {
-            self::setServerInfo();
-        }
-        return self::$serverFeatures[$key];
+        return self::getServerInfo()['features'][$key];
     }
 
     /**
@@ -80,10 +97,7 @@ class ParseServerInfo
      */
     public static function getFeatures()
     {
-        if (!isset(self::$serverFeatures)) {
-            self::setServerInfo();
-        }
-        return self::$serverFeatures;
+        return self::getServerInfo()['features'];
     }
 
     /**
@@ -94,9 +108,10 @@ class ParseServerInfo
     public static function getVersion()
     {
         if (!isset(self::$serverVersion)) {
-            self::setServerInfo();
+            return self::getServerInfo()['version'];
+        } else {
+            return self::$serverVersion;
         }
-        return self::$serverVersion;
     }
 
     /**
