@@ -287,7 +287,7 @@ class ParseSchema
             throw new Exception('Error on delete Schema "'.$this->className.'"', 101);
         }
 
-        return true;
+        return $result;
     }
 
     /**
@@ -554,10 +554,6 @@ class ParseSchema
      * Deleting a Field to Update on a Schema.
      *
      * @param string $fieldName Name of the field will be deleted
-     *
-     * @throws \Exception
-     *
-     * @return array to $fields
      */
     public function deleteField($fieldName = null)
     {

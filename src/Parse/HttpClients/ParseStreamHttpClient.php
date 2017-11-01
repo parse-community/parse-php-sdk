@@ -79,11 +79,11 @@ class ParseStreamHttpClient implements ParseHttpable
     private $caFile;
 
     /**
-     * Response from our request
+     * Optional timeout for this request
      *
-     * @var string
+     * @var int
      */
-    private $response;
+    private $timeout;
 
     /**
      * ParseStreamHttpClient constructor.

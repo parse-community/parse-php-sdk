@@ -42,8 +42,8 @@ class ParseRelationOperation implements FieldOperation
     /**
      * ParseRelationOperation constructor.
      *
-     * @param ParseObject[] $objectsToAdd       ParseObjects to add
-     * @param ParseObject[] $objectsToRemove    ParseObjects to remove
+     * @param ParseObject|ParseObject[] $objectsToAdd       ParseObjects to add
+     * @param ParseObject|ParseObject[] $objectsToRemove    ParseObjects to remove
      * @throws Exception
      */
     public function __construct($objectsToAdd, $objectsToRemove)

@@ -95,6 +95,13 @@ class ParseObject implements Encodable
     private static $registeredSubclasses = [];
 
     /**
+     * Parse Class name, overridden by classes subclassing ParseObject
+     *
+     * @var string
+     */
+    public static $parseClassName;
+
+    /**
      * Create a Parse Object.
      *
      * Creates a pointer object if an objectId is provided,
@@ -213,7 +220,7 @@ class ParseObject implements Encodable
             return $this->estimatedData[$key];
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -1316,7 +1323,7 @@ class ParseObject implements Encodable
     {
         if ($object instanceof self) {
             if (in_array($object, $seen, true)) {
-                return;
+                return null;
             }
             $seen[] = $object;
             if ($deep) {
@@ -1465,12 +1472,12 @@ class ParseObject implements Encodable
      * Internally retrieves the ACL assigned to this object, conditionally returning a copy of the existing one
      *
      * @param bool $mayCopy Whether to return a copy of this acl or not
-     * @return ParseACL
+     * @return ParseACL|null
      */
     private function getACLWithCopy($mayCopy)
     {
         if (!isset($this->estimatedData['ACL'])) {
-            return;
+            return null;
         }
         $acl = $this->estimatedData['ACL'];
         if ($mayCopy && $acl->_isShared()) {

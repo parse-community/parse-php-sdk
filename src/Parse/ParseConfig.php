@@ -40,19 +40,21 @@ class ParseConfig
         if (isset($this->currentConfig[$key])) {
             return $this->currentConfig[$key];
         }
+        return null;
     }
 
     /**
      * Gets a config value with html characters encoded
      *
      * @param string $key   Key of value to get
-     * @return string
+     * @return string|null
      */
     public function escape($key)
     {
         if (isset($this->currentConfig[$key])) {
             return htmlentities($this->currentConfig[$key]);
         }
+        return null;
     }
 
     /**
