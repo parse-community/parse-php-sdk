@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 1/30/17
- * Time: 12:05 PM
+ * Class RemoveOperationTest | Parse/Test/RemoveOperationTest.php
  */
 
 namespace Parse\Test;
@@ -12,7 +9,6 @@ use Parse\Internal\AddOperation;
 use Parse\Internal\DeleteOperation;
 use Parse\Internal\RemoveOperation;
 use Parse\Internal\SetOperation;
-use Parse\ParseException;
 
 class RemoveOperationTest extends \PHPUnit_Framework_TestCase
 {

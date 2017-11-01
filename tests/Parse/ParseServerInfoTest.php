@@ -1,15 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 10/30/17
- * Time: 16:35
+ * Class ParseServerInfoTest | Parse/Test/ParseServerInfoTest.php
  */
 
 namespace Parse\Test;
 
 use Parse\ParseClient;
-use Parse\ParseException;
 use Parse\ParseServerInfo;
 
 class ParseServerInfoTest extends \PHPUnit_Framework_TestCase

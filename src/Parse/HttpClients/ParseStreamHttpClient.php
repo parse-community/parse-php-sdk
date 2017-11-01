@@ -10,7 +10,7 @@ use Parse\ParseException;
 /**
  * Class ParseStreamHttpClient - Stream http client
  *
- * @author Ben Friedman <ben@axolsoft.com>
+ * @author Ben Friedman <friedman.benjamin@gmail.com>
  * @package Parse\HttpClients
  */
 class ParseStreamHttpClient implements ParseHttpable

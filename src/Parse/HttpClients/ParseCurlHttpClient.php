@@ -10,7 +10,7 @@ use Parse\ParseException;
 /**
  * Class ParseCurlHttpClient - Curl http client
  *
- * @author Ben Friedman <ben@axolsoft.com>
+ * @author Ben Friedman <friedman.benjamin@gmail.com>
  * @package Parse\HttpClients
  */
 class ParseCurlHttpClient implements ParseHttpable
