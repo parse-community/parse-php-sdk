@@ -13,23 +13,23 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
     - [Using another method](#downloaded)
 - [Setup](#setup)
     - [Initializing](#initializing)
-    - [Server URL](#serverurl)
-    - [Http Clients](#httpclients)
-    - [Alternate CA files](#alternatecafile)
-- [Getting Started](#gettingstarted)
-    - [Use Declarations](#usedeclarations)
-    - [Parse Objects](#parseobjects)
+    - [Server URL](#server-url)
+    - [Http Clients](#http-clients)
+    - [Alternate CA files](#alternate-ca-file)
+- [Getting Started](#getting-started)
+    - [Use Declarations](#use-declarations)
+    - [Parse Objects](#parse-objects)
     - [Users](#users)
     - [ACLs/Security](#acls)
     - [Queries](#queries)
-    - [Cloud Functions](#cloudfunctions)
+    - [Cloud Functions](#cloud-functions)
     - [Analytics](#analytics)
     - [Files](#files)
     - [Push Notifications](#push)
-        - [Push to Channels](#pushtochannels)
-        - [Push to Query](#pushtoquery)
-        - [Push Status](#pushstatus)
-    - [Server Info](#serverinfo)
+        - [Push to Channels](#push-to-channels)
+        - [Push with Query](#push-with-query)
+        - [Push Status](#push-status)
+    - [Server Info](#server-info)
         - [Version](#version)
         - [Features](#features)
 - [Contributing / Testing](#contributing--testing)
@@ -322,7 +322,7 @@ ParsePush::send(array(
 ), true);
 ```
 
-#### Push to Query
+#### Push with Query
 
 You can also push to devices using queries.
 
@@ -380,7 +380,7 @@ if(ParsePush::hasStatus($response)) {
 }
 ```
 
-### Server Info:
+### Server Info
 
 Get information regarding the configuration of the server you are connecting to.
 
