@@ -8,9 +8,9 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
 
 ## Table of Contents
 - [Installation](#installation)
-    - [Using Composer](#composer)
-    - [Using Git](#git)
-    - [Using another method](#downloaded)
+    - [Install with Composer](#install-with-composer)
+    - [Install with Git](#install-with-git)
+    - [Install with another method](#install-with-another-method)
 - [Setup](#setup)
     - [Initializing](#initializing)
     - [Server URL](#server-url)
@@ -38,7 +38,7 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
 There are various ways to install and use this sdk. We'll elaborate on a couple here. 
 Note that the Parse PHP SDK requires PHP 5.4 or newer.
 
-### Composer
+### Install with Composer
 
 [Get Composer], the PHP package manager. Then create a composer.json file in
  your projects root folder, containing:
@@ -58,7 +58,7 @@ and then require it from your PHP script:
 require 'vendor/autoload.php';
 ```
 
-### Git
+### Install with Git
 
 You can clone down this sdk using your favorite github client, or via the terminal.
 ```bash
@@ -71,7 +71,7 @@ You can then include the ```autoload.php``` file in your code to automatically l
 require 'autoload.php';
 ```
 
-### Downloaded
+### Install with another method
 
 If you downloaded this sdk using any other means you can treat it like you used the git method above.
 Once it's installed you need only require the `autoload.php` to have access to the sdk.
@@ -168,9 +168,14 @@ use Parse\ParseAnalytics;
 use Parse\ParseFile;
 use Parse\ParseCloud;
 use Parse\ParseClient;
+use Parse\ParsePushStatus;
+use Parse\ParseServerInfo;
 ```
 
 ### Parse Objects
+
+Parse Objects hold your data, can be saved, queried for, serialized and more!
+Objects are at the core of this sdk, they allow you to persist your data from php without having to worry about any databasing code. 
 
 ```php
 $object = ParseObject::create("TestObject");
@@ -200,6 +205,10 @@ $decodedObject = ParseObject::decode($encoded);
 
 ### Users
 
+Users are a special kind of object. 
+This class allows individuals to access your applications with their unique information and allows you to identify them distinctly.
+Users may also be linked with 3rd party accounts such as facebook, twitter, etc.
+
 ```php
 // Signup
 $user = new ParseUser();
@@ -224,6 +233,9 @@ $user = ParseUser::getCurrentUser();
 
 ### ACLs
 
+Access Control Lists (ACLs) allow you to granularly control access to individual Parse Objects.
+ACLs allow you to configure access to the general public, roles, and individual users themselves.
+
 ```php
 // Access only by the ParseUser in $user
 $userACL = ParseACL::createACLWithUser($user);
@@ -240,6 +252,9 @@ $acl->setRoleWriteAccessWithName("PHPFans", true);
 ```
 
 ### Queries
+
+Queries allow you to recall objects that you've saved to parse-server. 
+Query methods and parameters allow allow a varying degree of querying for objects, from all objects of a class to objects created within a particular date range and more.
 
 ```php
 $query = new ParseQuery("TestObject");
@@ -267,11 +282,15 @@ $query->each(function($obj) {
 
 ### Cloud Functions
 
+Directly call server-side cloud coud functions and get their results.
+
 ```php
 $results = ParseCloud::run("aCloudFunction", array("from" => "php"));
 ```
 
 ### Analytics
+
+A specialized Parse Object built purposely to make analytics easy.
 
 ```php
 ParseAnalytics::track("logoReaction", array(
@@ -281,6 +300,8 @@ ParseAnalytics::track("logoReaction", array(
 ```
 
 ### Files
+
+Persist files to parse-server and retrieve them at your convenience. Depending on how your server is setup there are a variety of storage options including mongodb, Amazon S3 and Google Cloud Storage. You can read more about that [here](https://github.com/parse-community/parse-server/#configuring-file-adapters).
 
 ```php
 // Get from a Parse Object:
@@ -300,6 +321,8 @@ $file = ParseFile::createFromData($contents, "Parse.txt", "text/plain");
 ```
 
 ### Push
+
+Push notifications can be constructed and sent using this sdk. You can send pushes to predefined channels of devices, or send to a customized set of devices using the power of `ParseQuery`.
 
 In order to use Push you must first configure a [working push configuration](http://docs.parseplatform.org/parse-server/guide/#push-notifications) in your parse server instance.
 
@@ -324,7 +347,7 @@ ParsePush::send(array(
 
 #### Push with Query
 
-You can also push to devices using queries.
+You can also push to devices using queries targeting the `ParseInstallation` class.
 
 ```php
 // Push to Query
@@ -340,6 +363,7 @@ ParsePush::send(array(
 #### Push Status
 
 If your server supports it you can extract and check the current status of your pushes.
+This allows you to monitor the success of your pushes in real time.
 
 ```php
 // Get Push Status
@@ -382,7 +406,8 @@ if(ParsePush::hasStatus($response)) {
 
 ### Server Info
 
-Get information regarding the configuration of the server you are connecting to.
+Any server version **2.1.4** or later supports access to detailed information about itself and it's capabilities.
+You can leverage `ParseServerInfo` to check on the features and version of your server.
 
 #### Version
 Get the current version of the server you are connected to.
@@ -410,6 +435,9 @@ $globalConfigFeatures = ParseServerInfo::getGlobalConfigFeatures();
  *    "delete" : true
  * }
  */
+ 
+ // you can always get all feature data
+ $data = ParseServerInfo::getFeatures();
 ```
 
  You can get details on the following features as well:
@@ -431,9 +459,9 @@ $globalConfigFeatures = ParseServerInfo::getGlobalConfigFeatures();
 See [CONTRIBUTING](CONTRIBUTING.md) for information on testing and contributing to
 the Parse PHP SDK. We welcome fixes and enhancements.
 
-[Get Composer]: https://getcomposer.org/download/
-[Parse PHP Guide]: http://docs.parseplatform.org/php/guide/
-
 -----
 
 As of April 5, 2017, Parse, LLC has transferred this code to the parse-community organization, and will no longer be contributing to or distributing this code.
+
+[Get Composer]: https://getcomposer.org/download/
+[Parse PHP Guide]: http://docs.parseplatform.org/php/guide/
