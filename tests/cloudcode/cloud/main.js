@@ -12,7 +12,7 @@ Parse.Cloud.define("foo", function(request, response) {
     if (key1 === "value1" && key2
         && key2.length === 3 && key2[0] === 1
         && key2[1] === 2 && key2[2] === 3) {
-        result = {
+        const result = {
             object: {
                 __type: 'Object',
                 className: 'Foo',

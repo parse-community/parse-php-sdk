@@ -138,8 +138,8 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         $queryAgain = new ParseQuery('TestObject');
         $queryAgain->equalTo('objectId', $objAgainOne->getObjectId());
         $objAgainTwo = $queryAgain->first();
-        $this->assertEquals($objAgainOne->get('foo'), 'parse');
-        $this->assertEquals($objAgainOne->get('yo'), 2);
+        $this->assertEquals($objAgainTwo->get('foo'), 'parse');
+        $this->assertEquals($objAgainTwo->get('yo'), 2);
     }
 
     public function testIncrementNonNumber()

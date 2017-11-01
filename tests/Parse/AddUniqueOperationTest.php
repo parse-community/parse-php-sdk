@@ -47,7 +47,7 @@ class AddUniqueOperationTest extends \PHPUnit_Framework_TestCase
             '\Parse\ParseException',
             'AddUniqueOperation requires an array.'
         );
-        $addUnique = new AddUniqueOperation('not-an-array');
+        new AddUniqueOperation('not-an-array');
     }
 
     /**

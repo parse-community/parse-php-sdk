@@ -6,7 +6,9 @@ use Parse\HttpClients\ParseCurlHttpClient;
 use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\Internal\SetOperation;
 use Parse\ParseACL;
+use Parse\ParseAggregateException;
 use Parse\ParseClient;
+use Parse\ParseException;
 use Parse\ParseFile;
 use Parse\ParseGeoPoint;
 use Parse\ParseInstallation;
@@ -14,7 +16,6 @@ use Parse\ParseObject;
 use Parse\ParsePolygon;
 use Parse\ParsePushStatus;
 use Parse\ParseQuery;
-use Parse\ParseRelation;
 use Parse\ParseRole;
 use Parse\ParseSession;
 use Parse\ParseUser;
@@ -111,7 +112,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $obj->destroy();
         $query = new ParseQuery('TestObject');
         $this->setExpectedException('Parse\ParseException', 'Object not found');
-        $out = $query->get($obj->getObjectId());
+        $query->get($obj->getObjectId());
     }
 
     public function testDeleteCurl()
@@ -125,7 +126,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
             $obj->destroy();
             $query = new ParseQuery('TestObject');
             $this->setExpectedException('Parse\ParseException', 'Object not found');
-            $out = $query->get($obj->getObjectId());
+            $query->get($obj->getObjectId());
         }
     }
 
@@ -625,19 +626,19 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $exceptions = 0;
         try {
             $obj2->save();
-        } catch (\Parse\ParseException $pe) {
+        } catch (ParseException $pe) {
             $exceptions++;
         }
         $obj2->set('foo', 'bar');
         try {
             $obj2->save();
-        } catch (\Parse\ParseException $pe) {
+        } catch (ParseException $pe) {
             $exceptions++;
         }
         $obj2->set('foo', 'baz');
         try {
             $obj2->save();
-        } catch (\Parse\ParseException $pe) {
+        } catch (ParseException $pe) {
             $exceptions++;
         }
         $obj2->set('number', 3);
@@ -1038,7 +1039,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         try {
             ParseObject::saveAll([$obj1, $obj2]);
             $this->fail('Save should have failed.');
-        } catch (\Parse\ParseAggregateException $ex) {
+        } catch (ParseAggregateException $ex) {
             $errors = $ex->getErrors();
             $this->assertEquals('Invalid field name: fos^^co.', $errors[0]['error']);
             $this->assertEquals('Invalid field name: fo^^mo.', $errors[1]['error']);

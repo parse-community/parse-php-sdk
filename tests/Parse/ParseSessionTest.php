@@ -3,7 +3,6 @@
 namespace Parse\Test;
 
 use Parse\ParseClient;
-use Parse\ParseException;
 use Parse\ParseSession;
 use Parse\ParseUser;
 
@@ -43,7 +42,7 @@ class ParseSessionTest extends \PHPUnit_Framework_TestCase
 
         ParseUser::logOut();
 
-        $this->assertNull(ParseSession::isCurrentSessionRevocable());
+        $this->assertFalse(ParseSession::isCurrentSessionRevocable());
 
         ParseUser::logIn('username', 'password');
         $session = ParseSession::getCurrentSession();

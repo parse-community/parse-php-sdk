@@ -196,6 +196,6 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         $file->delete();
         $fileAgain = ParseFile::_createFromServer($name, $url);
         $this->setExpectedException('Parse\ParseException', 'Download failed');
-        $contents = $fileAgain->getData();
+        $fileAgain->getData();
     }
 }

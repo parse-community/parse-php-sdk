@@ -111,10 +111,10 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals($updated_name, $updated_app['appName']);
-        $this->assertNotTrue($updated_name['clientClassCreationEnabled']);
-        $this->assertNotFalse($updated_name['clientPushEnabled']);
-        $this->assertNotTrue($updated_name['requireRevocableSessions']);
-        $this->assertNotTrue($updated_name['revokeSessionOnPasswordChange']);
+        $this->assertNotTrue($updated_app['clientClassCreationEnabled']);
+        $this->assertNotFalse($updated_app['clientPushEnabled']);
+        $this->assertNotTrue($updated_app['requireRevocableSessions']);
+        $this->assertNotTrue($updated_app['revokeSessionOnPasswordChange']);
     }
 
     private static function _createApp($name)

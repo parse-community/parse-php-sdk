@@ -685,7 +685,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->saveObjects(
             2,
-            function ($i) {
+            function () {
                 $testObject = ParseObject::create('TestObject');
                 $testObject->set('foo', 'bar');
 
@@ -738,7 +738,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->saveObjects(
             2,
-            function ($i) {
+            function () {
                 return ParseObject::create('TestObject');
             }
         );
@@ -763,7 +763,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->saveObjects(
             2,
-            function ($i) {
+            function () {
                 return ParseObject::create('TestObject');
             }
         );
@@ -2180,7 +2180,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
         $query = new ParseQuery('TestObject');
         $this->setExpectedException('Parse\ParseException', 'not found');
-        $objAgain = $query->get($obj->getObjectId());
+        $query->get($obj->getObjectId());
     }
 
     public function testRestrictedGetWithMasterKey()

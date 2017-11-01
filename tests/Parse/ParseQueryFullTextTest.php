@@ -2,7 +2,6 @@
 
 namespace Parse\Test;
 
-use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
