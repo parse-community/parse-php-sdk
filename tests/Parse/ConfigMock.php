@@ -8,10 +8,11 @@ class ConfigMock extends ParseConfig
 {
     public function __construct()
     {
+        parent::__construct();
         $this->setConfig([
             'foo'       => 'bar',
             'some'      => 1,
-            'another'   => '<value>'
+            'another'   => '<html>value</html>'
         ]);
     }
 }

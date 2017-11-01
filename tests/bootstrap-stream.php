@@ -16,6 +16,7 @@ require_once dirname(__DIR__).'/vendor/autoload.php';
 define('APPLICATION_PATH', dirname(__DIR__));
 
 // use the steam client
+global $USE_CLIENT_STREAM;
 $USE_CLIENT_STREAM = true;
 
 // indicate which server version & client we're testing against

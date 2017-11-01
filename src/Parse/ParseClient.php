@@ -319,7 +319,7 @@ final class ParseClient
         }
 
         if (!isset($data) && !is_array($data)) {
-            return;
+            return null;
         }
 
         if (is_array($data)) {

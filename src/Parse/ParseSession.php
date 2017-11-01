@@ -71,9 +71,7 @@ class ParseSession extends ParseObject
     public static function isCurrentSessionRevocable()
     {
         $user = ParseUser::getCurrentUser();
-        if ($user) {
-            return self::_isRevocable($user->getSessionToken());
-        }
+        return $user ? self::_isRevocable($user->getSessionToken()) : false;
     }
 
     /**
@@ -90,8 +88,6 @@ class ParseSession extends ParseObject
 
     /**
      * After a save, perform Session object specific logic.
-     *
-     * @return null
      */
     private function handleSaveResult()
     {

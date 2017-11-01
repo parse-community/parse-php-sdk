@@ -8,7 +8,7 @@ namespace Parse;
 /**
  * Class ParsePushStatus - Representation of PushStatus for push notifications
  *
- * @author Ben Friedman <ben@axolsoft.com>
+ * @author Ben Friedman <friedman.benjamin@gmail.com>
  * @package Parse
  */
 class ParsePushStatus extends ParseObject

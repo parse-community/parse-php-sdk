@@ -2,7 +2,6 @@
 
 namespace Parse\Test;
 
-use Parse\ParseException;
 use Parse\ParseInstallation;
 
 class ParseInstallationTest extends \PHPUnit_Framework_TestCase

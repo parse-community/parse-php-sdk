@@ -5,7 +5,6 @@ namespace Parse\Test;
 use Parse\HttpClients\ParseCurlHttpClient;
 use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\ParseClient;
-use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 

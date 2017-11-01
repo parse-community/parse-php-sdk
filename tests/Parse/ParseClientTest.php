@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 1/29/17
- * Time: 10:21 AM
+ * Class ParseClientTest | Parse/Test/ParseClientTest.php
  */
 
 namespace Parse\Test;
@@ -11,12 +8,10 @@ namespace Parse\Test;
 use Parse\HttpClients\ParseCurlHttpClient;
 use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\ParseClient;
-use Parse\ParseException;
 use Parse\ParseInstallation;
 use Parse\ParseMemoryStorage;
 use Parse\ParseObject;
 use Parse\ParseRole;
-use Parse\ParseSessionStorage;
 use Parse\ParseUser;
 
 class ParseClientTest extends \PHPUnit_Framework_TestCase

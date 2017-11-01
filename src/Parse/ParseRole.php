@@ -30,7 +30,7 @@ class ParseRole extends ParseObject
      */
     public static function createRole($name, ParseACL $acl)
     {
-        $role = ParseObject::create(static::$parseClassName);
+        $role = new ParseRole();
         $role->setName($name);
         $role->setACL($acl);
 

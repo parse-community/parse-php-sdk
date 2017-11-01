@@ -10,7 +10,7 @@ use Parse\ParseException;
 /**
  * Class ParseStreamHttpClient - Stream http client
  *
- * @author Ben Friedman <ben@axolsoft.com>
+ * @author Ben Friedman <friedman.benjamin@gmail.com>
  * @package Parse\HttpClients
  */
 class ParseStreamHttpClient implements ParseHttpable
@@ -79,11 +79,11 @@ class ParseStreamHttpClient implements ParseHttpable
     private $caFile;
 
     /**
-     * Response from our request
+     * Optional timeout for this request
      *
-     * @var string
+     * @var int
      */
-    private $response;
+    private $timeout;
 
     /**
      * ParseStreamHttpClient constructor.

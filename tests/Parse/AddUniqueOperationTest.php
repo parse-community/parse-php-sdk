@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 1/30/17
- * Time: 10:34 AM
+ * Class AddUniqueOperationTest | Parse/Test/AddUniqueOperationTest.php
  */
 
 namespace Parse\Test;
@@ -13,9 +10,7 @@ use Parse\Internal\DeleteOperation;
 use Parse\Internal\IncrementOperation;
 use Parse\Internal\SetOperation;
 use Parse\ParseClient;
-use Parse\ParseException;
 use Parse\ParseObject;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class AddUniqueOperationTest extends \PHPUnit_Framework_TestCase
 {
@@ -52,7 +47,7 @@ class AddUniqueOperationTest extends \PHPUnit_Framework_TestCase
             '\Parse\ParseException',
             'AddUniqueOperation requires an array.'
         );
-        $addUnique = new AddUniqueOperation('not-an-array');
+        new AddUniqueOperation('not-an-array');
     }
 
     /**

@@ -13,7 +13,6 @@ namespace Parse\Test;
 use Parse\HttpClients\ParseCurlHttpClient;
 use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\ParseClient;
-use Parse\ParseException;
 use Parse\ParseSchema;
 use Parse\ParseUser;
 
@@ -188,10 +187,11 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 
     public function testUpdateWrongFieldType()
     {
-        $schema = new ParseSchema();
         $this->setExpectedException('Exception', 'WrongType is not a valid type.');
+
+        $schema = new ParseSchema();
         $schema->addField('NewTestField', 'WrongType');
-        $result = $schema->update();
+        $schema->update();
     }
 
     public function testDeleteSchema()

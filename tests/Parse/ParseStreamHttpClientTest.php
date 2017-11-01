@@ -1,16 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 2/20/17
- * Time: 1:11 PM
+ * Class ParseStreamHttpClientTest | Parse/Test/ParseStreamHttpClientTest.php
  */
 
 namespace Parse\Test;
 
 use Parse\HttpClients\ParseStreamHttpClient;
-use Parse\ParseClient;
-use Parse\ParseException;
 
 class ParseStreamHttpClientTest extends \PHPUnit_Framework_TestCase
 {
