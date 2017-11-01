@@ -1,14 +1,44 @@
-Parse PHP SDK
--------------
+# Parse PHP SDK
 
 [![codecov](https://codecov.io/gh/parse-community/parse-php-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/parse-community/parse-php-sdk)
 [![Build Status](https://travis-ci.org/parse-community/parse-php-sdk.svg?branch=master)](https://travis-ci.org/parse-community/parse-php-sdk)
 
 The Parse PHP SDK gives you access to the powerful Parse cloud platform
-from your PHP app or script.  Updated to work with the self-hosted Parse Server: https://github.com/parse-community/parse-server
+from your PHP app or script.  Designed to work with the self-hosted Parse Server: https://github.com/parse-community/parse-server
 
-Installation
-------------
+## Table of Contents
+- [Installation](#installation)
+    - [Using Composer](#composer)
+    - [Using Git](#git)
+    - [Using another method](#downloaded)
+- [Setup](#setup)
+    - [Initializing](#initializing)
+    - [Server URL](#serverurl)
+    - [Http Clients](#httpclients)
+    - [Alternate CA files](#alternatecafile)
+- [Getting Started](#gettingstarted)
+    - [Use Declarations](#usedeclarations)
+    - [Parse Objects](#parseobjects)
+    - [Users](#users)
+    - [ACLs/Security](#acls)
+    - [Queries](#queries)
+    - [Cloud Functions](#cloudfunctions)
+    - [Analytics](#analytics)
+    - [Files](#files)
+    - [Push Notifications](#push)
+        - [Push to Channels](#pushtochannels)
+        - [Push to Query](#pushtoquery)
+        - [Push Status](#pushstatus)
+    - [Server Info](#serverinfo)
+        - [Version](#version)
+        - [Features](#features)
+- [Contributing / Testing](#contributing--testing)
+
+## Installation
+There are various ways to install and use this sdk. We'll elaborate on a couple here. 
+Note that the Parse PHP SDK requires PHP 5.4 or newer.
+
+### Composer
 
 [Get Composer], the PHP package manager. Then create a composer.json file in
  your projects root folder, containing:
@@ -28,33 +58,47 @@ and then require it from your PHP script:
 require 'vendor/autoload.php';
 ```
 
-Note: The Parse PHP SDK requires PHP 5.4 or newer.
+### Git
 
-Alternative Method
-------------------
+You can clone down this sdk using your favorite github client, or via the terminal.
+```bash
+git clone https://github.com/parse-community/parse-php-sdk.git
+```
 
-If you don't want to use Composer, you can include the ```autoload.php```
-file in your code to automatically load the Parse SDK classes.
+You can then include the ```autoload.php``` file in your code to automatically load the Parse SDK classes.
 
 ```php
 require 'autoload.php';
 ```
 
-Initialization
----------------
+### Downloaded
+
+If you downloaded this sdk using any other means you can treat it like you used the git method above.
+Once it's installed you need only require the `autoload.php` to have access to the sdk.
+
+## Setup
+
+Once you have access to the sdk you'll need to set it up in order to begin working with parse-server.
+
+### Initializing
 
 After including the required files from the SDK, you need to initialize the ParseClient using your Parse API keys:
 
 ```php
 ParseClient::initialize( $app_id, $rest_key, $master_key );
-// Users of Parse Server will need to point ParseClient at their remote URL and Mount Point:
-ParseClient::setServerURL('https://my-parse-server.com:port','parse');
 ```
 
 If your server does not use or require a REST key you may initialize the ParseClient as follows, safely omitting the REST key:
 
 ```php
 ParseClient::initialize( $app_id, null, $master_key );
+```
+
+### Server URL
+
+Directly after initializing the sdk you should set the server url.
+
+```php
 // Users of Parse Server will need to point ParseClient at their remote URL and Mount Point:
 ParseClient::setServerURL('https://my-parse-server.com:port','parse');
 ```
@@ -67,15 +111,7 @@ For example if your parse server's url is `http://example.com:1337/parse` then y
 ParseClient::setServerURL('https://example.com:1337','parse');
 ```
 
-Getting Started
----------------
-
-We highly recommend you read through the [guide](http://docs.parseplatform.org/php/guide/) first. This will walk you through the basics of working with this sdk, as well as provide insight into how to best develop your project.
-
-If want to know more about what makes the php sdk tick you can read our [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/Parse.html) and flip through the code on [github](https://github.com/parse-community/parse-php-sdk/).
-
-Http Clients
-------------
+### Http Clients
 
 This SDK has the ability to change the underlying http client at your convenience.
 The default is to use the curl http client if none is set, there is also a stream http client that can be used as well.
@@ -94,9 +130,7 @@ If you have a need for an additional http client you can request one by opening 
 
 If you wish to build one yourself make sure your http client implements ```ParseHttpable``` for it be compatible with the SDK. Once you have a working http client that enhances the SDK feel free to submit it in a PR so we can look into adding it in.
 
-
-Alternate Certificate Authority File
-------------------------------------
+### Alternate CA File
 
 It is possible that your local setup may not be able to verify with peers over SSL/TLS. This may especially be the case if you do not have control over your local installation, such as for shared hosting.
 
@@ -109,11 +143,15 @@ Once you have your bundle you can set it as follows:
 ParseClient::setCAFile(__DIR__ . '/certs/cacert.pem');
 ```
 
+## Getting Started
 
-Usage
------
+We highly recommend you read through the [guide](http://docs.parseplatform.org/php/guide/) first. This will walk you through the basics of working with this sdk, as well as provide insight into how to best develop your project.
+
+If want to know more about what makes the php sdk tick you can read our [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/Parse.html) and flip through the code on [github](https://github.com/parse-community/parse-php-sdk/).
 
 Check out the [Parse PHP Guide] for the full documentation.
+
+### Use Declarations
 
 Add the "use" declarations where you'll be using the classes. For all of the
 sample code in this file:
@@ -132,7 +170,7 @@ use Parse\ParseCloud;
 use Parse\ParseClient;
 ```
 
-Objects:
+### Parse Objects
 
 ```php
 $object = ParseObject::create("TestObject");
@@ -160,7 +198,7 @@ $encoded = $object->encode();
 $decodedObject = ParseObject::decode($encoded);
 ```
 
-Users:
+### Users
 
 ```php
 // Signup
@@ -184,7 +222,7 @@ try {
 $user = ParseUser::getCurrentUser();
 ```
 
-Security:
+### ACLs
 
 ```php
 // Access only by the ParseUser in $user
@@ -201,7 +239,7 @@ $acl->setUserWriteAccess($user, true);
 $acl->setRoleWriteAccessWithName("PHPFans", true);
 ```
 
-Queries:
+### Queries
 
 ```php
 $query = new ParseQuery("TestObject");
@@ -227,13 +265,13 @@ $query->each(function($obj) {
 });
 ```
 
-Cloud Functions:
+### Cloud Functions
 
 ```php
 $results = ParseCloud::run("aCloudFunction", array("from" => "php"));
 ```
 
-Analytics:
+### Analytics
 
 ```php
 ParseAnalytics::track("logoReaction", array(
@@ -242,7 +280,7 @@ ParseAnalytics::track("logoReaction", array(
 ));
 ```
 
-Files:
+### Files
 
 ```php
 // Get from a Parse Object:
@@ -261,9 +299,13 @@ $file = ParseFile::createFromFile(
 $file = ParseFile::createFromData($contents, "Parse.txt", "text/plain");
 ```
 
-Push:
+### Push
 
 In order to use Push you must first configure a [working push configuration](http://docs.parseplatform.org/parse-server/guide/#push-notifications) in your parse server instance.
+
+#### Push to Channels
+
+You can send push notifications to any channels that you've created for your users.
 
 ```php
 $data = array("alert" => "Hi!");
@@ -278,8 +320,13 @@ ParsePush::send(array(
     "channels" => ["PHPFans"],
     "data" => $data
 ), true);
+```
 
+#### Push to Query
 
+You can also push to devices using queries.
+
+```php
 // Push to Query
 $query = ParseInstallation::query();
 $query->equalTo("design", "rad");
@@ -288,8 +335,13 @@ ParsePush::send(array(
     "where" => $query,
     "data" => $data
 ), true);
+```
 
+#### Push Status
 
+If your server supports it you can extract and check the current status of your pushes.
+
+```php
 // Get Push Status
 $response = ParsePush::send(array(
     "channels" => ["StatusFans"],
@@ -328,9 +380,21 @@ if(ParsePush::hasStatus($response)) {
 }
 ```
 
-Server Info:
+### Server Info:
 
 Get information regarding the configuration of the server you are connecting to.
+
+#### Version
+Get the current version of the server you are connected to.
+
+```php
+// get the current version of the server you are connected to (2.6.5, 2.5.4, etc.)
+$version = ParseServerInfo::getVersion();
+```
+
+#### Features
+Check which features your server has and how they are configured.
+
 ```php
 // get the current version of the server you are connected to (2.6.5, 2.5.4, etc.)
 $version = ParseServerInfo::getVersion();
@@ -362,8 +426,7 @@ $globalConfigFeatures = ParseServerInfo::getGlobalConfigFeatures();
 
  ```
 
-Contributing / Testing
-----------------------
+## Contributing / Testing
 
 See [CONTRIBUTING](CONTRIBUTING.md) for information on testing and contributing to
 the Parse PHP SDK. We welcome fixes and enhancements.
