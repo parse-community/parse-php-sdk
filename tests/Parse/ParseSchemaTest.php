@@ -13,6 +13,9 @@ namespace Parse\Test;
 use Parse\HttpClients\ParseCurlHttpClient;
 use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\ParseClient;
+use Parse\ParseException;
+use Parse\ParseObject;
+use Parse\ParseQuery;
 use Parse\ParseSchema;
 use Parse\ParseUser;
 
@@ -192,6 +195,54 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema = new ParseSchema();
         $schema->addField('NewTestField', 'WrongType');
         $schema->update();
+    }
+
+    /**
+     * @group schema-purge
+     */
+    public function testPurgeSchema()
+    {
+        // get a handle to this schema
+        $schema = new ParseSchema('SchemaTest');
+
+        // create an object in this schema
+        $obj = new ParseObject('SchemaTest');
+        $obj->set('field', 'the_one_and_only');
+        $obj->save();
+
+        // attempt to delete this schema (expecting to fail)
+        try {
+            $schema->delete();
+            $this->assertTrue(false, 'Did not fail on delete as expected');
+        } catch(ParseException $pe) {
+            $this->assertEquals(
+                'Class SchemaTest is not empty, contains 1 objects, cannot drop schema.',
+                $pe->getMessage()
+            );
+        }
+
+        // purge this schema
+        $schema->purge();
+
+        // verify no more objects are present
+        $query = new ParseQuery('SchemaTest');
+        $this->assertEquals(0, $query->count());
+
+        // delete again
+        $schema->delete();
+    }
+
+    /**
+     * @group schema-purge
+     */
+    public function testPurgingNonexistentSchema()
+    {
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'Bad Request'
+        );
+        $schema = new ParseSchema('NotARealSchema');
+        $schema->purge();
     }
 
     public function testDeleteSchema()

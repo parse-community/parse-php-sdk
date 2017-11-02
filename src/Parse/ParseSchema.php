@@ -259,6 +259,29 @@ class ParseSchema
     }
 
     /**
+     * Removes all objects from a Schema (class) in Parse.
+     * EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
+     *
+     * @throws Exception
+     */
+    public function purge()
+    {
+        self::assertClassName();
+
+        $result = ParseClient::_request(
+            'DELETE',
+            'purge/'.$this->className,
+            null,
+            null,
+            $this->useMasterKey
+        );
+
+        if(!empty($result)) {
+            throw new Exception('Error on purging all objects from schema "'.$this->className.'"');
+        }
+    }
+
+    /**
      * Removing a Schema from Parse.
      * You can only remove a schema from your app if it is empty (has 0 objects).
      *
