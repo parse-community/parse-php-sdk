@@ -22,6 +22,7 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
     - [Users](#users)
     - [ACLs/Security](#acls)
     - [Queries](#queries)
+        - [Relative Time](#relative-time)
     - [Cloud Functions](#cloud-functions)
     - [Analytics](#analytics)
     - [Files](#files)
@@ -278,6 +279,28 @@ $first = $query->first();
 $query->each(function($obj) {
     echo $obj->getObjectId();
 });
+```
+
+#### Relative Time
+
+Queries can be made using relative time, allowing you to retrieve objects over a varying ranges of relative dates.
+Keep in mind that all relative queries are performed using the server's time and timezone.
+```php
+// greater than 2 weeks ago
+$query->greaterThanRelativeTime('createdAt', '2 weeks ago');
+
+// less than 1 day in the future
+$query->lessThanRelativeTime('updatedAt', 'in 1 day');
+
+// can make queries to very specific points in time
+$query->greaterThanOrEqualToRelativeTime('createdAt', '1 year 2 weeks 30 days 2 hours 5 minutes 10 seconds ago');
+
+// can make queries based on right now
+// gets everything updated up to this point in time
+$query->lessThanOrEqualToRelativeTime('updatedAt', 'now');
+
+// shorthand keywords work as well
+$query->greaterThanRelativeTime('date', '1 yr 2 wks 30 d 2 hrs 5 mins 10 secs ago');
 ```
 
 ### Cloud Functions
