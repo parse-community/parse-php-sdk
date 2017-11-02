@@ -27,13 +27,13 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
 
     public function provideDateTestObjects()
     {
-        // 4 days ago
         $obj = new ParseObject('TestObject');
         $obj->save();
 
         // use server date
         $baselineDate = $obj->getCreatedAt()->format('m/d/Y H:i:s');
 
+        // 4 days ago
         $date = \DateTime::createFromFormat('m/d/Y H:i:s', $baselineDate);
         $date->sub((new \DateInterval('P4D')));
         $obj->set('date', $date);
@@ -60,6 +60,46 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
         $obj = new ParseObject('TestObject');
         $date = \DateTime::createFromFormat('m/d/Y H:i:s', $baselineDate);
         $date->add((new \DateInterval('P4D')));
+        $obj->set('date', $date);
+        $obj->set('name', 'obj4');
+        $obj->save();
+    }
+
+    public function provideExtendedDateTestObjects()
+    {
+        $obj = new ParseObject('TestObject');
+        $obj->save();
+
+        // use server date
+        $baselineDate = $obj->getCreatedAt()->format('m/d/Y H:i:s');
+
+        // 1 year 20 days ago
+        $date = \DateTime::createFromFormat('m/d/Y H:i:s', $baselineDate);
+        $date->sub((new \DateInterval('P01Y20D')));
+        $obj->set('date', $date);
+        $obj->set('name', 'obj1');
+        $obj->save();
+
+        // 1 year 8 days ago
+        $obj = new ParseObject('TestObject');
+        $date = \DateTime::createFromFormat('m/d/Y H:i:s', $baselineDate);
+        $date->sub((new \DateInterval('P01Y8D')));
+        $obj->set('date', $date);
+        $obj->set('name', 'obj2');
+        $obj->save();
+
+        // 1 year 8 days from now
+        $obj = new ParseObject('TestObject');
+        $date = \DateTime::createFromFormat('m/d/Y H:i:s', $baselineDate);
+        $date->add((new \DateInterval('P01Y8D')));
+        $obj->set('date', $date);
+        $obj->set('name', 'obj3');
+        $obj->save();
+
+        // 1 year 20 days from now
+        $obj = new ParseObject('TestObject');
+        $date = \DateTime::createFromFormat('m/d/Y H:i:s', $baselineDate);
+        $date->add((new \DateInterval('P01Y20D')));
         $obj->set('date', $date);
         $obj->set('name', 'obj4');
         $obj->save();
@@ -203,7 +243,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
 
         // shorthand units
         $query = new ParseQuery('TestObject');
-        $query->greaterThanRelativeTime('date', 'in 3 days 2 hrs 15 mins 30 secs');
+        $query->greaterThanRelativeTime('date', 'in 3 d 2 hrs 15 mins 30 secs');
         $this->assertEquals(1, $query->count());
 
         // singular units
@@ -213,8 +253,52 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
 
         // singular shorthand units
         $query = new ParseQuery('TestObject');
-        $query->greaterThanRelativeTime('date', 'in 3 days 1 hr 1 min 1 sec');
+        $query->greaterThanRelativeTime('date', 'in 3 d 1 hr 1 min 1 sec');
         $this->assertEquals(1, $query->count());
+    }
+
+    /**
+     * @group relative-time-queries
+     */
+    public function testLongRelativeTime()
+    {
+        $this->provideExtendedDateTestObjects();
+
+        $query = new ParseQuery('TestObject');
+        $query->greaterThanRelativeTime('date', 'in 1 year 2 weeks');
+        $this->assertEquals(1, $query->count());
+
+        $query = new ParseQuery('TestObject');
+        $query->lessThanRelativeTime('date', '1 yr 2 wks ago');
+        $this->assertEquals(1, $query->count());
+
+        $query = new ParseQuery('TestObject');
+        $query->lessThanRelativeTime('date', '1 year 3 weeks ago');
+        $this->assertEquals(0, $query->count());
+
+        $query = new ParseQuery('TestObject');
+        $query->greaterThanRelativeTime('date', 'in 1 year 3 weeks');
+        $this->assertEquals(0, $query->count());
+
+        $query = new ParseQuery('TestObject');
+        $query->greaterThanRelativeTime('date', '1 year 3 weeks ago');
+        $this->assertEquals(4, $query->count());
+    }
+
+    /**
+     * @group relative-time-queries
+     */
+    public function testNowRelativeTime()
+    {
+        $this->provideDateTestObjects();
+
+        $query = new ParseQuery('TestObject');
+        $query->greaterThanRelativeTime('date', 'now');
+        $this->assertEquals(2, $query->count());
+
+        $query = new ParseQuery('TestObject');
+        $query->lessThanRelativeTime('date', 'now');
+        $this->assertEquals(2, $query->count());
     }
 
     /**
