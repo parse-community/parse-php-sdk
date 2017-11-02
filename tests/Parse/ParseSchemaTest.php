@@ -216,7 +216,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         try {
             $schema->delete();
             $this->assertTrue(false, 'Did not fail on delete as expected');
-        } catch(ParseException $pe) {
+        } catch (ParseException $pe) {
             $this->assertEquals(
                 'Class SchemaTest is not empty, contains 1 objects, cannot drop schema.',
                 $pe->getMessage()

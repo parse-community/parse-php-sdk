@@ -283,7 +283,7 @@ class ParseSchema
             $this->useMasterKey
         );
 
-        if(!empty($result)) {
+        if (!empty($result)) {
             throw new Exception('Error on purging all objects from schema "'.$this->className.'"');
         }
     }
