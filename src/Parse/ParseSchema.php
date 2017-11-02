@@ -62,6 +62,13 @@ class ParseSchema
     public static $GEO_POINT = 'GeoPoint';
 
     /**
+     * Polygon data type
+     *
+     * @var string
+     */
+    public static $POLYGON = 'Polygon';
+
+    /**
      * Array data type
      *
      * @var string
@@ -474,6 +481,28 @@ class ParseSchema
     }
 
     /**
+     * Adding Polygon Field.
+     *
+     * @param string $fieldName Name of the field will created on Parse
+     *
+     * @throws \Exception
+     *
+     * @return ParseSchema fields return self to create field on Parse
+     */
+    public function addPolygon($fieldName = null)
+    {
+        if (!$fieldName) {
+            throw new Exception('field name may not be null.', 105);
+        }
+
+        $this->fields[$fieldName] = [
+            'type' => self::$POLYGON,
+        ];
+
+        return $this;
+    }
+
+    /**
      * Adding Array Field.
      *
      * @param string $fieldName Name of the field will created on Parse
@@ -612,6 +641,7 @@ class ParseSchema
             $type !== self::$DATE &&
             $type !== self::$FILE &&
             $type !== self::$GEO_POINT &&
+            $type !== self::$POLYGON &&
             $type !== self::$ARRAY &&
             $type !== self::$OBJECT &&
             $type !== self::$POINTER &&

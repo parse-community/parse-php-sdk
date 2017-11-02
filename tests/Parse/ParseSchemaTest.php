@@ -75,6 +75,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(ParseSchema::$DATE, $result['fields']['dateField']['type']);
         $this->assertEquals(ParseSchema::$FILE, $result['fields']['fileField']['type']);
         $this->assertEquals(ParseSchema::$GEO_POINT, $result['fields']['geoPointField']['type']);
+        $this->assertEquals(ParseSchema::$POLYGON, $result['fields']['polygonField']['type']);
         $this->assertEquals(ParseSchema::$ARRAY, $result['fields']['arrayField']['type']);
         $this->assertEquals(ParseSchema::$OBJECT, $result['fields']['objectField']['type']);
         $this->assertEquals(ParseSchema::$POINTER, $result['fields']['pointerField']['type']);
@@ -93,6 +94,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
             ->addDate('dateField')
             ->addFile('fileField')
             ->addGeoPoint('geoPointField')
+            ->addPolygon('polygonField')
             ->addArray('arrayField')
             ->addObject('objectField')
             ->addPointer('pointerField', '_User')
@@ -316,6 +318,13 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema = self::$schema;
         $this->setExpectedException('\Exception', 'field name may not be null.');
         $schema->addGeoPoint();
+    }
+
+    public function testPolygonFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addPolygon();
     }
 
     public function testArrayFieldNameException()
