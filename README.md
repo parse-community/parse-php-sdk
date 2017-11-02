@@ -33,6 +33,8 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
     - [Server Info](#server-info)
         - [Version](#version)
         - [Features](#features)
+    - [Schema](#schema)
+        - [Purge](#purge)
 - [Contributing / Testing](#contributing--testing)
 
 ## Installation
@@ -476,6 +478,61 @@ $globalConfigFeatures = ParseServerInfo::getGlobalConfigFeatures();
  $feature = ParseServerInfo::get('new-feature');
 
  ```
+
+### Schema
+Direct manipulation of the classes that are on your server is possible through `ParseSchema`.
+Although fields and classes can be automatically generated (the latter assuming client class creation is enabled) `ParseSchema` gives you explicit control over these classes and their fields.
+```php
+// create an instance to manage your class
+$mySchema = new ParseSchema("MyClass");
+
+// gets the current schema data as an associative array, for inspection
+$data = $mySchema->get();
+
+// add any # of fields, without having to create any objects
+$mySchema->addString('string_field');
+$mySchema->addNumber('num_field');
+$mySchema->addBoolean('bool_field');
+$mySchema->addDate('date_field');
+$mySchema->addFile('file_field');
+$mySchema->addGeoPoint('geopoint_field');
+$mySchema->addPolygon('polygon_field');
+$mySchema->addArray('array_field');
+$mySchema->addObject('obj_field');
+$mySchema->addPointer('pointer_field');
+
+// you can even setup pointer/relation fields this way
+$mySchema->addPointer('pointer_field', 'TargetClass');
+$mySchema->addRelation('relation_field', 'TargetClass');
+
+// new types can be added as they are available
+$mySchema->addField('new_field', 'ANewDataType');
+
+// save/update this schema to persist your field changes
+$mySchema->save();
+// or
+$mySchema->update();
+
+```
+Assuming you want to remove a field you can simply call `deleteField` and `save/update` to clear it out.
+```php
+$mySchema->deleteField('string_field');
+$mySchema->save():
+// or for an existing schema...
+$mySchema->update():
+```
+A schema can be removed via `delete`, but it must be empty first.
+```php
+$mySchema->delete();
+```
+
+#### Purge
+All objects can be purged from a schema (class) via `purge`. But be careful! This can be considered an irreversible action.
+Only do this if you _really_ need to delete all objects from a class, such as when you need to delete the class (as in the code example above).
+```php
+// delete all objects in the schema
+$mySchema->purge();
+```
 
 ## Contributing / Testing
 
