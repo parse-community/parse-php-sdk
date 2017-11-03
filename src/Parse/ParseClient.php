@@ -239,7 +239,7 @@ final class ParseClient
 
         $errorCode = $httpClient->getErrorCode();
 
-        if($errorCode) {
+        if ($errorCode) {
             return [
                 'status'        => $httpClient->getResponseStatusCode(),
                 'error'         => $errorCode,
@@ -254,11 +254,11 @@ final class ParseClient
         // attempt to decode this response
         $decoded = json_decode($response, true);
 
-        if(isset($decoded)) {
+        if (isset($decoded)) {
             // add decoded response
             $status['response'] = $decoded;
         } else {
-            if($response === 'OK') {
+            if ($response === 'OK') {
                 // implied status: ok!
                 $status['response'] = [
                     'status'    => 'ok'
