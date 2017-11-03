@@ -14,6 +14,7 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
 - [Setup](#setup)
     - [Initializing](#initializing)
     - [Server URL](#server-url)
+    - [Server Health Check](#server-health-check)
     - [Http Clients](#http-clients)
     - [Alternate CA files](#alternate-ca-file)
 - [Getting Started](#getting-started)
@@ -110,6 +111,45 @@ For example if your parse server's url is `http://example.com:1337/parse` then y
 
 ```php
 ParseClient::setServerURL('https://example.com:1337','parse');
+```
+
+### Server Health Check
+
+To verify that the server url and mount path you've provided are correct you can run a health check on your server.
+```php
+$health = ParseClient::getServerHealth();
+if($health['status'] === 200) {
+    // everything looks good!
+}
+```
+If you wanted to analyze it further the health response may look something like this.
+```json
+{
+    "status"    : 200,
+    "response"  : {
+        "status" : "ok"
+    }
+}
+```
+The 'status' being the http response code, and the 'response' containing what the server replies with.
+Any additional details in the reply can be found under 'response', and you can use them to check and determine the availability of parse-server before you make requests.
+
+Note that it is _not_ guaranteed that 'response' will be a parsable json array. If the response cannot be decoded it will be returned as a string instead.
+
+A couple examples of bad health responses could include an incorrect mount path, port or domain.
+```json
+// ParseClient::setServerURL('http://localhost:1337', 'not-good');
+{
+    "status": 404,
+    "response": "<!DOCTYPE html>...Cannot GET \/not-good\/health..."
+}
+
+// ParseClient::setServerURL('http://__uh__oh__.com', 'parse');
+{
+    "status": 0,
+    "error": 6,
+    "error_message": "Couldn't resolve host '__uh__oh__.com'"
+}
 ```
 
 ### Http Clients

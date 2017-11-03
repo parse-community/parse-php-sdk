@@ -584,4 +584,38 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         $obj = new ParseObject('TestingClass');
         $obj->save();
     }
+
+    /**
+     * @group check-server
+     */
+    public function testCheckServer()
+    {
+        $health = ParseClient::getServerHealth();
+
+        $this->assertNotNull($health);
+        $this->assertEquals($health['status'], 200);
+        $this->assertEquals($health['response']['status'], 'ok');
+    }
+
+    /**
+     * @group check-server
+     */
+    public function testCheckBadServer()
+    {
+        ParseClient::setServerURL('http://localhost:1337', 'not-a-real-endpoint');
+        $health = ParseClient::getServerHealth();
+        $this->assertNotNull($health);
+        $this->assertFalse(isset($health['error']));
+        $this->assertFalse(isset($health['error_message']));
+        $this->assertEquals($health['status'], 404);
+
+        echo json_encode($health, JSON_PRETTY_PRINT);
+
+        ParseClient::setServerURL('http://___uh___oh___.com', 'parse');
+        $health = ParseClient::getServerHealth();
+        $this->assertTrue(isset($health['error']));
+        $this->assertTrue(isset($health['error_message']));
+
+        echo json_encode($health, JSON_PRETTY_PRINT);
+    }
 }
