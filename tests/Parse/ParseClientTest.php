@@ -598,6 +598,79 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Structured response present in modified/later versions of parse-server
+     *
+     * @group check-server
+     */
+    public function testStructuredHealthResponse()
+    {
+        $httpClient = ParseClient::getHttpClient();
+
+        // create a mock of the current http client
+        $stubClient = $this->getMockBuilder(get_class($httpClient))
+            ->getMock();
+
+        // stub the response type to return
+        // something we will try to work with
+        $stubClient
+            ->method('getResponseContentType')
+            ->willReturn('application/octet-stream');
+
+        $stubClient
+            ->method('getResponseStatusCode')
+            ->willReturn(200);
+
+        $stubClient
+            ->method('send')
+            ->willReturn('{"status":"ok"}');
+
+        // replace the client with our stub
+        ParseClient::setHttpClient($stubClient);
+
+        $health = ParseClient::getServerHealth();
+
+        $this->assertNotNull($health);
+        $this->assertEquals($health['status'], 200);
+        $this->assertEquals($health['response']['status'], 'ok');
+    }
+
+    /**
+     * Plain response present in earlier versions of parse-server (from 2.2.25 on)
+     * @group check-server
+     */
+    public function testPlainHealthResponse()
+    {
+        $httpClient = ParseClient::getHttpClient();
+
+        // create a mock of the current http client
+        $stubClient = $this->getMockBuilder(get_class($httpClient))
+            ->getMock();
+
+        // stub the response type to return
+        // something we will try to work with
+        $stubClient
+            ->method('getResponseContentType')
+            ->willReturn('text/plain');
+
+        $stubClient
+            ->method('getResponseStatusCode')
+            ->willReturn(200);
+
+        $stubClient
+            ->method('send')
+            ->willReturn('OK');
+
+        // replace the client with our stub
+        ParseClient::setHttpClient($stubClient);
+
+        $health = ParseClient::getServerHealth();
+
+        $this->assertNotNull($health);
+        $this->assertEquals($health['status'], 200);
+        $this->assertEquals($health['response']['status'], 'ok');
+    }
+
+    /**
      * @group check-server
      */
     public function testCheckBadServer()
@@ -609,13 +682,9 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(isset($health['error_message']));
         $this->assertEquals($health['status'], 404);
 
-        echo json_encode($health, JSON_PRETTY_PRINT);
-
         ParseClient::setServerURL('http://___uh___oh___.com', 'parse');
         $health = ParseClient::getServerHealth();
         $this->assertTrue(isset($health['error']));
         $this->assertTrue(isset($health['error_message']));
-
-        echo json_encode($health, JSON_PRETTY_PRINT);
     }
 }
