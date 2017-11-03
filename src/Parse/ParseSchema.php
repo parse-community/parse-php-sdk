@@ -62,6 +62,13 @@ class ParseSchema
     public static $GEO_POINT = 'GeoPoint';
 
     /**
+     * Polygon data type
+     *
+     * @var string
+     */
+    public static $POLYGON = 'Polygon';
+
+    /**
      * Array data type
      *
      * @var string
@@ -259,6 +266,29 @@ class ParseSchema
     }
 
     /**
+     * Removes all objects from a Schema (class) in Parse.
+     * EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
+     *
+     * @throws Exception
+     */
+    public function purge()
+    {
+        self::assertClassName();
+
+        $result = ParseClient::_request(
+            'DELETE',
+            'purge/'.$this->className,
+            null,
+            null,
+            $this->useMasterKey
+        );
+
+        if (!empty($result)) {
+            throw new Exception('Error on purging all objects from schema "'.$this->className.'"');
+        }
+    }
+
+    /**
      * Removing a Schema from Parse.
      * You can only remove a schema from your app if it is empty (has 0 objects).
      *
@@ -451,6 +481,28 @@ class ParseSchema
     }
 
     /**
+     * Adding Polygon Field.
+     *
+     * @param string $fieldName Name of the field will created on Parse
+     *
+     * @throws \Exception
+     *
+     * @return ParseSchema fields return self to create field on Parse
+     */
+    public function addPolygon($fieldName = null)
+    {
+        if (!$fieldName) {
+            throw new Exception('field name may not be null.', 105);
+        }
+
+        $this->fields[$fieldName] = [
+            'type' => self::$POLYGON,
+        ];
+
+        return $this;
+    }
+
+    /**
      * Adding Array Field.
      *
      * @param string $fieldName Name of the field will created on Parse
@@ -589,6 +641,7 @@ class ParseSchema
             $type !== self::$DATE &&
             $type !== self::$FILE &&
             $type !== self::$GEO_POINT &&
+            $type !== self::$POLYGON &&
             $type !== self::$ARRAY &&
             $type !== self::$OBJECT &&
             $type !== self::$POINTER &&
