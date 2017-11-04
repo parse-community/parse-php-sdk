@@ -123,19 +123,19 @@ class ParseServerInfoTest extends \PHPUnit_Framework_TestCase
     public function testGlobalConfigFeatures()
     {
         $globalConfigFeatures = ParseServerInfo::getGlobalConfigFeatures();
-        $this->assertTrue($globalConfigFeatures['create']);
-        $this->assertTrue($globalConfigFeatures['read']);
-        $this->assertTrue($globalConfigFeatures['update']);
-        $this->assertTrue($globalConfigFeatures['delete']);
+        $this->assertTrue(isset($globalConfigFeatures['create']));
+        $this->assertTrue(isset($globalConfigFeatures['read']));
+        $this->assertTrue(isset($globalConfigFeatures['update']));
+        $this->assertTrue(isset($globalConfigFeatures['delete']));
     }
 
     public function testHooksFeatures()
     {
         $hooksFeatures = ParseServerInfo::getHooksFeatures();
-        $this->assertTrue($hooksFeatures['create']);
-        $this->assertTrue($hooksFeatures['read']);
-        $this->assertTrue($hooksFeatures['update']);
-        $this->assertTrue($hooksFeatures['delete']);
+        $this->assertTrue(isset($hooksFeatures['create']));
+        $this->assertTrue(isset($hooksFeatures['read']));
+        $this->assertTrue(isset($hooksFeatures['update']));
+        $this->assertTrue(isset($hooksFeatures['delete']));
     }
 
     public function testCloudCodeFeatures()
@@ -147,11 +147,11 @@ class ParseServerInfoTest extends \PHPUnit_Framework_TestCase
     public function testLogsFeatures()
     {
         $logsFeatures = ParseServerInfo::getLogsFeatures();
-        $this->assertTrue($logsFeatures['level']);
-        $this->assertTrue($logsFeatures['size']);
-        $this->assertTrue($logsFeatures['order']);
-        $this->assertTrue($logsFeatures['until']);
-        $this->assertTrue($logsFeatures['from']);
+        $this->assertTrue(isset($logsFeatures['level']));
+        $this->assertTrue(isset($logsFeatures['size']));
+        $this->assertTrue(isset($logsFeatures['order']));
+        $this->assertTrue(isset($logsFeatures['until']));
+        $this->assertTrue(isset($logsFeatures['from']));
     }
 
     public function testPushFeatures()
@@ -163,20 +163,20 @@ class ParseServerInfoTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($pushFeatures['scheduledPush']));
         $this->assertTrue(isset($pushFeatures['storedPushData']));
 
-        $this->assertTrue($pushFeatures['pushAudiences']);
-        $this->assertTrue($pushFeatures['localization']);
+        $this->assertTrue(isset($pushFeatures['pushAudiences']));
+        $this->assertTrue(isset($pushFeatures['localization']));
     }
 
     public function testSchemasFeatures()
     {
         $schemasFeatures = ParseServerInfo::getSchemasFeatures();
-        $this->assertTrue($schemasFeatures['addField']);
-        $this->assertTrue($schemasFeatures['removeField']);
-        $this->assertTrue($schemasFeatures['addClass']);
-        $this->assertTrue($schemasFeatures['removeClass']);
-        $this->assertTrue($schemasFeatures['clearAllDataFromClass']);
-        $this->assertFalse($schemasFeatures['exportClass']);
-        $this->assertTrue($schemasFeatures['editClassLevelPermissions']);
-        $this->assertTrue($schemasFeatures['editPointerPermissions']);
+        $this->assertTrue(isset($schemasFeatures['addField']));
+        $this->assertTrue(isset($schemasFeatures['removeField']));
+        $this->assertTrue(isset($schemasFeatures['addClass']));
+        $this->assertTrue(isset($schemasFeatures['removeClass']));
+        $this->assertTrue(isset($schemasFeatures['clearAllDataFromClass']));
+        $this->assertTrue(isset($schemasFeatures['exportClass']));
+        $this->assertTrue(isset($schemasFeatures['editClassLevelPermissions']));
+        $this->assertTrue(isset($schemasFeatures['editPointerPermissions']));
     }
 }
