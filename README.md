@@ -151,6 +151,7 @@ A couple examples of bad health responses could include an incorrect mount path,
     "error_message": "Couldn't resolve host '__uh__oh__.com'"
 }
 ```
+Keep in mind `error` & `error_message` may change depending on whether you are using the **curl** (may change across versions of curl) or **stream** client.
 
 ### Http Clients
 
