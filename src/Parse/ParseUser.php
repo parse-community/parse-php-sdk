@@ -608,6 +608,22 @@ class ParseUser extends ParseObject
     }
 
     /**
+     * Request a verification email to be sent to the specified email address
+     *
+     * @param string $email Email to request a verification for
+     */
+    public static function requestVerificationEmail($email)
+    {
+        $json = json_encode(['email' => $email]);
+        ParseClient::_request(
+            'POST',
+            'verificationEmailRequest',
+            null,
+            $json
+        );
+    }
+
+    /**
      * Sets the current user to null. Used internally for testing purposes.
      */
     public static function _clearCurrentUserVariable()

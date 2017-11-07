@@ -718,4 +718,35 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         ParseUser::logOut();
     }
+
+    /**
+     * @group verification-email
+     */
+    public function testRequestVerificationEmail()
+    {
+        $user = new ParseUser();
+        $user->setUsername('verification_email_user');
+        $user->setPassword('password');
+        $user->setEmail('example@example.com');
+        $user->signUp();
+        ParseUser::requestVerificationEmail('example@example.com');
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testRequestVerificationEmailEmpty()
+    {
+        $this->setExpectedException('Parse\ParseException', 'you must provide an email');
+        ParseUser::requestVerificationEmail('');
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testRequestVerificationEmailBad()
+    {
+        $this->setExpectedException('Parse\ParseException', 'No user found with email not_a_known_email');
+        ParseUser::requestVerificationEmail('not_a_known_email');
+    }
 }
