@@ -11,6 +11,12 @@ class ParseConfigTest extends \PHPUnit_Framework_TestCase
         Helper::setUp();
     }
 
+    public function tearDown()
+    {
+        // clear config on tear down
+        Helper::clearClass('_GlobalConfig');
+    }
+
     /**
      * @group parse-config
      */
@@ -51,5 +57,19 @@ class ParseConfigTest extends \PHPUnit_Framework_TestCase
 
         // check normal value
         $this->assertEquals('bar', $config->escape('foo'));
+    }
+
+    /**
+     * @group parse-config
+     */
+    public function testSaveConfig()
+    {
+        $config = new ParseConfig();
+        $this->assertNull($config->get('key'));
+        $config->set('key', 'value');
+        $config->save();
+
+        $config = new ParseConfig();
+        $this->assertEquals($config->get('key'), 'value');
     }
 }
