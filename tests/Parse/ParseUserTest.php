@@ -724,12 +724,34 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
      */
     public function testRequestVerificationEmail()
     {
+        $email = 'example@example.com';
         $user = new ParseUser();
         $user->setUsername('verification_email_user');
         $user->setPassword('password');
-        $user->setEmail('example@example.com');
+        $user->setEmail($email);
         $user->signUp();
-        ParseUser::requestVerificationEmail('example@example.com');
+        ParseUser::requestVerificationEmail($email);
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testEmailAlreadyVerified()
+    {
+        $email = 'example2@example.com';
+        $this->setExpectedException('Parse\ParseException', "Email {$email} is already verified.");
+
+        $user = new ParseUser();
+        $user->setUsername('another_verification_email_user');
+        $user->setPassword('password');
+        $user->setEmail($email);
+        $user->signUp();
+
+        // forcibly update emailVerification status
+        $user->set('emailVerified', true);
+        $user->save(true);
+
+        ParseUser::requestVerificationEmail($email);
     }
 
     /**
