@@ -86,6 +86,24 @@ class ParseSession extends ParseObject
         return strpos($token, 'r:') === 0;
     }
 
+    public static function upgradeToRevocableSession()
+    {
+        $token = ParseUser::getCurrentUser()->getSessionToken();
+        $response = ParseClient::_request(
+            'POST',
+            'upgradeToRevocableSession',
+            $token,
+            null,
+            false
+        );
+        $session = new self();
+        $session->_mergeAfterFetch($response);
+        $session->handleSaveResult();
+        ParseUser::become($session->getSessionToken());
+
+        //echo "\n\nGOT RESPONSE: ".json_encode($response) . "\n\n";
+    }
+
     /**
      * After a save, perform Session object specific logic.
      */

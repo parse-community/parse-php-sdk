@@ -56,4 +56,27 @@ class ParseSessionTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Parse\ParseException', 'invalid session token');
         ParseUser::become($sessionToken);
     }
+
+    /**
+     * @group upgrade-to-revocable-session
+     */
+    public function testUpgradeToRevocableSession()
+    {
+        $user = new ParseUser();
+        $user->setUsername('revocable_username');
+        $user->setPassword('revocable_password');
+        $user->signUp();
+
+        $session = ParseSession::getCurrentSession();
+        $this->assertEquals($user->getSessionToken(), $session->getSessionToken());
+
+        // upgrade the current session (changes our session as well)
+        ParseSession::upgradeToRevocableSession();
+
+        // verify that our session has changed, and our updated current user matches it
+        $session = ParseSession::getCurrentSession();
+        $user = ParseUser::getCurrentUser();
+        $this->assertEquals($user->getSessionToken(), $session->getSessionToken());
+        $this->assertTrue($session->isCurrentSessionRevocable());
+    }
 }
