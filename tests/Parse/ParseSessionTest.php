@@ -79,4 +79,14 @@ class ParseSessionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($user->getSessionToken(), $session->getSessionToken());
         $this->assertTrue($session->isCurrentSessionRevocable());
     }
+
+    /**
+     * @group upgrade-to-revocable-session
+     */
+    public function testBadUpgradeToRevocableSession()
+    {
+        // upgrade the current session (changes our session as well)
+        $this->setExpectedException('Parse\ParseException', 'No session to upgrade.');
+        ParseSession::upgradeToRevocableSession();
+    }
 }
