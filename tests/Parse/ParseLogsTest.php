@@ -8,7 +8,6 @@
 
 namespace Parse\Test;
 
-
 use Parse\ParseException;
 use Parse\ParseLogs;
 use Parse\ParseUser;

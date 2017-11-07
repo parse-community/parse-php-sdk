@@ -25,27 +25,26 @@ class ParseLogs
      * @return array
      */
     public static function getScriptLogs(
-        $level = 'info', // info/error
+        $level = 'info',
         $size = 100,
         $from = null,
         $until = null,
         $order = null
-    )
-    {
+    ) {
         $data = [
             'level' => $level,
             'size'  => $size,
         ];
 
-        if(isset($from) && $from instanceof \DateTime) {
+        if (isset($from) && $from instanceof \DateTime) {
             $data['from'] = ParseClient::getProperDateFormat($from);
         }
 
-        if(isset($until) && $until instanceof \DateTime) {
+        if (isset($until) && $until instanceof \DateTime) {
             $data['until'] = ParseClient::getProperDateFormat($until);
         }
 
-        if(isset($order)) {
+        if (isset($order)) {
             $data['order'] = $order;
         }
 
