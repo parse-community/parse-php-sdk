@@ -87,6 +87,32 @@ class ParseSession extends ParseObject
     }
 
     /**
+     * Upgrades the current session to a revocable one
+     *
+     * @throws ParseException
+     */
+    public static function upgradeToRevocableSession()
+    {
+        $user = ParseUser::getCurrentUser();
+        if ($user) {
+            $token = $user->getSessionToken();
+            $response = ParseClient::_request(
+                'POST',
+                'upgradeToRevocableSession',
+                $token,
+                null,
+                false
+            );
+            $session = new self();
+            $session->_mergeAfterFetch($response);
+            $session->handleSaveResult();
+            ParseUser::become($session->getSessionToken());
+        } else {
+            throw new ParseException('No session to upgrade.');
+        }
+    }
+
+    /**
      * After a save, perform Session object specific logic.
      */
     private function handleSaveResult()
