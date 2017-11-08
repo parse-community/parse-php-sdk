@@ -19,7 +19,7 @@ class ParseLogsTest extends \PHPUnit_Framework_TestCase
     {
         // setup 15 log entries that we can reference
         $objs = [];
-        while(count($objs) < 15) {
+        while (count($objs) < 15) {
             $obj = new ParseObject('TestObject');
             $objs[] = $obj;
         }
@@ -36,7 +36,6 @@ class ParseLogsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGettingDefaultLogs()
     {
-
         $logs = ParseLogs::getScriptLogs('info', 1);
         $this->assertNotEmpty($logs);
         $this->assertEquals(1, count($logs));
