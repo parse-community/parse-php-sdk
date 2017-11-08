@@ -718,4 +718,57 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         ParseUser::logOut();
     }
+
+    /**
+     * @group verification-email
+     */
+    public function testRequestVerificationEmail()
+    {
+        $email = 'example@example.com';
+        $user = new ParseUser();
+        $user->setUsername('verification_email_user');
+        $user->setPassword('password');
+        $user->setEmail($email);
+        $user->signUp();
+        ParseUser::requestVerificationEmail($email);
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testEmailAlreadyVerified()
+    {
+        $email = 'example2@example.com';
+        $this->setExpectedException('Parse\ParseException', "Email {$email} is already verified.");
+
+        $user = new ParseUser();
+        $user->setUsername('another_verification_email_user');
+        $user->setPassword('password');
+        $user->setEmail($email);
+        $user->signUp();
+
+        // forcibly update emailVerification status
+        $user->set('emailVerified', true);
+        $user->save(true);
+
+        ParseUser::requestVerificationEmail($email);
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testRequestVerificationEmailEmpty()
+    {
+        $this->setExpectedException('Parse\ParseException', 'you must provide an email');
+        ParseUser::requestVerificationEmail('');
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testRequestVerificationEmailBad()
+    {
+        $this->setExpectedException('Parse\ParseException', 'No user found with email not_a_known_email');
+        ParseUser::requestVerificationEmail('not_a_known_email');
+    }
 }
