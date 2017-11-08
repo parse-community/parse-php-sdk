@@ -36,6 +36,7 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
         - [Features](#features)
     - [Schema](#schema)
         - [Purge](#purge)
+    - [Logs](#logs)
 - [Contributing / Testing](#contributing--testing)
 
 ## Installation
@@ -214,6 +215,7 @@ use Parse\ParseCloud;
 use Parse\ParseClient;
 use Parse\ParsePushStatus;
 use Parse\ParseServerInfo;
+use Parse\ParseLogs;
 ```
 
 ### Parse Objects
@@ -574,6 +576,25 @@ Only do this if you _really_ need to delete all objects from a class, such as wh
 // delete all objects in the schema
 $mySchema->purge();
 ```
+
+### Logs
+`ParseLogs` allows info and error logs to be retrieved from the server as JSON.
+Using the same approach as that which is utilized in the [dashboard](https://github.com/parse-community/parse-dashboard) you can view your logs with specific ranges in time, type and order.
+Note that this requires the correct masterKey to be set during your initialization for access.
+```php
+// get last 100 info logs, sorted in descending order
+$logs = ParseLogs::getInfoLogs();
+
+// get last 100 info logs, sorted in descending order
+$logs = ParseLogs::getErrorLogs();
+
+// logs can be retrieved with further specificity
+// get 10 logs from a date up to a date in ascending order
+$logs = ParseLogs::getInfoLogs(10, $fromDate, $untilDate, 'asc');
+
+// above can be done for 'getErrorLogs' as well
+```
+
 
 ## Contributing / Testing
 
