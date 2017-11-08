@@ -10,17 +10,36 @@ namespace Parse\Test;
 
 use Parse\ParseException;
 use Parse\ParseLogs;
+use Parse\ParseObject;
 use Parse\ParseUser;
 
 class ParseLogsTest extends \PHPUnit_Framework_TestCase
 {
+    public static function setUpBeforeClass()
+    {
+        // setup 15 log entries that we can reference
+        $objs = [];
+        while(count($objs) < 15) {
+            $obj = new ParseObject('TestObject');
+            $objs[] = $obj;
+        }
+        ParseObject::saveAll($objs);
+    }
+
+    public static function tearDownAfterClass()
+    {
+        Helper::clearClass('TestObject');
+    }
+
     /**
      * @group parse-logs-tests
      */
     public function testGettingDefaultLogs()
     {
+
         $logs = ParseLogs::getScriptLogs('info', 1);
         $this->assertNotEmpty($logs);
+        $this->assertEquals(1, count($logs));
     }
 
     /**
