@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 11/7/17
- * Time: 23:56
- */
 
 namespace Parse\Test;
-
 
 use Parse\ParseAudience;
 use Parse\ParseInstallation;
@@ -111,13 +104,9 @@ class ParseAudienceTest extends \PHPUnit_Framework_TestCase
             'audience_id'   => $audience->getObjectId()
         ], true);
 
-        $query = ParseAudience::query();
-        $found = $query->find(true);
-        $this->assertEquals(1, count($found));
-        $audience = $found[0];
+        $audience->fetch(true);
 
         $this->assertEquals(1, $audience->getTimesUsed());
         $this->assertNotNull($audience->getLastUsed());
-
     }
 }

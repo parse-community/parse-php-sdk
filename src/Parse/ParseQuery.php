@@ -152,7 +152,7 @@ class ParseQuery
 
         // iterate over and add each condition
         foreach ($conditions as $key => $entry) {
-            switch($key) {
+            switch ($key) {
                 case 'where':
                     $this->where = $entry;
                     break;

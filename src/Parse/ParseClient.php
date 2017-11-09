@@ -151,7 +151,7 @@ final class ParseClient
             ParsePushStatus::registerSubclass();
         }
 
-        if(!ParseObject::hasRegisteredSubclass('_Audience')) {
+        if (!ParseObject::hasRegisteredSubclass('_Audience')) {
             ParseAudience::registerSubclass();
         }
 
