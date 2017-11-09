@@ -2263,11 +2263,53 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals([
             'where' => [
-                [
-                    'key'   => 'value'
-                ]
+                'key'   => 'value'
             ]
         ], $query->_getOptions());
+    }
+
+    /**
+     * @group query-set-conditions
+     */
+    public function testGetAndSetConditions()
+    {
+        $query = new ParseQuery('TestObject');
+        $query->equalTo('key', 'value');
+        $query->notEqualTo('key2', 'value2');
+        $query->includeKey(['include1','include2']);
+        $query->contains('container', 'item');
+        $query->addDescending('desc');
+        $query->addAscending('asc');
+        $query->select(['select1','select2']);
+        $query->skip(24);
+        $query->limit(42);
+        $conditions = $query->_getOptions();
+
+        $this->assertEquals([
+            'where' => [
+                'key'   => 'value',
+                'key2'  => [
+                    '$ne'   => 'value2',
+                ],
+                'container' => [
+                    '$regex'    => '\Qitem\E'
+                ]
+            ],
+            'include'   => 'include1,include2',
+            'keys'      => 'select1,select2',
+            'limit'     => 42,
+            'skip'      => 24,
+            'order'     => '-desc,asc'
+        ], $conditions, 'Conditions were different than expected');
+
+        $query2 = new ParseQuery('TestObject');
+        $query2->_setConditions($conditions);
+
+        $this->assertEquals(
+            $query,
+            $query2,
+            'Conditions set on query did not give the expected result'
+        );
     }
 
     public function testBadConditions()

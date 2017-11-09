@@ -152,8 +152,40 @@ class ParseQuery
 
         // iterate over and add each condition
         foreach ($conditions as $key => $entry) {
-            foreach ($entry as $condition => $value) {
-                $this->addCondition($key, $condition, $value);
+            switch($key) {
+                case 'where':
+                    $this->where = $entry;
+                    break;
+
+                case 'include':
+                    $this->includes = explode(',', $entry);
+                    break;
+
+                case 'keys':
+                    $this->selectedKeys = explode(',', $entry);
+                    break;
+
+                case 'limit':
+                    $this->limit = $entry;
+                    break;
+
+                // skip
+                case 'skip':
+                    $this->skip = $entry;
+                    break;
+
+                // orderBy
+                case 'order':
+                    $this->orderBy = explode(',', $entry);
+                    break;
+
+                // whether this query is for count or not
+                case 'count':
+                    $this->count = $entry;
+                    break;
+
+                default:
+                    throw new ParseException("Unknown condition to set '{$key}''");
             }
         }
     }
