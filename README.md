@@ -436,7 +436,7 @@ If you want to keep track of your sends when using queries you can use the `Pars
 You can create and configure your Audience objects with a name and query.
 When you indicate it's being used in a push the `lastUsed` and `timesUsed` values are updated for you.
 ```php
-$iosQuery = new ParseQuery();
+$iosQuery = ParseInstallation::getQuery();
 $iosQuery->equalTo("deviceType", "ios");
 
 // create & save your audience
@@ -447,6 +447,8 @@ $audience = ParseAudience::createAudience(
 $audience->save(true);
 
 // send a push using the query in this audience and it's id
+// The 'audience_id' is what allows parse to update 'lastUsed' and 'timesUsed'
+// You could use any audience_id with any query and it will still update that audience
 ParsePush::send([
     'data'          => [
         'alert' => 'hello ios users!'
