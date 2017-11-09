@@ -7,6 +7,7 @@ use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\Internal\SetOperation;
 use Parse\ParseACL;
 use Parse\ParseAggregateException;
+use Parse\ParseAudience;
 use Parse\ParseClient;
 use Parse\ParseException;
 use Parse\ParseFile;
@@ -1077,6 +1078,7 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         ParseInstallation::_unregisterSubclass();
         ParseSession::_unregisterSubclass();
         ParsePushStatus::_unregisterSubclass();
+        ParseAudience::_unregisterSubclass();
 
         new ParseObject('TestClass');
     }
