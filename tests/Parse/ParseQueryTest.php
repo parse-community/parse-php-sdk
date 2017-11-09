@@ -2282,7 +2282,12 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $query->addAscending('asc');
         $query->select(['select1','select2']);
         $query->skip(24);
+
+        // sets count = 1 and limit = 0
+        $query->count();
+        // reset limit up to 42
         $query->limit(42);
+
         $conditions = $query->_getOptions();
 
         $this->assertEquals([
@@ -2299,7 +2304,8 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
             'keys'      => 'select1,select2',
             'limit'     => 42,
             'skip'      => 24,
-            'order'     => '-desc,asc'
+            'order'     => '-desc,asc',
+            'count'     => 1
         ], $conditions, 'Conditions were different than expected');
 
         $query2 = new ParseQuery('TestObject');
@@ -2312,7 +2318,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testBadConditions()
+    public function testNotArrayConditions()
     {
         $this->setExpectedException(
             '\Parse\ParseException',
@@ -2321,5 +2327,21 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
         $query = new ParseQuery('TestObject');
         $query->_setConditions('not-an-array');
+    }
+
+    /**
+     * @group query-set-conditions
+     */
+    public function testUnknownCondition()
+    {
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Unknown condition to set \'unrecognized\''
+        );
+        
+        $query = new ParseQuery('TestObject');
+        $query->_setConditions([
+            'unrecognized'  => 1
+        ]);
     }
 }
