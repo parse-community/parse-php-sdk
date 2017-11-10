@@ -30,6 +30,7 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
     - [Push Notifications](#push)
         - [Push to Channels](#push-to-channels)
         - [Push with Query](#push-with-query)
+        - [Push with Audience](#push-with-audience)
         - [Push Status](#push-status)
     - [Server Info](#server-info)
         - [Version](#version)
@@ -216,6 +217,7 @@ use Parse\ParseClient;
 use Parse\ParsePushStatus;
 use Parse\ParseServerInfo;
 use Parse\ParseLogs;
+use Parse\ParseAudience;
 ```
 
 ### Parse Objects
@@ -427,6 +429,42 @@ ParsePush::send(array(
     "data" => $data
 ), true);
 ```
+
+#### Push with Audience
+
+If you want to keep track of your sends when using queries you can use the `ParseAudience` class.
+You can create and configure your Audience objects with a name and query.
+When you indicate it's being used in a push the `lastUsed` and `timesUsed` values are updated for you.
+```php
+$iosQuery = ParseInstallation::getQuery();
+$iosQuery->equalTo("deviceType", "ios");
+
+// create & save your audience
+$audience = ParseAudience::createAudience(
+    'MyiOSAudience',
+    $iosQuery
+);
+$audience->save(true);
+
+// send a push using the query in this audience and it's id
+// The 'audience_id' is what allows parse to update 'lastUsed' and 'timesUsed'
+// You could use any audience_id with any query and it will still update that audience
+ParsePush::send([
+    'data'          => [
+        'alert' => 'hello ios users!'
+    ],
+    'where'         => $audience->getQuery(),
+    'audience_id'   => $audience->getObjectId()
+], true);
+
+// fetch changes to this audience
+$audience->fetch(true);
+
+// get last & times used for tracking
+$timesUsed = $audience->getTimesUsed();
+$lastUsed = $audience->getLastUsed();
+```
+Audiences provide you with a convenient way to group your queries and keep track of how often and when you send to them.
 
 #### Push Status
 

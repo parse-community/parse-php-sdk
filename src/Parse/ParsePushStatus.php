@@ -75,7 +75,9 @@ class ParsePushStatus extends ParseObject
         $query = new ParseQuery(self::$parseClassName);
 
         // set the conditions
-        $query->_setConditions($queryConditions);
+        $query->_setConditions([
+            'where' => $queryConditions
+        ]);
 
         return $query;
     }
