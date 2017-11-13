@@ -210,9 +210,9 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
 
         $user = ParseUser::getCurrentUser();
-
         if (isset($user)) {
-            throw new ParseException($user->_encode());
+            // logout the current user
+            ParseUser::logOut();
         }
 
         $this->provideTestObjects(10);
