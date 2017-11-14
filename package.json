@@ -20,6 +20,6 @@
   "license": "https://github.com/parse-community/parse-php-sdk/blob/master/LICENSE",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "dependencies": {
-    "parse-server-test": "1.3.3"
+    "parse-server-test": "1.3.4"
   }
 }
