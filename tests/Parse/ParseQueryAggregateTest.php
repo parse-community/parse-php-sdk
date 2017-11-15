@@ -55,12 +55,9 @@ class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
         $query = new ParseQuery('TestObject');
         $results = $query->distinct('score');
 
-        print_r($results);
         $this->assertEquals(2, count($results));
         $this->assertEquals(in_array(10, $results), true);
         $this->assertEquals(in_array(20, $results), true);
-        $this->assertEquals($results[0], 10);
-        $this->assertEquals($results[1], 20);
     }
 
     public function testDistinctWhereQuery()
