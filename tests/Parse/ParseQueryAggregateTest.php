@@ -89,7 +89,7 @@ class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($results));
     }
 
-    public function testDisinctOnUsers()
+    public function testDistinctOnUsers()
     {
         Helper::clearClass(ParseUser::$parseClassName);
         $user1 = new ParseUser();
