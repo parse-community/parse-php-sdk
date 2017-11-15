@@ -271,6 +271,6 @@ class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
         $results = $query->aggregate($pipeline);
 
         $this->assertEquals(1, count($results));
-        $this->assertEquals($results[0], 20);
+        $this->assertEquals($results[0]['score'], 20);
     }
 }
