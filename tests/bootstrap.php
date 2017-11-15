@@ -7,8 +7,14 @@
 
 namespace Parse;
 
+use Parse\Test\Helper;
+
 require_once dirname(__DIR__).'/vendor/autoload.php';
 
 define('APPLICATION_PATH', dirname(__DIR__));
 
-echo "[ testing with curl client ]\n";
+// indicate which server version & client we're testing against
+Helper::setUp();
+$version = ParseServerInfo::getVersion();
+
+echo "[ testing against {$version} with curl client ]\n";

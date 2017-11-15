@@ -71,9 +71,7 @@ class ParseSession extends ParseObject
     public static function isCurrentSessionRevocable()
     {
         $user = ParseUser::getCurrentUser();
-        if ($user) {
-            return self::_isRevocable($user->getSessionToken());
-        }
+        return $user ? self::_isRevocable($user->getSessionToken()) : false;
     }
 
     /**
@@ -89,9 +87,33 @@ class ParseSession extends ParseObject
     }
 
     /**
-     * After a save, perform Session object specific logic.
+     * Upgrades the current session to a revocable one
      *
-     * @return null
+     * @throws ParseException
+     */
+    public static function upgradeToRevocableSession()
+    {
+        $user = ParseUser::getCurrentUser();
+        if ($user) {
+            $token = $user->getSessionToken();
+            $response = ParseClient::_request(
+                'POST',
+                'upgradeToRevocableSession',
+                $token,
+                null,
+                false
+            );
+            $session = new self();
+            $session->_mergeAfterFetch($response);
+            $session->handleSaveResult();
+            ParseUser::become($session->getSessionToken());
+        } else {
+            throw new ParseException('No session to upgrade.');
+        }
+    }
+
+    /**
+     * After a save, perform Session object specific logic.
      */
     private function handleSaveResult()
     {

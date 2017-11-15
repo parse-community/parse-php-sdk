@@ -74,7 +74,7 @@ class ParseSessionStorage implements ParseStorageInterface
             return $_SESSION[$this->storageKey][$key];
         }
 
-        return;
+        return null;
     }
 
     /**

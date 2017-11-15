@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 1/30/17
- * Time: 11:07 AM
+ * Class ParseRelationOperationTest | Parse/Test/ParseRelationOperationTest.php
  */
 
 namespace Parse\Test;

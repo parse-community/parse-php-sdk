@@ -104,47 +104,66 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
     public function testExplicitRoleACL()
     {
         $eden = $this->createEden();
+
+        // verify adam can get the apple
         ParseUser::logIn('adam', 'adam');
         $query = new ParseQuery('Things');
-        $apple = $query->get($eden['apple']->getObjectId());
+        $query->get($eden['apple']->getObjectId());
+
+        // verify eve can get the apple
         ParseUser::logIn('eve', 'eve');
-        $apple = $query->get($eden['apple']->getObjectId());
+        $query->get($eden['apple']->getObjectId());
+
+        // verify the snake cannot get the apple
         ParseUser::logIn('snake', 'snake');
         $this->setExpectedException('Parse\ParseException', 'not found');
-        $apple = $query->get($eden['apple']->getObjectId());
+        $query->get($eden['apple']->getObjectId());
     }
 
     public function testRoleHierarchyAndPropagation()
     {
         $eden = $this->createEden();
+
+        // verify adam can enter the garden
         ParseUser::logIn('adam', 'adam');
         $query = new ParseQuery('Things');
-        $garden = $query->get($eden['garden']->getObjectId());
-        ParseUser::logIn('eve', 'eve');
-        $garden = $query->get($eden['garden']->getObjectId());
-        ParseUser::logIn('snake', 'snake');
-        $garden = $query->get($eden['garden']->getObjectId());
+        $query->get($eden['garden']->getObjectId());
 
+        // verify adam can enter the garden
+        ParseUser::logIn('eve', 'eve');
+        $query->get($eden['garden']->getObjectId());
+
+        // verify the snake can enter the garden
+        ParseUser::logIn('snake', 'snake');
+        $query->get($eden['garden']->getObjectId());
+
+        // make it so humans can no longer enter the garden
         $eden['edenkin']->getRoles()->remove($eden['humans']);
         $eden['edenkin']->save();
+
+        // verify adam can no longer enter the garden
         ParseUser::logIn('adam', 'adam');
         try {
             $query->get($eden['garden']->getObjectId());
             $this->fail('Get should have failed.');
-        } catch (\Parse\ParseException $ex) {
+        } catch (ParseException $ex) {
             if ($ex->getMessage() != 'Object not found.') {
                 throw $ex;
             }
         }
+
+        // verify eve can no longer enter the garden
         ParseUser::logIn('eve', 'eve');
         try {
             $query->get($eden['garden']->getObjectId());
             $this->fail('Get should have failed.');
-        } catch (\Parse\ParseException $ex) {
+        } catch (ParseException $ex) {
             if ($ex->getMessage() != 'Object not found.') {
                 throw $ex;
             }
         }
+
+        // verify the snake can still enter the garden
         ParseUser::logIn('snake', 'snake');
         $query->get($eden['garden']->getObjectId());
 
@@ -167,9 +186,6 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         ParseUser::logOut();
     }
 
-    /**
-     * Utilities.
-     */
     public function aclPrivateTo($someone)
     {
         $acl = new ParseACL();

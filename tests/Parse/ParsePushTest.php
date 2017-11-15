@@ -2,11 +2,9 @@
 
 namespace Parse\Test;
 
-use Parse\ParseException;
 use Parse\ParseInstallation;
 use Parse\ParsePush;
 use Parse\ParsePushStatus;
-use Parse\ParseQuery;
 
 class ParsePushTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 2/20/17
- * Time: 1:08 PM
+ * Class ParseCurlHttpClientTest | Parse/Test/ParseCurlHttpClientTest.php
  */
 
 namespace Parse\Test;

@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 1/30/17
- * Time: 11:00 AM
+ * Class IncrementOperationTest | Parse/Test/IncrementOperationTest.php
  */
 
 namespace Parse\Test;
@@ -12,7 +9,6 @@ use Parse\Internal\AddOperation;
 use Parse\Internal\DeleteOperation;
 use Parse\Internal\IncrementOperation;
 use Parse\Internal\SetOperation;
-use Parse\ParseException;
 
 class IncrementOperationTest extends \PHPUnit_Framework_TestCase
 {

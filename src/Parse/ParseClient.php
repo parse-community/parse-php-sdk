@@ -151,6 +151,10 @@ final class ParseClient
             ParsePushStatus::registerSubclass();
         }
 
+        if (!ParseObject::hasRegisteredSubclass('_Audience')) {
+            ParseAudience::registerSubclass();
+        }
+
         ParseSession::registerSubclass();
         self::$applicationId = $app_id;
         self::$restKey = $rest_key;
@@ -219,6 +223,57 @@ final class ParseClient
     public static function setHttpClient(ParseHttpable $httpClient)
     {
         self::$httpClient = $httpClient;
+    }
+
+    /**
+     * Returns an array of information regarding the current server's health
+     *
+     * @return array
+     */
+    public static function getServerHealth()
+    {
+        self::assertServerInitialized();
+
+        // get our prepared http client
+        $httpClient = self::getPreparedHttpClient();
+
+        // try to get a response from the server
+        $url = self::createRequestUrl('health');
+        $response = $httpClient->send($url);
+
+        $errorCode = $httpClient->getErrorCode();
+
+        if ($errorCode) {
+            return [
+                'status'        => $httpClient->getResponseStatusCode(),
+                'error'         => $errorCode,
+                'error_message' => $httpClient->getErrorMessage()
+            ];
+        }
+
+        $status = [
+            'status'   => $httpClient->getResponseStatusCode(),
+        ];
+
+        // attempt to decode this response
+        $decoded = json_decode($response, true);
+
+        if (isset($decoded)) {
+            // add decoded response
+            $status['response'] = $decoded;
+        } else {
+            if ($response === 'OK') {
+                // implied status: ok!
+                $status['response'] = [
+                    'status'    => 'ok'
+                ];
+            } else {
+                // add plain response
+                $status['response'] = $response;
+            }
+        }
+
+        return $status;
     }
 
     /**
@@ -319,7 +374,7 @@ final class ParseClient
         }
 
         if (!isset($data) && !is_array($data)) {
-            return;
+            return null;
         }
 
         if (is_array($data)) {
@@ -390,6 +445,38 @@ final class ParseClient
     }
 
     /**
+     * Returns an httpClient prepared for use
+     *
+     * @return ParseHttpable
+     */
+    private static function getPreparedHttpClient()
+    {
+        // get our http client
+        $httpClient = self::getHttpClient();
+
+        // setup
+        $httpClient->setup();
+
+        if (isset(self::$caFile)) {
+            // set CA file
+            $httpClient->setCAFile(self::$caFile);
+        }
+
+        return $httpClient;
+    }
+
+    /**
+     * Creates an absolute request url from a relative one
+     *
+     * @param string $relativeUrl   Relative url to create full request url from
+     * @return string
+     */
+    private static function createRequestUrl($relativeUrl)
+    {
+        return self::$serverURL . '/' . self::$mountPath.ltrim($relativeUrl, '/');
+    }
+
+    /**
      * Parse\Client::_request, internal method for communicating with Parse.
      *
      * @param string $method        HTTP Method for this request.
@@ -419,16 +506,8 @@ final class ParseClient
             $data = '{}';
         }
 
-        // get our http client
-        $httpClient = self::getHttpClient();
-
-        // setup
-        $httpClient->setup();
-
-        if (isset(self::$caFile)) {
-            // set CA file
-            $httpClient->setCAFile(self::$caFile);
-        }
+        // get our prepared http client
+        $httpClient = self::getPreparedHttpClient();
 
         // verify the server url and mount path have been set
         self::assertServerInitialized();
@@ -473,7 +552,7 @@ final class ParseClient
         $httpClient->addRequestHeader('Expect', '');
 
         // create request url
-        $url = self::$serverURL . '/' . self::$mountPath.ltrim($relativeUrl, '/');
+        $url = self::createRequestUrl($relativeUrl);
 
         if ($method === 'POST' || $method === 'PUT') {
             // add content type to the request

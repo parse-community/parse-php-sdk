@@ -14,6 +14,8 @@ use Parse\HttpClients\ParseCurlHttpClient;
 use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\ParseClient;
 use Parse\ParseException;
+use Parse\ParseObject;
+use Parse\ParseQuery;
 use Parse\ParseSchema;
 use Parse\ParseUser;
 
@@ -73,6 +75,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(ParseSchema::$DATE, $result['fields']['dateField']['type']);
         $this->assertEquals(ParseSchema::$FILE, $result['fields']['fileField']['type']);
         $this->assertEquals(ParseSchema::$GEO_POINT, $result['fields']['geoPointField']['type']);
+        $this->assertEquals(ParseSchema::$POLYGON, $result['fields']['polygonField']['type']);
         $this->assertEquals(ParseSchema::$ARRAY, $result['fields']['arrayField']['type']);
         $this->assertEquals(ParseSchema::$OBJECT, $result['fields']['objectField']['type']);
         $this->assertEquals(ParseSchema::$POINTER, $result['fields']['pointerField']['type']);
@@ -91,6 +94,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
             ->addDate('dateField')
             ->addFile('fileField')
             ->addGeoPoint('geoPointField')
+            ->addPolygon('polygonField')
             ->addArray('arrayField')
             ->addObject('objectField')
             ->addPointer('pointerField', '_User')
@@ -188,10 +192,59 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 
     public function testUpdateWrongFieldType()
     {
-        $schema = new ParseSchema();
         $this->setExpectedException('Exception', 'WrongType is not a valid type.');
+
+        $schema = new ParseSchema();
         $schema->addField('NewTestField', 'WrongType');
-        $result = $schema->update();
+        $schema->update();
+    }
+
+    /**
+     * @group schema-purge
+     */
+    public function testPurgeSchema()
+    {
+        // get a handle to this schema
+        $schema = new ParseSchema('SchemaTest');
+
+        // create an object in this schema
+        $obj = new ParseObject('SchemaTest');
+        $obj->set('field', 'the_one_and_only');
+        $obj->save();
+
+        // attempt to delete this schema (expecting to fail)
+        try {
+            $schema->delete();
+            $this->assertTrue(false, 'Did not fail on delete as expected');
+        } catch (ParseException $pe) {
+            $this->assertEquals(
+                'Class SchemaTest is not empty, contains 1 objects, cannot drop schema.',
+                $pe->getMessage()
+            );
+        }
+
+        // purge this schema
+        $schema->purge();
+
+        // verify no more objects are present
+        $query = new ParseQuery('SchemaTest');
+        $this->assertEquals(0, $query->count());
+
+        // delete again
+        $schema->delete();
+    }
+
+    /**
+     * @group schema-purge
+     */
+    public function testPurgingNonexistentSchema()
+    {
+        $this->setExpectedException(
+            'Parse\ParseException',
+            'Bad Request'
+        );
+        $schema = new ParseSchema('NotARealSchema');
+        $schema->purge();
     }
 
     public function testDeleteSchema()
@@ -265,6 +318,13 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema = self::$schema;
         $this->setExpectedException('\Exception', 'field name may not be null.');
         $schema->addGeoPoint();
+    }
+
+    public function testPolygonFieldNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $schema->addPolygon();
     }
 
     public function testArrayFieldNameException()

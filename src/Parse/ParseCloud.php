@@ -38,4 +38,57 @@ class ParseCloud
 
         return ParseClient::_decode($response['result']);
     }
+
+    /**
+     * Gets data for the current set of cloud jobs
+     *
+     * @return array
+     */
+    public static function getJobsData()
+    {
+        $response = ParseClient::_request(
+            'GET',
+            'cloud_code/jobs/data',
+            null,
+            null,
+            true
+        );
+
+        return ParseClient::_decode($response);
+    }
+
+    /**
+     * Starts a given cloud job, which will process asynchronously
+     *
+     * @param string $jobName   Name of job to run
+     * @param array $data       Parameters to pass
+     * @return string           Id for tracking job status
+     */
+    public static function startJob($jobName, $data = [])
+    {
+        $response = ParseClient::_request(
+            'POST',
+            'jobs/'.$jobName,
+            null,
+            json_encode(ParseClient::_encode($data, false)),
+            true,
+            false,
+            'application/json',
+            true
+        );
+
+        return ParseClient::_decode($response)['_headers']['X-Parse-Job-Status-Id'];
+    }
+
+    /**
+     * Gets job status by id
+     *
+     * @param string $jobStatusId   Id of the job status to return
+     * @return array|ParseObject
+     */
+    public static function getJobStatus($jobStatusId)
+    {
+        $query = new ParseQuery('_JobStatus');
+        return $query->get($jobStatusId, true);
+    }
 }

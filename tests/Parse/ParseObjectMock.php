@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 1/29/17
- * Time: 10:08 PM
+ * Class ParseObjectMock | Parse/Test/ParseObjectMock.php
  */
 
 namespace Parse\Test;

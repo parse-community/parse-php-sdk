@@ -210,9 +210,9 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
 
         $user = ParseUser::getCurrentUser();
-
         if (isset($user)) {
-            throw new ParseException($user->_encode());
+            // logout the current user
+            ParseUser::logOut();
         }
 
         $this->provideTestObjects(10);
@@ -685,7 +685,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->saveObjects(
             2,
-            function ($i) {
+            function () {
                 $testObject = ParseObject::create('TestObject');
                 $testObject->set('foo', 'bar');
 
@@ -738,7 +738,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->saveObjects(
             2,
-            function ($i) {
+            function () {
                 return ParseObject::create('TestObject');
             }
         );
@@ -763,7 +763,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->saveObjects(
             2,
-            function ($i) {
+            function () {
                 return ParseObject::create('TestObject');
             }
         );
@@ -2180,7 +2180,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
         $query = new ParseQuery('TestObject');
         $this->setExpectedException('Parse\ParseException', 'not found');
-        $objAgain = $query->get($obj->getObjectId());
+        $query->get($obj->getObjectId());
     }
 
     public function testRestrictedGetWithMasterKey()
@@ -2263,14 +2263,62 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals([
             'where' => [
-                [
-                    'key'   => 'value'
-                ]
+                'key'   => 'value'
             ]
         ], $query->_getOptions());
     }
 
-    public function testBadConditions()
+    /**
+     * @group query-set-conditions
+     */
+    public function testGetAndSetConditions()
+    {
+        $query = new ParseQuery('TestObject');
+        $query->equalTo('key', 'value');
+        $query->notEqualTo('key2', 'value2');
+        $query->includeKey(['include1','include2']);
+        $query->contains('container', 'item');
+        $query->addDescending('desc');
+        $query->addAscending('asc');
+        $query->select(['select1','select2']);
+        $query->skip(24);
+
+        // sets count = 1 and limit = 0
+        $query->count();
+        // reset limit up to 42
+        $query->limit(42);
+
+        $conditions = $query->_getOptions();
+
+        $this->assertEquals([
+            'where' => [
+                'key'   => 'value',
+                'key2'  => [
+                    '$ne'   => 'value2',
+                ],
+                'container' => [
+                    '$regex'    => '\Qitem\E'
+                ]
+            ],
+            'include'   => 'include1,include2',
+            'keys'      => 'select1,select2',
+            'limit'     => 42,
+            'skip'      => 24,
+            'order'     => '-desc,asc',
+            'count'     => 1
+        ], $conditions, 'Conditions were different than expected');
+
+        $query2 = new ParseQuery('TestObject');
+        $query2->_setConditions($conditions);
+
+        $this->assertEquals(
+            $query,
+            $query2,
+            'Conditions set on query did not give the expected result'
+        );
+    }
+
+    public function testNotArrayConditions()
     {
         $this->setExpectedException(
             '\Parse\ParseException',
@@ -2279,5 +2327,21 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
 
         $query = new ParseQuery('TestObject');
         $query->_setConditions('not-an-array');
+    }
+
+    /**
+     * @group query-set-conditions
+     */
+    public function testUnknownCondition()
+    {
+        $this->setExpectedException(
+            '\Parse\ParseException',
+            'Unknown condition to set \'unrecognized\''
+        );
+        
+        $query = new ParseQuery('TestObject');
+        $query->_setConditions([
+            'unrecognized'  => 1
+        ]);
     }
 }

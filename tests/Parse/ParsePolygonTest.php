@@ -62,10 +62,8 @@ class ParsePolygonTest extends \PHPUnit_Framework_TestCase
         $p2 = new ParseGeoPoint(0, 1);
         $p3 = new ParseGeoPoint(1, 1);
         $p4 = new ParseGeoPoint(1, 0);
-        $p5 = new ParseGeoPoint(0, 0);
 
         $points = [$p1, $p2, $p3, $p4];
-        $openPoints = [[0,0],[0,1],[1,1],[1,0]];
         $closedPoints = [[0,0],[0,1],[1,1],[1,0],[0,0]];
         $polygon = new ParsePolygon($points);
 
@@ -172,6 +170,6 @@ class ParsePolygonTest extends \PHPUnit_Framework_TestCase
 
         $query = new ParseQuery('TestObject');
         $query->polygonContains('polygon', 1234);
-        $results = $query->find();
+        $query->find();
     }
 }

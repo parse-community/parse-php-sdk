@@ -1,15 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 2/20/17
- * Time: 1:05 PM
+ * Class ParseCurlTest | Parse/Test/ParseCurlTest.php
  */
 
 namespace Parse\Test;
 
 use Parse\HttpClients\ParseCurl;
-use Parse\ParseException;
 
 class ParseCurlTest extends \PHPUnit_Framework_TestCase
 {
