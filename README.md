@@ -23,6 +23,8 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
     - [Users](#users)
     - [ACLs/Security](#acls)
     - [Queries](#queries)
+        - [Aggregate](#aggregate)
+        - [Distinct](#distinct)
         - [Relative Time](#relative-time)
     - [Cloud Functions](#cloud-functions)
     - [Cloud Jobs](#cloud-jobs)
@@ -42,7 +44,7 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
 - [Contributing / Testing](#contributing--testing)
 
 ## Installation
-There are various ways to install and use this sdk. We'll elaborate on a couple here. 
+There are various ways to install and use this sdk. We'll elaborate on a couple here.
 Note that the Parse PHP SDK requires PHP 5.4 or newer.
 
 ### Install with Composer
@@ -224,7 +226,7 @@ use Parse\ParseAudience;
 ### Parse Objects
 
 Parse Objects hold your data, can be saved, queried for, serialized and more!
-Objects are at the core of this sdk, they allow you to persist your data from php without having to worry about any databasing code. 
+Objects are at the core of this sdk, they allow you to persist your data from php without having to worry about any databasing code.
 
 ```php
 $object = ParseObject::create("TestObject");
@@ -254,7 +256,7 @@ $decodedObject = ParseObject::decode($encoded);
 
 ### Users
 
-Users are a special kind of object. 
+Users are a special kind of object.
 This class allows individuals to access your applications with their unique information and allows you to identify them distinctly.
 Users may also be linked with 3rd party accounts such as facebook, twitter, etc.
 
@@ -302,7 +304,7 @@ $acl->setRoleWriteAccessWithName("PHPFans", true);
 
 ### Queries
 
-Queries allow you to recall objects that you've saved to parse-server. 
+Queries allow you to recall objects that you've saved to parse-server.
 Query methods and parameters allow allow a varying degree of querying for objects, from all objects of a class to objects created within a particular date range and more.
 
 ```php
@@ -327,6 +329,59 @@ $first = $query->first();
 $query->each(function($obj) {
     echo $obj->getObjectId();
 });
+
+```
+#### Aggregate
+
+Queries can be made using aggregates, allowing you to retrieve objects over a set of input values.
+Keep in mind that `_id` does not exist in parse-server. Please replace with `objectId`. MasterKey is Required
+
+For a list of available operators please refer to Mongo Aggregate Documentation.
+
+ <a href="https://docs.mongodb.com/v3.2/reference/operator/aggregation/">Mongo 3.2 Aggregate Operators</a>
+
+```php
+// group pipeline is similar to distinct, can apply $sum, $avg, $max, $min
+// accumulate sum and store in total field
+$pipeline = [
+    'group' => [
+        'objectId' => null,
+        'total' => [ '$sum' => '$score']
+    ]
+];
+$results = $query->aggregate($pipeline);
+
+// project pipeline is similar to keys, add or remove existing fields
+// includes name key
+$pipeline = [
+    'project' => [
+        'name' => 1
+    ]
+];
+$results = $query->aggregate($pipeline);
+
+// match pipeline is similar to equalTo
+// filter out objects with score greater than 15
+ $pipeline = [
+    'match' => [
+        'score' => [ '$gt' => 15 ]
+    ]
+];
+$results = $query->aggregate($pipeline);
+```
+
+#### Distinct
+
+Queries can be made using distinct, allowing you find unique values for a specified field.
+Keep in mind that MasterKey is required.
+```php
+// finds score that are unique
+$results = $query->distinct('score');
+
+// can be used with equalTo
+$query = new ParseQuery('TestObject');
+$query->equalTo('name', 'foo');
+$results = $query->distinct('score');
 ```
 
 #### Relative Time
@@ -557,7 +612,7 @@ $globalConfigFeatures = ParseServerInfo::getGlobalConfigFeatures();
  *    "delete" : true
  * }
  */
- 
+
  // you can always get all feature data
  $data = ParseServerInfo::getFeatures();
 ```

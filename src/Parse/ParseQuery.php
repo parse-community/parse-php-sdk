@@ -520,6 +520,65 @@ class ParseQuery
     }
 
     /**
+     * Execute a distinct query and return unique values.
+     *
+     * @param string $key field to find distinct values
+     *
+     * @return array
+     */
+    public function distinct($key)
+    {
+        $sessionToken = null;
+        if ($user = ParseUser::getCurrentUser()) {
+            $sessionToken = $user->getSessionToken();
+        }
+         $opts = [];
+        if (!empty($this->where)) {
+            $opts['where'] = $this->where;
+        }
+        $opts['distinct'] = $key;
+        $queryString = $this->buildQueryString($opts);
+        $result = ParseClient::_request(
+            'GET',
+            'aggregate/'.$this->className.'?'.$queryString,
+            $sessionToken,
+            null,
+            true
+        );
+
+        return $result['results'];
+    }
+
+    /**
+     * Execute an aggregate query and returns aggregate results.
+     *
+     * @param array $pipeline stages to process query
+     *
+     * @return array
+     */
+    public function aggregate($pipeline)
+    {
+        $sessionToken = null;
+        if ($user = ParseUser::getCurrentUser()) {
+            $sessionToken = $user->getSessionToken();
+        }
+        $stages = [];
+        foreach ($pipeline as $stage => $value) {
+            $stages[$stage] = json_encode($value);
+        }
+        $queryString = $this->buildQueryString($stages);
+        $result = ParseClient::_request(
+            'GET',
+            'aggregate/'.$this->className.'?'.$queryString,
+            $sessionToken,
+            null,
+            true
+        );
+
+        return $result['results'];
+    }
+
+    /**
      * Execute a find query and return the results.
      *
      * @param bool $useMasterKey
