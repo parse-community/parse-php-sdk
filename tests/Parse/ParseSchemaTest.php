@@ -428,7 +428,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaSave()
     {
-        $this->setExpectedException('\Parse\ParseException');
+        $this->setExpectedException('\Exception');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -444,7 +444,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaUpdate()
     {
-        $this->setExpectedException('\Parse\ParseException');
+        $this->setExpectedException('\Exception');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -466,7 +466,6 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $user->setUsername('schema-user');
         $user->setPassword('basicpassword');
         $user->signUp();
-
         $schema = new ParseSchema(self::$badClassName);
         $schema->delete();
     }
@@ -555,7 +554,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema->deleteIndex('test_index');
         $schema->update();
         $result = $getSchema->get();
-        $this->assertEquals(array_key_exists('indexes', $result), false);
+        $this->assertEquals(array_key_exists('text_index', $result['indexes']), false);
     }
 
     public function testIndexNameException()

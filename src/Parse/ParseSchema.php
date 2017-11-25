@@ -366,7 +366,8 @@ class ParseSchema
       /**
      * Adding an Index to Create / Update a Schema.
      *
-     * @param string $IndexName Name of the index will created on Parse
+     * @param string $indexName Name of the index will created on Parse
+     * @param string $index Key / Value to be saved
      *
      * @throws \Exception
      *

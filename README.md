@@ -39,6 +39,7 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
         - [Version](#version)
         - [Features](#features)
     - [Schema](#schema)
+        - [Index](#index)
         - [Purge](#purge)
     - [Logs](#logs)
 - [Contributing / Testing](#contributing--testing)
@@ -677,6 +678,19 @@ A schema can be removed via `delete`, but it must be empty first.
 ```php
 $mySchema->delete();
 ```
+#### Index
+Indexes support efficient execution of queries from the database. MasterKey is required.
+```php
+// To add an index, the field must exist before you create an index
+$schema->addString('field');
+$index = [ 'field' => 1 ];
+$schema->addIndex('index_name', $index);
+$schema->save();
+
+// Delete an index
+$schema->deleteIndex('index_name');
+$schema->save();
+ ```
 
 #### Purge
 All objects can be purged from a schema (class) via `purge`. But be careful! This can be considered an irreversible action.
