@@ -58,14 +58,11 @@ class ParseMemoryStorage implements ParseStorageInterface
         if (isset($this->storage[$key])) {
             return $this->storage[$key];
         }
-
-        return;
+        return null;
     }
 
     /**
      * Clear all the values in storage.
-     *
-     * @return null
      */
     public function clear()
     {

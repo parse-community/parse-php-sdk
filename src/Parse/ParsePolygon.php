@@ -6,7 +6,6 @@
 namespace Parse;
 
 use Parse\Internal\Encodable;
-use Parse\ParseGeoPoint;
 
 /**
  * ParsePolygon - Representation of a Parse Polygon object.

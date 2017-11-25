@@ -11,6 +11,12 @@ class ParseConfigTest extends \PHPUnit_Framework_TestCase
         Helper::setUp();
     }
 
+    public function tearDown()
+    {
+        // clear config on tear down
+        Helper::clearClass('_GlobalConfig');
+    }
+
     /**
      * @group parse-config
      */
@@ -33,7 +39,7 @@ class ParseConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($config->get('notakey'));
 
         // check html value
-        $this->assertEquals('<value>', $config->get('another'));
+        $this->assertEquals('<html>value</html>', $config->get('another'));
     }
 
     /**
@@ -44,12 +50,26 @@ class ParseConfigTest extends \PHPUnit_Framework_TestCase
         $config = new ConfigMock();
 
         // check html encoded value
-        $this->assertEquals('&lt;value&gt;', $config->escape('another'));
+        $this->assertEquals('&lt;html&gt;value&lt;/html&gt;', $config->escape('another'));
 
         // check null value
         $this->assertNull($config->escape('notakey'));
 
         // check normal value
         $this->assertEquals('bar', $config->escape('foo'));
+    }
+
+    /**
+     * @group parse-config
+     */
+    public function testSaveConfig()
+    {
+        $config = new ParseConfig();
+        $this->assertNull($config->get('key'));
+        $config->set('key', 'value');
+        $config->save();
+
+        $config = new ParseConfig();
+        $this->assertEquals($config->get('key'), 'value');
     }
 }

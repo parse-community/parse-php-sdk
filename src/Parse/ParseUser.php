@@ -304,7 +304,7 @@ class ParseUser extends ParseObject
             $serviceName => $authData,
         ]];
         $result = ParseClient::_request('POST', 'users', '', json_encode($data));
-        $user = ParseObject::create('_User');
+        $user = new ParseUser();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
         ParseClient::getStorage()->set('user', $user);
@@ -525,7 +525,7 @@ class ParseUser extends ParseObject
             return $userData;
         }
         if (isset($userData['id']) && isset($userData['_sessionToken'])) {
-            $user = static::create('_User', $userData['id']);
+            $user = new ParseUser(null, $userData['id']);
             unset($userData['id']);
             $user->_sessionToken = $userData['_sessionToken'];
             unset($userData['_sessionToken']);
@@ -537,7 +537,7 @@ class ParseUser extends ParseObject
             return $user;
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -605,6 +605,22 @@ class ParseUser extends ParseObject
     {
         $json = json_encode(['email' => $email]);
         ParseClient::_request('POST', 'requestPasswordReset', null, $json);
+    }
+
+    /**
+     * Request a verification email to be sent to the specified email address
+     *
+     * @param string $email Email to request a verification for
+     */
+    public static function requestVerificationEmail($email)
+    {
+        $json = json_encode(['email' => $email]);
+        ParseClient::_request(
+            'POST',
+            'verificationEmailRequest',
+            null,
+            $json
+        );
     }
 
     /**

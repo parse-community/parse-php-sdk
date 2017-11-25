@@ -8,7 +8,7 @@ namespace Parse\HttpClients;
 /**
  * Class ParseStream - Wrapper for abstracted stream usage
  *
- * @author Ben Friedman <ben@axolsoft.com>
+ * @author Ben Friedman <friedman.benjamin@gmail.com>
  * @package Parse\HttpClients
  */
 class ParseStream

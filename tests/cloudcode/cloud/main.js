@@ -12,7 +12,7 @@ Parse.Cloud.define("foo", function(request, response) {
     if (key1 === "value1" && key2
         && key2.length === 3 && key2[0] === 1
         && key2[1] === 2 && key2[2] === 3) {
-        result = {
+        const result = {
             object: {
                 __type: 'Object',
                 className: 'Foo',
@@ -40,4 +40,22 @@ Parse.Cloud.define("foo", function(request, response) {
     } else {
         response.error('invalid!');
     }
+});
+
+Parse.Cloud.job('CloudJob1', function(request, response) {
+  response.success({
+    status: 'cloud job completed'
+  });
+});
+
+Parse.Cloud.job('CloudJob2', function(request, response) {
+  setTimeout(function() {
+    response.success({
+      status: 'cloud job completed'
+    })
+  }, 3000);
+});
+
+Parse.Cloud.job('CloudJobFailing', function(request, response) {
+  response.error('cloud job failed');
 });

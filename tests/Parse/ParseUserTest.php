@@ -59,26 +59,26 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
     public function testLoginEmptyUsername()
     {
         $this->setExpectedException('Parse\ParseException', 'empty name');
-        $user = ParseUser::logIn('', 'bogus');
+        ParseUser::logIn('', 'bogus');
     }
 
     public function testLoginEmptyPassword()
     {
         $this->setExpectedException('Parse\ParseException', 'empty password');
-        $user = ParseUser::logIn('asdf', '');
+        ParseUser::logIn('asdf', '');
     }
 
     public function testLoginWrongUsername()
     {
         $this->setExpectedException('Parse\ParseException', 'Invalid username/password.');
-        $user = ParseUser::logIn('non_existent_user', 'bogus');
+        ParseUser::logIn('non_existent_user', 'bogus');
     }
 
     public function testLoginWrongPassword()
     {
         $this->testUserSignUp();
         $this->setExpectedException('Parse\ParseException', 'Invalid username/password.');
-        $user = ParseUser::logIn('asdf', 'bogus');
+        ParseUser::logIn('asdf', 'bogus');
     }
 
     public function testLoginWithFacebook()
@@ -87,7 +87,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
             'Parse\ParseException',
             'Facebook auth is invalid for this user.'
         );
-        $user = ParseUser::logInWithFacebook('asdf', 'zxcv');
+        ParseUser::logInWithFacebook('asdf', 'zxcv');
     }
 
     public function testLoginWithFacebookNoId()
@@ -96,7 +96,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
             'Parse\ParseException',
             'Cannot log in Facebook user without an id.'
         );
-        $user = ParseUser::logInWithFacebook(null, 'asdf');
+        ParseUser::logInWithFacebook(null, 'asdf');
     }
 
     public function testLoginWithFacebookNoAccessToken()
@@ -105,7 +105,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
             'Parse\ParseException',
             'Cannot log in Facebook user without an access token.'
         );
-        $user = ParseUser::logInWithFacebook('asdf', null);
+        ParseUser::logInWithFacebook('asdf', null);
     }
 
     public function testLoginWithTwitter()
@@ -114,7 +114,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
             'Parse\ParseException',
             'Twitter auth is invalid for this user.'
         );
-        $user = ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, 'bogus', 'bogus');
+        ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, 'bogus', 'bogus');
     }
 
     public function testLoginWithTwitterNoId()
@@ -123,7 +123,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
             'Parse\ParseException',
             'Cannot log in Twitter user without an id.'
         );
-        $user = ParseUser::logInWithTwitter(null, 'asdf', 'asdf', null, 'bogus', 'bogus');
+        ParseUser::logInWithTwitter(null, 'asdf', 'asdf', null, 'bogus', 'bogus');
     }
 
     public function testLoginWithTwitterNoScreenName()
@@ -132,7 +132,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
             'Parse\ParseException',
             'Cannot log in Twitter user without Twitter screen name.'
         );
-        $user = ParseUser::logInWithTwitter('asdf', null, 'asdf', null, 'bogus', 'bogus');
+        ParseUser::logInWithTwitter('asdf', null, 'asdf', null, 'bogus', 'bogus');
     }
 
     public function testLoginWithTwitterNoConsumerKey()
@@ -141,7 +141,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
             'Parse\ParseException',
             'Cannot log in Twitter user without a consumer key.'
         );
-        $user = ParseUser::logInWithTwitter('asdf', 'asdf', null, null, 'bogus', 'bogus');
+        ParseUser::logInWithTwitter('asdf', 'asdf', null, null, 'bogus', 'bogus');
     }
 
     public function testLoginWithTwitterNoAuthToken()
@@ -150,7 +150,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
             'Parse\ParseException',
             'Cannot log in Twitter user without an auth token.'
         );
-        $user = ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, null, 'bogus');
+        ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, null, 'bogus');
     }
 
     public function testLoginWithTwitterNoAuthTokenSecret()
@@ -159,7 +159,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
             'Parse\ParseException',
             'Cannot log in Twitter user without an auth token secret.'
         );
-        $user = ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, 'bogus', null);
+        ParseUser::logInWithTwitter('asdf', 'asdf', 'asdf', null, 'bogus', null);
     }
 
     public function testLoginWithAnonymous()
@@ -302,7 +302,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('asdf', $newUser->get('username'));
 
         $this->setExpectedException('Parse\ParseException', 'invalid session');
-        $failUser = ParseUser::become('garbage_token');
+        ParseUser::become('garbage_token');
     }
 
     public function testCannotSingUpAlreadyExistingUser()
@@ -437,17 +437,17 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($user1->isCurrent());
         $this->assertFalse($user2->isCurrent());
 
-        $user = ParseUser::logIn('a', 'password');
+        ParseUser::logIn('a', 'password');
         $this->assertTrue($user1->isCurrent());
         $this->assertFalse($user2->isCurrent());
         $this->assertFalse($user3->isCurrent());
 
-        $user = ParseUser::logIn('b', 'password');
+        ParseUser::logIn('b', 'password');
         $this->assertTrue($user2->isCurrent());
         $this->assertFalse($user1->isCurrent());
         $this->assertFalse($user3->isCurrent());
 
-        $user = ParseUser::logIn('c', 'password');
+        ParseUser::logIn('c', 'password');
         $this->assertTrue($user3->isCurrent());
         $this->assertFalse($user1->isCurrent());
         $this->assertFalse($user2->isCurrent());
@@ -579,7 +579,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         $query = ParseUser::query();
         $this->setExpectedException('Parse\ParseException', 'Object not found.');
-        $fail = $query->get($user->getObjectId(), true);
+        $query->get($user->getObjectId(), true);
     }
 
     public function testCountUsers()
@@ -717,5 +717,58 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('moredata', $currentUser->get('moredata'));
 
         ParseUser::logOut();
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testRequestVerificationEmail()
+    {
+        $email = 'example@example.com';
+        $user = new ParseUser();
+        $user->setUsername('verification_email_user');
+        $user->setPassword('password');
+        $user->setEmail($email);
+        $user->signUp();
+        ParseUser::requestVerificationEmail($email);
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testEmailAlreadyVerified()
+    {
+        $email = 'example2@example.com';
+        $this->setExpectedException('Parse\ParseException', "Email {$email} is already verified.");
+
+        $user = new ParseUser();
+        $user->setUsername('another_verification_email_user');
+        $user->setPassword('password');
+        $user->setEmail($email);
+        $user->signUp();
+
+        // forcibly update emailVerification status
+        $user->set('emailVerified', true);
+        $user->save(true);
+
+        ParseUser::requestVerificationEmail($email);
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testRequestVerificationEmailEmpty()
+    {
+        $this->setExpectedException('Parse\ParseException', 'you must provide an email');
+        ParseUser::requestVerificationEmail('');
+    }
+
+    /**
+     * @group verification-email
+     */
+    public function testRequestVerificationEmailBad()
+    {
+        $this->setExpectedException('Parse\ParseException', 'No user found with email not_a_known_email');
+        ParseUser::requestVerificationEmail('not_a_known_email');
     }
 }

@@ -10,7 +10,7 @@ use Parse\ParseException;
 /**
  * Class ParseStreamHttpClient - Stream http client
  *
- * @author Ben Friedman <ben@axolsoft.com>
+ * @author Ben Friedman <friedman.benjamin@gmail.com>
  * @package Parse\HttpClients
  */
 class ParseStreamHttpClient implements ParseHttpable
@@ -79,11 +79,11 @@ class ParseStreamHttpClient implements ParseHttpable
     private $caFile;
 
     /**
-     * Response from our request
+     * Optional timeout for this request
      *
-     * @var string
+     * @var int
      */
-    private $response;
+    private $timeout;
 
     /**
      * ParseStreamHttpClient constructor.
@@ -208,16 +208,7 @@ class ParseStreamHttpClient implements ParseHttpable
         if (isset($data) && $data != "{}") {
             if ($method == "GET") {
                 // handle GET
-                $query = http_build_query($data, null, '&');
-
-                if (!defined('HHVM_VERSION')) {
-                    $this->options['http']['content'] = $query;
-                } else {
-                    // HHVM doesn't reapply 'content' to the url
-                    // have to do it ourselves
-                    $url.='?'.$query;
-                }
-
+                $url.='?'.http_build_query($data, null, '&');
                 $this->addRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             } elseif ($method == "POST") {
                 // handle POST

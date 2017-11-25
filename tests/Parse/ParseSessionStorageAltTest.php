@@ -1,14 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 1/30/17
- * Time: 12:26 AM
+ * Class ParseSessionStorageAltTest | Parse/Test/ParseSessionStorageAltTest.php
  */
 
 namespace Parse\Test;
 
-use Parse\ParseException;
 use Parse\ParseSessionStorage;
 
 class ParseSessionStorageAltTest extends \PHPUnit_Framework_TestCase

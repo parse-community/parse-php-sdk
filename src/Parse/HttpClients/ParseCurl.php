@@ -10,7 +10,7 @@ use Parse\ParseException;
 /**
  * Class ParseCurl - Wrapper for abstracted curl usage
  *
- * @author Ben Friedman <ben@axolsoft.com>
+ * @author Ben Friedman <friedman.benjamin@gmail.com>
  * @package Parse\HttpClients
  */
 class ParseCurl

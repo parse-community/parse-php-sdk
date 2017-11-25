@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bfriedman
- * Date: 1/30/17
- * Time: 10:20 AM
+ * Class AddOperationTest | Parse/Test/AddOperationTest.php
  */
 
 namespace Parse\Test;
@@ -11,7 +8,6 @@ namespace Parse\Test;
 use Parse\Internal\AddOperation;
 use Parse\Internal\DeleteOperation;
 use Parse\Internal\SetOperation;
-use Parse\ParseException;
 
 class AddOperationTest extends \PHPUnit_Framework_TestCase
 {

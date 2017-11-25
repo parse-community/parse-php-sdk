@@ -8,7 +8,7 @@ namespace Parse;
 /**
  * Class ParsePushStatus - Representation of PushStatus for push notifications
  *
- * @author Ben Friedman <ben@axolsoft.com>
+ * @author Ben Friedman <friedman.benjamin@gmail.com>
  * @package Parse
  */
 class ParsePushStatus extends ParseObject
@@ -75,7 +75,9 @@ class ParsePushStatus extends ParseObject
         $query = new ParseQuery(self::$parseClassName);
 
         // set the conditions
-        $query->_setConditions($queryConditions);
+        $query->_setConditions([
+            'where' => $queryConditions
+        ]);
 
         return $query;
     }
