@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/parse-community/parse-php-sdk"
   },
-  "license": "https://github.com/parse-community/parse-php-sdk/blob/master/LICENSE",
+  "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "dependencies": {
     "parse-server-test": "1.3.4"
