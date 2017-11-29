@@ -146,7 +146,12 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($contents, $file3Again->getData());
 
         // check mime types after calling getData
-        $this->assertEquals('application/octet-stream', $fileAgain->getMimeType());
+        $mt = $fileAgain->getMimeType();
+        // both of the following are acceptable for a response from a submitted mime type of unknown/unknown
+        $this->assertTrue(
+            $mt === 'application/octet-stream' ||  // parse-server < 2.7.0
+            $mt === 'unknown/unknown'                       // parse-server >= 2.7.0, unknown mime type response change
+        );
         $this->assertEquals('image/png', $file2Again->getMimeType());
         $this->assertEquals('image/png', $file3Again->getMimeType());
     }

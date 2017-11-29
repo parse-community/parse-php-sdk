@@ -6,6 +6,8 @@
 The Parse PHP SDK gives you access to the powerful Parse cloud platform
 from your PHP app or script.  Designed to work with the self-hosted Parse Server: https://github.com/parse-community/parse-server
 
+Please note that this documentation contains the latest changes that may as of yet be unreleased. To see the official README for the latest **1.3.0** release [click here](https://github.com/parse-community/parse-php-sdk/blob/1.3.0/README.md).
+
 ## Table of Contents
 - [Installation](#installation)
     - [Install with Composer](#install-with-composer)
@@ -46,7 +48,7 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
 
 ## Installation
 There are various ways to install and use this sdk. We'll elaborate on a couple here.
-Note that the Parse PHP SDK requires PHP 5.4 or newer.
+Note that the Parse PHP SDK requires PHP 5.4 or newer. It can also run on HHVM (recommended 3.0 or newer).
 
 ### Install with Composer
 
