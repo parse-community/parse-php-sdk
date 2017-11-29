@@ -253,7 +253,7 @@ class ParseFile implements Encodable
             throw new ParseException('Download failed, file may have been deleted.', $httpStatus);
         }
         $mimeType = $httpClient->getResponseContentType();
-        if(isset($mimeType) && $mimeType !== 'null') {
+        if (isset($mimeType) && $mimeType !== 'null') {
             $this->mimeType = $mimeType;
         }
         $this->data = $response;
