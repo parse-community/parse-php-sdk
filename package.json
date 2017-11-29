@@ -20,6 +20,6 @@
   "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "dependencies": {
-    "parse-server-test": "1.3.4"
+    "parse-server-test": "1.3.5"
   }
 }
