@@ -164,23 +164,6 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($result['fields']['status']);
     }
 
-    public function testUpdateMultipleSchemaStream()
-    {
-        ParseClient::setHttpClient(new ParseStreamHttpClient());
-
-        $schema = self::$schema;
-        $schema->save();
-
-        $schema->addString('name');
-        $schema->update();
-        $schema->update();
-
-        $getSchema = new ParseSchema('SchemaTest');
-        $result = $getSchema->get();
-
-        $this->assertEquals(count($result['fields']), 5);
-    }
-
     public function testUpdateSchemaCurl()
     {
         if (function_exists('curl_init')) {
@@ -205,6 +188,24 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
             $this->assertNotNull($result['fields']['quantity']);
             $this->assertNotNull($result['fields']['status']);
         }
+    }
+
+    public function testUpdateMultipleNoDuplicateFields()
+    {
+        $schema = self::$schema;
+        $schema->save();
+        $schema->addString('name');
+        $schema->update();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertEquals(count($result['fields']), 5);
+
+        $schema->update();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertEquals(count($result['fields']), 5);
     }
 
     public function testUpdateWrongFieldType()
@@ -470,10 +471,8 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $schema->delete();
     }
 
-    public function testCreateIndexSchemaStream()
+    public function testCreateIndexSchema()
     {
-        ParseClient::setHttpClient(new ParseStreamHttpClient());
-
         $schema = self::$schema;
         $schema->addString('name');
         $index = [ 'name' => 1 ];
@@ -485,27 +484,8 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($result['indexes']['test_index']);
     }
 
-    public function testCreateIndexSchemaCurl()
+    public function testUpdateIndexSchema()
     {
-        if (function_exists('curl_init')) {
-            ParseClient::setHttpClient(new ParseCurlHttpClient());
-
-            $schema = self::$schema;
-            $schema->addString('name');
-            $index = [ 'name' => 1 ];
-            $schema->addIndex('test_index', $index);
-            $schema->save();
-
-            $getSchema = new ParseSchema('SchemaTest');
-            $result = $getSchema->get();
-            $this->assertNotNull($result['indexes']['test_index']);
-        }
-    }
-
-    public function testUpdateIndexSchemaStream()
-    {
-        ParseClient::setHttpClient(new ParseStreamHttpClient());
-
         $schema = self::$schema;
         $schema->save();
         $schema->addString('name');
@@ -518,28 +498,8 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($result['indexes']['test_index']);
     }
 
-    public function testUpdateIndexSchemaCurl()
-    {
-        if (function_exists('curl_init')) {
-            ParseClient::setHttpClient(new ParseCurlHttpClient());
-
-            $schema = self::$schema;
-            $schema->save();
-            $schema->addString('name');
-            $index = [ 'name' => 1 ];
-            $schema->addIndex('test_index', $index);
-            $schema->update();
-
-            $getSchema = new ParseSchema('SchemaTest');
-            $result = $getSchema->get();
-            $this->assertNotNull($result['indexes']['test_index']);
-        }
-    }
-
     public function testDeleteIndexSchema()
     {
-        ParseClient::setHttpClient(new ParseStreamHttpClient());
-
         $schema = self::$schema;
         $schema->save();
         $schema->addString('name');

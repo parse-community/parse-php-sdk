@@ -692,6 +692,10 @@ $schema->save();
 // Delete an index
 $schema->deleteIndex('index_name');
 $schema->save();
+
+// If indexes exist, you can retrieve them
+$result = $schema->get();
+$indexes = $result['indexes'];
  ```
 
 #### Purge

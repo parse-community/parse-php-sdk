@@ -338,7 +338,7 @@ class ParseSchema
     /**
      * Adding a Field to Create / Update a Schema.
      *
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName Name of the field that will be created on Parse
      * @param string $fieldType Can be a (String|Number|Boolean|Date|File|GeoPoint|Array|Object|Pointer|Relation)
      *
      * @throws \Exception
@@ -366,14 +366,14 @@ class ParseSchema
       /**
      * Adding an Index to Create / Update a Schema.
      *
-     * @param string $indexName Name of the index will created on Parse
+     * @param string $indexName Name of the index that will be created on Parse
      * @param string $index Key / Value to be saved
      *
      * @throws \Exception
      *
      * @return ParseSchema indexes return self to create index on Parse
      */
-    public function addIndex($indexName = null, $index = null)
+    public function addIndex($indexName, $index)
     {
         if (!$indexName) {
             throw new Exception('index name may not be null.', 105);
@@ -391,7 +391,7 @@ class ParseSchema
     /**
      * Adding String Field.
      *
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName Name of the field that will be created on Parse
      *
      * @throws \Exception
      *
@@ -655,9 +655,9 @@ class ParseSchema
     }
 
     /**
-     * Deleting a Index to Update on a Schema.
+     * Deleting an Index to Update on a Schema.
      *
-     * @param string $indexName Name of the index will be deleted
+     * @param string $indexName Name of the index that will be deleted
      */
     public function deleteIndex($indexName = null)
     {
