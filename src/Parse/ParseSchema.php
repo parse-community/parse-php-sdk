@@ -111,6 +111,13 @@ class ParseSchema
     private $fields = [];
 
     /**
+     * Indexes to create.
+     *
+     * @var array
+     */
+    private $indexes = [];
+
+    /**
      * Force to use master key in Schema Methods.
      *
      * @see http://docs.parseplatform.org/rest/guide/#schema
@@ -215,6 +222,10 @@ class ParseSchema
             $schema['fields'] = $this->fields;
         }
 
+        if (!empty($this->indexes)) {
+            $schema['indexes'] = $this->indexes;
+        }
+
         $result = ParseClient::_request(
             'POST',
             'schemas/'.$this->className,
@@ -247,14 +258,18 @@ class ParseSchema
         }
 
         // Schema
-        $Schema['className'] = $this->className;
-        $Schema['fields'] = $this->fields;
+        $schema['className'] = $this->className;
+        $schema['fields'] = $this->fields;
+        $schema['indexes'] = $this->indexes;
+
+        $this->fields = [];
+        $this->indexes = [];
 
         $result = ParseClient::_request(
             'PUT',
             'schemas/'.$this->className,
             $sessionToken,
-            json_encode($Schema),
+            json_encode($schema),
             $this->useMasterKey
         );
 
@@ -323,7 +338,7 @@ class ParseSchema
     /**
      * Adding a Field to Create / Update a Schema.
      *
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName Name of the field that will be created on Parse
      * @param string $fieldType Can be a (String|Number|Boolean|Date|File|GeoPoint|Array|Object|Pointer|Relation)
      *
      * @throws \Exception
@@ -348,10 +363,35 @@ class ParseSchema
         return $this;
     }
 
+      /**
+     * Adding an Index to Create / Update a Schema.
+     *
+     * @param string $indexName Name of the index that will be created on Parse
+     * @param string $index Key / Value to be saved
+     *
+     * @throws \Exception
+     *
+     * @return ParseSchema indexes return self to create index on Parse
+     */
+    public function addIndex($indexName, $index)
+    {
+        if (!$indexName) {
+            throw new Exception('index name may not be null.', 105);
+        }
+
+        if (!$index) {
+            throw new Exception('index may not be null.', 105);
+        }
+
+        $this->indexes[$indexName] = $index;
+
+        return $this;
+    }
+
     /**
      * Adding String Field.
      *
-     * @param string $fieldName Name of the field will created on Parse
+     * @param string $fieldName Name of the field that will be created on Parse
      *
      * @throws \Exception
      *
@@ -610,6 +650,18 @@ class ParseSchema
     public function deleteField($fieldName = null)
     {
         $this->fields[$fieldName] = [
+            '__op' => 'Delete',
+        ];
+    }
+
+    /**
+     * Deleting an Index to Update on a Schema.
+     *
+     * @param string $indexName Name of the index that will be deleted
+     */
+    public function deleteIndex($indexName = null)
+    {
+        $this->indexes[$indexName] = [
             '__op' => 'Delete',
         ];
     }

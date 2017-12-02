@@ -190,6 +190,24 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testUpdateMultipleNoDuplicateFields()
+    {
+        $schema = self::$schema;
+        $schema->save();
+        $schema->addString('name');
+        $schema->update();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertEquals(count($result['fields']), 5);
+
+        $schema->update();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertEquals(count($result['fields']), 5);
+    }
+
     public function testUpdateWrongFieldType()
     {
         $this->setExpectedException('Exception', 'WrongType is not a valid type.');
@@ -411,7 +429,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaSave()
     {
-        $this->setExpectedException('\Parse\ParseException');
+        $this->setExpectedException('\Exception');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -427,7 +445,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaUpdate()
     {
-        $this->setExpectedException('\Parse\ParseException');
+        $this->setExpectedException('\Exception');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -449,8 +467,67 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $user->setUsername('schema-user');
         $user->setPassword('basicpassword');
         $user->signUp();
-
         $schema = new ParseSchema(self::$badClassName);
         $schema->delete();
+    }
+
+    public function testCreateIndexSchema()
+    {
+        $schema = self::$schema;
+        $schema->addString('name');
+        $index = [ 'name' => 1 ];
+        $schema->addIndex('test_index', $index);
+        $schema->save();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertNotNull($result['indexes']['test_index']);
+    }
+
+    public function testUpdateIndexSchema()
+    {
+        $schema = self::$schema;
+        $schema->save();
+        $schema->addString('name');
+        $index = [ 'name' => 1 ];
+        $schema->addIndex('test_index', $index);
+        $schema->update();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertNotNull($result['indexes']['test_index']);
+    }
+
+    public function testDeleteIndexSchema()
+    {
+        $schema = self::$schema;
+        $schema->save();
+        $schema->addString('name');
+        $index = [ 'name' => 1 ];
+        $schema->addIndex('test_index', $index);
+        $schema->update();
+
+        $getSchema = new ParseSchema('SchemaTest');
+        $result = $getSchema->get();
+        $this->assertNotNull($result['indexes']['test_index']);
+
+        $schema->deleteIndex('test_index');
+        $schema->update();
+        $result = $getSchema->get();
+        $this->assertEquals(array_key_exists('text_index', $result['indexes']), false);
+    }
+
+    public function testIndexNameException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'index name may not be null.');
+        $schema->addIndex(null, null);
+    }
+
+    public function testIndexException()
+    {
+        $schema = self::$schema;
+        $this->setExpectedException('\Exception', 'index may not be null.');
+        $schema->addIndex('name', null);
     }
 }
