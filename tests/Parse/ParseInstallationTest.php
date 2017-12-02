@@ -2,6 +2,7 @@
 
 namespace Parse\Test;
 
+use Parse\ParseClient;
 use Parse\ParseInstallation;
 
 class ParseInstallationTest extends \PHPUnit_Framework_TestCase
@@ -98,7 +99,7 @@ class ParseInstallationTest extends \PHPUnit_Framework_TestCase
         $appVersion     = '1.0.0';
         $appName        = 'Foo Bar App';
         $appIdentifier  = 'foo-bar-app-id';
-        $parseVersion   = '1.4.0';
+        $parseVersion   = substr(ParseClient::VERSION_STRING, 3); // pull the version #
 
         $installation = new ParseInstallation();
         $installation->set('installationId', $installationId);
