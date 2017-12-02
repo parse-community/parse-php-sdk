@@ -6,6 +6,8 @@
 The Parse PHP SDK gives you access to the powerful Parse cloud platform
 from your PHP app or script.  Designed to work with the self-hosted Parse Server: https://github.com/parse-community/parse-server
 
+Please note that this documentation contains the latest changes that may as of yet be unreleased. To see the official README for the latest **1.3.0** release [click here](https://github.com/parse-community/parse-php-sdk/blob/1.3.0/README.md).
+
 ## Table of Contents
 - [Installation](#installation)
     - [Install with Composer](#install-with-composer)
@@ -23,8 +25,11 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
     - [Users](#users)
     - [ACLs/Security](#acls)
     - [Queries](#queries)
+        - [Aggregate](#aggregate)
+        - [Distinct](#distinct)
         - [Relative Time](#relative-time)
     - [Cloud Functions](#cloud-functions)
+    - [Cloud Jobs](#cloud-jobs)
     - [Analytics](#analytics)
     - [Files](#files)
     - [Push Notifications](#push)
@@ -36,13 +41,14 @@ from your PHP app or script.  Designed to work with the self-hosted Parse Server
         - [Version](#version)
         - [Features](#features)
     - [Schema](#schema)
+        - [Index](#index)
         - [Purge](#purge)
     - [Logs](#logs)
 - [Contributing / Testing](#contributing--testing)
 
 ## Installation
-There are various ways to install and use this sdk. We'll elaborate on a couple here. 
-Note that the Parse PHP SDK requires PHP 5.4 or newer.
+There are various ways to install and use this sdk. We'll elaborate on a couple here.
+Note that the Parse PHP SDK requires PHP 5.4 or newer. It can also run on HHVM (recommended 3.0 or newer).
 
 ### Install with Composer
 
@@ -223,7 +229,7 @@ use Parse\ParseAudience;
 ### Parse Objects
 
 Parse Objects hold your data, can be saved, queried for, serialized and more!
-Objects are at the core of this sdk, they allow you to persist your data from php without having to worry about any databasing code. 
+Objects are at the core of this sdk, they allow you to persist your data from php without having to worry about any databasing code.
 
 ```php
 $object = ParseObject::create("TestObject");
@@ -253,7 +259,7 @@ $decodedObject = ParseObject::decode($encoded);
 
 ### Users
 
-Users are a special kind of object. 
+Users are a special kind of object.
 This class allows individuals to access your applications with their unique information and allows you to identify them distinctly.
 Users may also be linked with 3rd party accounts such as facebook, twitter, etc.
 
@@ -301,7 +307,7 @@ $acl->setRoleWriteAccessWithName("PHPFans", true);
 
 ### Queries
 
-Queries allow you to recall objects that you've saved to parse-server. 
+Queries allow you to recall objects that you've saved to parse-server.
 Query methods and parameters allow allow a varying degree of querying for objects, from all objects of a class to objects created within a particular date range and more.
 
 ```php
@@ -326,6 +332,59 @@ $first = $query->first();
 $query->each(function($obj) {
     echo $obj->getObjectId();
 });
+
+```
+#### Aggregate
+
+Queries can be made using aggregates, allowing you to retrieve objects over a set of input values.
+Keep in mind that `_id` does not exist in parse-server. Please replace with `objectId`. MasterKey is Required
+
+For a list of available operators please refer to Mongo Aggregate Documentation.
+
+ <a href="https://docs.mongodb.com/v3.2/reference/operator/aggregation/">Mongo 3.2 Aggregate Operators</a>
+
+```php
+// group pipeline is similar to distinct, can apply $sum, $avg, $max, $min
+// accumulate sum and store in total field
+$pipeline = [
+    'group' => [
+        'objectId' => null,
+        'total' => [ '$sum' => '$score']
+    ]
+];
+$results = $query->aggregate($pipeline);
+
+// project pipeline is similar to keys, add or remove existing fields
+// includes name key
+$pipeline = [
+    'project' => [
+        'name' => 1
+    ]
+];
+$results = $query->aggregate($pipeline);
+
+// match pipeline is similar to equalTo
+// filter out objects with score greater than 15
+ $pipeline = [
+    'match' => [
+        'score' => [ '$gt' => 15 ]
+    ]
+];
+$results = $query->aggregate($pipeline);
+```
+
+#### Distinct
+
+Queries can be made using distinct, allowing you find unique values for a specified field.
+Keep in mind that MasterKey is required.
+```php
+// finds score that are unique
+$results = $query->distinct('score');
+
+// can be used with equalTo
+$query = new ParseQuery('TestObject');
+$query->equalTo('name', 'foo');
+$results = $query->distinct('score');
 ```
 
 #### Relative Time
@@ -356,6 +415,21 @@ Directly call server-side cloud coud functions and get their results.
 
 ```php
 $results = ParseCloud::run("aCloudFunction", array("from" => "php"));
+```
+
+### Cloud Jobs
+
+Like cloud functions, cloud jobs allow you to run code server-side but in an asynchronous fashion.
+Instead of waiting for execution to complete you are immediately returned an id for tracking the job's progress.
+You can use this id to see the current information on a job and whether it has completed.
+```php
+// start job
+$jobStatusId = ParseCloud::startJob('MyCloudJob', array("startedBy" => "me!"));
+
+// get job status, a ParseObject!
+$jobStatus = ParseCloud::getJobStatus($jobStatusId);
+$status = $jobStatus->get('status'); // failed / succeeded when done
+
 ```
 
 ### Analytics
@@ -541,7 +615,7 @@ $globalConfigFeatures = ParseServerInfo::getGlobalConfigFeatures();
  *    "delete" : true
  * }
  */
- 
+
  // you can always get all feature data
  $data = ParseServerInfo::getFeatures();
 ```
@@ -606,6 +680,23 @@ A schema can be removed via `delete`, but it must be empty first.
 ```php
 $mySchema->delete();
 ```
+#### Index
+Indexes support efficient execution of queries from the database. MasterKey is required.
+```php
+// To add an index, the field must exist before you create an index
+$schema->addString('field');
+$index = [ 'field' => 1 ];
+$schema->addIndex('index_name', $index);
+$schema->save();
+
+// Delete an index
+$schema->deleteIndex('index_name');
+$schema->save();
+
+// If indexes exist, you can retrieve them
+$result = $schema->get();
+$indexes = $result['indexes'];
+ ```
 
 #### Purge
 All objects can be purged from a schema (class) via `purge`. But be careful! This can be considered an irreversible action.
