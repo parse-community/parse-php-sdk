@@ -60,7 +60,7 @@ Note that the Parse PHP SDK requires PHP 5.4 or newer. It can also run on HHVM (
 ```json
 {
     "require": {
-        "parse/php-sdk" : "1.3.*"
+        "parse/php-sdk" : "1.4.*"
     }
 }
 ```
