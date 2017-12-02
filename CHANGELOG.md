@@ -9,7 +9,7 @@
 - Fixes encode/decode method descriptors
 - Adds Relative Time Queries (#360)
 - Adds Server Info (#361)
-- README & Code Cleanup, adds CHANGELOG & CODE_OF_CONDUCT
+- README and code cleanup, adds **CHANGELOG** and **CODE_OF_CONDUCT**
 - Adds Purge & Polygon to ParseSchema (#365)
 - Adds Parse Server Health Check (#366)
 - Adds the ability to upgrade to a revocable session (#368)
@@ -19,7 +19,9 @@
 - Adds `ParseAudience` (#372)
 - Adds jobs to `ParseCloud` (#373)
 - Adds support for aggregate queries (#355) (thanks to [Diamond Lewis](https://github.com/dplewis))
-- > MAY ADD INDEX MANAGEMENT VIA PARSE SCHEMA
+- Fix npm license warning (thanks to [Arthur Cinader](https://github.com/acinader))
+- Updates **parse-server-test** dependency to 1.3.5
+- Support for managing indexes via **ParseSchema** (#357) (thanks to [Diamond Lewis](https://github.com/dplewis))
 - Slight test adjustments
 
 ### 1.3.0
