@@ -20,7 +20,7 @@
 - Adds jobs to `ParseCloud` (#373)
 - Adds support for aggregate queries (#355) (thanks to [Diamond Lewis](https://github.com/dplewis))
 - Fix npm license warning (thanks to [Arthur Cinader](https://github.com/acinader))
-- Updates **parse-server-test** dependency to 1.3.5
+- Updates **parse-server-test** dependency to 1.3.6
 - Support for managing indexes via **ParseSchema** (#357) (thanks to [Diamond Lewis](https://github.com/dplewis))
 - Slight test adjustments
 
