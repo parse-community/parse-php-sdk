@@ -23,6 +23,7 @@ Please note that this documentation contains the latest changes that may as of y
     - [Use Declarations](#use-declarations)
     - [Parse Objects](#parse-objects)
     - [Users](#users)
+        - [Verification Emails](#verification-emails)
     - [ACLs/Security](#acls)
     - [Queries](#queries)
         - [Aggregate](#aggregate)
@@ -30,6 +31,7 @@ Please note that this documentation contains the latest changes that may as of y
         - [Relative Time](#relative-time)
     - [Cloud Functions](#cloud-functions)
     - [Cloud Jobs](#cloud-jobs)
+    - [Config](#config)
     - [Analytics](#analytics)
     - [Files](#files)
     - [Push Notifications](#push)
@@ -58,7 +60,7 @@ Note that the Parse PHP SDK requires PHP 5.4 or newer. It can also run on HHVM (
 ```json
 {
     "require": {
-        "parse/php-sdk" : "1.3.*"
+        "parse/php-sdk" : "1.4.*"
     }
 }
 ```
@@ -285,6 +287,14 @@ try {
 $user = ParseUser::getCurrentUser();
 ```
 
+#### Verification Emails
+
+If you are using email verification in your parse server setup you can request to send verification emails by hand.
+```php
+ParseUser::requestVerificationEmail('email@example.com');
+```
+Note that this will only send if the account for the email requested has not already been verified.
+
 ### ACLs
 
 Access Control Lists (ACLs) allow you to granularly control access to individual Parse Objects.
@@ -431,6 +441,25 @@ $jobStatus = ParseCloud::getJobStatus($jobStatusId);
 $status = $jobStatus->get('status'); // failed / succeeded when done
 
 ```
+
+### Config
+
+**ParseConfig** allows you to access the global **Config** object for your parse server setup.
+You can get, set and update simple values much like you would on an instance of **ParseObject**. Through this all your SDKs and applications can have access to global settings, options, and more.
+What you choose to put in your config is purely up to you however.
+```php
+$config = new ParseConfig();
+
+// check a config value of yours
+$allowed = $config->get('feature_allowed');
+
+// add a simple config value
+$config->set('feature_allowed', true);
+
+// save this global config
+$config->save();
+```
+
 
 ### Analytics
 

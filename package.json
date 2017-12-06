@@ -6,7 +6,7 @@
     "test-stream:coverage": "./vendor/bin/phpunit --bootstrap=./tests/bootstrap-stream.php --coverage-clover=coverage.xml",
     "lint": "./vendor/bin/phpcs --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "lint:fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
-    "prestart": "mongodb-runner start",
+    "prestart": "MONGODB_VERSION=3.4 mongodb-runner start",
     "start": "forever start ./node_modules/parse-server-test/server.js",
     "stop": "forever stop ./node_modules/parse-server-test/server.js",
     "poststop": "mongodb-runner stop",
@@ -20,6 +20,6 @@
   "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "dependencies": {
-    "parse-server-test": "1.3.5"
+    "parse-server-test": "1.3.6"
   }
 }

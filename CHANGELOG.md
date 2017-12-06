@@ -1,7 +1,28 @@
 ## Parse PHP SDK Changelog
 
 ### master
-[Full Changelog](https://github.com/parse-community/parse-php-sdk/compare/1.3.0...master)
+[Full Changelog](https://github.com/parse-community/parse-php-sdk/compare/1.4.0...master)
+
+### 1.4.0
+[See the diff between 1.3.0 and 1.4.0](https://github.com/parse-community/parse-php-sdk/compare/1.3.0...1.4.0)
+
+- Fixes encode/decode method descriptors
+- Adds Relative Time Queries (#360)
+- Adds Server Info (#361)
+- README and code cleanup, adds **CHANGELOG** and **CODE_OF_CONDUCT**
+- Adds Purge & Polygon to ParseSchema (#365)
+- Adds Parse Server Health Check (#366)
+- Adds the ability to upgrade to a revocable session (#368)
+- Adds ability to Request Verification Emails (#369)
+- Adds the ability to set/save in `ParseConfig` (#371) 
+- Adds `ParseLogs` (#370)
+- Adds `ParseAudience` (#372)
+- Adds jobs to `ParseCloud` (#373)
+- Adds support for aggregate queries (#355) (thanks to [Diamond Lewis](https://github.com/dplewis))
+- Fix npm license warning (thanks to [Arthur Cinader](https://github.com/acinader))
+- Updates **parse-server-test** dependency to 1.3.6
+- Support for managing indexes via **ParseSchema** (#357) (thanks to [Diamond Lewis](https://github.com/dplewis))
+- Slight test adjustments
 
 ### 1.3.0
 [See the diff between 1.2.10 and 1.3.0](https://github.com/parse-community/parse-php-sdk/compare/1.2.10...1.3.0)
