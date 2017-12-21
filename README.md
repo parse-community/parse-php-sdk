@@ -423,7 +423,7 @@ $query->greaterThanRelativeTime('date', '1 yr 2 wks 30 d 2 hrs 5 mins 10 secs ag
 
 ### Cloud Functions
 
-Directly call server-side cloud coud functions and get their results.
+Directly call server-side cloud functions and get their results.
 
 ```php
 $results = ParseCloud::run("aCloudFunction", array("from" => "php"));
