@@ -599,14 +599,13 @@ class ParseQuery
             null,
             $useMasterKey
         );
-        if (!isset($result['results'])) {
-            $result = [];
-        }
         $output = [];
-        foreach ($result['results'] as $row) {
-            $obj = ParseObject::create($this->className, $row['objectId']);
-            $obj->_mergeAfterFetchWithSelectedKeys($row, $this->selectedKeys);
-            $output[] = $obj;
+        if (isset($result['results'])) {
+            foreach ($result['results'] as $row) {
+                $obj = ParseObject::create($this->className, $row['objectId']);
+                $obj->_mergeAfterFetchWithSelectedKeys($row, $this->selectedKeys);
+                $output[] = $obj;
+            }
         }
 
         return $output;
