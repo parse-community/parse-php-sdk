@@ -599,6 +599,9 @@ class ParseQuery
             null,
             $useMasterKey
         );
+        if (!isset($result['results'])) {
+            $result = [];
+        }
         $output = [];
         foreach ($result['results'] as $row) {
             $obj = ParseObject::create($this->className, $row['objectId']);
