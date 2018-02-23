@@ -4,7 +4,6 @@
     "keywords": ["parse", "sdk"],
     "type": "library",
     "homepage": "https://github.com/parse-community/parse-php-sdk",
-    "license": "Parse Platform License",
     "authors": [
         {
             "name": "Parse",
