@@ -304,7 +304,7 @@ class ParseUser extends ParseObject
             $serviceName => $authData,
         ]];
         $result = ParseClient::_request('POST', 'users', '', json_encode($data));
-        $user = new ParseUser();
+        $user = new static();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
         ParseClient::getStorage()->set('user', $user);
@@ -525,7 +525,7 @@ class ParseUser extends ParseObject
             return $userData;
         }
         if (isset($userData['id']) && isset($userData['_sessionToken'])) {
-            $user = new ParseUser(null, $userData['id']);
+            $user = new static(null, $userData['id']);
             unset($userData['id']);
             $user->_sessionToken = $userData['_sessionToken'];
             unset($userData['_sessionToken']);
