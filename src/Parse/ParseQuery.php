@@ -983,7 +983,7 @@ class ParseQuery
      * Add a constraint that requires that a key's value matches a value in an
      * object returned by the given query.
      *
-     * @param string     $key      The key that contains teh value that is being
+     * @param string     $key      The key that contains the value that is being
      *                             matched.
      * @param string     $queryKey The key in objects returned by the query to
      *                             match against.
