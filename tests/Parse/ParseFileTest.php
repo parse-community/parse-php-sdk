@@ -128,22 +128,27 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         $file = ParseFile::createFromData($contents, 'noextension');
         $file2 = ParseFile::createFromData($contents, 'photo.png', 'text/plain');
         $file3 = ParseFile::createFromData($contents, 'photo.png');
+        $file4 = ParseFile::createFromData($contents, 'photo.PNG');
         $file->save();
         $file2->save();
         $file3->save();
+        $file4->save();
 
         // check initial mime types after creating from data
         $this->assertEquals('unknown/unknown', $file->getMimeType());
         $this->assertEquals('text/plain', $file2->getMimeType());
         $this->assertEquals('image/png', $file3->getMimeType());
+        $this->assertEquals('image/png', $file4->getMimeType());
 
         $fileAgain = ParseFile::_createFromServer($file->getName(), $file->getURL());
         $file2Again = ParseFile::_createFromServer($file2->getName(), $file2->getURL());
         $file3Again = ParseFile::_createFromServer($file3->getName(), $file3->getURL());
+        $file4Again = ParseFile::_createFromServer($file4->getName(), $file4->getURL());
 
         $this->assertEquals($contents, $fileAgain->getData());
         $this->assertEquals($contents, $file2Again->getData());
         $this->assertEquals($contents, $file3Again->getData());
+        $this->assertEquals($contents, $file4Again->getData());
 
         // check mime types after calling getData
         $mt = $fileAgain->getMimeType();
@@ -154,6 +159,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals('image/png', $file2Again->getMimeType());
         $this->assertEquals('image/png', $file3Again->getMimeType());
+        $this->assertEquals('image/png', $file4Again->getMimeType());
     }
 
     public function testFileOnObject()
