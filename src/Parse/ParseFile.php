@@ -119,7 +119,7 @@ class ParseFile implements Encodable
             // return an inferred mime type instead
             $fileParts = explode('.', $this->getName());
             $extension = array_pop($fileParts);
-            return $this->getMimeTypeForExtension(strtolower($extension));
+            return $this->getMimeTypeForExtension($extension);
         }
     }
 
@@ -269,6 +269,7 @@ class ParseFile implements Encodable
      */
     private function getMimeTypeForExtension($extension)
     {
+        $extension = strtolower($extension);
         $knownTypes = [
             'ai'      => 'application/postscript',
             'aif'     => 'audio/x-aiff',
