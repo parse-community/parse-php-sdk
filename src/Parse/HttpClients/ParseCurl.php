@@ -81,7 +81,7 @@ class ParseCurl
     /**
      * Gets info for this curl handle
      *
-     * @param int $info Constatnt for info to get
+     * @param int $info Constant for info to get
      * @return mixed
      * @throws ParseException
      */
