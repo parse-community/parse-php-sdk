@@ -2336,7 +2336,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             '\Parse\ParseException',
-            'Unknown condition to set \'unrecognized\''
+            'Unknown condition to set'
         );
         
         $query = new ParseQuery('TestObject');
