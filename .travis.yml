@@ -22,7 +22,7 @@ matrix:
       env: STREAM_CLIENT_ONLY=1
 
 before_install:
-  - nvm install 6.11
+  - nvm install 8.11
   - sudo apt-get install graphviz
 
 install:
