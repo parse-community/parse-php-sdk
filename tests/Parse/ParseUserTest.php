@@ -170,10 +170,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithFacebook()
     {
-        $this->setExpectedException(
-            'Parse\ParseException',
-            'Facebook auth is invalid for this user.'
-        );
+        $this->setExpectedException('Parse\ParseException');
         $this->testUserSignUp();
         $user = ParseUser::logIn('asdf', 'zxcv');
         $user->linkWithFacebook('asdf', 'zxcv');
@@ -213,10 +210,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithTwitter()
     {
-        $this->setExpectedException(
-            'Parse\ParseException',
-            'Twitter auth is invalid for this user.'
-        );
+        $this->setExpectedException('Parse\ParseException');
         $this->testUserSignUp();
         $user = ParseUser::logIn('asdf', 'zxcv');
         $user->linkWithTwitter('qwer', 'asdf', 'zxcv', null, 'bogus', 'bogus');
@@ -301,7 +295,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(ParseUser::getCurrentUser(), $newUser);
         $this->assertEquals('asdf', $newUser->get('username'));
 
-        $this->setExpectedException('Parse\ParseException', 'invalid session');
+        $this->setExpectedException('Parse\ParseException', 'Invalid session token');
         ParseUser::become('garbage_token');
     }
 
@@ -328,10 +322,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
-        $this->setExpectedException(
-            'Parse\ParseException',
-            'Cannot modify user '.$user->getObjectId().'.'
-        );
+        $this->setExpectedException('Parse\ParseException');
         $user->setUsername('changed');
         $user->save();
     }
@@ -350,10 +341,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
-        $this->setExpectedException(
-            'Parse\ParseException',
-            'insufficient auth to delete user'
-        );
+        $this->setExpectedException('Parse\ParseException');
         $user->destroy();
     }
 
