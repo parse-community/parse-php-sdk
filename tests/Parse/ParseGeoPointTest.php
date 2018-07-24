@@ -311,7 +311,7 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             '\Parse\ParseException',
-            'bad $geoWithin value; $polygon should contain at least 3 GeoPoints'
+            'bad $geoWithin value; $polygon should be Polygon object or Array of Parse.GeoPoint\'s'
         );
         $query = new ParseQuery('TestObject');
         $query->withinPolygon('location', 1234);
