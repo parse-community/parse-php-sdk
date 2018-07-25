@@ -269,6 +269,7 @@ class ParseFile implements Encodable
      */
     private function getMimeTypeForExtension($extension)
     {
+        $extension = strtolower($extension);
         $knownTypes = [
             'ai'      => 'application/postscript',
             'aif'     => 'audio/x-aiff',
