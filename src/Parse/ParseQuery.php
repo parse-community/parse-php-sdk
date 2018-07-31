@@ -112,11 +112,7 @@ class ParseQuery
      */
     public function equalTo($key, $value)
     {
-        if ($value === null) {
-            $this->doesNotExist($key);
-        } else {
-            $this->where[$key] = $value;
-        }
+        $this->where[$key] = $value;
 
         return $this;
     }
