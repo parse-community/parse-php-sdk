@@ -759,4 +759,15 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('Parse\ParseException', 'No user found with email not_a_known_email');
         ParseUser::requestVerificationEmail('not_a_known_email');
     }
+
+    public function testRegisteringAnonymousClearsAuthData()
+    {
+        $user = ParseUser::loginWithAnonymous();
+        $response = ParseClient::_request('GET', 'users', null, null, true);
+        $this->assertNotNull($response['results'][0]['authData']['anonymous']);
+        $user->setUsername('Mary');
+        $user->save();
+        $response = ParseClient::_request('GET', 'users', null, null, true);
+        $this->assertArrayNotHasKey('authData', $response['results'][0])    ;
+    }
 }
