@@ -1041,6 +1041,62 @@ class ParseQuery
      */
     public static function orQueries($queryObjects)
     {
+        $className = self::_matchClassName($queryObjects);
+        $query = new self($className);
+        $query->_or($queryObjects);
+
+        return $query;
+    }
+
+    /**
+     * Constructs a ParseQuery object that is the NOR of the passed in queries objects.
+     * All queries must have same class name.
+     *
+     * @param array $queryObjects Array of ParseQuery objects to NOR.
+     *
+     * @throws \Exception If all queries don't have same class.
+     *
+     * @return ParseQuery The query that is the NOR of the passed in queries.
+     */
+    public static function norQueries($queryObjects)
+    {
+        $className = self::_matchClassName($queryObjects);
+        $query = new self($className);
+        $query->_nor($queryObjects);
+
+        return $query;
+    }
+
+    /**
+     * Constructs a ParseQuery object that is the AND of the passed in queries objects.
+     * All queries must have same class name.
+     *
+     * @param array $queryObjects Array of ParseQuery objects to AND.
+     *
+     * @throws \Exception If all queries don't have same class.
+     *
+     * @return ParseQuery The query that is the AND of the passed in queries.
+     */
+    public static function andQueries($queryObjects)
+    {
+        $className = self::_matchClassName($queryObjects);
+        $query = new self($className);
+        $query->_and($queryObjects);
+
+        return $query;
+    }
+
+    /**
+     * All queries must have same class name.
+     *
+     * @param array $queryObjects Array of ParseQuery objects.
+     *
+     * @throws \Exception If all queries don't have same class.
+     *
+     * @return string class name.
+     */
+    private static function _matchClassname($queryObjects)
+    {
         $className = null;
         $length = count($queryObjects);
         for ($i = 0; $i < $length; $i++) {
@@ -1051,10 +1107,7 @@ class ParseQuery
                 throw new Exception('All queries must be for the same class', 103);
             }
         }
-        $query = new self($className);
-        $query->_or($queryObjects);
-
-        return $query;
+        return $className;
     }
 
     /**
@@ -1066,10 +1119,47 @@ class ParseQuery
      */
     private function _or($queries)
     {
-        $this->where['$or'] = [];
+        return $this->_mergeQueries('$or', $queries);
+    }
+
+    /**
+     * Add constraint that at none of the passed in queries matches.
+     *
+     * @param array $queries The list of queries to NOR.
+     *
+     * @return ParseQuery Returns the query, so you can chain this call.
+     */
+    private function _nor($queries)
+    {
+        return $this->_mergeQueries('$nor', $queries);
+    }
+
+    /**
+     * Add constraint that at all of the passed in queries matches.
+     *
+     * @param array $queries The list of queries to OR.
+     *
+     * @return ParseQuery Returns the query, so you can chain this call.
+     */
+    private function _and($queries)
+    {
+        return $this->_mergeQueries('$and', $queries);
+    }
+
+    /**
+     * Combines queries for NOR, AND, OR queries.
+     *
+     * @param string $key The condition $and, $or, $nor.
+     * @param array $queries The list of queries to combine.
+     *
+     * @return ParseQuery Returns the query, so you can chain this call.
+     */
+    private function _mergeQueries($key, $queries)
+    {
+        $this->where[$key] = [];
         $length = count($queries);
         for ($i = 0; $i < $length; $i++) {
-            $this->where['$or'][] = $queries[$i]->where;
+            $this->where[$key][] = $queries[$i]->where;
         }
 
         return $this;

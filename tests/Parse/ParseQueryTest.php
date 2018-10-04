@@ -1053,6 +1053,54 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testNorQueries()
+    {
+        $this->provideTestObjects(10);
+        $subQuery1 = new ParseQuery('TestObject');
+        $subQuery1->lessThan('foo', 'bar3');
+        $subQuery2 = new ParseQuery('TestObject');
+        $subQuery2->greaterThan('foo', 'bar5');
+
+        $mainQuery = ParseQuery::norQueries([$subQuery1, $subQuery2]);
+        $results = $mainQuery->find();
+        $length = count($results);
+        $this->assertEquals(
+            3,
+            $length,
+            'Did not return correct number of objects.'
+        );
+        for ($i = 0; $i < $length; ++$i) {
+            $this->assertTrue(
+                $results[$i]->get('foo') >= 'bar3' ||
+                $results[$i]->get('foo') <= 'bar5',
+                'Did not return the correct object.'
+            );
+        }
+    }
+
+    public function testAndQueries()
+    {
+        Helper::clearClass('ChildObject');
+        Helper::clearClass('ParentObject');
+        $this->provideTestObjectsForQuery(10);
+        $subQuery = new ParseQuery('ChildObject');
+        $subQuery->equalTo('x', 4);
+        $q1 = new ParseQuery('ParentObject');
+        $q1->matchesQuery('child', $subQuery);
+        $q2 = new ParseQuery('ParentObject');
+        $q2->equalTo('x', 14);
+
+        $mainQuery = ParseQuery::andQueries([$q1, $q2]);
+        $results = $mainQuery->find();
+        $length = count($results);
+        $this->assertEquals(
+            1,
+            $length,
+            'Did not return correct number of objects.'
+        );
+        $this->assertTrue($results[0]->get('x') == 14);
+    }
+
     public function testComplexQueries()
     {
         Helper::clearClass('Child');
@@ -2249,6 +2297,30 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
+    public function testNorQueriesVaryingClasses()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'All queries must be for the same class'
+        );
+        ParseQuery::norQueries([
+            new ParseQuery('Class1'),
+            new ParseQuery('Class2')
+        ]);
+    }
+
+    public function testAndQueriesVaryingClasses()
+    {
+        $this->setExpectedException(
+            '\Exception',
+            'All queries must be for the same class'
+        );
+        ParseQuery::andQueries([
+            new ParseQuery('Class1'),
+            new ParseQuery('Class2')
+        ]);
+    }
+
     /**
      * @group query-set-conditions
      */
@@ -2338,7 +2410,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
             '\Parse\ParseException',
             'Unknown condition to set'
         );
-        
+
         $query = new ParseQuery('TestObject');
         $query->_setConditions([
             'unrecognized'  => 1
