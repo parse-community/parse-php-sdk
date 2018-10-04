@@ -1379,6 +1379,27 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testContainsAllStartingWithQueries()
+    {
+        $obj1 = ParseObject::create('TestObject');
+        $obj2 = ParseObject::create('TestObject');
+        $obj3 = ParseObject::create('TestObject');
+        $obj1->setArray('strings', ['the', 'brown', 'lazy', 'fox', 'jumps']);
+        $obj2->setArray('strings', ['the', 'brown', 'fox', 'jumps']);
+        $obj3->setArray('strings', ['over', 'the', 'lazy', 'dogs']);
+
+        ParseObject::saveAll([$obj1, $obj2, $obj3]);
+
+        $query = new ParseQuery('TestObject');
+        $query->containsAllStartingWith('strings', ['the', 'fox', 'lazy']);
+        $results = $query->find();
+        $this->assertEquals(
+            1,
+            count($results),
+            'Did not return correct number of objects.'
+        );
+    }
+
     public function testContainedInObjectArrayQueries()
     {
         $messageList = [];

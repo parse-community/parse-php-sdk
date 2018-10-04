@@ -357,6 +357,18 @@ class ParseQuery
     }
 
     /**
+     * Converts a string into a regex that matches it at the beginning
+     *
+     * @param mixed $s The string or array being replaced.
+     *
+     * @return string Returns the string converted.
+     */
+    private function regexStartWith($s)
+    {
+        return '^' . $this->quote($s);
+    }
+
+    /**
      * Add a constraint to the query that requires a particular key's value to
      * start with the provided value.
      *
@@ -367,7 +379,7 @@ class ParseQuery
      */
     public function startsWith($key, $value)
     {
-        $this->addCondition($key, '$regex', '^'.$this->quote($value));
+        $this->addCondition($key, '$regex', $this->regexStartWith($value));
 
         return $this;
     }
@@ -1195,6 +1207,25 @@ class ParseQuery
         $this->addCondition($key, '$all', $values);
 
         return $this;
+    }
+
+    /**
+     * Add a constraint to the query that requires a particular key's value to
+     * contain each one of the provided list of values starting with the given string.
+     *
+     * @param string $key    The key to check. This key's value must be an array.
+     * @param array  $values The values that will match as starting string.
+     *
+     * @return ParseQuery Returns the query, so you can chain this call.
+     */
+    public function containsAllStartingWith($key, $values)
+    {
+        $opts = [];
+        for ($i = 0; $i < count($values); $i += 1) {
+            $opts[] = ['$regex' => $this->regexStartWith($values[$i])];
+        }
+
+        return $this->containsAll($key, $opts);
     }
 
     /**
