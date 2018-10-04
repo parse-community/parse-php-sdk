@@ -1275,6 +1275,29 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testContainedByQuery()
+    {
+        Helper::clearClass('NumberSet');
+        $obj1 = ParseObject::create('TestObject');
+        $obj2 = ParseObject::create('TestObject');
+        $obj3 = ParseObject::create('TestObject');
+        $obj1->setArray('numbers', [0, 1, 2]);
+        $obj2->setArray('numbers', [2, 0]);
+        $obj3->setArray('numbers', [1, 2, 3, 4]);
+        $numberSet = [$obj1, $obj2, $obj3];
+
+        ParseObject::saveAll($numberSet);
+
+        $query = new ParseQuery('TestObject');
+        $query->containedBy('numbers', [1, 2, 3, 4, 5]);
+        $results = $query->find();
+        $this->assertEquals(
+            1,
+            count($results),
+            'Did not return correct number of objects.'
+        );
+    }
+
     public function testContainsAllObjectArrayQueries()
     {
         Helper::clearClass('MessageSet');
@@ -2338,7 +2361,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
             '\Parse\ParseException',
             'Unknown condition to set'
         );
-        
+
         $query = new ParseQuery('TestObject');
         $query->_setConditions([
             'unrecognized'  => 1
