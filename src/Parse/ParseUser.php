@@ -51,6 +51,7 @@ class ParseUser extends ParseObject
      */
     public function setUsername($username)
     {
+        $this->set('authData.anonymous', null);
         return $this->set('username', $username);
     }
 
