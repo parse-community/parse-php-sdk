@@ -288,6 +288,10 @@ try {
 // Current user
 $user = ParseUser::getCurrentUser();
 ```
+#### Session Id and Session Fixation
+In an attempt to avoid [session fixation exploits](https://www.owasp.org/index.php/Session_fixation), the PHP SDK will call [`session_regenerate_id()`](http://php.net/manual/en/function.session-regenerate-id.php) when a session's permissions are elevated (since 1.5.0).  In practice this means that `session_regenerate_id()` will be called when a session goes from no user, to anonymous user; or from no user or anonymous user to registered user.
+
+Changing the PHP session id should have no impact on the contents of the session and state should me maintained for a user that was anonymous and becomes registered.
 
 #### Verification Emails
 
