@@ -1943,6 +1943,29 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testIncludeAllKeys()
+    {
+        Helper::clearClass('Child');
+        Helper::clearClass('Parent');
+        $child1 = ParseObject::create('Child');
+        $child2 = ParseObject::create('Child');
+        $child3 = ParseObject::create('Child');
+        $child1->set('foo', 'bar');
+        $child2->set('foo', 'baz');
+        $child3->set('foo', 'bin');
+        $parent = ParseObject::create('Parent');
+        $parent->set('child1', $child1);
+        $parent->set('child2', $child2);
+        $parent->set('child3', $child3);
+        $parent->save();
+        $query = new ParseQuery('Parent');
+        $query->includeAllKeys();
+        $result = $query->first();
+        $this->assertEquals($result->get('child1')->get('foo'), 'bar');
+        $this->assertEquals($result->get('child2')->get('foo'), 'baz');
+        $this->assertEquals($result->get('child3')->get('foo'), 'bin');
+    }
+
     public function testNestedIncludeRelation()
     {
         Helper::clearClass('Child');
