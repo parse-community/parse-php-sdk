@@ -797,16 +797,16 @@ class ParseObject implements Encodable
      *
      * @param array $objects      Objects to destroy.
      * @param bool  $useMasterKey Whether to use the master key or not.
+     * @param int   $batchSize    Number of objects to process per request
      *
      * @throws ParseAggregateException
      */
-    public static function destroyAll(array $objects, $useMasterKey = false)
+    public static function destroyAll(array $objects, $useMasterKey = false, $batchSize = 40)
     {
         $errors = [];
         $objects = array_values($objects); // To support non-ordered arrays
         $count = count($objects);
         if ($count) {
-            $batchSize = 40;
             $processed = 0;
             $currentBatch = [];
             $currentcount = 0;
@@ -1153,10 +1153,11 @@ class ParseObject implements Encodable
      *
      * @param array $list
      * @param bool  $useMasterKey Whether to use the Master Key.
+     * @param int   $batchSize    Number of objects to process per request
      */
-    public static function saveAll($list, $useMasterKey = false)
+    public static function saveAll($list, $useMasterKey = false, $batchSize = 40)
     {
-        static::deepSave($list, $useMasterKey);
+        static::deepSave($list, $useMasterKey, $batchSize);
     }
 
     /**
@@ -1164,12 +1165,13 @@ class ParseObject implements Encodable
      *
      * @param ParseObject|array $target
      * @param bool              $useMasterKey Whether to use the Master Key.
+     * @param int               $batchSize Number of objects to process per request
      *
      * @throws Exception
      * @throws ParseAggregateException
      * @throws ParseException
      */
-    private static function deepSave($target, $useMasterKey = false)
+    private static function deepSave($target, $useMasterKey = false, $batchSize = 40)
     {
         $unsavedChildren = [];
         $unsavedFiles = [];
@@ -1197,7 +1199,7 @@ class ParseObject implements Encodable
             $newRemaining = [];
 
             foreach ($remaining as $key => &$object) {
-                if (count($batch) > 40) {
+                if (count($batch) > $batchSize) {
                     $newRemaining[] = $object;
                     continue;
                 }
