@@ -818,6 +818,30 @@ class ParseObjectTest extends \PHPUnit_Framework_TestCase
         $user->destroy(true);
     }
 
+    public function testBatchSize()
+    {
+        $batchSize = 1;
+        Helper::clearClass('TestObject');
+
+        // log in
+        $user = new ParseUser();
+        $user->setUsername('username123');
+        $user->setPassword('password123');
+        $user->signUp();
+
+        $o1 = ParseObject::create('TestObject');
+        $o2 = ParseObject::create('TestObject');
+        $o3 = ParseObject::create('TestObject');
+        ParseObject::saveAll([$o1, $o2, $o3], true, $batchSize);
+        ParseObject::destroyAll([$o1, $o2, $o3], true, $batchSize);
+        $query = new ParseQuery('TestObject');
+        $results = $query->find();
+        $this->assertEquals(0, count($results));
+
+        ParseUser::logOut();
+        $user->destroy(true);
+    }
+
     public function testEmptyArray()
     {
         $obj = ParseObject::create('TestObject');
