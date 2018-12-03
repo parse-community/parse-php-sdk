@@ -2383,7 +2383,7 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $obj->save();
 
         $query = new ParseQuery('TestObject');
-        $query->ascending(['country','name']);
+        $query->ascending(['country', 'name']);
         $results = $query->find(false, false);
 
         $this->assertEquals(3, count($results));
@@ -2391,6 +2391,23 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Joel', $results[0]['name']);
         $this->assertEquals('Bob', $results[1]['name']);
         $this->assertEquals('John', $results[2]['name']);
+    }
+
+    public function testQueryFindEncodedInvalidResponse()
+    {
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'John');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $httpClient = new HttpClientMock();
+        $httpClient->setResponse('{}');
+        Helper::setHttpClient($httpClient);
+
+        $query = new ParseQuery('TestObject');
+        $results = $query->find(false, false);
+
+        $this->assertEquals(0, count($results));
     }
 
     /**
