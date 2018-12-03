@@ -2365,6 +2365,34 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
+    public function testQueryFindEncoded()
+    {
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'John');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Bob');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Joel');
+        $obj->set('country', 'CA');
+        $obj->save();
+
+        $query = new ParseQuery('TestObject');
+        $query->ascending(['country','name']);
+        $results = $query->find(false, false);
+
+        $this->assertEquals(3, count($results));
+
+        $this->assertEquals('Joel', $results[0]['name']);
+        $this->assertEquals('Bob', $results[1]['name']);
+        $this->assertEquals('John', $results[2]['name']);
+    }
+
     /**
      * @group query-set-conditions
      */
