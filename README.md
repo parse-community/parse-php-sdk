@@ -25,6 +25,7 @@ Please note that this documentation contains the latest changes that may as of y
     - [Use Declarations](#use-declarations)
     - [Parse Objects](#parse-objects)
     - [Users](#users)
+        - [Session Id and Session Fixation](#session-id-and-session-fixation)
         - [Verification Emails](#verification-emails)
     - [ACLs/Security](#acls)
     - [Queries](#queries)
