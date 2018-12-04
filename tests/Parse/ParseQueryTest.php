@@ -2207,11 +2207,20 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
                 return $obj;
             }
         );
+        $this->saveObjects(
+            2,
+            function ($i) {
+                $obj = ParseObject::create('TestObject');
+                $obj->set('num', null);
+
+                return $obj;
+            }
+        );
         $query = new ParseQuery('TestObject');
         $query->equalTo('num', null);
         $results = $query->find();
         $this->assertEquals(
-            0,
+            2,
             count($results),
             'Did not return correct number of objects.'
         );
