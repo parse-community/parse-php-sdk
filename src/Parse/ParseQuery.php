@@ -624,12 +624,11 @@ class ParseQuery
             null,
             $useMasterKey
         );
+        if (!isset($result['results'])) {
+            return [];
+        }
         if (!$decodeObjects) {
-            if (array_key_exists('results', $result)) {
-                return $result['results'];
-            } else {
-                return [];
-            }
+            return $result['results'];
         }
         $output = [];
         foreach ($result['results'] as $row) {
