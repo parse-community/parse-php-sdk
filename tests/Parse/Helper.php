@@ -52,7 +52,7 @@ class Helper
         self::setHttpClient();
     }
 
-    public static function setHttpClient()
+    public static function setHttpClient($httpClient = null)
     {
         //
         // Set a curl http client to run primary tests under
@@ -61,6 +61,9 @@ class Helper
         // ParseCurlHttpClient
         // ParseStreamHttpClient
         //
+        if ($httpClient) {
+            return ParseClient::setHttpClient($httpClient);
+        }
 
         global $USE_CLIENT_STREAM;
 

@@ -610,10 +610,11 @@ class ParseQuery
      * Execute a find query and return the results.
      *
      * @param bool $useMasterKey
+     * @param bool $decodeObjects If set to false, will not return raw data instead of ParseObject instances
      *
      * @return ParseObject[]
      */
-    public function find($useMasterKey = false)
+    public function find($useMasterKey = false, $decodeObjects = true)
     {
         $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
@@ -627,6 +628,13 @@ class ParseQuery
             null,
             $useMasterKey
         );
+        if (!$decodeObjects) {
+            if (array_key_exists('results', $result)) {
+                return $result['results'];
+            } else {
+                return [];
+            }
+        }
         $output = [];
         foreach ($result['results'] as $row) {
             $obj = ParseObject::create($this->className, $row['objectId']);
