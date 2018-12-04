@@ -13,8 +13,9 @@
 - Adds Purge & Polygon to ParseSchema (#365)
 - Adds Parse Server Health Check (#366)
 - Adds the ability to upgrade to a revocable session (#368)
+- Avoid session fixation exploit by regenerating session id's (#414)
 - Adds ability to Request Verification Emails (#369)
-- Adds the ability to set/save in `ParseConfig` (#371) 
+- Adds the ability to set/save in `ParseConfig` (#371)
 - Adds `ParseLogs` (#370)
 - Adds `ParseAudience` (#372)
 - Adds jobs to `ParseCloud` (#373)
@@ -40,7 +41,7 @@
 
 - Updates to make the sdk friendly with `phpdoc`
 - Added **Getting Started** section to README
-- Removed the default server and mount path for `api.parse.com` 
+- Removed the default server and mount path for `api.parse.com`
 - Setup `phpdoc` style enforcing and autodeploy from most recent `master` for our [api ref](http://parseplatform.org/parse-php-sdk/namespaces/Parse.html)
 - **jms/serializer** pinned to **1.7.1** for testing as mentioned in #336 (for phpdoc)
 - Added **ParsePolygon** type and `polygonContains` to **ParseQuery** (thanks to [Diamond Lewis](https://github.com/dplewis))
