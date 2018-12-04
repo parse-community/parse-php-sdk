@@ -7,6 +7,7 @@ use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
+use Parse\ParseClient;
 
 class ParseQueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -2402,19 +2403,28 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('John', $results[2]['name']);
     }
 
-    public function testQueryFindEncodedInvalidResponse()
+    public function testQueryNullResponse()
     {
         $obj = new ParseObject('TestObject');
         $obj->set('name', 'John');
         $obj->set('country', 'US');
         $obj->save();
 
+        ParseClient::initialize(
+            Helper::$appId,
+            Helper::$restKey,
+            Helper::$masterKey,
+            false,
+            Helper::$accountKey
+        );
+        ParseClient::setServerURL('http://localhost:1337', 'parse');
+
         $httpClient = new HttpClientMock();
         $httpClient->setResponse('{}');
-        Helper::setHttpClient($httpClient);
+        ParseClient::setHttpClient($httpClient);
 
         $query = new ParseQuery('TestObject');
-        $results = $query->find(false, false);
+        $results = $query->find(false);
 
         $this->assertEquals(0, count($results));
 
