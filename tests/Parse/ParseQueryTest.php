@@ -2408,6 +2408,9 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         $results = $query->find(false, false);
 
         $this->assertEquals(0, count($results));
+
+        // Reset HttpClient
+        Helper::setUp();
     }
 
     /**
