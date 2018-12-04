@@ -202,6 +202,119 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($results));
     }
 
+    public function testGeoMaxDistanceWithUnitsUnsorted()
+    {
+        Helper::clearClass('PlaceObject');
+        // [SAC] 38.52 -121.50 Sacramento,CA
+        $sacramento = new ParseGeoPoint(38.52, -121.50);
+        $obj = ParseObject::create('PlaceObject');
+        $obj->set('location', $sacramento);
+        $obj->set('name', 'Sacramento');
+        $obj->save();
+
+        // [HNL] 21.35 -157.93 Honolulu Int,HI
+        $honolulu = new ParseGeoPoint(21.35, -157.93);
+        $obj = ParseObject::create('PlaceObject');
+        $obj->set('location', $honolulu);
+        $obj->set('name', 'Honolulu');
+        $obj->save();
+
+        // [51Q] 37.75 -122.68 San Francisco,CA
+        $sanfran = new ParseGeoPoint(37.75, -122.68);
+        $obj = ParseObject::create('PlaceObject');
+        $obj->set('location', $sanfran);
+        $obj->set('name', 'San Francisco');
+        $obj->save();
+
+        // test point SFO
+        $point = new ParseGeoPoint(37.6189722, -122.3748889);
+
+        // Kilometers
+        // baseline all
+        $query = new ParseQuery('PlaceObject');
+        $query->near('location', $point);
+        $results = $query->find();
+        $this->assertEquals(3, count($results));
+
+        // max with all
+        $query = new ParseQuery('PlaceObject');
+        $query->withinKilometers('location', $point, 4000.0, false);
+        $results = $query->find();
+        $this->assertEquals(3, count($results));
+
+        // drop hawaii
+        $query = new ParseQuery('PlaceObject');
+        $query->withinKilometers('location', $point, 3700.0, false);
+        $results = $query->find();
+        $this->assertEquals(2, count($results));
+
+        // drop sacramento
+        $query = new ParseQuery('PlaceObject');
+        $query->withinKilometers('location', $point, 100.0, false);
+        $results = $query->find();
+        $this->assertEquals(1, count($results));
+        $this->assertEquals('San Francisco', $results[0]->get('name'));
+
+        // drop SF
+        $query = new ParseQuery('PlaceObject');
+        $query->withinKilometers('location', $point, 10.0, false);
+        $results = $query->find();
+        $this->assertEquals(0, count($results));
+
+        // Miles
+        // max with all
+        $query = new ParseQuery('PlaceObject');
+        $query->withinMiles('location', $point, 2500.0, false);
+        $results = $query->find();
+        $this->assertEquals(3, count($results));
+
+        // drop hawaii
+        $query = new ParseQuery('PlaceObject');
+        $query->withinMiles('location', $point, 2200.0, false);
+        $results = $query->find();
+        $this->assertEquals(2, count($results));
+
+        // drop sacramento
+        $query = new ParseQuery('PlaceObject');
+        $query->withinMiles('location', $point, 75.0, false);
+        $results = $query->find();
+        $this->assertEquals(1, count($results));
+        $this->assertEquals('San Francisco', $results[0]->get('name'));
+
+        // drop SF
+        $query = new ParseQuery('PlaceObject');
+        $query->withinMiles('location', $point, 10.0, false);
+        $results = $query->find();
+        $this->assertEquals(0, count($results));
+    }
+
+    public function testGeoQueriesUnsorted()
+    {
+        Helper::clearClass('PlaceObject');
+        $sacramento = new ParseGeoPoint(38.52, -121.50);
+        $obj = ParseObject::create('PlaceObject');
+        $obj->set('location', $sacramento);
+        $obj->set('name', 'Sacramento');
+        $obj->save();
+
+        $point = new ParseGeoPoint(37.6189722, -122.3748889);
+
+        $query = new ParseQuery('PlaceObject');
+        $query->withinRadians('location', $point, 3.14 * 2, false);
+        $this->assertEquals($query->_getOptions(), [
+            'where' => [
+                'location' => [
+                    '$geoWithin' => [
+                        '$centerSphere' => [
+                            [-122.3748889, 37.6189722],
+                            3.14 * 2
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+    }
+
     public function testBadLatitude()
     {
         $this->setExpectedException(

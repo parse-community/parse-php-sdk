@@ -770,13 +770,27 @@ class ParseQuery
      * @param string        $key         The key of the ParseGeoPoint
      * @param ParseGeoPoint $point       The ParseGeoPoint that is used.
      * @param int           $maxDistance Maximum distance (in radians)
+     * @param bool          $sort        Return objects sorted by distance
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
-    public function withinRadians($key, $point, $maxDistance)
+    public function withinRadians($key, $point, $maxDistance, $sort = true)
     {
-        $this->near($key, $point);
-        $this->addCondition($key, '$maxDistance', $maxDistance);
+        if ($sort) {
+            $this->near($key, $point);
+            $this->addCondition($key, '$maxDistance', $maxDistance);
+        } else {
+            $this->addCondition(
+                $key,
+                '$geoWithin',
+                [
+                '$centerSphere' => [
+                    [$point->getLongitude(), $point->getLatitude()],
+                    $maxDistance
+                ]
+                ]
+            );
+        }
 
         return $this;
     }
@@ -784,20 +798,18 @@ class ParseQuery
     /**
      * Add a proximity based constraint for finding objects with key point
      * values near the point given and within the maximum distance given.
-     * Radius of earth used is 3958.5 miles.
+     * Radius of earth used is 3958.8 miles.
      *
      * @param string        $key         The key of the ParseGeoPoint
      * @param ParseGeoPoint $point       The ParseGeoPoint that is used.
      * @param int           $maxDistance Maximum distance (in miles)
+     * @param bool          $sort        Return objects sorted by distance
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
-    public function withinMiles($key, $point, $maxDistance)
+    public function withinMiles($key, $point, $maxDistance, $sort = true)
     {
-        $this->near($key, $point);
-        $this->addCondition($key, '$maxDistance', $maxDistance / 3958.8);
-
-        return $this;
+        return $this->withinRadians($key, $point, $maxDistance / 3958.8, $sort);
     }
 
     /**
@@ -808,15 +820,13 @@ class ParseQuery
      * @param string        $key         The key of the ParseGeoPoint
      * @param ParseGeoPoint $point       The ParseGeoPoint that is used.
      * @param int           $maxDistance Maximum distance (in kilometers)
+     * @param bool          $sort        Return objects sorted by distance
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
-    public function withinKilometers($key, $point, $maxDistance)
+    public function withinKilometers($key, $point, $maxDistance, $sort = true)
     {
-        $this->near($key, $point);
-        $this->addCondition($key, '$maxDistance', $maxDistance / 6371.0);
-
-        return $this;
+        return $this->withinRadians($key, $point, $maxDistance / 6371.0, $sort);
     }
 
     /**
