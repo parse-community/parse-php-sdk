@@ -13,7 +13,6 @@
 - Adds Purge & Polygon to ParseSchema (#365)
 - Adds Parse Server Health Check (#366)
 - Adds the ability to upgrade to a revocable session (#368)
-- Avoid session fixation exploit by regenerating session id's (#414)
 - Adds ability to Request Verification Emails (#369)
 - Adds the ability to set/save in `ParseConfig` (#371)
 - Adds `ParseLogs` (#370)
