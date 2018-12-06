@@ -501,6 +501,10 @@ class ParseUser extends ParseObject
             unset($this->serverData['sessionToken']);
         }
         if ($makeCurrent) {
+            if (session_id()) {
+                // see: https://www.owasp.org/index.php/Session_fixation
+                session_regenerate_id();
+            }
             static::$currentUser = $this;
             static::saveCurrentUser();
         }
