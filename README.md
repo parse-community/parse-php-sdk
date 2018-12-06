@@ -6,6 +6,8 @@
 The Parse PHP SDK gives you access to the powerful Parse cloud platform
 from your PHP app or script.  Designed to work with the self-hosted Parse Server: https://github.com/parse-community/parse-server
 
+For more information on Parse and its features, see [the website](http://parseplatform.org), [the PHP guide](https://docs.parseplatform.org/php/guide/) or [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/Parse.html).
+
 Please note that this documentation contains the latest changes that may as of yet be unreleased. To see the README for your release please use the list below.
 - [1.4.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.4.0/README.md)
 - [1.3.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.3.0/README.md)
