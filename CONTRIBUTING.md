@@ -8,6 +8,8 @@ When committing, keep all lines to less than 80 characters, and try to
 follow the existing style. Before creating a pull request, squash your commits
 into a single commit. Please provide ample explanation in the commit message.
 
+In addition there's a pretty cool [class inheritance diagram](http://parseplatform.org/parse-php-sdk/graph_class.html) you can check out as well.
+
 Installation
 ------------
 
