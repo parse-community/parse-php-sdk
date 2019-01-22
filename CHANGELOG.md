@@ -1,7 +1,23 @@
 ## Parse PHP SDK Changelog
 
 ### master
-[Full Changelog](https://github.com/parse-community/parse-php-sdk/compare/1.4.0...master)
+[Full Changelog](https://github.com/parse-community/parse-php-sdk/compare/1.5.0...master)
+
+### 1.5.0
+[See the diff between 1.4.0 and 1.5.0](https://github.com/parse-community/parse-php-sdk/compare/1.4.0...1.5.0)
+- Avoid session fixation by regenerating session id on user promotion (#414)
+- Properly handle null query response (#425)
+- Fix queries equalTo with null values (#406)
+- Add sort option to GeoQueries (#424)
+- Add encode option to ParseQuery:find (#423)
+- Add batchSize to saveAll / destroyAll (#422)
+- add And / Nor query (#419)
+- Add 'containedBy' query (#418)
+- Add 'containsAllStartingWith' query (#417)
+- Remove anonymous auth data from User table when user registers.  Match other SDK behavior (#417)
+- Fix bug in mime type guessing due to case mishandling (#399)
+- Use registered subclass when creating a ParseUser (#394)
+
 
 ### 1.4.0
 [See the diff between 1.3.0 and 1.4.0](https://github.com/parse-community/parse-php-sdk/compare/1.3.0...1.4.0)
