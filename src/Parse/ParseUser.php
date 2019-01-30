@@ -582,7 +582,8 @@ class ParseUser extends ParseObject
     /**
      * Remove current user's anonymous AuthData
      */
-    private function clearAnonymousAuthData() {
+    private function clearAnonymousAuthData()
+    {
         $json = json_encode(['authData' => [ 'anonymous' => null]]);
         ParseClient::_request('PUT', 'classes/_User/' . $this->getObjectId(), null, $json, true);
     }
@@ -599,7 +600,7 @@ class ParseUser extends ParseObject
         if ($this->getObjectId()) {
             $wasAnonymous = isset($this->operationSet['username']) && $this->operationSet['username'] instanceof \Parse\Internal\SetOperation;
             parent::save($useMasterKey);
-            if($wasAnonymous) {
+            if ($wasAnonymous) {
                 $this->clearAnonymousAuthData();
             }
         } else {
