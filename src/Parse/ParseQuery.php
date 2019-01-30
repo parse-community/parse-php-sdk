@@ -1294,6 +1294,8 @@ class ParseQuery
      * Include nested Parse Objects for the provided key.    You can use dot
      * notation to specify which fields in the included object are also fetch.
      *
+     * You can include all nested Parse Objects by passing in '*'. (Requires Parse Server 3.0.0+)
+     *
      * @param mixed $key The name(s) of the key(s) to include. It could be
      *                   string, or an Array of string.
      *
@@ -1308,6 +1310,18 @@ class ParseQuery
         }
 
         return $this;
+    }
+
+    /**
+     * Includes all nested Parse.Objects.
+     *
+     * Requires Parse Server 3.0.0+
+     *
+     * @return ParseQuery Returns the query, so you can chain this call.
+     */
+    public function includeAllKeys()
+    {
+        return $this->includeKey('*');
     }
 
     /**

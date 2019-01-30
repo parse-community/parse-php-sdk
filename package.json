@@ -18,7 +18,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "dependencies": {
-    "parse-server-test": "1.3.7",
-    "winston": "^2.4.3"
+    "parse-server-test": "github:dplewis/parse-server-test#master",
+    "winston": "2.4.3"
   }
 }
