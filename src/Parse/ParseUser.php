@@ -148,7 +148,7 @@ class ParseUser extends ParseObject
             );
         }
         $data = ['username' => $username, 'password' => $password];
-        $result = ParseClient::_request('GET', 'login', '', $data);
+        $result = ParseClient::_request('POST', 'login', '', json_encode($data));
         $user = new static();
         $user->_mergeAfterFetch($result);
         $user->handleSaveResult(true);
