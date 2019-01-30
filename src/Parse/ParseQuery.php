@@ -112,11 +112,7 @@ class ParseQuery
      */
     public function equalTo($key, $value)
     {
-        if ($value === null) {
-            $this->doesNotExist($key);
-        } else {
-            $this->where[$key] = $value;
-        }
+        $this->where[$key] = $value;
 
         return $this;
     }
@@ -357,6 +353,18 @@ class ParseQuery
     }
 
     /**
+     * Converts a string into a regex that matches it at the beginning
+     *
+     * @param mixed $s The string or array being replaced.
+     *
+     * @return string Returns the string converted.
+     */
+    private function regexStartWith($s)
+    {
+        return '^' . $this->quote($s);
+    }
+
+    /**
      * Add a constraint to the query that requires a particular key's value to
      * start with the provided value.
      *
@@ -367,7 +375,7 @@ class ParseQuery
      */
     public function startsWith($key, $value)
     {
-        $this->addCondition($key, '$regex', '^'.$this->quote($value));
+        $this->addCondition($key, '$regex', $this->regexStartWith($value));
 
         return $this;
     }
@@ -598,10 +606,11 @@ class ParseQuery
      * Execute a find query and return the results.
      *
      * @param bool $useMasterKey
+     * @param bool $decodeObjects If set to false, will not return raw data instead of ParseObject instances
      *
      * @return ParseObject[]
      */
-    public function find($useMasterKey = false)
+    public function find($useMasterKey = false, $decodeObjects = true)
     {
         $sessionToken = null;
         if (ParseUser::getCurrentUser()) {
@@ -615,6 +624,12 @@ class ParseQuery
             null,
             $useMasterKey
         );
+        if (!isset($result['results'])) {
+            return [];
+        }
+        if (!$decodeObjects) {
+            return $result['results'];
+        }
         $output = [];
         foreach ($result['results'] as $row) {
             $obj = ParseObject::create($this->className, $row['objectId']);
@@ -750,13 +765,27 @@ class ParseQuery
      * @param string        $key         The key of the ParseGeoPoint
      * @param ParseGeoPoint $point       The ParseGeoPoint that is used.
      * @param int           $maxDistance Maximum distance (in radians)
+     * @param bool          $sort        Return objects sorted by distance
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
-    public function withinRadians($key, $point, $maxDistance)
+    public function withinRadians($key, $point, $maxDistance, $sort = true)
     {
-        $this->near($key, $point);
-        $this->addCondition($key, '$maxDistance', $maxDistance);
+        if ($sort) {
+            $this->near($key, $point);
+            $this->addCondition($key, '$maxDistance', $maxDistance);
+        } else {
+            $this->addCondition(
+                $key,
+                '$geoWithin',
+                [
+                '$centerSphere' => [
+                    [$point->getLongitude(), $point->getLatitude()],
+                    $maxDistance
+                ]
+                ]
+            );
+        }
 
         return $this;
     }
@@ -764,20 +793,18 @@ class ParseQuery
     /**
      * Add a proximity based constraint for finding objects with key point
      * values near the point given and within the maximum distance given.
-     * Radius of earth used is 3958.5 miles.
+     * Radius of earth used is 3958.8 miles.
      *
      * @param string        $key         The key of the ParseGeoPoint
      * @param ParseGeoPoint $point       The ParseGeoPoint that is used.
      * @param int           $maxDistance Maximum distance (in miles)
+     * @param bool          $sort        Return objects sorted by distance
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
-    public function withinMiles($key, $point, $maxDistance)
+    public function withinMiles($key, $point, $maxDistance, $sort = true)
     {
-        $this->near($key, $point);
-        $this->addCondition($key, '$maxDistance', $maxDistance / 3958.8);
-
-        return $this;
+        return $this->withinRadians($key, $point, $maxDistance / 3958.8, $sort);
     }
 
     /**
@@ -788,15 +815,13 @@ class ParseQuery
      * @param string        $key         The key of the ParseGeoPoint
      * @param ParseGeoPoint $point       The ParseGeoPoint that is used.
      * @param int           $maxDistance Maximum distance (in kilometers)
+     * @param bool          $sort        Return objects sorted by distance
      *
      * @return ParseQuery Returns this query, so you can chain this call.
      */
-    public function withinKilometers($key, $point, $maxDistance)
+    public function withinKilometers($key, $point, $maxDistance, $sort = true)
     {
-        $this->near($key, $point);
-        $this->addCondition($key, '$maxDistance', $maxDistance / 6371.0);
-
-        return $this;
+        return $this->withinRadians($key, $point, $maxDistance / 6371.0, $sort);
     }
 
     /**
@@ -1195,6 +1220,25 @@ class ParseQuery
         $this->addCondition($key, '$all', $values);
 
         return $this;
+    }
+
+    /**
+     * Add a constraint to the query that requires a particular key's value to
+     * contain each one of the provided list of values starting with the given string.
+     *
+     * @param string $key    The key to check. This key's value must be an array.
+     * @param array  $values The values that will match as starting string.
+     *
+     * @return ParseQuery Returns the query, so you can chain this call.
+     */
+    public function containsAllStartingWith($key, $values)
+    {
+        $opts = [];
+        for ($i = 0; $i < count($values); $i += 1) {
+            $opts[] = ['$regex' => $this->regexStartWith($values[$i])];
+        }
+
+        return $this->containsAll($key, $opts);
     }
 
     /**

@@ -55,26 +55,6 @@ class ParseLogsTest extends \PHPUnit_Framework_TestCase
     /**
      * @group parse-logs-tests
      */
-    public function testGettingErrorLogs()
-    {
-        // Generate an error by requesting a non-existant password reset, to verify we have at least 1 line in our logs
-        try {
-            ParseUser::requestPasswordReset('not_a_real_email');
-        } catch (ParseException $pe) {
-            // do nothing
-        }
-
-        $logs = ParseLogs::getErrorLogs(1);
-        $this->assertEquals(1, count($logs));
-        $this->assertEquals($logs[0]['code'], 205);
-        $this->assertEquals($logs[0]['message'], 'No user found with email not_a_real_email.');
-        $this->assertEquals($logs[0]['level'], 'error');
-        $this->assertTrue(isset($logs[0]['timestamp']));
-    }
-
-    /**
-     * @group parse-logs-tests
-     */
     public function testFrom()
     {
         // test getting logs from 4 hours in the future

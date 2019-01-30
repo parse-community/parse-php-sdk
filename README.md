@@ -6,6 +6,8 @@
 The Parse PHP SDK gives you access to the powerful Parse cloud platform
 from your PHP app or script.  Designed to work with the self-hosted Parse Server: https://github.com/parse-community/parse-server
 
+For more information on Parse and its features, see [the website](http://parseplatform.org), [the PHP guide](https://docs.parseplatform.org/php/guide/) or [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/Parse.html).
+
 Please note that this documentation contains the latest changes that may as of yet be unreleased. To see the README for your release please use the list below.
 - [1.4.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.4.0/README.md)
 - [1.3.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.3.0/README.md)
@@ -25,6 +27,7 @@ Please note that this documentation contains the latest changes that may as of y
     - [Use Declarations](#use-declarations)
     - [Parse Objects](#parse-objects)
     - [Users](#users)
+        - [Session Id and Session Fixation](#session-id-and-session-fixation)
         - [Verification Emails](#verification-emails)
     - [ACLs/Security](#acls)
     - [Queries](#queries)
@@ -288,6 +291,10 @@ try {
 // Current user
 $user = ParseUser::getCurrentUser();
 ```
+#### Session Id and Session Fixation
+In an attempt to avoid [session fixation exploits](https://www.owasp.org/index.php/Session_fixation), the PHP SDK will call [`session_regenerate_id()`](http://php.net/manual/en/function.session-regenerate-id.php) when a session's permissions are elevated (since 1.5.0).  In practice this means that `session_regenerate_id()` will be called when a session goes from no user to anonymous user or from no user / anonymous user to registered user.
+
+Changing the PHP session id should have no impact on the contents of the session and state should be maintained for a user that was anonymous and becomes registered.
 
 #### Verification Emails
 

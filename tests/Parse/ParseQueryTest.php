@@ -7,6 +7,7 @@ use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
+use Parse\ParseClient;
 
 class ParseQueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -1379,6 +1380,27 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testContainsAllStartingWithQueries()
+    {
+        $obj1 = ParseObject::create('TestObject');
+        $obj2 = ParseObject::create('TestObject');
+        $obj3 = ParseObject::create('TestObject');
+        $obj1->setArray('strings', ['the', 'brown', 'lazy', 'fox', 'jumps']);
+        $obj2->setArray('strings', ['the', 'brown', 'fox', 'jumps']);
+        $obj3->setArray('strings', ['over', 'the', 'lazy', 'dogs']);
+
+        ParseObject::saveAll([$obj1, $obj2, $obj3]);
+
+        $query = new ParseQuery('TestObject');
+        $query->containsAllStartingWith('strings', ['the', 'fox', 'lazy']);
+        $results = $query->find();
+        $this->assertEquals(
+            1,
+            count($results),
+            'Did not return correct number of objects.'
+        );
+    }
+
     public function testContainedInObjectArrayQueries()
     {
         $messageList = [];
@@ -2209,11 +2231,20 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
                 return $obj;
             }
         );
+        $this->saveObjects(
+            2,
+            function ($i) {
+                $obj = ParseObject::create('TestObject');
+                $obj->set('num', null);
+
+                return $obj;
+            }
+        );
         $query = new ParseQuery('TestObject');
         $query->equalTo('num', null);
         $results = $query->find();
         $this->assertEquals(
-            0,
+            2,
             count($results),
             'Did not return correct number of objects.'
         );
@@ -2365,6 +2396,63 @@ class ParseQueryTest extends \PHPUnit_Framework_TestCase
             new ParseQuery('Class1'),
             new ParseQuery('Class2')
         ]);
+    }
+
+    public function testQueryFindEncoded()
+    {
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'John');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Bob');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Joel');
+        $obj->set('country', 'CA');
+        $obj->save();
+
+        $query = new ParseQuery('TestObject');
+        $query->ascending(['country', 'name']);
+        $results = $query->find(false, false);
+
+        $this->assertEquals(3, count($results));
+
+        $this->assertEquals('Joel', $results[0]['name']);
+        $this->assertEquals('Bob', $results[1]['name']);
+        $this->assertEquals('John', $results[2]['name']);
+    }
+
+    public function testQueryNullResponse()
+    {
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'John');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        ParseClient::initialize(
+            Helper::$appId,
+            Helper::$restKey,
+            Helper::$masterKey,
+            false,
+            Helper::$accountKey
+        );
+        ParseClient::setServerURL('http://localhost:1337', 'parse');
+
+        $httpClient = new HttpClientMock();
+        $httpClient->setResponse('{}');
+        ParseClient::setHttpClient($httpClient);
+
+        $query = new ParseQuery('TestObject');
+        $results = $query->find(false);
+
+        $this->assertEquals(0, count($results));
+
+        // Reset HttpClient
+        Helper::setUp();
     }
 
     /**
