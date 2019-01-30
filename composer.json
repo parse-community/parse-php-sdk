@@ -2,6 +2,7 @@
     "name": "parse/php-sdk",
     "description": "Parse PHP SDK",
     "keywords": ["parse", "sdk"],
+    "license": "BSD-3-Clause",
     "type": "library",
     "homepage": "https://github.com/parse-community/parse-php-sdk",
     "authors": [
