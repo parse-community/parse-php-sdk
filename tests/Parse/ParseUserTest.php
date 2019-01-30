@@ -457,15 +457,6 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         ParseUser::requestPasswordReset('asdf@example.com');
     }
 
-    public function testPasswordResetFails()
-    {
-        $this->setExpectedException(
-            'Parse\ParseException',
-            'No user found with email non_existent@example.com.'
-        );
-        ParseUser::requestPasswordReset('non_existent@example.com');
-    }
-
     public function testUserAssociations()
     {
         $child = ParseObject::create('TestObject');
