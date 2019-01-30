@@ -51,7 +51,6 @@ class ParseUser extends ParseObject
      */
     public function setUsername($username)
     {
-        $this->set('authData.anonymous', null);
         return $this->set('username', $username);
     }
 
@@ -581,6 +580,14 @@ class ParseUser extends ParseObject
     }
 
     /**
+     * Remove current user's anonymous AuthData
+     */
+    private function clearAnonymousAuthData() {
+        $json = json_encode(['authData' => [ 'anonymous' => null]]);
+        ParseClient::_request('PUT', 'classes/_User/' . $this->getObjectId(), null, $json, true);
+    }
+
+    /**
      * Save the current user object, unless it is not signed up.
      *
      * @param bool $useMasterKey Whether to use the Master Key
@@ -590,7 +597,11 @@ class ParseUser extends ParseObject
     public function save($useMasterKey = false)
     {
         if ($this->getObjectId()) {
+            $wasAnonymous = isset($this->operationSet['username']) && $this->operationSet['username'] instanceof \Parse\Internal\SetOperation;
             parent::save($useMasterKey);
+            if($wasAnonymous) {
+                $this->clearAnonymousAuthData();
+            }
         } else {
             throw new ParseException(
                 'You must call signUp to create a new User.',
