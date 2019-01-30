@@ -598,7 +598,8 @@ class ParseUser extends ParseObject
     public function save($useMasterKey = false)
     {
         if ($this->getObjectId()) {
-            $wasAnonymous = isset($this->operationSet['username']) && $this->operationSet['username'] instanceof \Parse\Internal\SetOperation;
+            $wasAnonymous = isset($this->operationSet['username'])
+                && $this->operationSet['username'] instanceof \Parse\Internal\SetOperation;
             parent::save($useMasterKey);
             if ($wasAnonymous) {
                 $this->clearAnonymousAuthData();
