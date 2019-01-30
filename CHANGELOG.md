@@ -1,7 +1,12 @@
 ## Parse PHP SDK Changelog
 
 ### master
-[Full Changelog](https://github.com/parse-community/parse-php-sdk/compare/1.5.0...master)
+[Full Changelog](https://github.com/parse-community/parse-php-sdk/compare/1.5.1...master)
+
+### 1.5.1
+[See the diff between 1.5.0 and 1.5.1](https://github.com/parse-community/parse-php-sdk/compare/1.5.0...1.5.1)
+
+No changes from  1.5.0.  Creating release to fix mis deployed 1.5.0.
 
 ### 1.5.0
 [See the diff between 1.4.0 and 1.5.0](https://github.com/parse-community/parse-php-sdk/compare/1.4.0...1.5.0)
