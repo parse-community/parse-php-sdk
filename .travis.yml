@@ -7,7 +7,6 @@ php:
   - '7.0'
   - '7.1'
  # - '7.2'
-  - hhvm # on Trusty only
 
 cache:
   directories:
@@ -21,8 +20,6 @@ matrix:
       env: STREAM_CLIENT_ONLY=1
     #- php: '7.2'
     #  env: STREAM_CLIENT_ONLY=1
-    - php: hhvm
-      env: STREAM_CLIENT_ONLY=1
 
 before_install:
   - nvm install 8.11
