@@ -146,6 +146,44 @@ class ParseRelationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group relation-remove
+     */
+    public function testRemoveRelation()
+    {
+        // Setup
+        $parent = new ParseObject('ParentObject');
+        $c1 = new ParseObject('ChildObject');
+        $c2 = new ParseObject('ChildObject');
+        $c3 = new ParseObject('ChildObject');
+        $c4 = new ParseObject('ChildObject');
+        ParseObject::saveAll([$c1, $c2, $c3, $c4]);
+        $objectIds = [$c1->getObjectId(), $c2->getObjectId(), $c3->getObjectId(), $c4->getObjectId()];
+        $relation = $parent->getRelation('children');
+        $relation->add([$c1, $c2]);
+        $parent->save();
+
+        // Query for parent and relation
+        $parentQuery = new ParseQuery('ParentObject');
+        $parent = $parentQuery->get($parent->getObjectId());
+        $relation = $parent->getRelation('children');
+        $query = $relation->getQuery();
+        $query->containedIn('objectId', $objectIds);
+        $children = $query->find();
+        $this->assertEquals(2, count($children));
+
+        // Remove results from $objectIds
+        $relation->remove($children);
+        $parent->save();
+
+        // Check that children are removed
+        $parent = $parentQuery->get($parent->getObjectId());
+        $relation = $parent->getRelation('children');
+        $query = $relation->getQuery();
+        $children = $query->find();
+        $this->assertEquals(0, count($children));
+    }
+
+    /**
      * @group relation-parent-set
      */
     public function testSwitchingParent()
