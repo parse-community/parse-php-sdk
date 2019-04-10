@@ -485,13 +485,14 @@ class ParseQuery
      * Execute a query to get only the first result.
      *
      * @param bool $useMasterKey If the query should use the master key
+     * @param bool $decodeObjects If set to false, will not return raw data instead of ParseObject instances
      *
      * @return array|ParseObject Returns the first object or an empty array
      */
-    public function first($useMasterKey = false)
+    public function first($useMasterKey = false, $decodeObjects = true)
     {
         $this->limit = 1;
-        $result = $this->find($useMasterKey);
+        $result = $this->find($useMasterKey, $decodeObjects);
         if (count($result)) {
             return $result[0];
         } else {
