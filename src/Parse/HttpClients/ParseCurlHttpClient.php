@@ -340,7 +340,7 @@ class ParseCurlHttpClient implements ParseHttpable
         if ($this->needsCurlProxyFix()) {
             // Additional way to calculate the request body size.
             if (preg_match('/Content-Length: (\d+)/', $this->response, $match)) {
-                $headerSize = mb_strlen($this->response) - $match[1];
+                $headerSize = mb_strlen($this->response, '8bit') - $match[1];
             } elseif (stripos($this->response, self::CONNECTION_ESTABLISHED) !== false) {
                 $headerSize += mb_strlen(self::CONNECTION_ESTABLISHED);
             }
