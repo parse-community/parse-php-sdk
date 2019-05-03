@@ -8,6 +8,7 @@ logs
 
 # ignore test results
 phpunit-test-results
+.phpunit.result.cache
 
 *.log
 
@@ -15,3 +16,4 @@ coverage.xml
 
 # ignore phpdoc
 output/
+
