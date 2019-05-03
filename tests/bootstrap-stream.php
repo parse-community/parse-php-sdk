@@ -23,4 +23,4 @@ $USE_CLIENT_STREAM = true;
 Helper::setUp();
 $version = ParseServerInfo::getVersion();
 
-echo "[ testing against {$version} with stream client ]\n";
+fwrite(STDERR, "[ testing against {$version} with stream client ]\n");
