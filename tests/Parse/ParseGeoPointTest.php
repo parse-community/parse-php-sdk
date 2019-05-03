@@ -6,19 +6,20 @@ use Parse\ParseGeoPoint;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseGeoPointTest extends TestCase
 {
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() : void    {
         Helper::setUp();
     }
 
-    public function setUp()
+    public function setup() : void
     {
         Helper::clearClass('TestObject');
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
     }
@@ -40,8 +41,8 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
 
         // Round trip encoding
         $actualPoint = $results[0]->get('location');
-        $this->assertEquals(44.0, $actualPoint->getLatitude(), '', 0.0001);
-        $this->assertEquals(-11.0, $actualPoint->getLongitude(), '', 0.0001);
+        $this->assertEqualsWithDelta(44.0, $actualPoint->getLatitude(), 0.0001, '');
+        $this->assertEqualsWithDelta(-11.0, $actualPoint->getLongitude(), 0.0001, '');
 
         // nearsphere
         $point->setLatitude(66.0);
@@ -317,7 +318,7 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
 
     public function testBadLatitude()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'Latitude must be within range [-90.0, 90.0]'
         );
@@ -326,7 +327,7 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
 
     public function testBadLongitude()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'Longitude must be within range [-180.0, 180.0]'
         );
@@ -388,7 +389,7 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
         $obj->set('location', new ParseGeoPoint(1.5, 1.5));
         $obj->save();
 
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'bad $geoWithin value; $polygon should contain at least 3 GeoPoints'
         );
@@ -403,7 +404,7 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
         $obj->set('location', new ParseGeoPoint(1.5, 1.5));
         $obj->save();
 
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'bad $geoWithin value; $polygon should contain at least 3 GeoPoints'
         );
@@ -422,7 +423,7 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
         $obj->set('location', new ParseGeoPoint(1.5, 1.5));
         $obj->save();
 
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'bad $geoWithin value; $polygon should be Polygon object or Array of Parse.GeoPoint\'s'
         );
@@ -437,7 +438,7 @@ class ParseGeoPointTest extends \PHPUnit_Framework_TestCase
         $obj->set('location', new ParseGeoPoint(1.5, 1.5));
         $obj->save();
 
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'bad $geoWithin value; $polygon should contain at least 3 GeoPoints'
         );

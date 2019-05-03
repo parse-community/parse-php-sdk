@@ -5,14 +5,15 @@ namespace Parse\Test;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-class IncrementTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class IncrementTest extends TestCase
 {
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() : void    {
         Helper::setUp();
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::clearClass('TestObject');
         Helper::tearDown();
@@ -147,7 +148,7 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         $obj = ParseObject::create('TestObject');
         $obj->set('foo', 'bar');
         $obj->save();
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot increment a non-number type'
         );
@@ -224,7 +225,7 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         $obj->set('randomkey', 'bar');
         $obj->save();
         $objAgain->increment('randomkey');
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'schema mismatch for TestObject.randomkey; expected String but got Number'
         );
@@ -241,7 +242,7 @@ class IncrementTest extends \PHPUnit_Framework_TestCase
         $objAgain->set('randomkeyagain', 'bar');
         $obj->increment('randomkeyagain');
         $obj->save();
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'schema mismatch for TestObject.randomkeyagain; '.
             'expected Number but got String'

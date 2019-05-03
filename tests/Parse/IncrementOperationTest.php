@@ -10,10 +10,11 @@ use Parse\Internal\DeleteOperation;
 use Parse\Internal\IncrementOperation;
 use Parse\Internal\SetOperation;
 
-class IncrementOperationTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class IncrementOperationTest extends TestCase
 {
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() : void    {
         Helper::setUp();
     }
 
@@ -55,7 +56,7 @@ class IncrementOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'Operation is invalid after previous operation.'
         );

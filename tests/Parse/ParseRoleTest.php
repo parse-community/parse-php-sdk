@@ -9,21 +9,22 @@ use Parse\ParseQuery;
 use Parse\ParseRole;
 use Parse\ParseUser;
 
-class ParseRoleTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseRoleTest extends TestCase
 {
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() : void    {
         Helper::setUp();
     }
 
-    public function setUp()
+    public function setup() : void
     {
         Helper::clearClass('_User');
         Helper::clearClass('_Role');
         Helper::clearClass('Things');
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
     }
@@ -39,7 +40,7 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
     {
         $role = new ParseRole();
         $role->setName('Admin');
-        $this->setExpectedException('Parse\ParseException', 'ACL');
+        $this->expectException('Parse\ParseException', 'ACL');
         $role->save();
     }
 
@@ -54,7 +55,7 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         $role->setName('A1234');
         $this->assertEquals('A1234', $role->getName());
         $role->save();
-        $this->setExpectedException('Parse\ParseException', 'has been saved');
+        $this->expectException('Parse\ParseException', 'has been saved');
         $role->setName('Moderators');
     }
 
@@ -91,7 +92,7 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
         $role = ParseRole::createRole('Admin', $this->aclPublic());
         $role->save();
         $role2 = ParseRole::createRole('Admin', $this->aclPublic());
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             "Cannot add duplicate role name of 'Admin'"
         );
@@ -116,7 +117,7 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
 
         // verify the snake cannot get the apple
         ParseUser::logIn('snake', 'snake');
-        $this->setExpectedException('Parse\ParseException', 'not found');
+        $this->expectException('Parse\ParseException', 'not found');
         $query->get($eden['apple']->getObjectId());
     }
 
@@ -251,7 +252,7 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingNonStringAsName()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             "A role's name must be a string."
         );
@@ -264,7 +265,7 @@ class ParseRoleTest extends \PHPUnit_Framework_TestCase
      */
     public function testSavingWithoutName()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'Roles must have a name.'
         );

@@ -8,9 +8,11 @@ use Parse\ParseObject;
 use Parse\ParsePush;
 use Parse\ParseQuery;
 
-class ParseAudienceTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseAudienceTest extends TestCase
 {
-    public function setUp()
+    public function setup() : void
     {
         Helper::clearClass('_Audience');
         Helper::clearClass('_Installation');

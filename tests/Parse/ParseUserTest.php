@@ -7,22 +7,23 @@ use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
 
-class ParseUserTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseUserTest extends TestCase
 {
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() : void    {
         Helper::setUp();
         Helper::clearClass(ParseUser::$parseClassName);
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
         ParseUser::logOut();
         Helper::clearClass(ParseUser::$parseClassName);
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass() : void
     {
         ParseUser::_unregisterSubclass();
     }
@@ -58,32 +59,32 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginEmptyUsername()
     {
-        $this->setExpectedException('Parse\ParseException', 'empty name');
+        $this->expectException('Parse\ParseException', 'empty name');
         ParseUser::logIn('', 'bogus');
     }
 
     public function testLoginEmptyPassword()
     {
-        $this->setExpectedException('Parse\ParseException', 'empty password');
+        $this->expectException('Parse\ParseException', 'empty password');
         ParseUser::logIn('asdf', '');
     }
 
     public function testLoginWrongUsername()
     {
-        $this->setExpectedException('Parse\ParseException', 'Invalid username/password.');
+        $this->expectException('Parse\ParseException', 'Invalid username/password.');
         ParseUser::logIn('non_existent_user', 'bogus');
     }
 
     public function testLoginWrongPassword()
     {
         $this->testUserSignUp();
-        $this->setExpectedException('Parse\ParseException', 'Invalid username/password.');
+        $this->expectException('Parse\ParseException', 'Invalid username/password.');
         ParseUser::logIn('asdf', 'bogus');
     }
 
     public function testLoginWithFacebook()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Facebook auth is invalid for this user.'
         );
@@ -92,7 +93,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginWithFacebookNoId()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot log in Facebook user without an id.'
         );
@@ -101,7 +102,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginWithFacebookNoAccessToken()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot log in Facebook user without an access token.'
         );
@@ -110,7 +111,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginWithTwitter()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Twitter auth is invalid for this user.'
         );
@@ -119,7 +120,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginWithTwitterNoId()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot log in Twitter user without an id.'
         );
@@ -128,7 +129,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginWithTwitterNoScreenName()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot log in Twitter user without Twitter screen name.'
         );
@@ -137,7 +138,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginWithTwitterNoConsumerKey()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot log in Twitter user without a consumer key.'
         );
@@ -146,7 +147,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginWithTwitterNoAuthToken()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot log in Twitter user without an auth token.'
         );
@@ -155,7 +156,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLoginWithTwitterNoAuthTokenSecret()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot log in Twitter user without an auth token secret.'
         );
@@ -170,7 +171,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithFacebook()
     {
-        $this->setExpectedException('Parse\ParseException');
+        $this->expectException('Parse\ParseException');
         $this->testUserSignUp();
         $user = ParseUser::logIn('asdf', 'zxcv');
         $user->linkWithFacebook('asdf', 'zxcv');
@@ -178,7 +179,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithFacebookUnsavedUser()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot link an unsaved user, use ParseUser::logInWithFacebook'
         );
@@ -188,7 +189,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithFacebookNoId()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot link Facebook user without an id.'
         );
@@ -199,7 +200,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithFacebookNoAccessToken()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot link Facebook user without an access token.'
         );
@@ -210,7 +211,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithTwitter()
     {
-        $this->setExpectedException('Parse\ParseException');
+        $this->expectException('Parse\ParseException');
         $this->testUserSignUp();
         $user = ParseUser::logIn('asdf', 'zxcv');
         $user->linkWithTwitter('qwer', 'asdf', 'zxcv', null, 'bogus', 'bogus');
@@ -218,7 +219,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithTwitterUnsavedUser()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot link an unsaved user, use ParseUser::logInWithTwitter'
         );
@@ -228,7 +229,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithTwitterNoId()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot link Twitter user without an id.'
         );
@@ -239,7 +240,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithTwitterNoScreenName()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot link Twitter user without Twitter screen name.'
         );
@@ -250,7 +251,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithTwitterNoConsumerKey()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot link Twitter user without a consumer key.'
         );
@@ -261,7 +262,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithTwitterNoAuthToken()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot link Twitter user without an auth token.'
         );
@@ -272,7 +273,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
     public function testLinkWithTwitterNoAuthTokenSecret()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Cannot link Twitter user without an auth token secret.'
         );
@@ -295,7 +296,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(ParseUser::getCurrentUser(), $newUser);
         $this->assertEquals('asdf', $newUser->get('username'));
 
-        $this->setExpectedException('Parse\ParseException', 'Invalid session token');
+        $this->expectException('Parse\ParseException', 'Invalid session token');
         ParseUser::become('garbage_token');
     }
 
@@ -304,7 +305,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $this->testUserSignUp();
         $user = ParseUser::getCurrentUser();
         $user->setPassword('zxcv');
-        $this->setExpectedException('Parse\ParseException', 'already existing user');
+        $this->expectException('Parse\ParseException', 'already existing user');
         $user->signUp();
     }
 
@@ -322,7 +323,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
-        $this->setExpectedException('Parse\ParseException');
+        $this->expectException('Parse\ParseException');
         $user->setUsername('changed');
         $user->save();
     }
@@ -341,7 +342,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(ParseUser::getCurrentUser(), $otherUser);
 
-        $this->setExpectedException('Parse\ParseException');
+        $this->expectException('Parse\ParseException');
         $user->destroy();
     }
 
@@ -371,7 +372,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $item2 = ParseObject::create('TestObject');
         $item2->set('num', 2);
         $user->setUsername('changed');
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseAggregateException',
             'Errors during batch save.'
         );
@@ -538,7 +539,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $user = new ParseUser();
         $user->setUsername('asdf');
         $user->setPassword('zxcv');
-        $this->setExpectedException('Parse\ParseException', 'You must call signUp');
+        $this->expectException('Parse\ParseException', 'You must call signUp');
         $user->save();
     }
 
@@ -557,7 +558,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
         $user->destroy();
 
         $query = ParseUser::query();
-        $this->setExpectedException('Parse\ParseException', 'Object not found.');
+        $this->expectException('Parse\ParseException', 'Object not found.');
         $query->get($user->getObjectId(), true);
     }
 
@@ -625,7 +626,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
     {
         $user = new ParseUser();
         $user->setPassword('test');
-        $this->setExpectedException('Parse\ParseException', 'empty name');
+        $this->expectException('Parse\ParseException', 'empty name');
         $user->signUp();
     }
 
@@ -633,7 +634,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
     {
         $user = new ParseUser();
         $user->setUsername('test');
-        $this->setExpectedException('Parse\ParseException', 'empty password');
+        $this->expectException('Parse\ParseException', 'empty password');
         $user->signUp();
     }
 
@@ -718,7 +719,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
     public function testEmailAlreadyVerified()
     {
         $email = 'example2@example.com';
-        $this->setExpectedException('Parse\ParseException', "Email {$email} is already verified.");
+        $this->expectException('Parse\ParseException', "Email {$email} is already verified.");
 
         $user = new ParseUser();
         $user->setUsername('another_verification_email_user');
@@ -738,7 +739,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
      */
     public function testRequestVerificationEmailEmpty()
     {
-        $this->setExpectedException('Parse\ParseException', 'you must provide an email');
+        $this->expectException('Parse\ParseException', 'you must provide an email');
         ParseUser::requestVerificationEmail('');
     }
 
@@ -747,7 +748,7 @@ class ParseUserTest extends \PHPUnit_Framework_TestCase
      */
     public function testRequestVerificationEmailBad()
     {
-        $this->setExpectedException('Parse\ParseException', 'No user found with email not_a_known_email');
+        $this->expectException('Parse\ParseException', 'No user found with email not_a_known_email');
         ParseUser::requestVerificationEmail('not_a_known_email');
     }
 

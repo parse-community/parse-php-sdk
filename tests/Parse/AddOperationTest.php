@@ -8,10 +8,11 @@ namespace Parse\Test;
 use Parse\Internal\AddOperation;
 use Parse\Internal\DeleteOperation;
 use Parse\Internal\SetOperation;
+use PHPUnit\Framework\TestCase;
 
-class AddOperationTest extends \PHPUnit_Framework_TestCase
+class AddOperationTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         Helper::setUp();
     }
@@ -34,7 +35,7 @@ class AddOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadObjects()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'AddOperation requires an array.'
         );
@@ -78,7 +79,7 @@ class AddOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'Operation is invalid after previous operation.'
         );

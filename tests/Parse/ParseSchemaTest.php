@@ -19,7 +19,9 @@ use Parse\ParseQuery;
 use Parse\ParseSchema;
 use Parse\ParseUser;
 
-class ParseSchemaTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseSchemaTest extends TestCase
 {
     /**
      * @var ParseSchema
@@ -31,19 +33,18 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     private static $badClassName = "<Bad~ Class~ Name>";
 
-    public static function setUpBeforeClass()
-    {
+    public static function setUpBeforeClass() : void    {
         Helper::setUp();
     }
 
-    public function setUp()
+    public function setup() : void
     {
         self::$schema = new ParseSchema('SchemaTest');
         Helper::clearClass('_User');
         Helper::setHttpClient();
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
         self::$schema->delete();
@@ -210,7 +211,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
 
     public function testUpdateWrongFieldType()
     {
-        $this->setExpectedException('Exception', 'WrongType is not a valid type.');
+        $this->expectException('Exception', 'WrongType is not a valid type.');
 
         $schema = new ParseSchema();
         $schema->addField('NewTestField', 'WrongType');
@@ -276,7 +277,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
         $deleteSchema->delete();
 
         $getSchema = new ParseSchema('SchemaDeleteTest');
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Class SchemaDeleteTest does not exist.'
         );
@@ -286,126 +287,126 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
     public function testAssertClassName()
     {
         $schema = new ParseSchema();
-        $this->setExpectedException('\Exception', 'You must set a Class Name before making any request.');
+        $this->expectException('\Exception', 'You must set a Class Name before making any request.');
         $schema->assertClassName();
     }
 
     public function testFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addField(null, '_Type');
     }
 
     public function testStringFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addString();
     }
 
     public function testNumberFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addNumber();
     }
 
     public function testBooleanFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addBoolean();
     }
 
     public function testDateFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addDate();
     }
 
     public function testFileFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addFile();
     }
 
     public function testGeoPointFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addGeoPoint();
     }
 
     public function testPolygonFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addPolygon();
     }
 
     public function testArrayFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addArray();
     }
 
     public function testObjectFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addObject();
     }
 
     public function testPointFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addPointer(null, '_Type');
     }
 
     public function testRelationFieldNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'field name may not be null.');
+        $this->expectException('\Exception', 'field name may not be null.');
         $schema->addRelation(null, '_Type');
     }
 
     public function testPointerTargetClassException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'You need to set the targetClass of the Pointer.');
+        $this->expectException('\Exception', 'You need to set the targetClass of the Pointer.');
         $schema->addPointer('field', null);
     }
 
     public function testRelationTargetClassException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'You need to set the targetClass of the Relation.');
+        $this->expectException('\Exception', 'You need to set the targetClass of the Relation.');
         $schema->addRelation('field', null);
     }
 
     public function testTypeNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'Type name may not be null.');
+        $this->expectException('\Exception', 'Type name may not be null.');
         $schema->addField('field', null);
     }
 
     public function testSchemaNotExistException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'Class SchemaTest does not exist');
+        $this->expectException('\Exception', 'Class SchemaTest does not exist');
         $schema->get();
     }
 
     public function testInvalidTypeException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'StringFormatter is not a valid type.');
+        $this->expectException('\Exception', 'StringFormatter is not a valid type.');
         $schema->assertTypes('StringFormatter');
     }
 
@@ -414,7 +415,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaGet()
     {
-        $this->setExpectedException('\Parse\ParseException');
+        $this->expectException('\Parse\ParseException');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -430,7 +431,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaSave()
     {
-        $this->setExpectedException('\Exception');
+        $this->expectException('\Exception');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -446,7 +447,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaUpdate()
     {
-        $this->setExpectedException('\Exception');
+        $this->expectException('\Exception');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -462,7 +463,7 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadSchemaDelete()
     {
-        $this->setExpectedException('\Parse\ParseException');
+        $this->expectException('\Parse\ParseException');
 
         $user = new ParseUser();
         $user->setUsername('schema-user');
@@ -521,14 +522,14 @@ class ParseSchemaTest extends \PHPUnit_Framework_TestCase
     public function testIndexNameException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'index name may not be null.');
+        $this->expectException('\Exception', 'index name may not be null.');
         $schema->addIndex(null, null);
     }
 
     public function testIndexException()
     {
         $schema = self::$schema;
-        $this->setExpectedException('\Exception', 'index may not be null.');
+        $this->expectException('\Exception', 'index may not be null.');
         $schema->addIndex('name', null);
     }
 }

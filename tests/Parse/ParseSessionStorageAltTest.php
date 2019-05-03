@@ -7,14 +7,16 @@ namespace Parse\Test;
 
 use Parse\ParseSessionStorage;
 
-class ParseSessionStorageAltTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseSessionStorageAltTest extends TestCase
 {
     /**
      * @group session-storage-not-active
      */
     public function testNoSessionActive()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'PHP session_start() must be called first.'
         );

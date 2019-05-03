@@ -163,7 +163,7 @@ class ParseStreamHttpClient implements ParseHttpable
     /**
      * Sets up ssl related options for the stream context
      */
-    public function setup()
+    public function setup() : void
     {
         // setup ssl options
         $this->options['ssl'] = array(

@@ -151,7 +151,7 @@ class ParseCurlHttpClient implements ParseHttpable
     /**
      * Sets up our cURL request in advance
      */
-    public function setup()
+    public function setup() : void
     {
         // init parse curl
         $this->parseCurl->init();
