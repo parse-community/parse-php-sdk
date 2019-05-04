@@ -6,8 +6,7 @@
     "test-stream:coverage": "./vendor/bin/phpunit --bootstrap=./tests/bootstrap-stream.php --coverage-clover=coverage.xml",
     "lint": "./vendor/bin/phpcs --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "lint:fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
-    "start": "cd ./node_modules/parse-server-test/ && npm run-script start",
-    "stop": "cd ./node_modules/parse-server-test/ && npm run-script stop",
+    "start": "parse-server ./tests/parse-server-config.js",
     "document-check": "./vendor/bin/phpdoc -d ./src/ --template=checkstyle",
     "document": "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
   },
@@ -17,8 +16,9 @@
   },
   "license": "BSD-3-Clause",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
-  "dependencies": {
-    "parse-server-test": "github:dplewis/parse-server-test#master",
-    "winston": "2.4.3"
+  "devDependencies": {
+    "mongodb-runner": "^4.7.1",
+    "parse-server": "^3.3.0",
+    "winston": "^3.2.1"
   }
 }
