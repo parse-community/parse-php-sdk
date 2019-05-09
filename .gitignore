@@ -5,6 +5,7 @@ vendor
 # npm based parse-server-test
 node_modules
 logs
+test_logs
 
 # ignore test results
 phpunit-test-results
