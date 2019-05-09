@@ -12,7 +12,7 @@
         stopOnFailure="false"
         stopOnSkipped="false"
         stopOnIncomplete="false"
-        verbose="true"
+        verbose="false"
         >
     <testsuites>
         <testsuite name="parse-php-sdk">
