@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   appName: "MyTestApp",
   appId: "app-id-here",
@@ -6,8 +8,8 @@ module.exports = {
 
   cloud: __dirname + "/cloud-code.js",
   publicServerURL: "http://localhost:1337/parse",
-
-  verbose: false,
+  logsFolder: path.resolve(process.cwd(), 'logs'),
+  verbose: true,
 
   push: {
     android: {
