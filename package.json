@@ -18,7 +18,7 @@
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "devDependencies": {
     "mongodb-runner": "^4.7.1",
-    "parse-server": "github:parse-community/parse-server#943134812e9ef4b40313bae25d91fd841607aafe",
-    "winston": "^2.4.4"
+    "parse-server": "latest",
+    "winston": "^3.2.1"
   }
 }
