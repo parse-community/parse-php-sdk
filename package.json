@@ -7,7 +7,7 @@
     "lint": "./vendor/bin/phpcs --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "lint:fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "prestart": "mongodb-runner start",
-    "start": "TESTING=1 node ./tests/server.js",
+    "start": "TESTING=1 node ./tests/server.js &",
     "document-check": "./vendor/bin/phpdoc -d ./src/ --template=checkstyle",
     "document": "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
   },
