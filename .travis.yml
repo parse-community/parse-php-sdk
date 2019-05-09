@@ -1,33 +1,23 @@
 language: php
 dist: trusty
 php:
-  # - '5.4'
-  # - '5.5'
-  # - '5.6'
-  # - '7.0'
-  # - '7.1'
+  - '7.1'
  - '7.2'
+ - '7.3'
 
 cache:
   directories:
     - node_modules
     - vendor
 
-# Test using the stream client on 5.6 & hhvm
 matrix:
   include:
-    # - php: '5.6'
-      # env: STREAM_CLIENT_ONLY=1
-    #- php: '7.2'
-    #  env: STREAM_CLIENT_ONLY=1
 
 before_install:
   - nvm install 8.11
   - sudo apt-get install graphviz
 
 install:
-  # fix for jms/serializer 1.7.1 not being able to run on 5.4
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.4" ]]; then composer require jms/serializer; fi
   - composer install
   - npm install
 
@@ -53,7 +43,7 @@ deploy:
   local_dir: output
   on:
     branch: master
-    php: '7.1'
+    php: '7.2'
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
