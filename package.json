@@ -1,12 +1,12 @@
 {
   "name": "parse-php-sdk",
   "scripts": {
-    "test": "./vendor/bin/phpunit",
+    "test": "./vendor/bin/phpunit --stderr",
     "test:coverage": "./vendor/bin/phpunit --coverage-clover=coverage.xml",
     "test-stream:coverage": "./vendor/bin/phpunit --bootstrap=./tests/bootstrap-stream.php --coverage-clover=coverage.xml",
     "lint": "./vendor/bin/phpcs --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "lint:fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
-    "start": "parse-server ./tests/parse-server-config.js",
+    "start": "TESTING=1 node ./tests/server.js",
     "document-check": "./vendor/bin/phpdoc -d ./src/ --template=checkstyle",
     "document": "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
   },
@@ -18,7 +18,7 @@
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "devDependencies": {
     "mongodb-runner": "^4.7.1",
-    "parse-server": "latest",
+    "parse-server": "github:parse-community/parse-server#master",
     "winston": "^3.2.1"
   }
 }
