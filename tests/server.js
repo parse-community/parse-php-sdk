@@ -1,9 +1,9 @@
-var express = require('express');
-var ParseServer = require('parse-server').ParseServer;
-const { AppCache } = require('parse-server/lib/cache');
-var app = express();
+const path = require('path');
+const express = require('express');
+const ParseServer = require('parse-server').ParseServer;
+const app = express();
 
-var api = new ParseServer({
+const api = new ParseServer({
   appName: "MyTestApp",
   appId: "app-id-here",
   masterKey: "master-key-here",
@@ -11,6 +11,8 @@ var api = new ParseServer({
 
   cloud: __dirname + "/cloud-code.js",
   publicServerURL: "http://localhost:1337/parse",
+
+  logsFolder: path.resolve(process.cwd(), 'logs'),
 
   verbose: true,
   silent: true,
