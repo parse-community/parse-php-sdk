@@ -1,7 +1,8 @@
 language: php
 dist: trusty
+
 php:
-  - '7.1'
+ - '7.1'
  - '7.2'
  - '7.3'
 
@@ -9,9 +10,6 @@ cache:
   directories:
     - node_modules
     - vendor
-
-matrix:
-  include:
 
 before_install:
   - nvm install 8.11
