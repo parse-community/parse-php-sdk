@@ -25,7 +25,8 @@ use PHPUnit\Framework\TestCase;
 
 class ParseObjectTest extends TestCase
 {
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
     }
 

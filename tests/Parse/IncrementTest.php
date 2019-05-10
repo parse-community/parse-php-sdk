@@ -9,7 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 class IncrementTest extends TestCase
 {
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
     }
 

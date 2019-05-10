@@ -13,7 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class ParseRelationOperationTest extends TestCase
 {
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
     }
 

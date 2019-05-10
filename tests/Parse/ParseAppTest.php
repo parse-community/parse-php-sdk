@@ -7,7 +7,8 @@ use PHPUnit\Framework\TestCase;
 
 class ParseAppTest extends TestCase
 {
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
     }
 

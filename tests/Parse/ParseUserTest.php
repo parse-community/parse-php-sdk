@@ -11,7 +11,8 @@ use PHPUnit\Framework\TestCase;
 
 class ParseUserTest extends TestCase
 {
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
         Helper::clearClass(ParseUser::$parseClassName);
     }

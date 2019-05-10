@@ -14,7 +14,8 @@ class ParseMemoryStorageTest extends TestCase
      */
     private static $parseStorage;
 
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
         self::$parseStorage = ParseClient::getStorage();
     }

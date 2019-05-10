@@ -14,7 +14,8 @@ use PHPUnit\Framework\TestCase;
 
 class IncrementOperationTest extends TestCase
 {
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
     }
 

@@ -10,7 +10,8 @@ use PHPUnit\Framework\TestCase;
 class ParseSessionFixationTest extends TestCase
 {
 
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::clearClass(ParseUser::$parseClassName);
         Helper::clearClass(ParseSession::$parseClassName);
         ParseUser::logout();

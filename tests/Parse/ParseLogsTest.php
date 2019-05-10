@@ -9,7 +9,8 @@ use PHPUnit\Framework\TestCase;
 
 class ParseLogsTest extends TestCase
 {
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         // setup 15 log entries that we can reference
         $objs = [];
         while (count($objs) < 15) {

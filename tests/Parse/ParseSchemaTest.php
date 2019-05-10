@@ -33,7 +33,8 @@ class ParseSchemaTest extends TestCase
      */
     private static $badClassName = "<Bad~ Class~ Name>";
 
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
     }
 

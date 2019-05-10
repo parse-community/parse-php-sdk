@@ -14,7 +14,8 @@ class ParseHooksTest extends TestCase
      */
     private static $hooks;
 
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
     }
 

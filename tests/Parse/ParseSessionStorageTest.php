@@ -14,7 +14,8 @@ class ParseSessionStorageTest extends TestCase
      */
     private static $parseStorage;
 
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         ParseClient::_unsetStorage();
 
         // indicate we should not use cookies

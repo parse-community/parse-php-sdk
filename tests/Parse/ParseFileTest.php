@@ -10,7 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class ParseFileTest extends TestCase
 {
-    public static function setUpBeforeClass() : void    {
+    public static function setUpBeforeClass() : void
+    {
         Helper::setUp();
     }
 
