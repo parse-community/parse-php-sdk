@@ -23,13 +23,6 @@ before_script:
   - npm start 1>&2
   - npm run lint
 
-script:
-  - if [[ ${STREAM_CLIENT_ONLY} == 1 ]]; then npm run test-stream:coverage; fi
-  - if [[ ! ${STREAM_CLIENT_ONLY} ]]; then npm run test:coverage; fi
-  # ONLY check generated doc when NOT on HHVM (issues with reserved class names)
-  - if [[ $TRAVIS_PHP_VERSION != "hhvm" ]]; then npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi fi
-  - npm stop # shutdown server & clean up PID file
-
 before_deploy:
   - npm run document
 
