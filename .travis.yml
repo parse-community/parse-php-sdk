@@ -26,6 +26,10 @@ before_script:
 before_deploy:
   - npm run document
 
+script:
+  - npm run test:coverage
+  - npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi
+
 deploy:
   provider: pages
   skip_cleanup: true
