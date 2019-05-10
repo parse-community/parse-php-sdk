@@ -9,7 +9,7 @@
     "prestart": "mongodb-runner start",
     "start": "TESTING=1 node ./tests/server.js &",
     "document-check": "./vendor/bin/phpdoc -d ./src/ --template=checkstyle",
-    "document": "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
+    "document": "./vendor/bin/phpdoc -q -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
   },
   "repository": {
     "type": "git",
