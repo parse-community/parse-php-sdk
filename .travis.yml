@@ -28,7 +28,7 @@ before_deploy:
 
 script:
   - npm run test:coverage
-  - npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then npm run document-check && if [[ `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi fi
 
 deploy:
   provider: pages
