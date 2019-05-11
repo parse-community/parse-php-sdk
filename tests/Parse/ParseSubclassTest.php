@@ -5,14 +5,16 @@ namespace Parse\Test;
 use Parse\ParseInstallation;
 use Parse\ParseObject;
 
-class ParseSubclassTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseSubclassTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         Helper::setUp();
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
     }

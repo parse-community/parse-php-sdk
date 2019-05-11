@@ -6,14 +6,16 @@ use Parse\ParseFile;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-class ParseFileTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseFileTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         Helper::setUp();
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
         Helper::clearClass('TestFileObject');
@@ -66,7 +68,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseFileDownloadUnsaved()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'Cannot retrieve data for unsaved ParseFile.'
         );
@@ -79,7 +81,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
      */
     public function testParsefileDeleteUnsaved()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'Cannot delete file that has not been saved.'
         );
@@ -96,10 +98,10 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
 
         if (!isset($USE_CLIENT_STREAM)) {
             // curl exception expectation
-            $this->setExpectedException('\Parse\ParseException', '', 6);
+            $this->expectException('\Parse\ParseException', '', 6);
         } else {
             // stream exception expectation
-            $this->setExpectedException('\Parse\ParseException', '', 2);
+            $this->expectException('\Parse\ParseException', '', 2);
         }
 
         $file = ParseFile::_createFromServer('file.txt', 'http://404.example.com');
@@ -206,7 +208,7 @@ class ParseFileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data, $contents);
         $file->delete();
         $fileAgain = ParseFile::_createFromServer($name, $url);
-        $this->setExpectedException('Parse\ParseException', 'Download failed');
+        $this->expectException('Parse\ParseException', 'Download failed');
         $fileAgain->getData();
     }
 }

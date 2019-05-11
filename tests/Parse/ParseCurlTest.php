@@ -7,11 +7,13 @@ namespace Parse\Test;
 
 use Parse\HttpClients\ParseCurl;
 
-class ParseCurlTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseCurlTest extends TestCase
 {
     public function testBadExec()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'You must call ParseCurl::init first'
         );
@@ -22,7 +24,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadSetOption()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'You must call ParseCurl::init first'
         );
@@ -33,7 +35,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadSetOptionsArray()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'You must call ParseCurl::init first'
         );
@@ -44,7 +46,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadGetInfo()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'You must call ParseCurl::init first'
         );
@@ -55,7 +57,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadGetError()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'You must call ParseCurl::init first'
         );
@@ -66,7 +68,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadErrorCode()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'You must call ParseCurl::init first'
         );
@@ -77,7 +79,7 @@ class ParseCurlTest extends \PHPUnit_Framework_TestCase
 
     public function testBadClose()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'You must call ParseCurl::init first'
         );

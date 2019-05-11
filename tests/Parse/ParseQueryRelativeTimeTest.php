@@ -8,19 +8,21 @@ namespace Parse\Test;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseQueryRelativeTimeTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         Helper::setUp();
     }
 
-    public function setUp()
+    public function setup() : void
     {
         Helper::clearClass('TestObject');
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
     }
@@ -326,7 +328,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadRelativeTimeString()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'bad $relativeTime ($lt) value. Time should either start with \'in\' or end with \'ago\''
         );
@@ -340,7 +342,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testRelativeTimeStringDanglingNumber()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'bad $relativeTime ($lt) value. Invalid time string. Dangling unit or number.'
         );
@@ -354,7 +356,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testRelativeTimeStringDanglingUnit()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'bad $relativeTime ($gt) value. Invalid time string. Dangling unit or number.'
         );
@@ -368,7 +370,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testRelativeTimeCannotUseBothInAndAgo()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'bad $relativeTime ($lt) value. Time cannot have both \'in\' and \'ago\''
         );
@@ -382,7 +384,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testRelativeTimeNotOnDateField()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             '$relativeTime can only be used with Date field'
         );
@@ -415,7 +417,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testRelativeTimeEqualTo()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'bad constraint: $relativeTime'
         );
@@ -433,7 +435,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testRelativeTimeNotEqualTo()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             '$relativeTime can only be used with the $lt, $lte, $gt, and $gte operators'
         );
@@ -450,7 +452,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testRelativeTimeMissingAgoAndIn()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'bad $relativeTime ($lt) value. Time should either start with \'in\' or end with \'ago\''
         );
@@ -464,7 +466,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyRelativeTime()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'bad atom: {"$relativeTime":""}'
         );
@@ -478,7 +480,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testFractionalRelativeTime()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'bad $relativeTime ($gte) value. \'2.5\' is not an integer'
         );
@@ -492,7 +494,7 @@ class ParseQueryRelativeTimeTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadRelativeTimeUnit()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'bad $relativeTime ($gt) value. Invalid interval: \'zorks\''
         );

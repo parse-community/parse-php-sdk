@@ -10,14 +10,16 @@ use Parse\Internal\DeleteOperation;
 use Parse\Internal\RemoveOperation;
 use Parse\Internal\SetOperation;
 
-class RemoveOperationTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class RemoveOperationTest extends TestCase
 {
     /**
      * @group remove-op
      */
     public function testMissingArray()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'RemoveOperation requires an array.'
         );
@@ -60,7 +62,7 @@ class RemoveOperationTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidMerge()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'Operation is invalid after previous operation.'
         );

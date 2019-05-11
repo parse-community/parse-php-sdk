@@ -3,18 +3,18 @@
 namespace Parse\Test;
 
 use Parse\ParseApp;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ParseAppTest extends PHPUnit_Framework_TestCase
+class ParseAppTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         Helper::setUp();
     }
 
     public function testFetchingApps()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'unauthorized'
         );
@@ -28,7 +28,7 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testFetchSingleApp()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'unauthorized'
         );
@@ -44,13 +44,13 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
     {
         $invalid_application_id = '1YkU7V110nEDUqU7ctCEbLr6xcgQgdEkePuBaw6P';
 
-        $this->setExpectedException('Parse\ParseException', 'unauthorized');
+        $this->expectException('Parse\ParseException', 'unauthorized');
         ParseApp::fetchApp($invalid_application_id);
     }
 
     public function testCreateApp()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'unauthorized'
         );
@@ -70,7 +70,7 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testNameAlreadyInAccount()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'unauthorized'
         );
@@ -81,7 +81,7 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
             'appName' => $app_name,
         ]);
 
-        $this->setExpectedException('Parse\ParseException', 'App name must not already be used in your account');
+        $this->expectException('Parse\ParseException', 'App name must not already be used in your account');
         ParseApp::createApp([
             'appName' => $app_name,
         ]);
@@ -89,7 +89,7 @@ class ParseAppTest extends PHPUnit_Framework_TestCase
 
     public function testUpdateApp()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'unauthorized'
         );

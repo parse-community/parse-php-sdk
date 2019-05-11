@@ -2,25 +2,25 @@
 
 namespace Parse\Test;
 
-use Parse\ParseACL;
-use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
 
-class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseQueryAggregateTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         Helper::setUp();
     }
 
-    public function setUp()
+    public function setup() : void
     {
         Helper::clearClass('TestObject');
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
     }
@@ -200,7 +200,7 @@ class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
         ];
         $this->loadObjects();
         $query = new ParseQuery('TestObject');
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Invalid parameter for query: unknown',
             102
@@ -217,7 +217,7 @@ class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
         ];
         $this->loadObjects();
         $query = new ParseQuery('TestObject');
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Invalid parameter for query: group. Please use objectId instead of _id',
             102
@@ -232,7 +232,7 @@ class ParseQueryAggregateTest extends \PHPUnit_Framework_TestCase
         ];
         $this->loadObjects();
         $query = new ParseQuery('TestObject');
-        $this->setExpectedException(
+        $this->expectException(
             'Parse\ParseException',
             'Invalid parameter for query: group. objectId is required',
             102

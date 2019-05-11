@@ -6,21 +6,23 @@ use Parse\ParseInstallation;
 use Parse\ParsePush;
 use Parse\ParsePushStatus;
 
-class ParsePushTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParsePushTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         Helper::setUp();
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
     }
 
     public function testNoMasterKey()
     {
-        $this->setExpectedException('\Parse\ParseException');
+        $this->expectException('\Parse\ParseException');
 
         ParsePush::send(
             [
@@ -46,7 +48,7 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
      */
     public function testMissingWhereAndChannels()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             "Sending a push requires either \"channels\" or a \"where\" query."
         );
@@ -63,7 +65,7 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhereAndChannels()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             "Channels and query can not be set at the same time."
         );
@@ -110,7 +112,7 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
 
     public function testNonQueryWhere()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Where parameter for Parse Push must be of type ParseQuery'
         );
@@ -138,7 +140,7 @@ class ParsePushTest extends \PHPUnit_Framework_TestCase
 
     public function testExpirationTimeAndIntervalSet()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Both expiration_time and expiration_interval can\'t be set.'
         );

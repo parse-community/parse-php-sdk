@@ -80,7 +80,7 @@ interface ParseHttpable
     /**
      * Sets up our client before we make a request
      */
-    public function setup();
+    public function setup() : void;
 
     /**
      * Sends an HTTP request

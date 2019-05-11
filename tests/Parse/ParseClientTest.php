@@ -14,20 +14,22 @@ use Parse\ParseObject;
 use Parse\ParseRole;
 use Parse\ParseUser;
 
-class ParseClientTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseClientTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         Helper::setUp();
     }
 
-    public function setUp()
+    public function setup() : void
     {
         Helper::setServerURL();
         Helper::setHttpClient();
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
 
@@ -40,7 +42,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testParseNotInitialized()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'You must call ParseClient::initialize() before making any requests.'
         );
@@ -62,7 +64,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testAppNotNotInitialized()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'You must call ParseClient::initialize(..., $accountKey) before making any app requests. '.
             'Your account key must not be null or empty.'
@@ -210,7 +212,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadServerURL()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Invalid Server URL.'
         );
@@ -222,7 +224,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadMountPath()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Invalid Mount Path.'
         );
@@ -234,7 +236,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testEncodingError()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Invalid type encountered.'
         );
@@ -372,7 +374,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         if (function_exists('curl_init')) {
             ParseClient::setHttpClient(new ParseCurlHttpClient());
 
-            $this->setExpectedException('\Parse\ParseException', '', 6);
+            $this->expectException('\Parse\ParseException', '', 6);
 
             ParseClient::setServerURL('http://404.example.com', 'parse');
             ParseClient::_request(
@@ -391,7 +393,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
 
         ParseClient::setHttpClient(new ParseStreamHttpClient());
 
-        $this->setExpectedException('\Parse\ParseException', '', 2);
+        $this->expectException('\Parse\ParseException', '', 2);
 
         ParseClient::setServerURL('http://404.example.com', 'parse');
         ParseClient::_request(
@@ -412,7 +414,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadStreamRequest()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             "Bad Request"
         );
@@ -433,7 +435,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
     public function testCurlBadRequest()
     {
         if (function_exists('curl_init')) {
-            $this->setExpectedException(
+            $this->expectException(
                 '\Parse\ParseException',
                 "Bad Request"
             );
@@ -481,7 +483,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
             // not a real ca file, just testing setting
             ParseClient::setCAFile("not-real-ca-file");
 
-            $this->setExpectedException(
+            $this->expectException(
                 '\Parse\ParseException',
                 "Bad Request"
             );
@@ -506,7 +508,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
         // not a real ca file, just testing setting
         ParseClient::setCAFile("not-real-ca-file");
 
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             "Bad Request"
         );
@@ -524,7 +526,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testURLNotSet()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Missing a valid server url. '.
             'You must call ParseClient::setServerURL(\'https://your.parse-server.com\', \'/parse\') '.
@@ -540,7 +542,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testMountPathNotSet()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Missing a valid mount path. '.
             'You must call ParseClient::setServerURL(\'https://your.parse-server.com\', \'/parse\') '.
@@ -556,7 +558,7 @@ class ParseClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testBadApiResponse()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Parse\ParseException',
             'Bad Request. Could not decode Response: (4) Syntax error'
         );

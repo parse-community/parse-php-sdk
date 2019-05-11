@@ -10,20 +10,22 @@ use Parse\ParseQuery;
 use Parse\ParseRole;
 use Parse\ParseUser;
 
-class ParseACLTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ParseACLTest extends TestCase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         Helper::setUp();
     }
 
-    public function setUp()
+    public function setup() : void
     {
         Helper::clearClass('_User');
         Helper::clearClass('Object');
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         Helper::tearDown();
     }
@@ -455,7 +457,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreatingACLWithInvalidId()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Tried to create an ACL with an invalid userId.'
         );
@@ -470,7 +472,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreatingWithBadAccessType()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Tried to create an ACL with an invalid permission type.'
         );
@@ -487,7 +489,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreatingWithInvalidPermissionValue()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Tried to create an ACL with an invalid permission value.'
         );
@@ -562,7 +564,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingUserReadAccessWithoutId()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'cannot setReadAccess for a user with null id'
         );
@@ -573,7 +575,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function testGettingUserReadAccessWithoutId()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'cannot getReadAccess for a user with null id'
         );
@@ -584,7 +586,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingUserWriteAccessWithoutId()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'cannot setWriteAccess for a user with null id'
         );
@@ -595,7 +597,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function testGettingUserWriteAccessWithoutId()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'cannot getWriteAccess for a user with null id'
         );
@@ -643,7 +645,7 @@ class ParseACLTest extends \PHPUnit_Framework_TestCase
 
     public function testUnsavedRoleAdded()
     {
-        $this->setExpectedException(
+        $this->expectException(
             '\Exception',
             'Roles must be saved to the server before they can be used in an ACL.'
         );
