@@ -37,7 +37,7 @@ deploy:
   local_dir: output
   on:
     branch: master
-    php: '7.2'
+    php: '7.1'
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
