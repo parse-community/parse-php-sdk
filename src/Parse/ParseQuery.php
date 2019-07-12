@@ -44,6 +44,13 @@ class ParseQuery
     private $includes = [];
 
     /**
+     * Exclude keys.
+     *
+     * @var array
+     */
+    private $excludes = [];
+
+    /**
      * Include certain keys only.
      *
      * @var array
@@ -155,6 +162,10 @@ class ParseQuery
 
                 case 'include':
                     $this->includes = explode(',', $entry);
+                    break;
+
+                case 'excludeKeys':
+                    $this->excludes = explode(',', $entry);
                     break;
 
                 case 'keys':
@@ -461,6 +472,9 @@ class ParseQuery
         }
         if (count($this->includes)) {
             $opts['include'] = implode(',', $this->includes);
+        }
+        if (count($this->excludes)) {
+            $opts['excludeKeys'] = implode(',', $this->excludes);
         }
         if (count($this->selectedKeys)) {
             $opts['keys'] = implode(',', $this->selectedKeys);
@@ -1285,6 +1299,28 @@ class ParseQuery
             $this->selectedKeys = array_merge($this->selectedKeys, $key);
         } else {
             $this->selectedKeys[] = $key;
+        }
+
+        return $this;
+    }
+
+     /**
+     * Restricts the fields of the returned Parse.Objects to all keys except the
+     * provided keys. Exclude takes precedence over select and include.
+     *
+     * (Requires Parse Server 3.6.0+)
+     *
+     * @param mixed $key The name(s) of the key(s) to exclude. It could be
+     *                   string, or an Array of string.
+     *
+     * @return ParseQuery Returns the query, so you can chain this call.
+     */
+    public function excludeKey($key)
+    {
+        if (is_array($key)) {
+            $this->excludes = array_merge($this->excludes, $key);
+        } else {
+            $this->excludes[] = $key;
         }
 
         return $this;
