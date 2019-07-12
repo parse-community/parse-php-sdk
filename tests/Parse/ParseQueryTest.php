@@ -1990,6 +1990,19 @@ class ParseQueryTest extends TestCase
         $this->assertEquals($result->get('child3')->get('foo'), 'bin');
     }
 
+    public function testExcludeKeys()
+    {
+        $object = ParseObject::create('TestObject');
+        $object->set('foo', 'bar');
+        $object->set('hello', 'world');
+        $object->save();
+        $query = new ParseQuery('TestObject');
+        $query->excludeKey('foo');
+        $result = $query->get($object->getObjectId());
+        $this->assertEquals($result->get('foo'), null);
+        $this->assertEquals($result->get('hello'), 'world');
+    }
+
     public function testNestedIncludeRelation()
     {
         Helper::clearClass('Child');
@@ -2485,6 +2498,7 @@ class ParseQueryTest extends TestCase
         $query->equalTo('key', 'value');
         $query->notEqualTo('key2', 'value2');
         $query->includeKey(['include1','include2']);
+        $query->excludeKey(['excludeMe','excludeMeToo']);
         $query->contains('container', 'item');
         $query->addDescending('desc');
         $query->addAscending('asc');
@@ -2509,6 +2523,7 @@ class ParseQueryTest extends TestCase
                 ]
             ],
             'include'   => 'include1,include2',
+            'excludeKeys'   => 'excludeMe,excludeMeToo',
             'keys'      => 'select1,select2',
             'limit'     => 42,
             'skip'      => 24,

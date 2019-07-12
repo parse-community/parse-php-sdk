@@ -80,7 +80,7 @@ class ParseGeoPointTest extends TestCase
             $obj = ParseObject::create('TestObject');
             $point = new ParseGeoPoint(0.0, $i * 45.0);
             $obj->set('location', $point);
-            $obj->set('id', $i);
+            $obj->set('index', $i);
             $obj->save();
         }
 
@@ -108,14 +108,14 @@ class ParseGeoPointTest extends TestCase
         $query->withinRadians('location', $point, 3.14 * 0.5);
         $results = $query->find();
         $this->assertEquals(2, count($results));
-        $this->assertEquals(1, $results[1]->get('id'));
+        $this->assertEquals(1, $results[1]->get('index'));
 
         // 1
         $query = new ParseQuery('TestObject');
         $query->withinRadians('location', $point, 3.14 * 0.25);
         $results = $query->find();
         $this->assertEquals(1, count($results));
-        $this->assertEquals(0, $results[0]->get('id'));
+        $this->assertEquals(0, $results[0]->get('index'));
     }
 
     public function testGeoMaxDistanceWithUnits()
