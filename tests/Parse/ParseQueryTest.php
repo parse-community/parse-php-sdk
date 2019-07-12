@@ -2499,6 +2499,7 @@ class ParseQueryTest extends TestCase
         $query->notEqualTo('key2', 'value2');
         $query->includeKey(['include1','include2']);
         $query->excludeKey(['excludeMe','excludeMeToo']);
+        $query->readPreference('PRIMARY', 'SECONDARY', 'SECONDARY_PREFERRED');
         $query->contains('container', 'item');
         $query->addDescending('desc');
         $query->addAscending('asc');
@@ -2528,7 +2529,10 @@ class ParseQueryTest extends TestCase
             'limit'     => 42,
             'skip'      => 24,
             'order'     => '-desc,asc',
-            'count'     => 1
+            'count'     => 1,
+            'readPreference'            => 'PRIMARY',
+            'includeReadPreference'     => 'SECONDARY',
+            'subqueryReadPreference'    => 'SECONDARY_PREFERRED',
         ], $conditions, 'Conditions were different than expected');
 
         $query2 = new ParseQuery('TestObject');

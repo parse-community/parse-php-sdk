@@ -79,6 +79,27 @@ class ParseQuery
     private $limit = -1;
 
     /**
+     * The read preference for the main query.
+     *
+     * @var string
+     */
+    private $readPreference;
+
+    /**
+     * The read preference for the queries to include pointers.
+     *
+     * @var string
+     */
+    private $includeReadPreference;
+
+    /**
+     * The read preference for the sub queries.
+     *
+     * @var string
+     */
+    private $subqueryReadPreference;
+
+    /**
      * Create a Parse Query for a given Parse Class.
      *
      * @param mixed $className Class Name of data on Parse.
@@ -174,6 +195,18 @@ class ParseQuery
 
                 case 'limit':
                     $this->limit = $entry;
+                    break;
+
+                case 'readPreference':
+                    $this->readPreference = $entry;
+                    break;
+
+                case 'includeReadPreference':
+                    $this->includeReadPreference = $entry;
+                    break;
+
+                case 'subqueryReadPreference':
+                    $this->subqueryReadPreference = $entry;
                     break;
 
                 // skip
@@ -490,6 +523,15 @@ class ParseQuery
         }
         if ($this->count) {
             $opts['count'] = $this->count;
+        }
+        if ($this->readPreference) {
+            $opts['readPreference'] = $this->readPreference;
+        }
+        if ($this->includeReadPreference) {
+            $opts['includeReadPreference'] = $this->includeReadPreference;
+        }
+        if ($this->subqueryReadPreference) {
+            $opts['subqueryReadPreference'] = $this->subqueryReadPreference;
         }
 
         return $opts;
@@ -1372,6 +1414,24 @@ class ParseQuery
     public function relatedTo($key, $value)
     {
         $this->addCondition('$relatedTo', $key, $value);
+
+        return $this;
+    }
+
+    /**
+     * Changes the read preference that the backend will use when performing the query to the database.
+     *
+     * @param string $readPreference The read preference for the main query.
+     * @param string $includeReadPreference The read preference for the queries to include pointers.
+     * @param string $subqueryReadPreference The read preference for the sub queries.
+     *
+     * @return ParseQuery Returns the query, so you can chain this call.
+     */
+    public function readPreference($readPreference, $includeReadPreference = null, $subqueryReadPreference = null)
+    {
+        $this->readPreference = $readPreference;
+        $this->includeReadPreference = $includeReadPreference;
+        $this->subqueryReadPreference = $subqueryReadPreference;
 
         return $this;
     }
