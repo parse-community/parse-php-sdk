@@ -612,7 +612,7 @@ class ParseQuery
      * @return ParseQuery Returns this query, so you can chain this call.
      */
     public function withCount($includeCount = true)
-    {   
+    {
         $this->count = (int)$includeCount;
         return $this;
     }
