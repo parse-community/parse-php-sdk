@@ -813,6 +813,131 @@ class ParseQueryTest extends TestCase
         );
     }
 
+    /**
+     * @group withCount
+     */
+    public function testWithCount()
+    {
+        Helper::clearClass('BoxedNumber');
+        $this->saveObjects(
+            3,
+            function ($i) {
+                $boxedNumber = ParseObject::create('BoxedNumber');
+                $boxedNumber->set('x', $i + 1);
+
+                return $boxedNumber;
+            }
+        );
+        $query = new ParseQuery('BoxedNumber');
+        $query->withCount();
+        $response = $query->find();
+        $this->assertEquals($response['count'], 3);
+        $this->assertEquals(count($response['results']), 3);
+    }
+
+    /**
+     * @group withCount
+     */
+    public function testWithCountDestructure()
+    {
+        Helper::clearClass('BoxedNumber');
+        $this->saveObjects(
+            3,
+            function ($i) {
+                $boxedNumber = ParseObject::create('BoxedNumber');
+                $boxedNumber->set('x', $i + 1);
+
+                return $boxedNumber;
+            }
+        );
+        $query = new ParseQuery('BoxedNumber');
+        $query->withCount();
+        ['count' => $count, 'results' => $results] = $query->find();
+        $this->assertEquals($count, 3);
+        $this->assertEquals(count($results), 3);
+    }
+
+    /**
+     * @group withCount
+     */
+    public function testWithCountFalse()
+    {
+        Helper::clearClass('BoxedNumber');
+        $this->saveObjects(
+            3,
+            function ($i) {
+                $boxedNumber = ParseObject::create('BoxedNumber');
+                $boxedNumber->set('x', $i + 1);
+
+                return $boxedNumber;
+            }
+        );
+        $query = new ParseQuery('BoxedNumber');
+        $query->withCount(false);
+        $response = $query->find();
+        $this->assertEquals(isset($response['count']), false);
+        $this->assertEquals(count($response), 3);
+    }
+
+    /**
+     * @group withCount
+     */
+    public function testWithCountEmptyClass()
+    {
+        Helper::clearClass('BoxedNumber');
+        $query = new ParseQuery('BoxedNumber');
+        $query->withCount();
+        $response = $query->find();
+        $this->assertEquals($response['count'], 0);
+        $this->assertEquals(count($response['results']), 0);
+    }
+
+    /**
+     * @group withCount
+     */
+    public function testWithCountAndLimit()
+    {
+        Helper::clearClass('BoxedNumber');
+        $this->saveObjects(
+            4,
+            function ($i) {
+                $boxedNumber = ParseObject::create('BoxedNumber');
+                $boxedNumber->set('x', $i + 1);
+
+                return $boxedNumber;
+            }
+        );
+        $query = new ParseQuery('BoxedNumber');
+        $query->withCount();
+        $query->limit(2);
+        $response = $query->find();
+        $this->assertEquals($response['count'], 4);
+        $this->assertEquals(count($response['results']), 2);
+    }
+
+    /**
+     * @group withCount
+     */
+    public function testWithCountAndSkip()
+    {
+        Helper::clearClass('BoxedNumber');
+        $this->saveObjects(
+            4,
+            function ($i) {
+                $boxedNumber = ParseObject::create('BoxedNumber');
+                $boxedNumber->set('x', $i + 1);
+
+                return $boxedNumber;
+            }
+        );
+        $query = new ParseQuery('BoxedNumber');
+        $query->withCount();
+        $query->skip(3);
+        $response = $query->find();
+        $this->assertEquals($response['count'], 4);
+        $this->assertEquals(count($response['results']), 1);
+    }
+
     public function testCountError()
     {
         $query = new ParseQuery('Test');
