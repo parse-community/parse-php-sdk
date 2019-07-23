@@ -9,6 +9,7 @@
 *About this Release*
 Support for PHP < 7 and HHVM has been dropped.
 
+- Support Query withCount (#448)
 - Support Query exclude keys (#445)
 - Support Query readPreference (#446)
 - Support return raw data from Query first (#441)
