@@ -541,7 +541,7 @@ class ParseQuery
      * Execute a query to get only the first result.
      *
      * @param bool $useMasterKey If the query should use the master key
-     * @param bool $decodeObjects If set to false, will not return raw data instead of ParseObject instances
+     * @param bool $decodeObjects If set to false, will return raw data instead of ParseObject instances
      *
      * @return array|ParseObject Returns the first object or an empty array
      */
@@ -598,6 +598,23 @@ class ParseQuery
         );
 
         return $result['count'];
+    }
+
+    /**
+     * The response will include the total number of objects satisfying this query,
+     * dispite limit / skip. Might be useful for pagination.
+     *
+     * Note: the results will be an object
+     * `results`: holding {ParseObject} array and `count`: integer holding total number
+     *
+     * @param bool $includeCount If response should include count, true by default.
+     *
+     * @return ParseQuery Returns this query, so you can chain this call.
+     */
+    public function withCount($includeCount = true)
+    {
+        $this->count = (int)$includeCount;
+        return $this;
     }
 
     /**
@@ -663,7 +680,7 @@ class ParseQuery
      * Execute a find query and return the results.
      *
      * @param bool $useMasterKey
-     * @param bool $decodeObjects If set to false, will not return raw data instead of ParseObject instances
+     * @param bool $decodeObjects If set to false, will return raw data instead of ParseObject instances
      *
      * @return ParseObject[]
      */
@@ -681,6 +698,27 @@ class ParseQuery
             null,
             $useMasterKey
         );
+
+        $response = [];
+        if (isset($result['count'])) {
+            $response['count'] = $result['count'];
+            $response['results'] = $this->handleQueryResult($result, $decodeObjects);
+            return $response;
+        }
+
+        return $this->handleQueryResult($result, $decodeObjects);
+    }
+
+    /**
+     * Handles result from ParseClient::_request
+     *
+     * @param array $result Array of ParseObject raw data.
+     * @param bool $decodeObjects If set to false, will return raw data instead of ParseObject instances
+     *
+     * @return Array Array of ParseObjects or raw data.
+     */
+    public function handleQueryResult($result, $decodeObjects)
+    {
         if (!isset($result['results'])) {
             return [];
         }
