@@ -34,13 +34,14 @@ class ParsePushTest extends TestCase
 
     public function testBasicPush()
     {
-        ParsePush::send(
+        $response = ParsePush::send(
             [
             'channels' => [''],
             'data'     => ['alert' => 'sample message'],
             ],
             true
         );
+        $this->assertEquals($response['result'], 1);
     }
 
     /**
@@ -89,25 +90,27 @@ class ParsePushTest extends TestCase
     {
         $query = ParseInstallation::query();
         $query->equalTo('key', 'value');
-        ParsePush::send(
+        $response = ParsePush::send(
             [
             'data'  => ['alert' => 'iPhone 5 is out!'],
             'where' => $query,
             ],
             true
         );
+        $this->assertEquals($response['result'], 1);
     }
 
     public function testPushToQueryWithoutWhere()
     {
         $query = ParseInstallation::query();
-        ParsePush::send(
+        $response = ParsePush::send(
             [
                 'data'  => ['alert' => 'Done without conditions!'],
                 'where' => $query,
             ],
             true
         );
+        $this->assertEquals($response['result'], 1);
     }
 
     public function testNonQueryWhere()
@@ -127,7 +130,7 @@ class ParsePushTest extends TestCase
 
     public function testPushDates()
     {
-        ParsePush::send(
+        $response = ParsePush::send(
             [
                 'data'            => ['alert' => 'iPhone 5 is out!'],
                 'push_time'       => new \DateTime(),
@@ -136,6 +139,7 @@ class ParsePushTest extends TestCase
             ],
             true
         );
+        $this->assertEquals($response['result'], 1);
     }
 
     public function testExpirationTimeAndIntervalSet()

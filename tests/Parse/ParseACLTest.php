@@ -352,6 +352,7 @@ class ParseACLTest extends TestCase
             $this->fail('Exception should have thrown');
         } catch (Exception $e) {
         }
+        $this->assertTrue(true);
     }
 
     public function testIncludedObjectsGetACLs()

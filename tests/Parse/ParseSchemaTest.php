@@ -266,6 +266,7 @@ class ParseSchemaTest extends TestCase
             // exception on earlier versions > 2.8, no exception on >= 2.8
             // thus hard to test for this unless version detection is utilized here
         }
+        $this->assertTrue(true);
     }
 
     public function testDeleteSchema()

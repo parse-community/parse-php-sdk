@@ -45,6 +45,7 @@ class ParseObjectTest extends TestCase
         $obj = ParseObject::create('TestObject');
         $obj->set('test', 'test');
         $obj->save();
+        $this->assertEquals($obj->get('test'), 'test');
     }
 
     public function testUpdate()
@@ -649,6 +650,7 @@ class ParseObjectTest extends TestCase
         if ($exceptions != 3) {
             $this->fail('Did not cause expected # of exceptions.');
         }
+        $this->assertTrue(true);
     }
 
     public function testNewKeyIsDirtyAfterSave()
@@ -865,6 +867,7 @@ class ParseObjectTest extends TestCase
         $obj->save();
         $obj->add('arrayfield', ['c', 'd', 'e']);
         $obj->save();
+        $this->assertEquals($obj->get('arrayfield'), ['a', 'b', 'c', 'd', 'e']);
     }
 
     public function testObjectIsDirty()
@@ -1443,6 +1446,7 @@ class ParseObjectTest extends TestCase
     {
         $obj = new ParseObject('TestClass');
         $obj->destroy();
+        $this->assertTrue(true);
     }
 
     public function testEncodeWithArray()

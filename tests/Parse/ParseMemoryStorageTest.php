@@ -71,5 +71,6 @@ class ParseMemoryStorageTest extends TestCase
     {
         // does nothing
         self::$parseStorage->save();
+        $this->assertTrue(true);
     }
 }
