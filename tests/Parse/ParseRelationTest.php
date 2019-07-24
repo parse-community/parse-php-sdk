@@ -217,5 +217,8 @@ class ParseRelationTest extends TestCase
 
         $child2->save();
         $parent->save();
+        $this->assertEquals($parent->get('children'), [$child, $child2]);
+        $this->assertEquals($child->get('parent'), $parent);
+        $this->assertEquals($child2->get('parent'), $parent);
     }
 }

@@ -167,8 +167,8 @@ class ParseRoleTest extends TestCase
 
         // verify the snake can still enter the garden
         ParseUser::logIn('snake', 'snake');
-        $query->get($eden['garden']->getObjectId());
-
+        $garden = $query->get($eden['garden']->getObjectId());
+        $this->assertEquals($garden->getObjectId(), $eden['garden']->getObjectId());
         ParseUser::logOut();
     }
 
@@ -184,7 +184,8 @@ class ParseRoleTest extends TestCase
         $roleAgain = $query->get($role->getObjectId());
         $roleAgain->getUsers()->add($user);
         $roleAgain->save();
-
+        $users = $roleAgain->getUsers()->getQuery()->find();
+        $this->assertEquals($user->getObjectId(), $users[0]->getObjectId());
         ParseUser::logOut();
     }
 

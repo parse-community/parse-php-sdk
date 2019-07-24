@@ -172,5 +172,6 @@ class ParseRelationOperationTest extends TestCase
         $obj = new ParseObject('Class1');
         $op = new ParseRelationOperation(null, $obj);
         $op->_mergeWithPrevious(new ParseRelationOperation(null, $obj));
+        $this->assertTrue(true);
     }
 }

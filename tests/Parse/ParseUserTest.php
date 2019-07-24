@@ -457,6 +457,7 @@ class ParseUserTest extends TestCase
         $user->signUp();
 
         ParseUser::requestPasswordReset('asdf@example.com');
+        $this->assertTrue(true);
     }
 
     public function testUserAssociations()
@@ -712,6 +713,7 @@ class ParseUserTest extends TestCase
         $user->setEmail($email);
         $user->signUp();
         ParseUser::requestVerificationEmail($email);
+        $this->assertTrue(true);
     }
 
     /**
