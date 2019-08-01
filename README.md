@@ -1,17 +1,29 @@
-# Parse PHP SDK
+<p align="center">
+    <img alt="Parse Platform" src="Assets/logo large.png" width="200">
+  </a>
+</p>
 
-[![codecov](https://codecov.io/gh/parse-community/parse-php-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/parse-community/parse-php-sdk)
-[![Build Status](https://travis-ci.org/parse-community/parse-php-sdk.svg?branch=master)](https://travis-ci.org/parse-community/parse-php-sdk)
-[![Join The Conversation](https://img.shields.io/discourse/https/community.parseplatform.org/topics.svg)](https://community.parseplatform.org/c/parse-server)
-[![Backers on Open Collective](https://opencollective.com/parse-server/backers/badge.svg)][open-collective-link]
-[![Sponsors on Open Collective](https://opencollective.com/parse-server/sponsors/badge.svg)][open-collective-link]
-[![License][license-svg]][license-link]
-[![Twitter Follow](https://img.shields.io/twitter/follow/ParsePlatform.svg?label=Follow%20us%20on%20Twitter&style=social)](https://twitter.com/intent/follow?screen_name=ParsePlatform)
+<h2 align="center">Parse PHP SDK</h2>
 
-The Parse PHP SDK gives you access to the powerful Parse cloud platform
-from your PHP app or script.  Designed to work with the self-hosted Parse Server: https://github.com/parse-community/parse-server
+<p align="center">
+    The Parse PHP SDK gives you access to the powerful Parse Server backend from your PHP app or script.
+</p>
 
-For more information on Parse and its features, see [the website](http://parseplatform.org), [the PHP guide](https://docs.parseplatform.org/php/guide/) or [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/Parse.html).
+<p align="center">
+    <a href="https://twitter.com/intent/follow?screen_name=parseplatform"><img alt="Follow on Twitter" src="https://img.shields.io/twitter/follow/parseplatform?style=social&label=Follow"></a>
+    <a href="https://community.parseplatform.org/"><img alt="Join the conversation" src="https://img.shields.io/discourse/https/community.parseplatform.org/topics.svg"></a>
+    <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-BSD-lightgrey.svg"></a>
+    <a href="https://travis-ci.org/parse-community/parse-php-sdk"><img alt="Build status" src="https://travis-ci.org/parse-community/parse-php-sdk.svg?branch=master"></a>
+</p>
+
+<p align="center">
+    <a href="https://codecov.io/gh/parse-community/parse-php-sdk"><img alt="Test coverage" src="https://codecov.io/gh/parse-community/parse-php-sdk/branch/master/graph/badge.svg"></a>
+    <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/parse-server/backers/badge.svg" /></a>
+    <a href="#sponsors"><img alt="Sponsors on Open Collective" src="https://opencollective.com/parse-server/sponsors/badge.svg" /></a>
+</p>
+<br>
+
+For more information on Parse and its features, see [the website](https://parseplatform.org), [the PHP guide](https://docs.parseplatform.org/php/guide/) or [API Reference](https://parseplatform.org/parse-php-sdk/namespaces/Parse.html).
 
 Please note that this documentation contains the latest changes that may as of yet be unreleased. To see the README for your release please use the list below.
 - [1.5.1 README](https://github.com/parse-community/parse-php-sdk/blob/1.5.1/README.md)
@@ -779,7 +791,5 @@ the Parse PHP SDK. We welcome fixes and enhancements.
 As of April 5, 2017, Parse, LLC has transferred this code to the parse-community organization, and will no longer be contributing to or distributing this code.
 
 [Get Composer]: https://getcomposer.org/download/
-[Parse PHP Guide]: http://docs.parseplatform.org/php/guide/
-[license-svg]: https://img.shields.io/badge/license-BSD-lightgrey.svg
-[license-link]: LICENSE
+[Parse PHP Guide]: https://docs.parseplatform.org/php/guide/
 [open-collective-link]: https://opencollective.com/parse-server
