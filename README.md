@@ -14,12 +14,15 @@
     <a href="https://community.parseplatform.org/"><img alt="Join the conversation" src="https://img.shields.io/discourse/https/community.parseplatform.org/topics.svg"></a>
     <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-BSD-lightgrey.svg"></a>
     <a href="https://travis-ci.org/parse-community/parse-php-sdk"><img alt="Build status" src="https://travis-ci.org/parse-community/parse-php-sdk.svg?branch=master"></a>
+    <a href="https://packagist.org/packages/parse/php-sdk"><img alt="All time downloads" src="https://poser.pugx.org/parse/php-sdk/downloads" /></a>
 </p>
 
 <p align="center">
     <a href="https://codecov.io/gh/parse-community/parse-php-sdk"><img alt="Test coverage" src="https://codecov.io/gh/parse-community/parse-php-sdk/branch/master/graph/badge.svg"></a>
     <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/parse-server/backers/badge.svg" /></a>
     <a href="#sponsors"><img alt="Sponsors on Open Collective" src="https://opencollective.com/parse-server/sponsors/badge.svg" /></a>
+    <a href="https://packagist.org/packages/parse/php-sdk"><img alt="Latest stable version" src="https://poser.pugx.org/parse/php-sdk/v/stable" /></a>
+    <a href="https://packagist.org/packages/parse/php-sdk"><img alt="Latest unstable version" src="https://poser.pugx.org/parse/php-sdk/v/unstable" /></a>
 </p>
 <br>
 
