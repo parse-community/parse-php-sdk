@@ -1,7 +1,18 @@
 ## Parse PHP SDK Changelog
 
 ### master
-[Full Changelog](https://github.com/parse-community/parse-php-sdk/compare/1.5.1...master)
+[Full Changelog](https://github.com/parse-community/parse-php-sdk/compare/1.6.0...master)
+
+### 1.6.0
+[See the diff between 1.5.1 and 1.6.0](https://github.com/parse-community/parse-php-sdk/compare/1.5.1...1.6.0)
+
+*About this Release*
+Support for PHP < 7 and HHVM has been dropped.
+
+- Support Query withCount (#448)
+- Support Query exclude keys (#445)
+- Support Query readPreference (#446)
+- Support return raw data from Query first (#441)
 
 ### 1.5.1
 [See the diff between 1.5.0 and 1.5.1](https://github.com/parse-community/parse-php-sdk/compare/1.5.0...1.5.1)
