@@ -309,6 +309,8 @@ class ParseObject implements Encodable
     /**
      * Returns true if this object exists on the Server
      *
+     * @param bool $useMasterKey Whether to use the Master Key.
+     *
      * @return bool
      */
     public function exists($useMasterKey = false)
