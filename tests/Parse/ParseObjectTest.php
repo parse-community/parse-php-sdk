@@ -1775,4 +1775,19 @@ class ParseObjectTest extends TestCase
         ];
         ParseObject::decode($encoded);
     }
+
+    /**
+     * Tests if object exists
+     *
+     * @group object-exists
+     */
+    public function testObjectExists()
+    {
+        $obj = new ParseObject('TestClass');
+        $this->assertEquals($obj->exists(), false);
+        $obj->save();
+        $this->assertEquals($obj->exists(), true);
+        $obj->destroy();
+        $this->assertEquals($obj->exists(), false);
+    }
 }
