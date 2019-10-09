@@ -307,6 +307,30 @@ class ParseObject implements Encodable
     }
 
     /**
+     * Returns true if this object exists on the Server
+     *
+     * @param bool $useMasterKey Whether to use the Master Key.
+     *
+     * @return bool
+     */
+    public function exists($useMasterKey = false)
+    {
+        if (!$this->objectId) {
+            return false;
+        }
+        try {
+            $query = new ParseQuery($this->className);
+            $query->get($this->objectId, $useMasterKey);
+            return true;
+        } catch (Exception $e) {
+            if ($e->getCode() === 101) {
+                return false;
+            }
+            throw $e;
+        }
+    }
+
+    /**
      * Validate and set a value for an object key.
      *
      * @param string $key   Key to set a value for on the object.
