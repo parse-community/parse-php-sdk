@@ -314,14 +314,14 @@ class ParseObject implements Encodable
     public function exists($useMasterKey = false)
     {
         if (!$this->objectId) {
-            return;
+            return false;
         }
         try {
             $query = new ParseQuery($this->className);
             $query->get($this->objectId, $useMasterKey);
             return true;
         } catch (Exception $e) {
-            if ($e->getMessage() === 'Object not found.') {
+            if ($e->getCode() === 101) {
                 return false;
             }
             throw $e;
