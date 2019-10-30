@@ -946,6 +946,30 @@ class ParseQueryTest extends TestCase
         $query->count();
     }
 
+    /**
+     * @group query-equalTo-Zero-Count
+     */
+    public function testEqualToCountZero()
+    {
+        Helper::clearClass('BoxedNumber');
+        $this->saveObjects(
+            5,
+            function ($i) {
+                $boxedNumber = new ParseObject('BoxedNumber');
+                $boxedNumber->set('Number', 0);
+                return $boxedNumber;
+            }
+        );
+        $query = new ParseQuery('BoxedNumber');
+        $query->equalTo('Number', 0);
+        $result = $query->count();
+        $this->assertEquals(
+            5,
+            $result,
+            'Did not return correct number of objects.'
+        );
+    }
+
     public function testOrderByAscendingNumber()
     {
         Helper::clearClass('BoxedNumber');
