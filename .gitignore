@@ -18,3 +18,4 @@ coverage.xml
 # ignore phpdoc
 output/
 
+composer.phar
