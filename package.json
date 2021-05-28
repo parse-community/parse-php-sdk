@@ -19,7 +19,7 @@
   "license": "BSD-3-Clause",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "devDependencies": {
-    "mongodb-runner": "4.7.2",
+    "mongodb-runner": "4.8.1",
     "parse-server": "github:parse-community/parse-server#master",
     "winston": "3.2.1"
   }
