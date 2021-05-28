@@ -536,7 +536,9 @@ class ParseObject implements Encodable
     {
         if (isset(self::$registeredSubclasses[$className])) {
             return new self::$registeredSubclasses[$className](
-                $className, $objectId, $isPointer
+                $className,
+                $objectId,
+                $isPointer
             );
         } else {
             return new self($className, $objectId, $isPointer);
