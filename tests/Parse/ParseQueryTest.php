@@ -2720,4 +2720,56 @@ class ParseQueryTest extends TestCase
             'unrecognized'  => 1
         ]);
     }
+
+    public function testEqualToWithSameKeyAndWithOthersConditionsReturnWrongResult()
+    {
+        $baz = new ParseObject('TestObject');
+        $baz->setArray('fooStack', [
+            [
+                'status' => 'baz'
+            ],
+            [
+                'status' => 'bar'
+            ]
+        ]);
+        $baz->save();
+
+        $bar = new ParseObject('TestObject');
+        $bar->setArray('fooStack', [
+            [
+                'status' => 'bar'
+            ]
+        ]);
+        $bar->save();
+
+        $qux = new ParseObject('TestObject');
+        $qux->setArray('fooStack', [
+            [
+                'status' => 'bar',
+            ],
+            [
+                'status' => 'qux'
+            ]
+        ]);
+        $qux->save();
+
+        $query = new ParseQuery('TestObject');
+        $query->notEqualTo('fooStack.status', 'baz');
+        $query->equalTo('fooStack.status', 'bar');
+
+        $this->assertEquals(3, $query->count(true));
+    }
+
+    public function testEqualToWithSameKeyAndOthersConditionsReturnStructQueryWrong()
+    {
+        $query = new ParseQuery('TestObject');
+        $query->notEqualTo('key', 'value3');
+        $query->equalTo('key', 'value');
+
+        $this->assertSame([
+            'where' => [
+                'key' => 'value'
+            ]
+        ], $query->_getOptions());
+    }
 }
