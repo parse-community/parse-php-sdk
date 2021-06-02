@@ -24,6 +24,15 @@ const api = new ParseServer({
     }
   },
 
+  emailAdapter: {
+    module: "@parse/simple-mailgun-adapter",
+    options: {
+      apiKey: "not-a-real-api-key",
+      domain: "example.com",
+      fromAddress: "example@example.com"
+    }
+  },
+
   auth: {
     twitter: {
       consumer_key: "not_a_real_consumer_key",
@@ -39,7 +48,13 @@ const api = new ParseServer({
       "TestObject",
       "_User"
     ]
-  }
+  },
+
+  fileUpload: {
+    enableForPublic: true,
+    enableForAnonymousUser: true,
+    enableForAuthenticatedUser: true,
+  },
 });
 
 // Serve the Parse API on the /parse URL prefix

@@ -8,7 +8,7 @@
     "lint:fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "prestart": "MONGODB_VERSION=4.0.4 MONGODB_TOPOLOGY=replicaset MONGODB_STORAGE_ENGINE=wiredTiger mongodb-runner start",
     "start": "TESTING=1 node ./tests/server.js &",
-    "server-only": "TESTING=1 node ./tests/server.js &",
+    "server-only": "TESTING=1 node ./tests/server.js",
     "document-check": "./vendor/bin/phpdoc -d ./src/ --template=checkstyle",
     "document": "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
   },
@@ -22,5 +22,8 @@
     "mongodb-runner": "4.8.1",
     "parse-server": "github:parse-community/parse-server#master",
     "winston": "3.2.1"
+  },
+  "dependencies": {
+    "@parse/simple-mailgun-adapter": "1.2.0"
   }
 }

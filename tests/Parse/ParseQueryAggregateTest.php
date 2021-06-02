@@ -200,12 +200,8 @@ class ParseQueryAggregateTest extends TestCase
         ];
         $this->loadObjects();
         $query = new ParseQuery('TestObject');
-        $this->expectException(
-            'Parse\ParseException',
-            'Invalid parameter for query: unknown',
-            102
-        );
         $results = $query->aggregate($pipeline);
+        $this->assertEquals(0, count($results));
     }
 
     public function testAggregateGroupInvalid()
