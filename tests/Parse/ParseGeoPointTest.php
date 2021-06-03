@@ -42,8 +42,8 @@ class ParseGeoPointTest extends TestCase
 
         // Round trip encoding
         $actualPoint = $results[0]->get('location');
-        $this->assertEqualsWithDelta(44.0, $actualPoint->getLatitude(), 0.0001, '');
-        $this->assertEqualsWithDelta(-11.0, $actualPoint->getLongitude(), 0.0001, '');
+        $this->assertEquals(44.0, $actualPoint->getLatitude());
+        $this->assertEquals(-11.0, $actualPoint->getLongitude());
 
         // nearsphere
         $point->setLatitude(66.0);
