@@ -1,9 +1,8 @@
 language: php
 dist: trusty
 php:
-- '7.1'
-- '7.2'
-- '7.3'
+- '7.3.24'
+- '7.4.0'
 cache:
   directories:
   - node_modules
@@ -21,7 +20,7 @@ before_deploy:
 - npm run document
 script:
 - npm run test:coverage
-- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then npm run document-check && if [[
+- if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.3.24" ]]; then npm run document-check && if [[
   `cat "output/checkstyle.xml" | grep "<error "` != "" ]]; then exit 1; fi fi
 deploy:
   provider: pages
@@ -31,6 +30,6 @@ deploy:
   local_dir: output
   on:
     branch: master
-    php: '7.1'
+    php: '7.3.24'
 after_success:
 - bash <(curl -s https://codecov.io/bash)

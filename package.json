@@ -2,8 +2,8 @@
   "name": "parse-php-sdk",
   "scripts": {
     "test": "./vendor/bin/phpunit --stderr",
-    "test:coverage": "./vendor/bin/phpunit --stderr --coverage-clover=coverage.xml",
-    "test-stream:coverage": "./vendor/bin/phpunit --stderr --bootstrap=./tests/bootstrap-stream.php --coverage-clover=coverage.xml",
+    "test:coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --stderr --coverage-clover=coverage.xml",
+    "test-stream:coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --stderr --bootstrap=./tests/bootstrap-stream.php --coverage-clover=coverage.xml",
     "lint": "./vendor/bin/phpcs --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "lint:fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "prestart": "MONGODB_VERSION=4.0.4 MONGODB_TOPOLOGY=replicaset MONGODB_STORAGE_ENGINE=wiredTiger mongodb-runner start",
