@@ -2,12 +2,13 @@
   "name": "parse-php-sdk",
   "scripts": {
     "test": "./vendor/bin/phpunit --stderr",
-    "test:coverage": "./vendor/bin/phpunit --stderr --coverage-clover=coverage.xml",
-    "test-stream:coverage": "./vendor/bin/phpunit --stderr --bootstrap=./tests/bootstrap-stream.php --coverage-clover=coverage.xml",
+    "test:coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --stderr --coverage-clover=coverage.xml",
+    "test-stream:coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --stderr --bootstrap=./tests/bootstrap-stream.php --coverage-clover=coverage.xml",
     "lint": "./vendor/bin/phpcs --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "lint:fix": "./vendor/bin/phpcbf --standard=./phpcs.xml.dist ./src/Parse ./tests/Parse",
     "prestart": "MONGODB_VERSION=4.0.4 MONGODB_TOPOLOGY=replicaset MONGODB_STORAGE_ENGINE=wiredTiger mongodb-runner start",
     "start": "TESTING=1 node ./tests/server.js &",
+    "server-only": "TESTING=1 node ./tests/server.js",
     "document-check": "./vendor/bin/phpdoc -d ./src/ --template=checkstyle",
     "document": "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
   },
@@ -18,8 +19,11 @@
   "license": "BSD-3-Clause",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "devDependencies": {
-    "mongodb-runner": "4.7.2",
+    "mongodb-runner": "4.8.1",
     "parse-server": "github:parse-community/parse-server#master",
     "winston": "3.2.1"
+  },
+  "dependencies": {
+    "@parse/simple-mailgun-adapter": "1.2.0"
   }
 }

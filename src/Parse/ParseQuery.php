@@ -672,7 +672,9 @@ class ParseQuery
             null,
             true
         );
-
+        if (!isset($result['results'])) {
+            return [];
+        }
         return $result['results'];
     }
 

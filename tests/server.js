@@ -48,7 +48,13 @@ const api = new ParseServer({
       "TestObject",
       "_User"
     ]
-  }
+  },
+
+  fileUpload: {
+    enableForPublic: true,
+    enableForAnonymousUser: true,
+    enableForAuthenticatedUser: true,
+  },
 });
 
 // Serve the Parse API on the /parse URL prefix
