@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    Parse PHP SDK API Reference &raquo; \Parse\ParseLogs
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">Parse PHP SDK API Reference</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Parse.html">Parse</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_getErrorLogs" title="getErrorLogs :: Returns error logs">
+            <span class="description">Returns error logs</span><pre>getErrorLogs</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getInfoLogs" title="getInfoLogs :: Returns info logs">
+            <span class="description">Returns info logs</span><pre>getInfoLogs</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getScriptLogs" title="getScriptLogs :: Requests script logs from the server">
+            <span class="description">Requests script logs from the server</span><pre>getScriptLogs</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>ParseLogs</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">Class ParseLogs - Allows access to server side parse script logs</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Ben Friedman <a href="mailto:friedman.benjamin@gmail.com">friedman.benjamin@gmail.com</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Parse</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_getErrorLogs"></a>
+                        <div class="element clickable method public  method_getErrorLogs" data-toggle="collapse" data-target=".method_getErrorLogs .collapse">
+                            <h2>Returns error logs</h2>
+                            <pre>getErrorLogs(integer $size = 100, null $from = null, null $until = null, null $order = null) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$size</h4>
+                                                <code>integer</code><p><p>Lines to return, 100 by default</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$from</h4>
+                                                <code>null</code><p><p>Earliest logs to return from, default is 1 week ago</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$until</h4>
+                                                <code>null</code><p><p>Latest logs to return from, defaults to current time</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$order</h4>
+                                                <code>null</code><p><p>Order to sort logs by (asc/desc), defaults to descending</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getInfoLogs"></a>
+                        <div class="element clickable method public  method_getInfoLogs" data-toggle="collapse" data-target=".method_getInfoLogs .collapse">
+                            <h2>Returns info logs</h2>
+                            <pre>getInfoLogs(integer $size = 100, null $from = null, null $until = null, null $order = null) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$size</h4>
+                                                <code>integer</code><p><p>Lines to return, 100 by default</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$from</h4>
+                                                <code>null</code><p><p>Earliest logs to return from, default is 1 week ago</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$until</h4>
+                                                <code>null</code><p><p>Latest logs to return from, defaults to current time</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$order</h4>
+                                                <code>null</code><p><p>Order to sort logs by (asc/desc), defaults to descending</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getScriptLogs"></a>
+                        <div class="element clickable method public  method_getScriptLogs" data-toggle="collapse" data-target=".method_getScriptLogs .collapse">
+                            <h2>Requests script logs from the server</h2>
+                            <pre>getScriptLogs(string $level = &#039;info&#039;, integer $size = 100, null $from = null, null $until = null, null $order = null) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$level</h4>
+                                                <code>string</code><p><p>Level of logs to return (info/error), default is info</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$size</h4>
+                                                <code>integer</code><p><p>Number of rows to return, default is 100</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$from</h4>
+                                                <code>null</code><p><p>Earliest logs to return from, defaults to 1 week ago</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$until</h4>
+                                                <code>null</code><p><p>Latest logs to return from, defaults to current time</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$order</h4>
+                                                <code>null</code><p><p>Order to sort logs by (asc/desc), defaults to descending</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                        </div>
+            </div>
+            <a id="\Parse\ParseLogs"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Parse.html">Parse</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Parse.ParseLogs.html">ParseLogs</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Thu, 03 Jun 2021 17:29:29 +0000.<br/>
+    </footer>
+    </body>
+</html>
