@@ -24,6 +24,6 @@
     "winston": "3.2.1"
   },
   "dependencies": {
-    "@parse/simple-mailgun-adapter": "1.2.0"
+    "@parse/simple-mailgun-adapter": "2.0.0"
   }
 }
