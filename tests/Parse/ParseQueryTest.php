@@ -2626,8 +2626,8 @@ class ParseQueryTest extends TestCase
     {
         $query = new ParseQuery('TestObject');
         $query->_setConditions([
-            [
-                'key'  => 'value'
+            'where' => [
+                'key'   => 'value'
             ]
         ]);
 

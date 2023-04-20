@@ -17,7 +17,7 @@ class ParseStreamHttpClientTest extends TestCase
     public function testGetResponse()
     {
         $client = new ParseStreamHttpClient();
-        $client->send('http://example.com');
+        $client->send('https://example.org');
 
         // get response code
         $this->assertEquals(200, $client->getResponseStatusCode());
