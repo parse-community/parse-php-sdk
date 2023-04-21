@@ -164,7 +164,7 @@ class ParseUser extends ParseObject
      *
      * @throws ParseException
      *
-     * @return static
+     * @return ParseUser
      */
     public static function logInAs($userId)
     {

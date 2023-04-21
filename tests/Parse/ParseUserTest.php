@@ -104,6 +104,12 @@ class ParseUserTest extends TestCase
         ParseUser::logInAs('');
     }
 
+    public function testLoginAsNonexistentUser()
+    {
+        $this->expectException('Parse\ParseException', 'user not found.');
+        ParseUser::logInAs('a1b2c3d4e5');
+    }
+
     public function testLoginWithFacebook()
     {
         $this->expectException(
