@@ -101,7 +101,7 @@ class ParseInstallationTest extends TestCase
         $appVersion     = '1.0.0';
         $appName        = 'Foo Bar App';
         $appIdentifier  = 'foo-bar-app-id';
-        $parseVersion   = ParseClient::VERSION_STRING
+        $parseVersion   = ParseClient::VERSION_STRING;
 
         $installation = new ParseInstallation();
         $installation->set('installationId', $installationId);
