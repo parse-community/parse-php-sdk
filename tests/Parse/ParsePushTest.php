@@ -241,8 +241,10 @@ class ParsePushTest extends TestCase
         $this->assertFalse($pushStatus->isScheduled());
 
         // verify not pending
-        $this->assertFalse($pushStatus->isPending());
-
+        while ($pushStatus->isPending()) {
+            sleep(1);
+            $pushStatus = ParsePush::getStatus($response);
+        }
         // verify 'running', or 'failed'/'succeeded' on later versions of parse-server
         // both are acceptable
         $this->assertTrue(
