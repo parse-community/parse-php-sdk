@@ -13,7 +13,6 @@
     <a href="https://twitter.com/intent/follow?screen_name=parseplatform"><img alt="Follow on Twitter" src="https://img.shields.io/twitter/follow/parseplatform?style=social&label=Follow"></a>
     <a href="https://community.parseplatform.org/"><img alt="Join the conversation" src="https://img.shields.io/discourse/https/community.parseplatform.org/topics.svg"></a>
     <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-BSD-lightgrey.svg"></a>
-    <a href="https://travis-ci.org/parse-community/parse-php-sdk"><img alt="Build status" src="https://travis-ci.org/parse-community/parse-php-sdk.svg?branch=master"></a>
     <a href="https://packagist.org/packages/parse/php-sdk"><img alt="All time downloads" src="https://poser.pugx.org/parse/php-sdk/downloads" /></a>
 </p>
 
@@ -22,57 +21,51 @@
     <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/parse-server/backers/badge.svg" /></a>
     <a href="#sponsors"><img alt="Sponsors on Open Collective" src="https://opencollective.com/parse-server/sponsors/badge.svg" /></a>
     <a href="https://packagist.org/packages/parse/php-sdk"><img alt="Latest stable version" src="https://poser.pugx.org/parse/php-sdk/v/stable" /></a>
-    <a href="https://packagist.org/packages/parse/php-sdk"><img alt="Latest unstable version" src="https://poser.pugx.org/parse/php-sdk/v/unstable" /></a>
 </p>
 <br>
 
 For more information on Parse and its features, see [the website](https://parseplatform.org), [the PHP guide](https://docs.parseplatform.org/php/guide/) or [API Reference](https://parseplatform.org/parse-php-sdk/namespaces/Parse.html).
 
-Please note that this documentation contains the latest changes that may as of yet be unreleased. To see the README for your release please use the list below.
-- [1.6.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.6.0/README.md)
-- [1.5.1 README](https://github.com/parse-community/parse-php-sdk/blob/1.5.1/README.md)
-- [1.4.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.4.0/README.md)
-- [1.3.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.3.0/README.md)
-
 ## Table of Contents
+- [Table of Contents](#table-of-contents)
 - [Installation](#installation)
-    - [Install with Composer](#install-with-composer)
-    - [Install with Git](#install-with-git)
-    - [Install with another method](#install-with-another-method)
+  - [Install with Composer](#install-with-composer)
+  - [Install with Git](#install-with-git)
+  - [Install with another method](#install-with-another-method)
 - [Setup](#setup)
-    - [Initializing](#initializing)
-    - [Server URL](#server-url)
-    - [Server Health Check](#server-health-check)
-    - [Http Clients](#http-clients)
-    - [Alternate CA files](#alternate-ca-file)
+  - [Initializing](#initializing)
+  - [Server URL](#server-url)
+  - [Server Health Check](#server-health-check)
+  - [Http Clients](#http-clients)
+  - [Alternate CA File](#alternate-ca-file)
 - [Getting Started](#getting-started)
-    - [Use Declarations](#use-declarations)
-    - [Parse Objects](#parse-objects)
-    - [Users](#users)
-        - [Session Id and Session Fixation](#session-id-and-session-fixation)
-        - [Verification Emails](#verification-emails)
-    - [ACLs/Security](#acls)
-    - [Queries](#queries)
-        - [Aggregate](#aggregate)
-        - [Distinct](#distinct)
-        - [Relative Time](#relative-time)
-    - [Cloud Functions](#cloud-functions)
-    - [Cloud Jobs](#cloud-jobs)
-    - [Config](#config)
-    - [Analytics](#analytics)
-    - [Files](#files)
-    - [Push Notifications](#push)
-        - [Push to Channels](#push-to-channels)
-        - [Push with Query](#push-with-query)
-        - [Push with Audience](#push-with-audience)
-        - [Push Status](#push-status)
-    - [Server Info](#server-info)
-        - [Version](#version)
-        - [Features](#features)
-    - [Schema](#schema)
-        - [Index](#index)
-        - [Purge](#purge)
-    - [Logs](#logs)
+  - [Use Declarations](#use-declarations)
+  - [Parse Objects](#parse-objects)
+  - [Users](#users)
+    - [Session Id and Session Fixation](#session-id-and-session-fixation)
+    - [Verification Emails](#verification-emails)
+  - [ACLs](#acls)
+  - [Queries](#queries)
+    - [Aggregate](#aggregate)
+    - [Distinct](#distinct)
+    - [Relative Time](#relative-time)
+  - [Cloud Functions](#cloud-functions)
+  - [Cloud Jobs](#cloud-jobs)
+  - [Config](#config)
+  - [Analytics](#analytics)
+  - [Files](#files)
+  - [Push](#push)
+    - [Push to Channels](#push-to-channels)
+    - [Push with Query](#push-with-query)
+    - [Push with Audience](#push-with-audience)
+    - [Push Status](#push-status)
+  - [Server Info](#server-info)
+    - [Version](#version)
+    - [Features](#features)
+  - [Schema](#schema)
+    - [Index](#index)
+    - [Purge](#purge)
+  - [Logs](#logs)
 - [Contributing / Testing](#contributing--testing)
 
 ## Installation

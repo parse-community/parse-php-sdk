@@ -610,7 +610,7 @@ class ParseUserTest extends TestCase
         $james->signUp();
 
         $query = ParseUser::query();
-        $result = $query->count();
+        $result = $query->count(true);
         $this->assertEquals(3, $result);
     }
 

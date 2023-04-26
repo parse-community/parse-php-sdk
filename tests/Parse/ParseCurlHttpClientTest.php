@@ -16,7 +16,7 @@ class ParseCurlHttpClientTest extends TestCase
         if (function_exists('curl_init')) {
             $client = new ParseCurlHttpClient();
             $client->setup();
-            $client->send("http://example.com");
+            $client->send("https://example.org");
 
             $this->assertEquals(200, $client->getResponseStatusCode());
         }

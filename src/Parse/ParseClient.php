@@ -111,11 +111,11 @@ final class ParseClient
     private static $caFile;
 
     /**
-     * Constant for version string to include with requests. Currently 1.6.0.
+     * Constant for version string to include with requests.
      *
      * @var string
      */
-    const VERSION_STRING = 'php1.6.0';
+    const VERSION_STRING = '2.0.0';
 
     /**
      * Parse\Client::initialize, must be called before using Parse features.
@@ -522,7 +522,7 @@ final class ParseClient
 
             // add appId & client version
             $httpClient->addRequestHeader('X-Parse-Application-Id', self::$applicationId);
-            $httpClient->addRequestHeader('X-Parse-Client-Version', self::VERSION_STRING);
+            $httpClient->addRequestHeader('X-Parse-Client-Version', 'php' . self::VERSION_STRING);
 
 
             if ($sessionToken) {

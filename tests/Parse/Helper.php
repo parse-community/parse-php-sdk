@@ -109,4 +109,9 @@ class Helper
             self::$accountKey
         );
     }
+
+    public static function print($text)
+    {
+        fwrite(STDOUT, $text . "\n");
+    }
 }

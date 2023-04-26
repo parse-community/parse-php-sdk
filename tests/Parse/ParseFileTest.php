@@ -56,7 +56,7 @@ class ParseFileTest extends TestCase
 
     public function testParseFileDownload()
     {
-        $file = ParseFile::_createFromServer('index.html', 'http://example.com');
+        $file = ParseFile::_createFromServer('index.html', 'https://example.org');
         $data = $file->getData();
         $this->assertTrue(
             strpos($data, 'Example Domain') !== false

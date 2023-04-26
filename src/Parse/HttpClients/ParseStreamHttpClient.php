@@ -208,7 +208,7 @@ class ParseStreamHttpClient implements ParseHttpable
         if (isset($data) && $data != "{}") {
             if ($method == "GET") {
                 // handle GET
-                $url.='?'.http_build_query($data, null, '&');
+                $url.='?'.http_build_query($data, '', '&');
                 $this->addRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             } elseif ($method == "POST") {
                 // handle POST
