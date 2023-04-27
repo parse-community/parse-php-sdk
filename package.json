@@ -20,8 +20,14 @@
   "license": "BSD-3-Clause",
   "homepage": "https://github.com/montymxb/parse-server-test#readme",
   "devDependencies": {
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/commit-analyzer": "9.0.2",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "8.0.7",
+    "@semantic-release/release-notes-generator": "10.0.3",
     "mongodb-runner": "4.8.1",
     "parse-server": "github:parse-community/parse-server#alpha",
+    "semantic-release": "21.0.1",
     "winston": "3.2.1"
   }
 }
