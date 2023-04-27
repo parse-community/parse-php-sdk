@@ -1548,7 +1548,7 @@ class ParseObject implements Encodable
     /**
      * Check whether there is a subclass registered for a given parse class.
      *
-     * @param $parseClassName
+     * @param string $parseClassName
      *
      * @return bool
      */
@@ -1561,7 +1561,7 @@ class ParseObject implements Encodable
      * Get the registered subclass for a Parse class, or a generic ParseObject
      * if no subclass is registered.
      *
-     * @param $parseClassName
+     * @param string $parseClassName
      *
      * @return ParseObject
      */
