@@ -12,6 +12,7 @@
     "document-check": "./vendor/bin/phpdoc -d ./src/ --template='responsive-twig'",
     "document": "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/parse-community/parse-php-sdk"
