@@ -6,7 +6,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 // Get env vars
-const ref = process.env.GITHUB_REF;
+const ref = process.env.GITHUB_REF = 'ref/mtrezza-patch-1';
 const serverUrl = process.env.GITHUB_SERVER_URL;
 const repository = process.env.GITHUB_REPOSITORY;
 const repositoryUrl = serverUrl + '/' + repository;
@@ -37,7 +37,7 @@ async function config() {
 
   const config = {
     branches: [
-      'master',
+      'master','mtrezza-patch-1',
       // { name: 'alpha', prerelease: true },
       // { name: 'beta', prerelease: true },
       // 'next-major',
@@ -47,7 +47,7 @@ async function config() {
       // { name: 'release-3', range: '3.x.x', channel: '3.x' },
       // { name: 'release-4', range: '4.x.x', channel: '4.x' },
     ],
-    dryRun: false,
+    dryRun: true,
     debug: true,
     ci: true,
     tagFormat: '${version}',
@@ -81,17 +81,17 @@ async function config() {
       ["@semantic-release/exec", {
         "prepareCmd": `sed -i '' -r "s/const VERSION_STRING = '.*'/const VERSION_STRING = '\${nextRelease.version}'/" ./src/Parse/ParseClient.php`
       }],
-      ['@semantic-release/npm', {
-        'npmPublish': false,
-      }],
-      ['@semantic-release/git', {
-        assets: [changelogFile, 'package.json', 'package-lock.json', ['src/Parse/ParseClient.php'] ],
-      }],
-      ['@semantic-release/github', {
-        successComment: getReleaseComment(),
-        labels: ['type:ci'],
-        releasedLabels: ['state:released<%= nextRelease.channel ? `-\${nextRelease.channel}` : "" %>']
-      }],
+      // ['@semantic-release/npm', {
+      //   'npmPublish': false,
+      // }],
+      // ['@semantic-release/git', {
+      //   assets: [changelogFile, 'package.json', 'package-lock.json', ['src/Parse/ParseClient.php'] ],
+      // }],
+      // ['@semantic-release/github', {
+      //   successComment: getReleaseComment(),
+      //   labels: ['type:ci'],
+      //   releasedLabels: ['state:released<%= nextRelease.channel ? `-\${nextRelease.channel}` : "" %>']
+      // }],
     ],
   };
 
