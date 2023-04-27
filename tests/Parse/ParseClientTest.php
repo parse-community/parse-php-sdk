@@ -60,33 +60,6 @@ class ParseClientTest extends TestCase
     }
 
     /**
-     * @group client-not-initialized
-     */
-    public function testAppNotNotInitialized()
-    {
-        $this->expectException(
-            '\Exception',
-            'You must call ParseClient::initialize(..., $accountKey) before making any app requests. '.
-            'Your account key must not be null or empty.'
-        );
-
-        ParseClient::initialize(
-            null,
-            null,
-            null
-        );
-
-        ParseClient::_request(
-            '',
-            '',
-            null,
-            null,
-            false,
-            true
-        );
-    }
-
-    /**
      * @group client-init
      */
     public function testInitialize()
@@ -106,7 +79,6 @@ class ParseClientTest extends TestCase
             Helper::$restKey,
             Helper::$masterKey,
             true,
-            Helper::$accountKey
         );
 
         // verify these classes are now registered
@@ -133,7 +105,6 @@ class ParseClientTest extends TestCase
             Helper::$restKey,
             Helper::$masterKey,
             true,
-            Helper::$accountKey
         );
 
         $storage = ParseClient::getStorage();
@@ -164,7 +135,6 @@ class ParseClientTest extends TestCase
             Helper::$restKey,
             Helper::$masterKey,
             true,
-            Helper::$accountKey
         );
 
         $storage = ParseClient::getStorage();

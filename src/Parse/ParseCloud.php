@@ -72,7 +72,6 @@ class ParseCloud
             null,
             json_encode(ParseClient::_encode($data, false)),
             true,
-            false,
             'application/json',
             true
         );

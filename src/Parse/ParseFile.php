@@ -229,7 +229,6 @@ class ParseFile implements Encodable
             null,
             $this->getData(),
             $useMasterKey,
-            false,
             $mimeType
         );
     }
