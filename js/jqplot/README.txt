@@ -21,8 +21,8 @@ Bugs, issues, feature requests: <http://www.bitbucket.org/cleonello/jqplot/issue
 
 Basic Usage Instructions:
 
-jqPlot requires jQuery (1.4+ required for certain features). jQuery 1.9.1 is included in 
-the distribution.  To use jqPlot include jQuery, the jqPlot jQuery plugin, the jqPlot css file and 
+jqPlot requires jQuery (1.4+ required for certain features). jQuery 1.9.1 is included in
+the distribution.  To use jqPlot include jQuery, the jqPlot jQuery plugin, the jqPlot css file and
 optionally the excanvas script to support IE version prior to IE 9 in your web page:
 
 > <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]-->
@@ -36,23 +36,23 @@ For usage instructions, see <jqPlot Usage> in usage.txt.  For available options,
 Building from source:
 
 If you've cloned the repository, you can build a distribution from source.
-You need to have ant <http://ant.apache.org> installed.  You can simply 
-type "ant" from the jqplot directory to build the default "all" target.  
+You need to have ant <http://ant.apache.org> installed.  You can simply
+type "ant" from the jqplot directory to build the default "all" target.
 There are 6 pertinent targets: clean, dist, min, docs, compress and all.  Use:
 
 > ant -p
 
-to get a description of the various build targets. 
+to get a description of the various build targets.
 
 Legal Notices:
 
 Copyright (c) 2009-2013 Chris Leonello
-jqPlot is currently available for use in all personal or commercial projects 
-under both the MIT and GPL version 2.0 licenses. This means that you can 
-choose the license that best suits your project and use it accordingly. 
+jqPlot is currently available for use in all personal or commercial projects
+under both the MIT and GPL version 2.0 licenses. This means that you can
+choose the license that best suits your project and use it accordingly.
 
-Although not required, the author would appreciate an email letting him 
-know of any substantial use of jqPlot.  You can reach the author at: 
+Although not required, the author would appreciate an email letting him
+know of any substantial use of jqPlot.  You can reach the author at:
 chris at jqplot  or see http://www.jqplot.com/info.php .
 
 If you are feeling kind and generous, consider supporting the project by
@@ -64,7 +64,7 @@ Date instance methods:
 
     author Ken Snyder (ken d snyder at gmail dot com)
     date 2008-09-10
-    version 2.0.2 (http://kendsnyder.com/sandbox/date/)     
+    version 2.0.2 (http://kendsnyder.com/sandbox/date/)
     license Creative Commons Attribution License 3.0 (http://creativecommons.org/licenses/by/3.0/)
 
 JavaScript printf/sprintf functions.

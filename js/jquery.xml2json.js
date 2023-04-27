@@ -14,14 +14,14 @@
 */
 // Avoid collisions
 ;if(window.jQuery) (function($){
- 
+
  // Add function to jQuery namespace
  $.extend({
-  
+
   // converts xml documents and xml text to json object
   xml2json: function(xml, extended) {
    if(!xml) return {}; // quick fail
-   
+
    //### PARSER LIBRARY
    // Core function
    function parseXML(node, simple){
@@ -56,11 +56,11 @@
         obj = obj || {};
         if(obj[cnn]){
          /*DBG*/ //if(window.console) console.log(['x2j',nn,'node>f',cnn,'ARRAY']);
-         
+
 									// http://forum.jquery.com/topic/jquery-jquery-xml2json-problems-when-siblings-of-the-same-tagname-only-have-a-textnode-as-a-child
 									if(!obj[cnn].length) obj[cnn] = myArr(obj[cnn]);
 									obj[cnn] = myArr(obj[cnn]);
-         
+
 									obj[cnn][ obj[cnn].length ] = parseXML(cn, true/* simple */);
          obj[cnn].length = obj[cnn].length;
         }
@@ -81,11 +81,11 @@
        att[atn] = atv;
        if(obj[atn]){
         /*DBG*/ //if(window.console) console.log(['x2j',nn,'attr>',atn,'ARRAY']);
-        
+
 								// http://forum.jquery.com/topic/jquery-jquery-xml2json-problems-when-siblings-of-the-same-tagname-only-have-a-textnode-as-a-child
 								//if(!obj[atn].length) obj[atn] = myArr(obj[atn]);//[ obj[ atn ] ];
         obj[cnn] = myArr(obj[cnn]);
-								
+
 								obj[atn][ obj[atn].length ] = atv;
         obj[atn].length = obj[atn].length;
        }
@@ -117,7 +117,7 @@
    // Core Function End
    // Utility functions
    var jsVar = function(s){ return String(s || '').replace(/-/g,"_"); };
-   
+
 			// NEW isNum function: 01/09/2010
 			// Thanks to Emile Grau, GigaTecnologies S.L., www.gigatransfer.com, www.mygigamail.com
 			function isNum(s){
@@ -132,44 +132,44 @@
 			};
 			// OLD isNum function: (for reference only)
 			//var isNum = function(s){ return (typeof s == "number") || String((s && typeof s == "string") ? s : '').test(/^((-)?([0-9]*)((\.{0,1})([0-9]+))?$)/); };
-																
+
    var myArr = function(o){
-    
+
 				// http://forum.jquery.com/topic/jquery-jquery-xml2json-problems-when-siblings-of-the-same-tagname-only-have-a-textnode-as-a-child
 				//if(!o.length) o = [ o ]; o.length=o.length;
     if(!$.isArray(o)) o = [ o ]; o.length=o.length;
-				
+
 				// here is where you can attach additional functionality, such as searching and sorting...
     return o;
    };
    // Utility functions End
    //### PARSER LIBRARY END
-   
+
    // Convert plain text to xml
    if(typeof xml=='string') xml = $.text2xml(xml);
-   
+
    // Quick fail if not xml (or if this is a node)
    if(!xml.nodeType) return;
    if(xml.nodeType == 3 || xml.nodeType == 4) return xml.nodeValue;
-   
+
    // Find xml root node
    var root = (xml.nodeType == 9) ? xml.documentElement : xml;
-   
+
    // Convert xml to json
    var out = parseXML(root, true /* simple */);
-   
+
    // Clean-up memory
    xml = null; root = null;
-   
+
    // Send output
    return out;
   },
-  
+
   // Convert text to XML DOM
   text2xml: function(str) {
    // NOTE: I'd like to use jQuery for this, but jQuery makes all tags uppercase
    //return $(xml)[0];
-   
+
    /* prior to jquery 1.9 */
    /*
    var out;
@@ -187,7 +187,7 @@
    /* jquery 1.9+ */
    return $.parseXML(str);
   }
-		
+
  }); // extend $
 
 })(jQuery);

@@ -619,7 +619,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
             case 'orig_height':
                 if (withoutRotation) {
                     return (this.img_object.angle() % 180 === 0 ? this.img_object[param]() :
-                            param === 'orig_width' ? this.img_object.orig_height() : 
+                            param === 'orig_width' ? this.img_object.orig_height() :
                                                         this.img_object.orig_width());
                 } else {
                     return this.img_object[param]();
@@ -846,7 +846,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
      * @param {number} val Coordinate value.
      * @param {boolean} skipCss If true, we only set the value and do not touch the dom.
      */
-    this.x = setter(function(val, skipCss) { 
+    this.x = setter(function(val, skipCss) {
             this._x = val;
             if (!skipCss) {
                 this._img.css("left",this._x + (this._swapDimensions ? this.display_diff() / 2 : 0) + "px");
@@ -883,7 +883,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
 
             this._angle = deg;
             this._swapDimensions = deg % 180 !== 0;
-            
+
             if (prevSwap !== this._swapDimensions) {
                 var verticalMod = this._swapDimensions ? -1 : 1;
                 this.x(this.x() - verticalMod * this.display_diff() / 2, true);
@@ -979,7 +979,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
             width: w,
             height: h,
             top: y - (this._swapDimensions ? this.display_diff() / 2 : 0) + "px",
-            left: x + (this._swapDimensions ? this.display_diff() / 2 : 0) + "px" 
+            left: x + (this._swapDimensions ? this.display_diff() / 2 : 0) + "px"
         };
 
         if (useIeTransforms) {
@@ -1008,7 +1008,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
 
         if (this._do_anim && !skip_animation) {
             this._img.animate(params, {
-                duration: 200, 
+                duration: 200,
                 complete: complete,
                 step: function(now, fx) {
                     if(useIeTransforms && swapDims && (fx.prop === 'top')) {
