@@ -5,6 +5,9 @@ on:
       tag:
         default: ''
         description: 'Version tag:' 
+env:
+  NODE_VERSION: 16.17.1
+  PHP_VERSION: 8.1
 jobs:
   docs-publish:
     if: github.event.inputs.tag != ''
@@ -17,19 +20,23 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
       - name: Cache Node.js modules
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-              ${{ runner.os }}-node-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
       - name: Generate Docs
         run: |
-          npm ci
+          composer install
           npm run document-check
-          npm run documentation
+          npm run document
         env:
           SOURCE_TAG: ${{ github.event.inputs.tag }}
       - name: Deploy
