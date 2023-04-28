@@ -2602,7 +2602,6 @@ class ParseQueryTest extends TestCase
             Helper::$restKey,
             Helper::$masterKey,
             false,
-            Helper::$accountKey
         );
         ParseClient::setServerURL('http://localhost:1337', 'parse');
 
