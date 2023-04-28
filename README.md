@@ -221,7 +221,7 @@ ParseClient::setCAFile(__DIR__ . '/certs/cacert.pem');
 
 We highly recommend you read through the [guide](http://docs.parseplatform.org/php/guide/) first. This will walk you through the basics of working with this sdk, as well as provide insight into how to best develop your project.
 
-If want to know more about what makes the php sdk tick you can read our [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/Parse.html) and flip through the code on [github](https://github.com/parse-community/parse-php-sdk/).
+If want to know more about what makes the php sdk tick you can read our [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/parse.html) and flip through the code on [github](https://github.com/parse-community/parse-php-sdk/).
 
 Check out the [Parse PHP Guide] for the full documentation.
 
