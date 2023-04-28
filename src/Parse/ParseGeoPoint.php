@@ -54,7 +54,7 @@ class ParseGeoPoint implements Encodable
     /**
      * Set the Latitude value for this GeoPoint.
      *
-     * @param $lat
+     * @param float $lat
      *
      * @throws ParseException
      */
@@ -82,7 +82,7 @@ class ParseGeoPoint implements Encodable
     /**
      * Set the Longitude value for this GeoPoint.
      *
-     * @param $lon
+     * @param float $lon
      *
      * @throws ParseException
      */

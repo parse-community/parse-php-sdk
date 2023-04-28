@@ -164,8 +164,8 @@ class ParseFile implements Encodable
     /**
      * Internal method used when constructing a Parse File from Parse.
      *
-     * @param $name
-     * @param $url
+     * @param string $name
+     * @param string $url
      *
      * @return ParseFile
      */
