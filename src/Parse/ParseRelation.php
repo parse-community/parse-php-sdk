@@ -95,7 +95,7 @@ class ParseRelation implements Encodable
     /**
      * Set the target classname for the relation.
      *
-     * @param $className
+     * @param string $className
      */
     public function setTargetClass($className)
     {
@@ -105,7 +105,7 @@ class ParseRelation implements Encodable
     /**
      * Set the parent object for the relation.
      *
-     * @param $parent
+     * @param ParseObject $parent
      */
     public function setParent($parent)
     {

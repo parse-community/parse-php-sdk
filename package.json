@@ -9,8 +9,8 @@
     "prestart": "MONGODB_VERSION=4.0.4 MONGODB_TOPOLOGY=replicaset MONGODB_STORAGE_ENGINE=wiredTiger mongodb-runner start",
     "start": "TESTING=1 node ./tests/server.js &",
     "server-only": "TESTING=1 node ./tests/server.js",
-    "document-check": "./vendor/bin/phpdoc -d ./src/ --template='responsive-twig'",
-    "document": "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='responsive-twig'"
+    "document-check": "./vendor/bin/phpdoc -d ./src/ --template='default'",
+    "document": "./vendor/bin/phpdoc -d ./src/ --title 'Parse PHP SDK API Reference' --template='default'"
   },
   "type": "module",
   "repository": {
@@ -18,7 +18,7 @@
     "url": "git+https://github.com/parse-community/parse-php-sdk"
   },
   "license": "BSD-3-Clause",
-  "homepage": "https://github.com/montymxb/parse-server-test#readme",
+  "homepage": "https://parseplatform.org",
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/commit-analyzer": "9.0.2",

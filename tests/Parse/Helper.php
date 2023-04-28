@@ -28,13 +28,6 @@ class Helper
      */
     public static $masterKey  = 'master-key-here';
 
-    /**
-     * Account Key (for parse.com)
-     * @var string
-     */
-    public static $accountKey = 'account-key';
-
-
     public static function setUp()
     {
         ini_set('error_reporting', E_ALL);
@@ -46,7 +39,6 @@ class Helper
             self::$restKey,
             self::$masterKey,
             true,
-            self::$accountKey
         );
         self::setServerURL();
         self::setHttpClient();
@@ -106,7 +98,6 @@ class Helper
             self::$restKey,
             self::$masterKey,
             false,
-            self::$accountKey
         );
     }
 

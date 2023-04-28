@@ -55,7 +55,7 @@ class ParseBytes implements Encodable
     /**
      * Decodes and unpacks a given base64 encoded array of data
      *
-     * @param $base64Data
+     * @param string $base64Data
      */
     private function setBase64Data($base64Data)
     {
