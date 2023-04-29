@@ -2,6 +2,9 @@ name: release-automated
 on:
   push:
     branches: [ master, release, alpha, beta ]
+env:
+  NODE_VERSION: 18
+  PHP_VERSION: 8.1
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -13,7 +16,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: ${{ env.NODE_VERSION }}
       - run: npm ci
       - run: npx semantic-release
         env:
@@ -22,10 +25,11 @@ jobs:
       - name: Determine tag on current commit
         id: tag
         run: echo "::set-output name=current_tag::$(git describe --tags --abbrev=0 --exact-match || echo '')"
-  publish-docs:
+  docs-publish:
     needs: release
     if: needs.release.outputs.current_tag != ''
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
         with:
@@ -33,21 +37,18 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - name: Cache Node.js modules
-        uses: actions/cache@v3
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-              ${{ runner.os }}-node-
+          php-version: ${{ env.PHP_VERSION }}
       - name: Generate Docs
         run: |
-          npm ci
+          composer install
           npm run document-check
-          npm run documentation
+          npm run document
         env:
-          SOURCE_TAG: ${{ github.event.inputs.tag }}
+          SOURCE_TAG: ${{ needs.release.outputs.current_tag }}
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3.7.3
         with:
