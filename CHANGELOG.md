@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/parse-community/parse-php-sdk/compare/2.0.0...2.1.0) (2023-04-29)
+
+
+### Features
+
+* Add `ParseUser::logInAs` method ([#486](https://github.com/parse-community/parse-php-sdk/issues/486)) ([5b4e102](https://github.com/parse-community/parse-php-sdk/commit/5b4e102e4513e82cca1ddcce9c2158f6187239c8))
+
 # [2.0.0](https://github.com/parse-community/parse-php-sdk/compare/1.6.0...2.0.0) (2023-04-27)
 
 ### Features

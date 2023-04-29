@@ -30,5 +30,6 @@
     "parse-server": "github:parse-community/parse-server#alpha",
     "semantic-release": "21.0.1",
     "winston": "3.2.1"
-  }
+  },
+  "version": "2.1.0"
 }
