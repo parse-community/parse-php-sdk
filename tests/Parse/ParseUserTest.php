@@ -83,6 +83,33 @@ class ParseUserTest extends TestCase
         ParseUser::logIn('asdf', 'bogus');
     }
 
+    public function testLoginAsSuccess()
+    {
+        $user = new ParseUser();
+        $user->setUsername('plainusername');
+        $user->setPassword('plainpassword');
+        $user->signUp();
+
+        $id = $user->getObjectId();
+        $loggedInUser = ParseUser::logInAs($id);
+        $this->assertTrue($loggedInUser->isAuthenticated());
+        $this->assertEquals('plainusername', $loggedInUser->get('username'));
+
+        ParseUser::logOut();
+    }
+
+    public function testLoginAsEmptyUsername()
+    {
+        $this->expectException('Parse\ParseException', 'Cannot log in as user with an empty user id.');
+        ParseUser::logInAs('');
+    }
+
+    public function testLoginAsNonexistentUser()
+    {
+        $this->expectException('Parse\ParseException', 'user not found.');
+        ParseUser::logInAs('a1b2c3d4e5');
+    }
+
     public function testLoginWithFacebook()
     {
         $this->expectException(

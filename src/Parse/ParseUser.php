@@ -158,6 +158,33 @@ class ParseUser extends ParseObject
     }
 
     /**
+     * Uses the master key to log in and return a valid ParseUser, or throws if invalid.
+     *
+     * @param $userId
+     *
+     * @throws ParseException
+     *
+     * @return ParseUser
+     */
+    public static function logInAs($userId)
+    {
+        if (!$userId) {
+            throw new ParseException(
+                'Cannot log in as user with an empty user id',
+                200
+            );
+        }
+        $data = ['userId' => $userId];
+        $result = ParseClient::_request('POST', 'loginAs', '', json_encode($data), true);
+        $user = new static();
+        $user->_mergeAfterFetch($result);
+        $user->handleSaveResult(true);
+        ParseClient::getStorage()->set('user', $user);
+
+        return $user;
+    }
+
+    /**
      * Logs in with Facebook details, or throws if invalid.
      *
      * @param string    $id              the Facebook user identifier
