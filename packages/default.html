@@ -1,581 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <meta charset="utf-8"/>
-    <title>     &raquo; \
-</title>
-    <meta name="author" content=""/>
-    <meta name="description" content=""/>
-
-            <link href="../css/template.css" rel="stylesheet" media="all"/>
-    
-            <!--[if lt IE 9]>
-        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-        <![endif]-->
-        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
-        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
-        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
-        <script src="../js/bootstrap.js" type="text/javascript"></script>
-        <script src="../js/template.js" type="text/javascript"></script>
-        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
-    
-            <link rel="shortcut icon" href="../img/favicon.ico"/>
-        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
-        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
-        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    <meta charset="utf-8">
+    <title>Parse PHP SDK API Reference</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/js/all.min.js" integrity="sha256-0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=" crossorigin="anonymous"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
     </head>
-<body>
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Parse PHP SDK API Reference</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
+    <section data-search-form class="phpdocumentor-search">
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
 
-        <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span> <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> </a>
-                <a class="brand" href="../index.html">Parse PHP SDK API Reference</a>
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
 
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li class="dropdown">
-                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                API Documentation <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                                                    <li><a>Namespaces</a></li>
-                                                                        <li><a href="../\Parse">Parse</a></li>
-                                                                                                                                </ul>
-                        </li>
-                        <li class="dropdown" id="charts-menu">
-                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                Charts <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../graph_class.html">
-                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                    </a>
-                                </li>
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -four phpdocumentor-sidebar">
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/parse.html"><abbr title="\Parse">Parse</abbr></a></h4>
+                <ul class="phpdocumentor-list">
+                                            <li><a href="namespaces/parse-httpclients.html"><abbr title="\Parse\HttpClients">HttpClients</abbr></a></li>
+                                            <li><a href="namespaces/parse-internal.html"><abbr title="\Parse\Internal">Internal</abbr></a></li>
+                                    </ul>
+                        </section>
+
+        <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                    <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/Default.html"><abbr title="\Default">Default</abbr></a></h3>
+                                <h3 class="phpdocumentor-sidebar__root-package"><a href="packages/Parse.html"><abbr title="\Parse">Parse</abbr></a></h3>
+                        <ul class="phpdocumentor-list">
+                                    <li><a href="packages/Parse-HttpClients.html"><abbr title="\Parse\HttpClients">HttpClients</abbr></a></li>
+                                    <li><a href="packages/Parse-Internal.html"><abbr title="\Parse\Internal">Internal</abbr></a></li>
                             </ul>
-                        </li>
-                        <li class="dropdown" id="reports-menu">
-                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                Reports <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="../errors.html">
-                                        <i class="icon-list-alt"></i>&#160;Errors
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../markers.html">
-                                        <i class="icon-list-alt"></i>&#160;Markers
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../deprecated.html">
-                                        <i class="icon-list-alt"></i>&#160;Deprecated
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                        </section>
+    
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
+</aside>
+
+            <div class="phpdocumentor-column -eight phpdocumentor-content">
+                    <ul class="phpdocumentor-breadcrumbs">
+    </ul>
+
+    <article class="phpdocumentor-element -package">
+        <h2 class="phpdocumentor-content__title">API Documentation</h2>
+
+        <h3 id="packages">
+    Packages
+    <a href="#packages" class="headerlink"><i class="fas fa-link"></i></a>
+</h3>
+
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -package"><a href="packages/Default.html"><abbr title="\Default">Default</abbr></a></dt>
+            <dt class="phpdocumentor-table-of-contents__entry -package"><a href="packages/Parse.html"><abbr title="\Parse">Parse</abbr></a></dt>
+    </dl>
+
+
+
+
+
+        
+
+        
+    </article>
+                <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
             </div>
         </div>
-        <div class="go_to_top">
-            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
-        </div>
-    </div>
-    
-    <div id="___" class="container">
-        <noscript>
-            <div class="alert alert-warning">
-                Javascript is disabled; several features are only available if Javascript is enabled.
-            </div>
-        </noscript>
+        <a href="packages/default.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
-        
-            
-    <div class="row">
+    </main>
 
-        <div class="span4">
-            <div class="btn-group view pull-right" data-toggle="buttons-radio">
-                <button class="btn details" title="Show descriptions and method names">
-                    <i class="icon-list"></i></button><button class="btn simple" title="Show only method names">
-                    <i class="icon-align-justify"></i>
-                </button>
-            </div>
-            <ul class="side-nav nav nav-list">
-                <li class="nav-header">
-                    <i class="icon-map-marker"></i> Packages
-                </li>
-                <a href="../\" title="\">
-                    <i class="icon-th"></i> \
-                </a>
-                <ul class="nav nav-list nav-packages">
-                        
-        <li>
-        <a href="../\Default" title="Default">
-            <i class="icon-th"></i> Default
-        </a>
-        <ul class="nav nav-list nav-packages">
-                
-    
-        </ul>
-    </li>
-        <li>
-        <a href="../\Parse" title="Parse">
-            <i class="icon-th"></i> Parse
-        </a>
-        <ul class="nav nav-list nav-packages">
-                
-        <li>
-        <a href="../\Parse\HttpClients" title="HttpClients">
-            <i class="icon-th"></i> HttpClients
-        </a>
-        <ul class="nav nav-list nav-packages">
-                
-    
-        </ul>
-    </li>
-        <li>
-        <a href="../\Parse\Internal" title="Internal">
-            <i class="icon-th"></i> Internal
-        </a>
-        <ul class="nav nav-list nav-packages">
-                
-    
-        </ul>
-    </li>
-    
-        </ul>
-    </li>
-    
-                </ul>
-            </ul>
-        </div>
-
-        <div class="span8 package-contents">
-                
-    <ul class="breadcrumb">
-        <li><a href="../index.html"><i class="icon-th"></i></a></li>
-            
-    
-    <li>
-        <span class="divider">\</span><a href="../\">\</a>
-    </li>
-
-    </ul>
-
-    
-                
-    <ul class="breadcrumb">
-        <li><a href="../index.html"><i class="icon-th"></i></a></li>
-            
-    
-    <li>
-        <span class="divider">\</span><a href="../\Default">Default</a>
-    </li>
-
-    </ul>
-
-    
-    
-                
-    <ul class="breadcrumb">
-        <li><a href="../index.html"><i class="icon-th"></i></a></li>
-            
-    
-    <li>
-        <span class="divider">\</span><a href="../\Parse">Parse</a>
-    </li>
-
-    </ul>
-
-    
-        
-        
-                    <div class="package-indent">
-                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
-                
-                                        <div id="ParseStorageInterface" class="element ajax clickable interface">
-        <h1>ParseStorageInterface<a href="../\Parse\ParseStorageInterface">¶</a></h1>
-        <p class="short_description">Class ParseStorageInterface - Specifies an interface for implementing persistence.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseStorageInterface" class="more">« More »</a>
-    </div>
-
-                
-                                        <div id="ParseACL" class="element ajax clickable class">
-        <h1>ParseACL<a href="../\Parse\ParseACL">¶</a></h1>
-        <p class="short_description">Class ParseACL - is used to control which users can access or modify a particular
-object. Each ParseObject can have its own ParseACL. You can grant read and
-write permissions separately to specific users, to groups of users that
-belong to roles, or you can grant permissions to &quot;the public&quot; so that, for
-example, any user could read a particular object but only a particular set
-of users could write to that object.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseACL" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseAggregateException" class="element ajax clickable class">
-        <h1>ParseAggregateException<a href="../\Parse\ParseAggregateException">¶</a></h1>
-        <p class="short_description">Class ParseAggregateException - Multiple error condition.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseAggregateException" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseAnalytics" class="element ajax clickable class">
-        <h1>ParseAnalytics<a href="../\Parse\ParseAnalytics">¶</a></h1>
-        <p class="short_description">Class ParseAnalytics - Handles sending app-open and custom analytics events.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseAnalytics" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseApp" class="element ajax clickable class">
-        <h1>ParseApp<a href="../\Parse\ParseApp">¶</a></h1>
-        <p class="short_description">Class ParseApp - Used to manage individual app instances on parse.com.</p>
-        <div class="details collapse">Note that with the open source parse-server this is not used as each parse-server is a singular app instance.</div>
-        <a href="../\Parse\ParseApp" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseAudience" class="element ajax clickable class">
-        <h1>ParseAudience<a href="../\Parse\ParseAudience">¶</a></h1>
-        <p class="short_description">Class ParseAudience - Representation of Audience for tracking and sending push notifications</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseAudience" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseBytes" class="element ajax clickable class">
-        <h1>ParseBytes<a href="../\Parse\ParseBytes">¶</a></h1>
-        <p class="short_description">Class ParseBytes - Representation of a Byte array for storage on a Parse Object.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseBytes" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseClient" class="element ajax clickable class">
-        <h1>ParseClient<a href="../\Parse\ParseClient">¶</a></h1>
-        <p class="short_description">Class ParseClient - Main class for Parse initialization and communication.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseClient" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseCloud" class="element ajax clickable class">
-        <h1>ParseCloud<a href="../\Parse\ParseCloud">¶</a></h1>
-        <p class="short_description">Class ParseCloud - Facilitates calling Parse Cloud functions.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseCloud" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseConfig" class="element ajax clickable class">
-        <h1>ParseConfig<a href="../\Parse\ParseConfig">¶</a></h1>
-        <p class="short_description">Class ParseConfig - For accessing Parse Config settings.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseConfig" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseException" class="element ajax clickable class">
-        <h1>ParseException<a href="../\Parse\ParseException">¶</a></h1>
-        <p class="short_description">Class ParseException - Wrapper for \Exception class.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseException" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseFile" class="element ajax clickable class">
-        <h1>ParseFile<a href="../\Parse\ParseFile">¶</a></h1>
-        <p class="short_description">Class ParseFile - Representation of a Parse File object.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseFile" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseGeoPoint" class="element ajax clickable class">
-        <h1>ParseGeoPoint<a href="../\Parse\ParseGeoPoint">¶</a></h1>
-        <p class="short_description">Class ParseGeoPoint - Representation of a Parse GeoPoint object.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseGeoPoint" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseHooks" class="element ajax clickable class">
-        <h1>ParseHooks<a href="../\Parse\ParseHooks">¶</a></h1>
-        <p class="short_description">Class ParseHooks - Representation of a Parse Hooks object.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseHooks" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseInstallation" class="element ajax clickable class">
-        <h1>ParseInstallation<a href="../\Parse\ParseInstallation">¶</a></h1>
-        <p class="short_description">Class ParseInstallation - Representation of an Installation stored on Parse.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseInstallation" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseLogs" class="element ajax clickable class">
-        <h1>ParseLogs<a href="../\Parse\ParseLogs">¶</a></h1>
-        <p class="short_description">Class ParseLogs - Allows access to server side parse script logs</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseLogs" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseMemoryStorage" class="element ajax clickable class">
-        <h1>ParseMemoryStorage<a href="../\Parse\ParseMemoryStorage">¶</a></h1>
-        <p class="short_description">Class ParseMemoryStorage - Uses non-persisted memory for storage.</p>
-        <div class="details collapse">This is used by default if a PHP Session is not active.</div>
-        <a href="../\Parse\ParseMemoryStorage" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseObject" class="element ajax clickable class">
-        <h1>ParseObject<a href="../\Parse\ParseObject">¶</a></h1>
-        <p class="short_description">Class ParseObject - Representation of an object stored on Parse.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseObject" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParsePolygon" class="element ajax clickable class">
-        <h1>ParsePolygon<a href="../\Parse\ParsePolygon">¶</a></h1>
-        <p class="short_description">ParsePolygon - Representation of a Parse Polygon object.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParsePolygon" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParsePush" class="element ajax clickable class">
-        <h1>ParsePush<a href="../\Parse\ParsePush">¶</a></h1>
-        <p class="short_description">Class ParsePush - Handles sending push notifications with Parse.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParsePush" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParsePushStatus" class="element ajax clickable class">
-        <h1>ParsePushStatus<a href="../\Parse\ParsePushStatus">¶</a></h1>
-        <p class="short_description">Class ParsePushStatus - Representation of PushStatus for push notifications</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParsePushStatus" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseQuery" class="element ajax clickable class">
-        <h1>ParseQuery<a href="../\Parse\ParseQuery">¶</a></h1>
-        <p class="short_description">Class ParseQuery - Handles querying data from Parse.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseQuery" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseRelation" class="element ajax clickable class">
-        <h1>ParseRelation<a href="../\Parse\ParseRelation">¶</a></h1>
-        <p class="short_description">Class ParseRelation - A class that is used to access all of the children of a many-to-many relationship.</p>
-        <div class="details collapse">Each instance of ParseRelation is associated with a particular parent object and key.</div>
-        <a href="../\Parse\ParseRelation" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseRole" class="element ajax clickable class">
-        <h1>ParseRole<a href="../\Parse\ParseRole">¶</a></h1>
-        <p class="short_description">Class ParseRole - Representation of an access Role.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseRole" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseSchema" class="element ajax clickable class">
-        <h1>ParseSchema<a href="../\Parse\ParseSchema">¶</a></h1>
-        <p class="short_description">Class ParseSchema - Handles schemas data from Parse.</p>
-        <div class="details collapse">All the schemas methods need use of the master key for your application.</div>
-        <a href="../\Parse\ParseSchema" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseServerInfo" class="element ajax clickable class">
-        <h1>ParseServerInfo<a href="../\Parse\ParseServerInfo">¶</a></h1>
-        <p class="short_description">Class ParseFeatures - Representation of server-side features</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseServerInfo" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseSession" class="element ajax clickable class">
-        <h1>ParseSession<a href="../\Parse\ParseSession">¶</a></h1>
-        <p class="short_description">Class ParseSession - Representation of an expiring user session.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseSession" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseSessionStorage" class="element ajax clickable class">
-        <h1>ParseSessionStorage<a href="../\Parse\ParseSessionStorage">¶</a></h1>
-        <p class="short_description">Class ParseSessionStorage - Uses PHP session support for persistent storage.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseSessionStorage" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseUser" class="element ajax clickable class">
-        <h1>ParseUser<a href="../\Parse\ParseUser">¶</a></h1>
-        <p class="short_description">Class ParseUser - Representation of a user object stored on Parse.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\ParseUser" class="more">« More »</a>
-    </div>
-
-                            </div>
-            
-                
-    <ul class="breadcrumb">
-        <li><a href="../index.html"><i class="icon-th"></i></a></li>
-            
-                
-    
-    <li>
-        <span class="divider">\</span><a href="../\Parse">Parse</a>
-    </li>
-
-    
-    <li>
-        <span class="divider">\</span><a href="../\Parse\HttpClients">HttpClients</a>
-    </li>
-
-    </ul>
-
-    
-        
-        
-                    <div class="package-indent">
-                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
-                
-                                        <div id="ParseHttpable" class="element ajax clickable interface">
-        <h1>ParseHttpable<a href="../\Parse\HttpClients\ParseHttpable">¶</a></h1>
-        <p class="short_description">Class ParseHttpable - Interface for an HTTPable client</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\HttpClients\ParseHttpable" class="more">« More »</a>
-    </div>
-
-                
-                                        <div id="ParseCurl" class="element ajax clickable class">
-        <h1>ParseCurl<a href="../\Parse\HttpClients\ParseCurl">¶</a></h1>
-        <p class="short_description">Class ParseCurl - Wrapper for abstracted curl usage</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\HttpClients\ParseCurl" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseCurlHttpClient" class="element ajax clickable class">
-        <h1>ParseCurlHttpClient<a href="../\Parse\HttpClients\ParseCurlHttpClient">¶</a></h1>
-        <p class="short_description">Class ParseCurlHttpClient - Curl http client</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\HttpClients\ParseCurlHttpClient" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseStream" class="element ajax clickable class">
-        <h1>ParseStream<a href="../\Parse\HttpClients\ParseStream">¶</a></h1>
-        <p class="short_description">Class ParseStream - Wrapper for abstracted stream usage</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\HttpClients\ParseStream" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseStreamHttpClient" class="element ajax clickable class">
-        <h1>ParseStreamHttpClient<a href="../\Parse\HttpClients\ParseStreamHttpClient">¶</a></h1>
-        <p class="short_description">Class ParseStreamHttpClient - Stream http client</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\HttpClients\ParseStreamHttpClient" class="more">« More »</a>
-    </div>
-
-                            </div>
-            
-    
-                
-    <ul class="breadcrumb">
-        <li><a href="../index.html"><i class="icon-th"></i></a></li>
-            
-                
-    
-    <li>
-        <span class="divider">\</span><a href="../\Parse">Parse</a>
-    </li>
-
-    
-    <li>
-        <span class="divider">\</span><a href="../\Parse\Internal">Internal</a>
-    </li>
-
-    </ul>
-
-    
-        
-        
-                    <div class="package-indent">
-                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
-                
-                                        <div id="Encodable" class="element ajax clickable interface">
-        <h1>Encodable<a href="../\Parse\Internal\Encodable">¶</a></h1>
-        <p class="short_description">Class Encodable - Interface for Parse Classes which provide an encode
-method.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\Internal\Encodable" class="more">« More »</a>
-    </div>
-
-                                        <div id="FieldOperation" class="element ajax clickable interface">
-        <h1>FieldOperation<a href="../\Parse\Internal\FieldOperation">¶</a></h1>
-        <p class="short_description">Class FieldOperation - Interface for all Parse Field Operations.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\Internal\FieldOperation" class="more">« More »</a>
-    </div>
-
-                
-                                        <div id="AddOperation" class="element ajax clickable class">
-        <h1>AddOperation<a href="../\Parse\Internal\AddOperation">¶</a></h1>
-        <p class="short_description">Class AddOperation - FieldOperation for adding object(s) to array fields.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\Internal\AddOperation" class="more">« More »</a>
-    </div>
-
-                                        <div id="AddUniqueOperation" class="element ajax clickable class">
-        <h1>AddUniqueOperation<a href="../\Parse\Internal\AddUniqueOperation">¶</a></h1>
-        <p class="short_description">Class AddUniqueOperation - Operation to add unique objects to an array key.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\Internal\AddUniqueOperation" class="more">« More »</a>
-    </div>
-
-                                        <div id="DeleteOperation" class="element ajax clickable class">
-        <h1>DeleteOperation<a href="../\Parse\Internal\DeleteOperation">¶</a></h1>
-        <p class="short_description">Class DeleteOperation - FieldOperation to remove a key from an object.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\Internal\DeleteOperation" class="more">« More »</a>
-    </div>
-
-                                        <div id="IncrementOperation" class="element ajax clickable class">
-        <h1>IncrementOperation<a href="../\Parse\Internal\IncrementOperation">¶</a></h1>
-        <p class="short_description">Class IncrementOperation - Operation to increment numeric object key.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\Internal\IncrementOperation" class="more">« More »</a>
-    </div>
-
-                                        <div id="ParseRelationOperation" class="element ajax clickable class">
-        <h1>ParseRelationOperation<a href="../\Parse\Internal\ParseRelationOperation">¶</a></h1>
-        <p class="short_description">Class ParseRelationOperation - A class that is used to manage ParseRelation changes such as object add or remove.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\Internal\ParseRelationOperation" class="more">« More »</a>
-    </div>
-
-                                        <div id="RemoveOperation" class="element ajax clickable class">
-        <h1>RemoveOperation<a href="../\Parse\Internal\RemoveOperation">¶</a></h1>
-        <p class="short_description">Class RemoveOperation - FieldOperation for removing object(s) from array
-fields.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\Internal\RemoveOperation" class="more">« More »</a>
-    </div>
-
-                                        <div id="SetOperation" class="element ajax clickable class">
-        <h1>SetOperation<a href="../\Parse\Internal\SetOperation">¶</a></h1>
-        <p class="short_description">Class SetOperation - Operation to set a value for an object key.</p>
-        <div class="details collapse"></div>
-        <a href="../\Parse\Internal\SetOperation" class="more">« More »</a>
-    </div>
-
-                            </div>
-            
-    
-    
-    
-        </div>
-    </div>
-    </div>
-
-        <footer class="span12">
-            Template is built using <a href="https://getbootstrap.com/">Twitter Bootstrap 2</a> and icons provided by
-            <a href="https://glyphicons.com/">Glyphicons</a>.<br/>
-            Documentation is powered by <a href="https://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Fri, 28 Apr 2023 17:21:40 +0000.<br/>
-    </footer>
-    </body>
+    <script>
+        cssVars({});
+    </script>
+</body>
 </html>
