@@ -79,7 +79,8 @@ async function config() {
         'changelogFile': changelogFile,
       }],
       ["@semantic-release/exec", {
-        "prepareCmd": `sed -i '' -r "s/const VERSION_STRING = '.*'/const VERSION_STRING = '\${nextRelease.version}'/" ./src/Parse/ParseClient.php`
+        // Update Parse SDK version
+        "prepareCmd": `sed -i'' -r "s/const VERSION_STRING = '.*'/const VERSION_STRING = '\${nextRelease.version}'/" ./src/Parse/ParseClient.php`
       }],
       ['@semantic-release/npm', {
         'npmPublish': false,
