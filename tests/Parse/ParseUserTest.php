@@ -2,6 +2,7 @@
 
 namespace Parse\Test;
 
+use Parse\ParseCloud;
 use Parse\ParseClient;
 use Parse\ParseObject;
 use Parse\ParseQuery;
