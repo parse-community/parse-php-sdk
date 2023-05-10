@@ -61,7 +61,7 @@ class ParseStream
     {
         try {
             // get our response
-            $response = file_get_contents($url, false, $this->stream);
+            $response = $this->getFileContents($url, false, $this->stream);
             $this->errorMessage = null;
             $this->errorCode    = null;
         } catch (\Exception $e) {
@@ -98,12 +98,20 @@ class ParseStream
     }
 
     /**
-     * Gest the current error code
+     * Get the current error code
      *
      * @return int
      */
     public function getErrorCode()
     {
         return $this->errorCode;
+    }
+
+    /**
+     * Wrapper for file_get_contents, used for testing
+     */
+    public function getFileContents($filename, $use_include_path, $context)
+    {
+        return file_get_contents($filename, $use_include_path, $context);
     }
 }

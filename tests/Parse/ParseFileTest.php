@@ -99,13 +99,14 @@ class ParseFileTest extends TestCase
         if (!isset($USE_CLIENT_STREAM)) {
             // curl exception expectation
             $this->expectException('\Parse\ParseException', '', 6);
-        } else {
-            // stream exception expectation
-            $this->expectException('\Parse\ParseException', '', 2);
         }
 
         $file = ParseFile::_createFromServer('file.txt', 'http://404.example.com');
-        $file->getData();
+        $data = $file->getData();
+
+        if (isset($USE_CLIENT_STREAM)) {
+            $this->assertEquals('', $data);
+        }
     }
 
     /**

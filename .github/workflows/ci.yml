@@ -52,6 +52,7 @@ jobs:
       - run: npm ci
       - run: npm start
       - run: npm run lint
+      - run: npm run test-stream
       - run: npm run test:coverage
       - run: npm run document-check
       - run: npm run document
