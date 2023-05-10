@@ -2,6 +2,7 @@
 
 namespace Parse\Test;
 
+use Parse\ParseCloud;
 use Parse\ParseClient;
 use Parse\ParseObject;
 use Parse\ParseQuery;
@@ -326,6 +327,16 @@ class ParseUserTest extends TestCase
 
         $this->expectException('Parse\ParseException', 'Invalid session token');
         ParseUser::become('garbage_token');
+    }
+
+    public function testBecomeFromCloudCode()
+    {
+        $sessionToken = ParseCloud::run('createTestUser', []);
+
+        $user = ParseUser::become($sessionToken);
+        $this->assertEquals(ParseUser::getCurrentUser(), $user);
+        $this->assertEquals('harry', $user->get('username'));
+        $this->assertEquals($user->getSessionToken(), $sessionToken);
     }
 
     public function testCannotSingUpAlreadyExistingUser()

@@ -7,6 +7,15 @@ Parse.Cloud.define('bar', (request) => {
   }
 });
 
+Parse.Cloud.define('createTestUser', async (request) => {
+  const user = new Parse.User();
+  user.set('username', 'harry');
+  user.set('password', 'potter');
+  await user.signUp();
+  const loggedIn = await Parse.User.logIn('harry', 'potter');
+  return loggedIn.getSessionToken();
+});
+
 Parse.Cloud.define('foo', (request) => {
     var key1 = request.params.key1;
     var key2 = request.params.key2;
