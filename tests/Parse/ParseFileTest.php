@@ -199,6 +199,10 @@ class ParseFileTest extends TestCase
 
     public function testFileDelete()
     {
+        global $USE_CLIENT_STREAM;
+        if (isset($USE_CLIENT_STREAM)) {
+            $this->markTestSkipped('Skipping curl delete file test');
+        }
         $data = 'c-c-c-combo breaker';
         $name = 'php.txt';
         $file = ParseFile::createFromData($data, $name);

@@ -68,12 +68,9 @@ class ParseStream
             // set our error message/code and return false
             $this->errorMessage = $e->getMessage();
             $this->errorCode    = $e->getCode();
+            $this->responseHeaders = null;
             return false;
         }
-
-        // set response headers
-        $this->responseHeaders = @$http_response_header;
-
         return $response;
     }
 
@@ -112,6 +109,8 @@ class ParseStream
      */
     public function getFileContents($filename, $use_include_path, $context)
     {
-        return @file_get_contents($filename, $use_include_path, $context);
+        $result = file_get_contents($filename, $use_include_path, $context);
+        $this->responseHeaders = $http_response_header;
+        return $result;
     }
 }
