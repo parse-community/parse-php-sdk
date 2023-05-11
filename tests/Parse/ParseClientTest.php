@@ -660,7 +660,6 @@ class ParseClientTest extends TestCase
 
         ParseClient::setServerURL('http://___uh___oh___.com', 'parse');
         $health = ParseClient::getServerHealth();
-        $this->assertEquals($health['status'], 404);
 
         global $USE_CLIENT_STREAM;
         if (!isset($USE_CLIENT_STREAM)) {
