@@ -6,12 +6,12 @@ on:
         default: ''
         description: 'Version tag:' 
 env:
-  NODE_VERSION: 16.17.1
+  NODE_VERSION: 18
   PHP_VERSION: 8.1
 jobs:
   docs-publish:
     if: github.event.inputs.tag != ''
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3

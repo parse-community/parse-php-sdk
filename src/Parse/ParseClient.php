@@ -108,7 +108,7 @@ final class ParseClient
      *
      * @var string
      */
-    const VERSION_STRING = '2.0.0';
+    const VERSION_STRING = '2.1.0';
 
     /**
      * Parse\Client::initialize, must be called before using Parse features.
@@ -554,7 +554,7 @@ final class ParseClient
         $response = $httpClient->send($url, $method, $data);
 
         // check content type of our response
-        $contentType = $httpClient->getResponseContentType();
+        $contentType = $httpClient->getResponseContentType() || '';
 
         if (strpos($contentType, 'text/html') !== false) {
             throw new ParseException('Bad Request', -1);

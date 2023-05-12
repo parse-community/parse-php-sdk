@@ -2,6 +2,7 @@
 
 namespace Parse\Test;
 
+use Parse\ParseCloud;
 use Parse\ParseClient;
 use Parse\ParseObject;
 use Parse\ParseQuery;
@@ -81,6 +82,33 @@ class ParseUserTest extends TestCase
         $this->testUserSignUp();
         $this->expectException('Parse\ParseException', 'Invalid username/password.');
         ParseUser::logIn('asdf', 'bogus');
+    }
+
+    public function testLoginAsSuccess()
+    {
+        $user = new ParseUser();
+        $user->setUsername('plainusername');
+        $user->setPassword('plainpassword');
+        $user->signUp();
+
+        $id = $user->getObjectId();
+        $loggedInUser = ParseUser::logInAs($id);
+        $this->assertTrue($loggedInUser->isAuthenticated());
+        $this->assertEquals('plainusername', $loggedInUser->get('username'));
+
+        ParseUser::logOut();
+    }
+
+    public function testLoginAsEmptyUsername()
+    {
+        $this->expectException('Parse\ParseException', 'Cannot log in as user with an empty user id.');
+        ParseUser::logInAs('');
+    }
+
+    public function testLoginAsNonexistentUser()
+    {
+        $this->expectException('Parse\ParseException', 'user not found.');
+        ParseUser::logInAs('a1b2c3d4e5');
     }
 
     public function testLoginWithFacebook()
@@ -299,6 +327,16 @@ class ParseUserTest extends TestCase
 
         $this->expectException('Parse\ParseException', 'Invalid session token');
         ParseUser::become('garbage_token');
+    }
+
+    public function testBecomeFromCloudCode()
+    {
+        $sessionToken = ParseCloud::run('createTestUser', []);
+
+        $user = ParseUser::become($sessionToken);
+        $this->assertEquals(ParseUser::getCurrentUser(), $user);
+        $this->assertEquals('harry', $user->get('username'));
+        $this->assertEquals($user->getSessionToken(), $sessionToken);
     }
 
     public function testCannotSingUpAlreadyExistingUser()
