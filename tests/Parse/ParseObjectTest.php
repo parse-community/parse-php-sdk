@@ -1095,6 +1095,55 @@ class ParseObjectTest extends TestCase
         $this->assertEquals('bar', $results[2]->get('foo'));
     }
 
+    /**
+     * @group test-fetch-all-include
+     */
+    public function testFetchAllWithInclude()
+    {
+        $child = ParseObject::create('TestObject');
+        $child->set('name', 'parse');
+        $child->save();
+        $obj1 = ParseObject::create('TestObject');
+        $obj2 = ParseObject::create('TestObject');
+        $obj3 = ParseObject::create('TestObject');
+        $obj1->set('foo', 'bar');
+        $obj2->set('foo', 'bar');
+        $obj3->set('foo', 'bar');
+        $obj1->set('child', $child);
+        $obj2->set('child', $child);
+        $obj3->set('child', $child);
+        ParseObject::saveAll([$obj1, $obj2, $obj3]);
+        $newObj1 = ParseObject::create('TestObject', $obj1->getObjectId());
+        $newObj2 = ParseObject::create('TestObject', $obj2->getObjectId());
+        $newObj3 = ParseObject::create('TestObject', $obj3->getObjectId());
+        $results = ParseObject::fetchAllWithInclude([$newObj1, $newObj2, $newObj3], ['child']);
+        $this->assertEquals(3, count($results));
+        $this->assertEquals('bar', $results[0]->get('foo'));
+        $this->assertEquals('bar', $results[1]->get('foo'));
+        $this->assertEquals('bar', $results[2]->get('foo'));
+        $this->assertEquals('parse', $results[0]->get('child')->get('name'));
+        $this->assertEquals('parse', $results[1]->get('child')->get('name'));
+        $this->assertEquals('parse', $results[2]->get('child')->get('name'));
+    }
+
+    /**
+     * @group test-fetch-include
+     */
+    public function testFetchWithInclude()
+    {
+        $child = ParseObject::create('TestObject');
+        $child->set('name', 'parse');
+        $child->save();
+        $obj1 = ParseObject::create('TestObject');
+        $obj1->set('foo', 'bar');
+        $obj1->set('child', $child);
+        $obj1->save();
+        $newObj1 = ParseObject::create('TestObject', $obj1->getObjectId());
+        $newObj1->fetchWithInclude(['child']);
+        $this->assertEquals('bar', $newObj1->get('foo'));
+        $this->assertEquals('parse', $newObj1->get('child')->get('name'));
+    }
+
     public function testNoRegisteredSubclasses()
     {
         $this->expectException(
@@ -1352,6 +1401,11 @@ class ParseObjectTest extends TestCase
     public function testEmptyFetchAll()
     {
         $this->assertEmpty(ParseObject::fetchAll([]));
+    }
+
+    public function testEmptyFetchAllWithInclude()
+    {
+        $this->assertEmpty(ParseObject::fetchAllWithInclude([], []));
     }
 
     public function testFetchAllMixedClasses()
