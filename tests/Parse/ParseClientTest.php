@@ -667,4 +667,23 @@ class ParseClientTest extends TestCase
             $this->assertTrue(isset($health['error_message']));
         }
     }
+
+    /**
+     * @group test-http-options
+     */
+    public function testHttpOptions()
+    {
+        if (function_exists('curl_init')) {
+            // set a curl client
+            ParseClient::setHttpClient(new ParseCurlHttpClient());
+            echo dirname(__DIR__).'/keys/client.crt';
+            ParseClient::setCAFile(dirname(__DIR__).'/keys/client.crt');
+            ParseClient::setServerURL('https://localhost:1338', 'parse');
+            $health = ParseClient::getServerHealth();
+            Helper::printArray($health);
+            $this->assertNotNull($health);
+            $this->assertEquals($health['status'], 200);
+            $this->assertEquals($health['response']['status'], 'ok');
+        }
+    }
 }
