@@ -36,6 +36,9 @@ const server = new ParseServer({
       appIds: "not_a_real_facebook_app_id"
     }
   },
+  liveQuery: {
+    classNames: ["TestObject", "_User"],
+  },
   fileUpload: {
     enableForPublic: true,
     enableForAnonymousUser: true,
