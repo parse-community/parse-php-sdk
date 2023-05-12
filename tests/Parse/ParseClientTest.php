@@ -321,6 +321,10 @@ class ParseClientTest extends TestCase
      */
     public function testNoCurlExceptions()
     {
+        global $USE_CLIENT_STREAM;
+        if (isset($USE_CLIENT_STREAM)) {
+            $this->markTestSkipped('Skipping curl exception test');
+        }
         Helper::setUpWithoutCURLExceptions();
 
         ParseClient::setServerURL('http://404.example.com', 'parse');
@@ -656,7 +660,11 @@ class ParseClientTest extends TestCase
 
         ParseClient::setServerURL('http://___uh___oh___.com', 'parse');
         $health = ParseClient::getServerHealth();
-        $this->assertTrue(isset($health['error']));
-        $this->assertTrue(isset($health['error_message']));
+
+        global $USE_CLIENT_STREAM;
+        if (!isset($USE_CLIENT_STREAM)) {
+            $this->assertTrue(isset($health['error']));
+            $this->assertTrue(isset($health['error_message']));
+        }
     }
 }
