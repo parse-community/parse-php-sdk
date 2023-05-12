@@ -1,5 +1,5 @@
 .idea
-composer.lock
+.DS_Store
 vendor
 
 # npm based parse-server-test
@@ -10,12 +10,13 @@ test_logs
 # ignore test results
 phpunit-test-results
 .phpunit.result.cache
-
+.phpunit.cache
 *.log
 
 coverage.xml
 
 # ignore phpdoc
 output/
+.phpdoc/
 
 composer.phar

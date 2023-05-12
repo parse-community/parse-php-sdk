@@ -1,78 +1,67 @@
-<p align="center">
-    <img alt="Parse Platform" src="Assets/logo large.png" width="200">
-  </a>
-</p>
+![parse-repository-header-sdk-php](https://user-images.githubusercontent.com/5673677/235324256-42e13836-b26a-4de0-a5c7-b979bc5aff2c.png)
 
-<h2 align="center">Parse PHP SDK</h2>
+---
 
-<p align="center">
-    The Parse PHP SDK gives you access to the powerful Parse Server backend from your PHP app or script.
-</p>
+[![Build Status CI release](https://github.com/parse-community/parse-php-sdk/workflows/ci/badge.svg?branch=master)](https://github.com/parse-community/parse-php-sdk/actions?query=workflow%3Aci+branch%3Amaster)
+[![Snyk Badge](https://snyk.io/test/github/parse-community/parse-php-sdk/badge.svg)](https://snyk.io/test/github/parse-community/parse-php-sdk)
+[![Coverage](http://codecov.io/github/parse-community/parse-php-sdk/coverage.svg?branch=master)](http://codecov.io/github/parse-community/parse-php-sdk?branch=master)
+[![auto-release](https://img.shields.io/badge/%F0%9F%9A%80-auto--release-9e34eb.svg)](https://github.com/parse-community/parse-dashboard/releases)
 
-<p align="center">
-    <a href="https://twitter.com/intent/follow?screen_name=parseplatform"><img alt="Follow on Twitter" src="https://img.shields.io/twitter/follow/parseplatform?style=social&label=Follow"></a>
-    <a href="https://community.parseplatform.org/"><img alt="Join the conversation" src="https://img.shields.io/discourse/https/community.parseplatform.org/topics.svg"></a>
-    <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-BSD-lightgrey.svg"></a>
-    <a href="https://travis-ci.org/parse-community/parse-php-sdk"><img alt="Build status" src="https://travis-ci.org/parse-community/parse-php-sdk.svg?branch=master"></a>
-    <a href="https://packagist.org/packages/parse/php-sdk"><img alt="All time downloads" src="https://poser.pugx.org/parse/php-sdk/downloads" /></a>
-</p>
+[![PHP Version](https://img.shields.io/badge/php-8.1,_8.2-green.svg?logo=php&style=flat)](https://php.org/)
 
-<p align="center">
-    <a href="https://codecov.io/gh/parse-community/parse-php-sdk"><img alt="Test coverage" src="https://codecov.io/gh/parse-community/parse-php-sdk/branch/master/graph/badge.svg"></a>
-    <a href="#backers"><img alt="Backers on Open Collective" src="https://opencollective.com/parse-server/backers/badge.svg" /></a>
-    <a href="#sponsors"><img alt="Sponsors on Open Collective" src="https://opencollective.com/parse-server/sponsors/badge.svg" /></a>
-    <a href="https://packagist.org/packages/parse/php-sdk"><img alt="Latest stable version" src="https://poser.pugx.org/parse/php-sdk/v/stable" /></a>
-    <a href="https://packagist.org/packages/parse/php-sdk"><img alt="Latest unstable version" src="https://poser.pugx.org/parse/php-sdk/v/unstable" /></a>
-</p>
-<br>
+[![packagist latest version](https://img.shields.io/packagist/v/parse/php-sdk)](https://packagist.org/packages/parse/php-sdk)
 
-For more information on Parse and its features, see [the website](https://parseplatform.org), [the PHP guide](https://docs.parseplatform.org/php/guide/) or [API Reference](https://parseplatform.org/parse-php-sdk/namespaces/Parse.html).
+[![Backers on Open Collective](https://opencollective.com/parse-server/backers/badge.svg)][open-collective-link]
+[![Sponsors on Open Collective](https://opencollective.com/parse-server/sponsors/badge.svg)][open-collective-link]
+[![Forum](https://img.shields.io/discourse/https/community.parseplatform.org/topics.svg)](https://community.parseplatform.org/c/client-sdks/javascript-sdk)
+[![Twitter](https://img.shields.io/twitter/follow/ParsePlatform.svg?label=Follow&style=social)](https://twitter.com/intent/follow?screen_name=ParsePlatform)
 
-Please note that this documentation contains the latest changes that may as of yet be unreleased. To see the README for your release please use the list below.
-- [1.6.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.6.0/README.md)
-- [1.5.1 README](https://github.com/parse-community/parse-php-sdk/blob/1.5.1/README.md)
-- [1.4.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.4.0/README.md)
-- [1.3.0 README](https://github.com/parse-community/parse-php-sdk/blob/1.3.0/README.md)
+---
 
-## Table of Contents
+A library that gives you access to the powerful Parse Server backend from your PHP app. For more information on Parse and its features, see [the website](https://parseplatform.org), [the PHP guide](https://docs.parseplatform.org/php/guide/), [the Cloud Code guide](https://docs.parseplatform.org/cloudcode/guide/) or [API Reference](https://parseplatform.org/parse-php-sdk/).
+
+---
+
+## Table of Contents <!-- omit in toc -->
+
 - [Installation](#installation)
-    - [Install with Composer](#install-with-composer)
-    - [Install with Git](#install-with-git)
-    - [Install with another method](#install-with-another-method)
+  - [Install with Composer](#install-with-composer)
+  - [Install with Git](#install-with-git)
+  - [Install with another method](#install-with-another-method)
 - [Setup](#setup)
-    - [Initializing](#initializing)
-    - [Server URL](#server-url)
-    - [Server Health Check](#server-health-check)
-    - [Http Clients](#http-clients)
-    - [Alternate CA files](#alternate-ca-file)
+  - [Initializing](#initializing)
+  - [Server URL](#server-url)
+  - [Server Health Check](#server-health-check)
+  - [Http Clients](#http-clients)
+  - [Alternate CA File](#alternate-ca-file)
 - [Getting Started](#getting-started)
-    - [Use Declarations](#use-declarations)
-    - [Parse Objects](#parse-objects)
-    - [Users](#users)
-        - [Session Id and Session Fixation](#session-id-and-session-fixation)
-        - [Verification Emails](#verification-emails)
-    - [ACLs/Security](#acls)
-    - [Queries](#queries)
-        - [Aggregate](#aggregate)
-        - [Distinct](#distinct)
-        - [Relative Time](#relative-time)
-    - [Cloud Functions](#cloud-functions)
-    - [Cloud Jobs](#cloud-jobs)
-    - [Config](#config)
-    - [Analytics](#analytics)
-    - [Files](#files)
-    - [Push Notifications](#push)
-        - [Push to Channels](#push-to-channels)
-        - [Push with Query](#push-with-query)
-        - [Push with Audience](#push-with-audience)
-        - [Push Status](#push-status)
-    - [Server Info](#server-info)
-        - [Version](#version)
-        - [Features](#features)
-    - [Schema](#schema)
-        - [Index](#index)
-        - [Purge](#purge)
-    - [Logs](#logs)
+  - [Use Declarations](#use-declarations)
+  - [Parse Objects](#parse-objects)
+  - [Users](#users)
+    - [Session Id and Session Fixation](#session-id-and-session-fixation)
+    - [Verification Emails](#verification-emails)
+  - [ACLs](#acls)
+  - [Queries](#queries)
+    - [Aggregate](#aggregate)
+    - [Distinct](#distinct)
+    - [Relative Time](#relative-time)
+  - [Cloud Functions](#cloud-functions)
+  - [Cloud Jobs](#cloud-jobs)
+  - [Config](#config)
+  - [Analytics](#analytics)
+  - [Files](#files)
+  - [Push](#push)
+    - [Push to Channels](#push-to-channels)
+    - [Push with Query](#push-with-query)
+    - [Push with Audience](#push-with-audience)
+    - [Push Status](#push-status)
+  - [Server Info](#server-info)
+    - [Version](#version)
+    - [Features](#features)
+  - [Schema](#schema)
+    - [Index](#index)
+    - [Purge](#purge)
+  - [Logs](#logs)
 - [Contributing / Testing](#contributing--testing)
 
 ## Installation
@@ -228,7 +217,7 @@ ParseClient::setCAFile(__DIR__ . '/certs/cacert.pem');
 
 We highly recommend you read through the [guide](http://docs.parseplatform.org/php/guide/) first. This will walk you through the basics of working with this sdk, as well as provide insight into how to best develop your project.
 
-If want to know more about what makes the php sdk tick you can read our [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/Parse.html) and flip through the code on [github](https://github.com/parse-community/parse-php-sdk/).
+If want to know more about what makes the php sdk tick you can read our [API Reference](http://parseplatform.org/parse-php-sdk/namespaces/parse.html) and flip through the code on [github](https://github.com/parse-community/parse-php-sdk/).
 
 Check out the [Parse PHP Guide] for the full documentation.
 
@@ -787,8 +776,7 @@ $logs = ParseLogs::getInfoLogs(10, $fromDate, $untilDate, 'asc');
 
 ## Contributing / Testing
 
-See [CONTRIBUTING](CONTRIBUTING.md) for information on testing and contributing to
-the Parse PHP SDK. We welcome fixes and enhancements.
+See [CONTRIBUTING](CONTRIBUTING.md) for information on testing and contributing to the Parse PHP SDK.
 
 -----
 

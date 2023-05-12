@@ -62,13 +62,6 @@ final class ParseClient
     private static $enableCurlExceptions;
 
     /**
-     * The account key.
-     *
-     * @var string
-     */
-    private static $accountKey;
-
-    /**
      * The object for managing persistence.
      *
      * @var ParseStorageInterface
@@ -111,11 +104,11 @@ final class ParseClient
     private static $caFile;
 
     /**
-     * Constant for version string to include with requests. Currently 1.6.0.
+     * Constant for version string to include with requests.
      *
      * @var string
      */
-    const VERSION_STRING = 'php1.6.0';
+    const VERSION_STRING = '2.1.0';
 
     /**
      * Parse\Client::initialize, must be called before using Parse features.
@@ -132,8 +125,7 @@ final class ParseClient
         $app_id,
         $rest_key,
         $master_key,
-        $enableCurlExceptions = true,
-        $account_key = null
+        $enableCurlExceptions = true
     ) {
         if (!ParseObject::hasRegisteredSubclass('_User')) {
             ParseUser::registerSubclass();
@@ -160,7 +152,6 @@ final class ParseClient
         self::$restKey = $rest_key;
         self::$masterKey = $master_key;
         self::$enableCurlExceptions = $enableCurlExceptions;
-        self::$accountKey = $account_key;
         if (!static::$storage) {
             if (session_status() === PHP_SESSION_ACTIVE) {
                 self::setStorage(new ParseSessionStorage());
@@ -484,7 +475,6 @@ final class ParseClient
      * @param null   $sessionToken  Session Token.
      * @param null   $data          Data to provide with the request.
      * @param bool   $useMasterKey  Whether to use the Master Key.
-     * @param bool   $appRequest    App request to create or modify a application
      * @param string $contentType   The content type for this request, default is application/json
      * @param bool   $returnHeaders Allow to return response headers
      *
@@ -498,7 +488,6 @@ final class ParseClient
         $sessionToken = null,
         $data = null,
         $useMasterKey = false,
-        $appRequest = false,
         $contentType = 'application/json',
         $returnHeaders = false
     ) {
@@ -511,37 +500,29 @@ final class ParseClient
 
         // verify the server url and mount path have been set
         self::assertServerInitialized();
+        self::assertParseInitialized();
 
-        if ($appRequest) {
-            // ** 'app' requests are not available in open source parse-server
-            self::assertAppInitialized();
-
-            $httpClient->addRequestHeader('X-Parse-Account-Key', self::$accountKey);
-        } else {
-            self::assertParseInitialized();
-
-            // add appId & client version
-            $httpClient->addRequestHeader('X-Parse-Application-Id', self::$applicationId);
-            $httpClient->addRequestHeader('X-Parse-Client-Version', self::VERSION_STRING);
+        // add appId & client version
+        $httpClient->addRequestHeader('X-Parse-Application-Id', self::$applicationId);
+        $httpClient->addRequestHeader('X-Parse-Client-Version', 'php' . self::VERSION_STRING);
 
 
-            if ($sessionToken) {
-                // add our current session token
-                $httpClient->addRequestHeader('X-Parse-Session-Token', $sessionToken);
-            }
+        if ($sessionToken) {
+            // add our current session token
+            $httpClient->addRequestHeader('X-Parse-Session-Token', $sessionToken);
+        }
 
-            if ($useMasterKey) {
-                // pass master key
-                $httpClient->addRequestHeader('X-Parse-Master-Key', self::$masterKey);
-            } elseif (isset(self::$restKey)) {
-                // pass REST key
-                $httpClient->addRequestHeader('X-Parse-REST-API-Key', self::$restKey);
-            }
+        if ($useMasterKey) {
+            // pass master key
+            $httpClient->addRequestHeader('X-Parse-Master-Key', self::$masterKey);
+        } elseif (isset(self::$restKey)) {
+            // pass REST key
+            $httpClient->addRequestHeader('X-Parse-REST-API-Key', self::$restKey);
+        }
 
-            if (self::$forceRevocableSession) {
-                // indicate we are using revocable sessions
-                $httpClient->addRequestHeader('X-Parse-Revocable-Session', '1');
-            }
+        if (self::$forceRevocableSession) {
+            // indicate we are using revocable sessions
+            $httpClient->addRequestHeader('X-Parse-Revocable-Session', '1');
         }
 
         /*
@@ -573,7 +554,7 @@ final class ParseClient
         $response = $httpClient->send($url, $method, $data);
 
         // check content type of our response
-        $contentType = $httpClient->getResponseContentType();
+        $contentType = $httpClient->getResponseContentType() || '';
 
         if (strpos($contentType, 'text/html') !== false) {
             throw new ParseException('Bad Request', -1);
@@ -708,22 +689,6 @@ final class ParseClient
         if (self::$applicationId === null) {
             throw new Exception(
                 'You must call ParseClient::initialize() before making any requests.',
-                109
-            );
-        }
-    }
-
-    /**
-     * Asserts that the sdk has been initialized with a valid account key
-     *
-     * @throws Exception
-     */
-    private static function assertAppInitialized()
-    {
-        if (self::$accountKey === null || empty(self::$accountKey)) {
-            throw new Exception(
-                'You must call ParseClient::initialize(..., $accountKey) before making any app requests. '.
-                'Your account key must not be null or empty.',
                 109
             );
         }

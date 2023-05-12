@@ -239,7 +239,7 @@ class ParseACL implements Encodable
      */
     public function getReadAccess($userId)
     {
-        if (!$userId) {
+        if (!$userId || !is_string($userId)) {
             throw new Exception('cannot getReadAccess for null userId', 104);
         }
 
@@ -276,10 +276,9 @@ class ParseACL implements Encodable
      */
     public function getWriteAccess($userId)
     {
-        if (!$userId) {
+        if (!$userId || !is_string($userId)) {
             throw new Exception('cannot getWriteAccess for null userId', 104);
         }
-
         return $this->getAccess('write', $userId);
     }
 

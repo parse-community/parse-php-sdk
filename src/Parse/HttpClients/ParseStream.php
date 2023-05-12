@@ -61,19 +61,16 @@ class ParseStream
     {
         try {
             // get our response
-            $response = file_get_contents($url, false, $this->stream);
+            $response = $this->getFileContents($url, false, $this->stream);
             $this->errorMessage = null;
             $this->errorCode    = null;
         } catch (\Exception $e) {
             // set our error message/code and return false
             $this->errorMessage = $e->getMessage();
             $this->errorCode    = $e->getCode();
+            $this->responseHeaders = null;
             return false;
         }
-
-        // set response headers
-        $this->responseHeaders = $http_response_header;
-
         return $response;
     }
 
@@ -98,12 +95,22 @@ class ParseStream
     }
 
     /**
-     * Gest the current error code
+     * Get the current error code
      *
      * @return int
      */
     public function getErrorCode()
     {
         return $this->errorCode;
+    }
+
+    /**
+     * Wrapper for file_get_contents, used for testing
+     */
+    public function getFileContents($filename, $use_include_path, $context)
+    {
+        $result = file_get_contents($filename, $use_include_path, $context);
+        $this->responseHeaders = $http_response_header;
+        return $result;
     }
 }

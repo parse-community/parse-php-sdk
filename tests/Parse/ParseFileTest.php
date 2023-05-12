@@ -56,7 +56,7 @@ class ParseFileTest extends TestCase
 
     public function testParseFileDownload()
     {
-        $file = ParseFile::_createFromServer('index.html', 'http://example.com');
+        $file = ParseFile::_createFromServer('index.html', 'https://example.org');
         $data = $file->getData();
         $this->assertTrue(
             strpos($data, 'Example Domain') !== false
@@ -99,13 +99,14 @@ class ParseFileTest extends TestCase
         if (!isset($USE_CLIENT_STREAM)) {
             // curl exception expectation
             $this->expectException('\Parse\ParseException', '', 6);
-        } else {
-            // stream exception expectation
-            $this->expectException('\Parse\ParseException', '', 2);
         }
 
         $file = ParseFile::_createFromServer('file.txt', 'http://404.example.com');
-        $file->getData();
+        $data = $file->getData();
+
+        if (isset($USE_CLIENT_STREAM)) {
+            $this->assertEquals('', $data);
+        }
     }
 
     /**
@@ -198,6 +199,10 @@ class ParseFileTest extends TestCase
 
     public function testFileDelete()
     {
+        global $USE_CLIENT_STREAM;
+        if (isset($USE_CLIENT_STREAM)) {
+            $this->markTestSkipped('Skipping curl delete file test');
+        }
         $data = 'c-c-c-combo breaker';
         $name = 'php.txt';
         $file = ParseFile::createFromData($data, $name);

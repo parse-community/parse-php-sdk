@@ -6,6 +6,8 @@
 namespace Parse\Test;
 
 use Parse\HttpClients\ParseStreamHttpClient;
+use Parse\HttpClients\ParseStream;
+use Parse\ParseException;
 
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +19,7 @@ class ParseStreamHttpClientTest extends TestCase
     public function testGetResponse()
     {
         $client = new ParseStreamHttpClient();
-        $client->send('http://example.com');
+        $client->send('https://example.org');
 
         // get response code
         $this->assertEquals(200, $client->getResponseStatusCode());
@@ -40,5 +42,24 @@ class ParseStreamHttpClientTest extends TestCase
 
         $client = new ParseStreamHttpClient();
         $client->send($url);
+    }
+
+    /**
+     * @group test-stream-context-error
+     */
+    public function testStreamContextError()
+    {
+        $client = $this->getMockBuilder(ParseStream::class)
+            ->onlyMethods(['getFileContents'])
+            ->getMock();
+        
+        $client->expects($this->once())
+            ->method('getFileContents')
+            ->willThrowException(new ParseException('Cannot retrieve data.', 1));
+
+        $client->get('https://example.org');
+
+        $this->assertEquals('Cannot retrieve data.', $client->getErrorMessage());
+        $this->assertEquals('1', $client->getErrorCode());
     }
 }
