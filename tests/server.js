@@ -15,7 +15,7 @@ const parseServer = new ParseServer({
   restKey: "rest-api-key-here",
   databaseURI: "mongodb://localhost/test",
   cloud: __dirname + "/tests/cloud-code.js",
-  publicServerURL: "https://localhost:1337/parse",
+  publicServerURL: "http://localhost:1337/parse",
   logsFolder: path.resolve(process.cwd(), 'logs'),
   verbose: true,
   silent: true,
@@ -83,10 +83,13 @@ const serverOptions = {
 }
 
 function onRequest(req) { 
-  console.log(new Date()+' '+ 
-              req.connection.remoteAddress+' '+ 
-              req.socket.getPeerCertificate().subject.CN+' '+ 
-              req.method+' '+req.baseUrl);
+  console.log(
+    new Date(),
+    req.connection.remoteAddress,
+    req.socket.getPeerCertificate().subject.CN,
+    req.method,
+    req.baseUrl,
+  );
 }
 
 // Create TLS enabled server

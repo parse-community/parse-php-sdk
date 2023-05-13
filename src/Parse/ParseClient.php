@@ -237,7 +237,6 @@ final class ParseClient
 
         // try to get a response from the server
         $url = self::createRequestUrl('health');
-
         $response = $httpClient->send($url);
 
         $errorCode = $httpClient->getErrorCode();

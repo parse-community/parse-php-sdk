@@ -37,6 +37,9 @@ class ParseClientTest extends TestCase
 
         // unset CA file
         ParseClient::setCAFile(null);
+
+        // unset http options
+        ParseClient::setHttpOptions(null);
     }
 
     /**
