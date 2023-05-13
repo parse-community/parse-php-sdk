@@ -105,4 +105,10 @@ class Helper
     {
         fwrite(STDOUT, $text . "\n");
     }
+
+    public static function printArray($array)
+    {
+        print_r($array);
+        ob_end_flush();
+    }
 }
