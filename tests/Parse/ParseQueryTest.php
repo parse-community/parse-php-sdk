@@ -2654,8 +2654,8 @@ class ParseQueryTest extends TestCase
         $query->select(['select1','select2']);
         $query->skip(24);
 
-        // sets count = 1 and limit = 0
-        $query->count();
+        // sets count = 1
+        $query->withCount();
         // reset limit up to 42
         $query->limit(42);
 
@@ -2693,6 +2693,45 @@ class ParseQueryTest extends TestCase
             $query2,
             'Conditions set on query did not give the expected result'
         );
+    }
+
+    /**
+     * @group query-count-conditions
+     */
+    public function testCountDoesNotOverrideConditions()
+    {
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'John');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Bob');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Mike');
+        $obj->set('country', 'CA');
+        $obj->save();
+
+        $query = new ParseQuery('TestObject');
+        $query->equalTo('country', 'US');
+        $query->limit(1);
+        $count = $query->count();
+        $results = $query->find();
+
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(2, $count);
+
+        $this->assertSame([
+            'where' => [
+                'country' => [
+                    '$eq' => 'US'
+                ]
+            ],
+            'limit' => 1,
+        ], $query->_getOptions());
     }
 
     public function testNotArrayConditions()
@@ -2770,8 +2809,6 @@ class ParseQueryTest extends TestCase
                     '$eq' => 'bar',
                 ]
             ],
-            'limit' => 0,
-            'count' => 1,
         ], $query->_getOptions());
     }
 }

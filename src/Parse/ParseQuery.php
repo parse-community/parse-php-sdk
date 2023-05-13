@@ -586,9 +586,10 @@ class ParseQuery
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
-        $this->limit = 0;
-        $this->count = 1;
-        $queryString = $this->buildQueryString($this->_getOptions());
+        $queryParams = $this->_getOptions();
+        $queryParams['limit'] = 0;
+        $queryParams['count'] = 1;
+        $queryString = $this->buildQueryString($queryParams);
         $result = ParseClient::_request(
             'GET',
             'classes/'.$this->className.'?'.$queryString,
