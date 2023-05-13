@@ -31,6 +31,7 @@ jobs:
           - name: PHP 8.1
             PHP_VERSION: 8.1
       fail-fast: false
+    name: Test ${{ matrix.name }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
