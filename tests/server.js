@@ -121,7 +121,7 @@ var requestOptions = {
 // Create agent (required for custom trust list)
 requestOptions.agent = new https.Agent(requestOptions);
 
-var req = https.request(requestOptions, (res) => {
+const req = https.request(requestOptions, (res) => {
   console.log('statusCode:', res.statusCode);
 });
 req.end();
@@ -129,8 +129,8 @@ req.end();
 // Pin server certs
 req.on('socket', socket => {
   socket.on('secureConnect', () => {
-    var fingerprint = socket.getPeerCertificate().fingerprint;
- 
+    const fingerprint = socket.getPeerCertificate().fingerprint;
+
     // Check if certificate is valid
     if(socket.authorized === false){
       req.emit('error', new Error(socket.authorizationError));

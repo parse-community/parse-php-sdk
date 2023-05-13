@@ -700,15 +700,18 @@ class ParseClientTest extends TestCase
     {
         ParseClient::setHttpClient(new ParseStreamHttpClient());
         ParseClient::setServerURL('https://localhost:1338', 'parse');
-        // ParseClient::setHttpOptions([
-        //     CURLOPT_SSL_VERIFYPEER => false,
-        //     CURLOPT_PINNEDPUBLICKEY => 'sha256//Oz+R70/uIv0irdBWc7RNPyCGeZNbN+CBiPLjJxXWigg=',
-        //     CURLOPT_SSLCERT => dirname(__DIR__).'/keys/client.crt',
-        //     CURLOPT_SSLKEY => dirname(__DIR__).'/keys/client.key',
-        // ]);
+        ParseClient::setHttpOptions([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+                'local_cert' => dirname(__DIR__).'/keys/client.crt',
+                'local_pk' => dirname(__DIR__).'/keys/client.key',
+                'peer_fingerprint' => '29F36676EFA0CA18B5B571C6144580044CB289C2',
+            ]
+        ]);
         $health = ParseClient::getServerHealth();
 
-        Helper::printArray($health);
         $this->assertNotNull($health);
         $this->assertEquals($health['status'], 200);
         $this->assertEquals($health['response']['status'], 'ok');

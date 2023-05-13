@@ -83,7 +83,7 @@ class ParseStreamHttpClient implements ParseHttpable
      *
      * @var array
      */
-    private static $httpOptions;
+    private $httpOptions;
 
     /**
      * Optional timeout for this request
@@ -203,7 +203,7 @@ class ParseStreamHttpClient implements ParseHttpable
         }
 
         if (isset($this->httpOptions)) {
-            foreach ($data as $key => $value) {
+            foreach ($this->httpOptions as $key => $value) {
                 $this->options[$key] = $value;
             }
         }
@@ -277,6 +277,7 @@ class ParseStreamHttpClient implements ParseHttpable
 
         // clear options
         $this->options = array();
+        $this->httpOptions = array();
 
         // flush our existing headers
         $this->headers = array();
@@ -369,7 +370,7 @@ class ParseStreamHttpClient implements ParseHttpable
      */
     public function setHttpOptions($httpOptions)
     {
-        $this->$httpOptions = $httpOptions;
+        $this->httpOptions = $httpOptions;
     }
 
     /**
