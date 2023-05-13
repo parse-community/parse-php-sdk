@@ -1831,10 +1831,20 @@ Search.appendIndex(
             "summary": "Fetch\u0020the\u0020whole\u0020object\u0020from\u0020the\u0020server\u0020and\u0020update\u0020the\u0020local\u0020object.",
             "url": "classes/Parse-ParseObject.html#method_fetch"
         },                {
+            "fqsen": "\\Parse\\ParseObject\u003A\u003AfetchWithInclude\u0028\u0029",
+            "name": "fetchWithInclude",
+            "summary": "Fetch\u0020an\u0020array\u0020of\u0020Parse\u0020objects\u0020from\u0020the\u0020server.",
+            "url": "classes/Parse-ParseObject.html#method_fetchWithInclude"
+        },                {
             "fqsen": "\\Parse\\ParseObject\u003A\u003AfetchAll\u0028\u0029",
             "name": "fetchAll",
             "summary": "Fetch\u0020an\u0020array\u0020of\u0020Parse\u0020objects\u0020from\u0020the\u0020server.",
             "url": "classes/Parse-ParseObject.html#method_fetchAll"
+        },                {
+            "fqsen": "\\Parse\\ParseObject\u003A\u003AfetchAllWithInclude\u0028\u0029",
+            "name": "fetchAllWithInclude",
+            "summary": "Fetch\u0020an\u0020array\u0020of\u0020Parse\u0020Objects\u0020from\u0020the\u0020server\u0020with\u0020nested\u0020Parse\u0020Objects.",
+            "url": "classes/Parse-ParseObject.html#method_fetchAllWithInclude"
         },                {
             "fqsen": "\\Parse\\ParseObject\u003A\u003AtoObjectIdArray\u0028\u0029",
             "name": "toObjectIdArray",
