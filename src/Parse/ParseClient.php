@@ -104,6 +104,13 @@ final class ParseClient
     private static $caFile;
 
     /**
+     * Options to pass to the http client.
+     *
+     * @var array
+     */
+    private static $httpOptions;
+
+    /**
      * Constant for version string to include with requests.
      *
      * @var string
@@ -302,6 +309,21 @@ final class ParseClient
     }
 
     /**
+     * Sets http options to pass to the http client
+     * For curl
+     * https://www.php.net/manual/en/function.curl-setopt.php
+     *
+     * For stream context
+     * https://www.php.net/manual/en/context.php
+     *
+     * @param array $httpOptions    options to set
+     */
+    public static function setHttpOptions($httpOptions)
+    {
+        self::$httpOptions = $httpOptions;
+    }
+
+    /**
      * ParseClient::_encode, internal method for encoding object values.
      *
      * @param mixed $value             Value to encode
@@ -451,6 +473,9 @@ final class ParseClient
         if (isset(self::$caFile)) {
             // set CA file
             $httpClient->setCAFile(self::$caFile);
+        }
+        if (isset(self::$httpOptions)) {
+            $httpClient->setHttpOptions(self::$httpOptions);
         }
 
         return $httpClient;
