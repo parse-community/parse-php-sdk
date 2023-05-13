@@ -7,7 +7,7 @@ import emailAdapter from './MockEmailAdapter.js';
 const app = express();
 const __dirname = path.resolve();
 
-const parseServer = new ParseServer({
+const server = new ParseServer({
   appName: "MyTestApp",
   appId: "app-id-here",
   masterKey: "master-key-here",
@@ -48,10 +48,10 @@ const parseServer = new ParseServer({
   },
 });
 
-await parseServer.start();
+await server.start();
 
 // Serve the Parse API on the /parse URL prefix
-app.use('/parse', parseServer.app);
+app.use('/parse', server.app);
 
 const port = 1337;
 app.listen(port, function() {
@@ -92,11 +92,11 @@ function onRequest(req) {
 }
 
 // Create TLS enabled server
-const server = https.createServer(serverOptions, app);
-server.on('request', onRequest);
+const httpsServer = https.createServer(serverOptions, app);
+httpsServer.on('request', onRequest);
 
 // Start Server
-server.listen(options.port, function() {
+httpsServer.listen(options.port, function() {
   console.error('[ Parse Test Https Server running on port ' + options.port + ' ]');
 });
 
@@ -134,13 +134,13 @@ req.on('socket', socket => {
     const fingerprint = socket.getPeerCertificate().fingerprint;
 
     // Check if certificate is valid
-    if(socket.authorized === false){
+    if (socket.authorized === false) {
       req.emit('error', new Error(socket.authorizationError));
       return req.destroy();
     }
 
     // Check if fingerprint matches
-    if(clientFingerprints.indexOf(fingerprint) === -1){
+    if (clientFingerprints.indexOf(fingerprint) === -1) {
       req.emit('error', new Error('Fingerprint does not match'));
       return req.destroy();
     }
