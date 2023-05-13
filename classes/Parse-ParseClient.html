@@ -142,7 +142,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Parse-ParseClient.html#constant_VERSION_STRING">VERSION_STRING</a>
     <span>
-        &nbsp;= &#039;2.1.0&#039;                    </span>
+        &nbsp;= &#039;2.2.0&#039;                    </span>
 </dt>
 <dd>Constant for version string to include with requests.</dd>
 
@@ -187,6 +187,13 @@
                 &nbsp;: <a href="classes/Parse-HttpClients-ParseHttpable.html"><abbr title="\Parse\HttpClients\ParseHttpable">ParseHttpable</abbr></a>            </span>
 </dt>
 <dd>Http client for requests</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/Parse-ParseClient.html#property_httpOptions">$httpOptions</a>
+    <span>
+                &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>Options to pass to the http client.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Parse-ParseClient.html#property_masterKey">$masterKey</a>
@@ -374,6 +381,15 @@ persistence.</dd>
 <dd>Sets the Http client to use for requests</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Parse-ParseClient.html#method_setHttpOptions">setHttpOptions()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd>Sets http options to pass to the http client
+For curl
+https://www.php.net/manual/en/function.curl-setopt.php</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Parse-ParseClient.html#method_setServerURL">setServerURL()</a>
     <span>
                         &nbsp;: mixed    </span>
@@ -449,7 +465,7 @@ persistence.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">111</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 </aside>
 
         <p class="phpdocumentor-summary">Constant for version string to include with requests.</p>
@@ -458,7 +474,7 @@ persistence.</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">VERSION_STRING</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;2.1.0&#039;</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;2.2.0&#039;</span>
 </code>
 
 
@@ -660,6 +676,38 @@ persistence.</dd>
     <span class="phpdocumentor-signature__visibility">private</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Parse-HttpClients-ParseHttpable.html"><abbr title="\Parse\HttpClients\ParseHttpable">ParseHttpable</abbr></a></span>
     <span class="phpdocumentor-signature__name">$httpClient</span>
+    </code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+            -static                                            "
+>
+    <h4 class="phpdocumentor-element__name" id="property_httpOptions">
+        $httpOptions
+        <a href="classes/Parse-ParseClient.html#property_httpOptions" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">111</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Options to pass to the http client.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$httpOptions</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
@@ -879,7 +927,7 @@ persistence.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">204</span>
+    <span class="phpdocumentor-element-found-in__line">211</span>
 </aside>
 
         <p class="phpdocumentor-summary">Clears the existing mount path.</p>
@@ -914,7 +962,7 @@ persistence.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">195</span>
+    <span class="phpdocumentor-element-found-in__line">202</span>
 </aside>
 
         <p class="phpdocumentor-summary">Clears the existing server url.</p>
@@ -949,7 +997,7 @@ persistence.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">356</span>
+    <span class="phpdocumentor-element-found-in__line">378</span>
 </aside>
 
         <p class="phpdocumentor-summary">ParseClient::_decode, internal method for decoding server responses.</p>
@@ -995,7 +1043,7 @@ persistence.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">314</span>
+    <span class="phpdocumentor-element-found-in__line">336</span>
 </aside>
 
         <p class="phpdocumentor-summary">ParseClient::_encode, internal method for encoding object values.</p>
@@ -1066,7 +1114,7 @@ persistence.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">428</span>
+    <span class="phpdocumentor-element-found-in__line">450</span>
 </aside>
 
         <p class="phpdocumentor-summary">ParseClient::_encodeArray, internal method for encoding arrays.</p>
@@ -1122,7 +1170,7 @@ persistence.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">485</span>
+    <span class="phpdocumentor-element-found-in__line">510</span>
 </aside>
 
         <p class="phpdocumentor-summary">Parse\Client::_request, internal method for communicating with Parse.</p>
@@ -1238,7 +1286,7 @@ persistence.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">653</span>
+    <span class="phpdocumentor-element-found-in__line">678</span>
 </aside>
 
         <p class="phpdocumentor-summary">ParseClient::_unsetStorage, will null the storage object.</p>
@@ -1274,7 +1322,7 @@ use the first assigned storage object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">289</span>
+    <span class="phpdocumentor-element-found-in__line">296</span>
 </aside>
 
         <p class="phpdocumentor-summary">Clears the currently set http client</p>
@@ -1308,7 +1356,7 @@ use the first assigned storage object.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">763</span>
+    <span class="phpdocumentor-element-found-in__line">788</span>
 </aside>
 
         <p class="phpdocumentor-summary">Allows an existing application to start using revocable sessions, without forcing
@@ -1344,7 +1392,7 @@ will be returned a unique and revocable session token.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">702</span>
+    <span class="phpdocumentor-element-found-in__line">727</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get remote Parse API url.</p>
@@ -1378,7 +1426,7 @@ will be returned a unique and revocable session token.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">275</span>
+    <span class="phpdocumentor-element-found-in__line">282</span>
 </aside>
 
         <p class="phpdocumentor-summary">Gets the current Http client, or creates one to suite the need</p>
@@ -1412,7 +1460,7 @@ will be returned a unique and revocable session token.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">712</span>
+    <span class="phpdocumentor-element-found-in__line">737</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get remote Parse API mount path</p>
@@ -1446,7 +1494,7 @@ will be returned a unique and revocable session token.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">727</span>
+    <span class="phpdocumentor-element-found-in__line">752</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a date value in the format stored on Parse.</p>
@@ -1494,7 +1542,7 @@ PHP provides 6 digits for the microseconds (u) so we have to chop 3 off.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">747</span>
+    <span class="phpdocumentor-element-found-in__line">772</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a date value in the format to use in Local Push Scheduling on Parse.</p>
@@ -1551,7 +1599,7 @@ Format from Parse doc: an ISO 8601 date without a time zone, i.e. 2014-10-16T12:
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">224</span>
+    <span class="phpdocumentor-element-found-in__line">231</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns an array of information regarding the current server&#039;s health</p>
@@ -1585,7 +1633,7 @@ Format from Parse doc: an ISO 8601 date without a time zone, i.e. 2014-10-16T12:
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">642</span>
+    <span class="phpdocumentor-element-found-in__line">667</span>
 </aside>
 
         <p class="phpdocumentor-summary">ParseClient::getStorage, will return the storage object used for
@@ -1620,7 +1668,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">124</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 </aside>
 
         <p class="phpdocumentor-summary">Parse\Client::initialize, must be called before using Parse features.</p>
@@ -1708,7 +1756,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">299</span>
+    <span class="phpdocumentor-element-found-in__line">306</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sets a CA file to validate peers of our requests with</p>
@@ -1754,7 +1802,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">773</span>
+    <span class="phpdocumentor-element-found-in__line">798</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sets number of seconds to wait while trying to connect. Use 0 to wait indefinitely, null to default behaviour.</p>
@@ -1799,7 +1847,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">214</span>
+    <span class="phpdocumentor-element-found-in__line">221</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sets the Http client to use for requests</p>
@@ -1838,6 +1886,56 @@ persistence.</p>
             -public
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setHttpOptions">
+        setHttpOptions()
+        <a href="classes/Parse-ParseClient.html#method_setHttpOptions" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">321</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Sets http options to pass to the http client
+For curl
+https://www.php.net/manual/en/function.curl-setopt.php</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">setHttpOptions</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$httpOptions</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"><p>For stream context
+https://www.php.net/manual/en/context.php</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$httpOptions</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>options to set</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_setServerURL">
         setServerURL()
         <a href="classes/Parse-ParseClient.html#method_setServerURL" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1845,7 +1943,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">179</span>
 </aside>
 
         <p class="phpdocumentor-summary">ParseClient::setServerURL, to change the Parse Server address &amp; mount path for this app</p>
@@ -1915,7 +2013,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">631</span>
+    <span class="phpdocumentor-element-found-in__line">656</span>
 </aside>
 
         <p class="phpdocumentor-summary">ParseClient::setStorage, will update the storage object used for
@@ -1961,7 +2059,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">784</span>
+    <span class="phpdocumentor-element-found-in__line">809</span>
 </aside>
 
         <p class="phpdocumentor-summary">Sets maximum number of seconds of request/response operation.</p>
@@ -2007,7 +2105,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">687</span>
+    <span class="phpdocumentor-element-found-in__line">712</span>
 </aside>
 
         <p class="phpdocumentor-summary">Asserts that the sdk has been initialized with a valid application id</p>
@@ -2056,7 +2154,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">663</span>
+    <span class="phpdocumentor-element-found-in__line">688</span>
 </aside>
 
         <p class="phpdocumentor-summary">Asserts that the server and mount path have been initialized</p>
@@ -2105,7 +2203,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">465</span>
+    <span class="phpdocumentor-element-found-in__line">490</span>
 </aside>
 
         <p class="phpdocumentor-summary">Creates an absolute request url from a relative one</p>
@@ -2151,7 +2249,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">603</span>
+    <span class="phpdocumentor-element-found-in__line">628</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns the last error message from a failed json_decode call</p>
@@ -2185,7 +2283,7 @@ persistence.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/ParseClient.php"><a href="files/src-parse-parseclient.html"><abbr title="src/Parse/ParseClient.php">ParseClient.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">443</span>
+    <span class="phpdocumentor-element-found-in__line">465</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns an httpClient prepared for use</p>

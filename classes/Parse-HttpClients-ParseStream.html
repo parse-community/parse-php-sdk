@@ -188,7 +188,7 @@
     <span>
                         &nbsp;: int    </span>
 </dt>
-<dd>Gest the current error code</dd>
+<dd>Get the current error code</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Parse-HttpClients-ParseStream.html#method_getErrorMessage">getErrorMessage()</a>
@@ -196,6 +196,13 @@
                         &nbsp;: string    </span>
 </dt>
 <dd>Gets the current error message</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Parse-HttpClients-ParseStream.html#method_getFileContents">getFileContents()</a>
+    <span>
+                        &nbsp;: mixed    </span>
+</dt>
+<dd>Wrapper for file_get_contents, used for testing</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Parse-HttpClients-ParseStream.html#method_getResponseHeaders">getResponseHeaders()</a>
@@ -456,10 +463,10 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/HttpClients/ParseStream.php"><a href="files/src-parse-httpclients-parsestream.html"><abbr title="src/Parse/HttpClients/ParseStream.php">ParseStream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">102</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Gest the current error code</p>
+        <p class="phpdocumentor-summary">Get the current error code</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -490,7 +497,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/HttpClients/ParseStream.php"><a href="files/src-parse-httpclients-parsestream.html"><abbr title="src/Parse/HttpClients/ParseStream.php">ParseStream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 </aside>
 
         <p class="phpdocumentor-summary">Gets the current error message</p>
@@ -517,6 +524,64 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getFileContents">
+        getFileContents()
+        <a href="classes/Parse-HttpClients-ParseStream.html#method_getFileContents" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/HttpClients/ParseStream.php"><a href="files/src-parse-httpclients-parsestream.html"><abbr title="src/Parse/HttpClients/ParseStream.php">ParseStream.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">110</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Wrapper for file_get_contents, used for testing</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__name">getFileContents</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$use_include_path</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$context</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$filename</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$use_include_path</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$context</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">mixed</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getResponseHeaders">
         getResponseHeaders()
         <a href="classes/Parse-HttpClients-ParseStream.html#method_getResponseHeaders" class="headerlink"><i class="fas fa-link"></i></a>
@@ -524,7 +589,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Parse/HttpClients/ParseStream.php"><a href="files/src-parse-httpclients-parsestream.html"><abbr title="src/Parse/HttpClients/ParseStream.php">ParseStream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">85</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 </aside>
 
         <p class="phpdocumentor-summary">Returns the response headers for the last request</p>

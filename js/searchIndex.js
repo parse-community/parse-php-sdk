@@ -116,6 +116,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020CA\u0020file\u0020to\u0020validate\u0020requests\u0020with",
             "url": "classes/Parse-HttpClients-ParseCurlHttpClient.html#method_setCAFile"
         },                {
+            "fqsen": "\\Parse\\HttpClients\\ParseCurlHttpClient\u003A\u003AsetHttpOptions\u0028\u0029",
+            "name": "setHttpOptions",
+            "summary": "Sets\u0020multiple\u0020curl\u0020options\nhttps\u003A\/\/www.php.net\/manual\/en\/function.curl\u002Dsetopt.php",
+            "url": "classes/Parse-HttpClients-ParseCurlHttpClient.html#method_setHttpOptions"
+        },                {
             "fqsen": "\\Parse\\HttpClients\\ParseCurlHttpClient\u003A\u003AgetErrorCode\u0028\u0029",
             "name": "getErrorCode",
             "summary": "Gets\u0020the\u0020error\u0020code",
@@ -226,6 +231,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020CA\u0020file\u0020to\u0020validate\u0020requests\u0020with",
             "url": "classes/Parse-HttpClients-ParseHttpable.html#method_setCAFile"
         },                {
+            "fqsen": "\\Parse\\HttpClients\\ParseHttpable\u003A\u003AsetHttpOptions\u0028\u0029",
+            "name": "setHttpOptions",
+            "summary": "Sets\u0020http\u0020options\u0020to\u0020pass\u0020to\u0020the\u0020http\u0020client",
+            "url": "classes/Parse-HttpClients-ParseHttpable.html#method_setHttpOptions"
+        },                {
             "fqsen": "\\Parse\\HttpClients\\ParseHttpable\u003A\u003AgetErrorCode\u0028\u0029",
             "name": "getErrorCode",
             "summary": "Gets\u0020the\u0020error\u0020code",
@@ -273,8 +283,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Parse\\HttpClients\\ParseStream\u003A\u003AgetErrorCode\u0028\u0029",
             "name": "getErrorCode",
-            "summary": "Gest\u0020the\u0020current\u0020error\u0020code",
+            "summary": "Get\u0020the\u0020current\u0020error\u0020code",
             "url": "classes/Parse-HttpClients-ParseStream.html#method_getErrorCode"
+        },                {
+            "fqsen": "\\Parse\\HttpClients\\ParseStream\u003A\u003AgetFileContents\u0028\u0029",
+            "name": "getFileContents",
+            "summary": "Wrapper\u0020for\u0020file_get_contents,\u0020used\u0020for\u0020testing",
+            "url": "classes/Parse-HttpClients-ParseStream.html#method_getFileContents"
         },                {
             "fqsen": "\\Parse\\HttpClients\\ParseStream\u003A\u003A\u0024stream",
             "name": "stream",
@@ -371,6 +386,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020CA\u0020file\u0020to\u0020validate\u0020requests\u0020with",
             "url": "classes/Parse-HttpClients-ParseStreamHttpClient.html#method_setCAFile"
         },                {
+            "fqsen": "\\Parse\\HttpClients\\ParseStreamHttpClient\u003A\u003AsetHttpOptions\u0028\u0029",
+            "name": "setHttpOptions",
+            "summary": "Sets\u0020http\u0020options\u0020to\u0020pass\u0020to\u0020the\u0020stream\u0020context\nhttps\u003A\/\/www.php.net\/manual\/en\/context.php",
+            "url": "classes/Parse-HttpClients-ParseStreamHttpClient.html#method_setHttpOptions"
+        },                {
             "fqsen": "\\Parse\\HttpClients\\ParseStreamHttpClient\u003A\u003AsetTimeout\u0028\u0029",
             "name": "setTimeout",
             "summary": "Sets\u0020the\u0020request\u0020timeout",
@@ -420,6 +440,11 @@ Search.appendIndex(
             "name": "caFile",
             "summary": "Optional\u0020CA\u0020file\u0020to\u0020verify\u0020our\u0020peers\u0020with",
             "url": "classes/Parse-HttpClients-ParseStreamHttpClient.html#property_caFile"
+        },                {
+            "fqsen": "\\Parse\\HttpClients\\ParseStreamHttpClient\u003A\u003A\u0024httpOptions",
+            "name": "httpOptions",
+            "summary": "Options\u0020to\u0020pass\u0020to\u0020the\u0020stream\u0020context.",
+            "url": "classes/Parse-HttpClients-ParseStreamHttpClient.html#property_httpOptions"
         },                {
             "fqsen": "\\Parse\\HttpClients\\ParseStreamHttpClient\u003A\u003A\u0024timeout",
             "name": "timeout",
@@ -1081,6 +1106,11 @@ Search.appendIndex(
             "summary": "Sets\u0020a\u0020CA\u0020file\u0020to\u0020validate\u0020peers\u0020of\u0020our\u0020requests\u0020with",
             "url": "classes/Parse-ParseClient.html#method_setCAFile"
         },                {
+            "fqsen": "\\Parse\\ParseClient\u003A\u003AsetHttpOptions\u0028\u0029",
+            "name": "setHttpOptions",
+            "summary": "Sets\u0020http\u0020options\u0020to\u0020pass\u0020to\u0020the\u0020http\u0020client\nFor\u0020curl\nhttps\u003A\/\/www.php.net\/manual\/en\/function.curl\u002Dsetopt.php",
+            "url": "classes/Parse-ParseClient.html#method_setHttpOptions"
+        },                {
             "fqsen": "\\Parse\\ParseClient\u003A\u003A_encode\u0028\u0029",
             "name": "_encode",
             "summary": "ParseClient\u003A\u003A_encode,\u0020internal\u0020method\u0020for\u0020encoding\u0020object\u0020values.",
@@ -1240,6 +1270,11 @@ Search.appendIndex(
             "name": "caFile",
             "summary": "CA\u0020file\u0020holding\u0020one\u0020or\u0020more\u0020certificates\u0020to\u0020verify\u0020a\u0020peer",
             "url": "classes/Parse-ParseClient.html#property_caFile"
+        },                {
+            "fqsen": "\\Parse\\ParseClient\u003A\u003A\u0024httpOptions",
+            "name": "httpOptions",
+            "summary": "Options\u0020to\u0020pass\u0020to\u0020the\u0020http\u0020client.",
+            "url": "classes/Parse-ParseClient.html#property_httpOptions"
         },                {
             "fqsen": "\\Parse\\ParseCloud",
             "name": "ParseCloud",
