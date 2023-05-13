@@ -316,7 +316,7 @@ final class ParseClient
      *
      * For stream context
      * https://www.php.net/manual/en/context.php
-     * 
+     *
      * @param array $httpOptions    options to set
      */
     public static function setHttpOptions($httpOptions)
