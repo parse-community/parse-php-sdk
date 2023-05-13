@@ -26,10 +26,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: PHP 8.1
-            PHP_VERSION: 8.1
+          - name: PHP 8.3
+            PHP_VERSION: 8.3
           - name: PHP 8.2
             PHP_VERSION: 8.2
+          - name: PHP 8.1
+            PHP_VERSION: 8.1
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
