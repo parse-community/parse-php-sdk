@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/parse-community/parse-php-sdk/compare/2.3.0...2.3.1) (2023-05-13)
+
+
+### Bug Fixes
+
+* Prevent `query->equalTo` from overriding other conditions ([#510](https://github.com/parse-community/parse-php-sdk/issues/510)) ([0fc3d8f](https://github.com/parse-community/parse-php-sdk/commit/0fc3d8f630ba918689f2901e96c631d761561b74))
+
 # [2.3.0](https://github.com/parse-community/parse-php-sdk/compare/2.2.0...2.3.0) (2023-05-13)
 
 
