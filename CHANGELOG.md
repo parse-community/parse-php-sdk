@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/parse-community/parse-php-sdk/compare/2.3.1...2.3.2) (2023-05-13)
+
+
+### Bug Fixes
+
+* Prevent `query->count` from changing query internals ([#511](https://github.com/parse-community/parse-php-sdk/issues/511)) ([26db002](https://github.com/parse-community/parse-php-sdk/commit/26db002811c4e6a8f87649cbc84ca3fa91345a85))
+
 ## [2.3.1](https://github.com/parse-community/parse-php-sdk/compare/2.3.0...2.3.1) (2023-05-13)
 
 
