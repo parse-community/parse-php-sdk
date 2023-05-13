@@ -63,8 +63,6 @@ class Helper
             // default client set
             if (function_exists('curl_init')) {
                 // cURL client
-                Helper::print("diamon lewis");
-
                 ParseClient::setHttpClient(new ParseCurlHttpClient());
             } else {
                 // stream client
@@ -110,7 +108,7 @@ class Helper
 
     public static function printArray($array)
     {
-        var_dump($array);
+        print_r($array);
         ob_end_flush();
     }
 }

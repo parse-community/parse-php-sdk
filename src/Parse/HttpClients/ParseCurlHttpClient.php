@@ -307,6 +307,18 @@ class ParseCurlHttpClient implements ParseHttpable
     }
 
     /**
+     * Sets multiple curl options
+     * https://www.php.net/manual/en/function.curl-setopt.php
+     *
+     * @param array $options    Array of options to set
+     * @throws ParseException
+     */
+    public function setHttpOptions($options)
+    {
+        $this->parseCurl->setOptionsArray($options);
+    }
+
+    /**
      * Gets the error code
      *
      * @return int

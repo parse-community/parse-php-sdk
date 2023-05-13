@@ -79,6 +79,13 @@ class ParseStreamHttpClient implements ParseHttpable
     private $caFile;
 
     /**
+     * Options to pass to the stream context.
+     *
+     * @var array
+     */
+    private static $httpOptions;
+
+    /**
      * Optional timeout for this request
      *
      * @var int
@@ -193,6 +200,12 @@ class ParseStreamHttpClient implements ParseHttpable
         if (isset($this->caFile)) {
             // set CA file as well
             $this->options['ssl']['cafile'] = $this->caFile;
+        }
+
+        if (isset($this->httpOptions)) {
+            foreach ($data as $key => $value) {
+                $this->options[$key] = $value;
+            }
         }
 
         // add additional options for this request
@@ -346,6 +359,17 @@ class ParseStreamHttpClient implements ParseHttpable
     public function setCAFile($caFile)
     {
         $this->caFile = $caFile;
+    }
+
+    /**
+     * Sets http options to pass to the stream context
+     * https://www.php.net/manual/en/context.php
+     *
+     * @param array $httpOptions    options to set
+     */
+    public function setHttpOptions($httpOptions)
+    {
+        $this->$httpOptions = $httpOptions;
     }
 
     /**

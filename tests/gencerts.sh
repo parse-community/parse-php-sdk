@@ -1,5 +1,6 @@
 #!/bin/bash
 # https://gist.github.com/ryankurte/bc0d8cff6e73a6bb1950
+# https://curl.se/libcurl/c/CURLOPT_PINNEDPUBLICKEY.html
 # ./gencerts.sh parseca localhost parsephp keys/
 # ./gencerts.sh parseca client parsephp keys/
 

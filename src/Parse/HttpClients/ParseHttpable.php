@@ -64,6 +64,13 @@ interface ParseHttpable
     public function setCAFile($caFile);
 
     /**
+     * Sets http options to pass to the http client
+     *
+     * @param string $httpOptions    Options to set
+     */
+    public function setHttpOptions($httpOptions);
+
+    /**
      * Gets the error code
      *
      * @return int

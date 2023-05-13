@@ -91,7 +91,6 @@ function onRequest(req) {
 
 // Create TLS enabled server
 const server = https.createServer(serverOptions, app);
-// const server = http.createServer(app);
 server.on('request', onRequest);
 
 // Start Server
