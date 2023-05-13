@@ -3,7 +3,6 @@ import { ParseServer } from 'parse-server';
 import path from 'path';
 import fs from 'fs';
 import https from 'https';
-import http from 'http';
 import emailAdapter from './MockEmailAdapter.js';
 const app = express();
 const __dirname = path.resolve();
@@ -102,7 +101,7 @@ server.listen(options.port, function() {
 });
 
 // Create TLS request
-var requestOptions = {
+const requestOptions = {
   hostname: 'localhost',
   port: options.port,
   path: '/parse/health',
