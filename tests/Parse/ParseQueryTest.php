@@ -2726,7 +2726,9 @@ class ParseQueryTest extends TestCase
 
         $this->assertSame([
             'where' => [
-                'country' => 'US'
+                'country' => [
+                    '$eq' => 'US'
+                ]
             ],
             'limit' => 1,
         ], $query->_getOptions());
@@ -2807,8 +2809,6 @@ class ParseQueryTest extends TestCase
                     '$eq' => 'bar',
                 ]
             ],
-            'limit' => 0,
-            'count' => 1,
         ], $query->_getOptions());
     }
 }
