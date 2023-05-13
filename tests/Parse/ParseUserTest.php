@@ -525,6 +525,41 @@ class ParseUserTest extends TestCase
         );
     }
 
+    /**
+     * @group test-fetch-include
+     */
+    public function testUserFetchWithInclude()
+    {
+        $child = ParseObject::create('TestObject');
+        $child->set('name', 'parsephp');
+        $child->save();
+
+        $user = new ParseUser();
+        $user->setUsername('asdf');
+        $user->setPassword('zxcv');
+        $user->set('child', $child);
+        $user->signUp();
+
+        $object = ParseObject::create('TestObject');
+        $object->set('user', $user);
+        $object->save();
+
+        $query = new ParseQuery('TestObject');
+        $objectAgain = $query->get($object->getObjectId());
+        $userAgain = $objectAgain->get('user');
+        $userAgain->fetchWithInclude(['child']);
+
+        $this->assertEquals($userAgain->getObjectId(), $user->getObjectId());
+        $this->assertEquals(
+            $userAgain->get('child')->getObjectId(),
+            $child->getObjectId()
+        );
+        $this->assertEquals(
+            $userAgain->get('child')->get('name'),
+            $child->get('name')
+        );
+    }
+
     public function testUserQueries()
     {
         Helper::clearClass(ParseUser::$parseClassName);

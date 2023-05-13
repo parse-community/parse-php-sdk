@@ -26,11 +26,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: PHP 8.1
-            PHP_VERSION: 8.1
           - name: PHP 8.2
             PHP_VERSION: 8.2
+          - name: PHP 8.1
+            PHP_VERSION: 8.1
       fail-fast: false
+    name: Test ${{ matrix.name }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
@@ -59,3 +60,6 @@ jobs:
         env:
           CI: true
       - run: bash <(curl -s https://codecov.io/bash)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true

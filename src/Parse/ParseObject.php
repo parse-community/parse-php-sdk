@@ -574,6 +574,33 @@ class ParseObject implements Encodable
      * Fetch an array of Parse objects from the server.
      *
      * @param array $objects      The ParseObjects to fetch
+     * @param array $includeKeys  The nested ParseObjects to fetch
+     * @param bool  $useMasterKey Whether to override ACLs
+     *
+     * @return ParseObject Returns self, so you can chain this call.
+     */
+    public function fetchWithInclude(array $includeKeys, $useMasterKey = false)
+    {
+        $sessionToken = null;
+        if (ParseUser::getCurrentUser()) {
+            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
+        }
+        $response = ParseClient::_request(
+            'GET',
+            'classes/'.$this->className.'/'.$this->objectId.'?include='.implode(',', $includeKeys),
+            $sessionToken,
+            null,
+            $useMasterKey
+        );
+        $this->_mergeAfterFetch($response);
+
+        return $this;
+    }
+
+    /**
+     * Fetch an array of Parse objects from the server.
+     *
+     * @param array $objects      The ParseObjects to fetch
      * @param bool  $useMasterKey Whether to override ACLs
      *
      * @return array
@@ -588,6 +615,31 @@ class ParseObject implements Encodable
         $query = new ParseQuery($className);
         $query->containedIn('objectId', $objectIds);
         $query->limit(count($objectIds));
+        $results = $query->find($useMasterKey);
+
+        return static::updateWithFetchedResults($objects, $results);
+    }
+
+    /**
+     * Fetch an array of Parse Objects from the server with nested Parse Objects.
+     *
+     * @param array $objects      The ParseObjects to fetch
+     * @param mixed $includeKeys  The nested ParseObjects to fetch
+     * @param bool  $useMasterKey Whether to override ACLs
+     *
+     * @return array
+     */
+    public static function fetchAllWithInclude(array $objects, $includeKeys, $useMasterKey = false)
+    {
+        $objectIds = static::toObjectIdArray($objects);
+        if (!count($objectIds)) {
+            return $objects;
+        }
+        $className = $objects[0]->getClassName();
+        $query = new ParseQuery($className);
+        $query->containedIn('objectId', $objectIds);
+        $query->limit(count($objectIds));
+        $query->includeKey($includeKeys);
         $results = $query->find($useMasterKey);
 
         return static::updateWithFetchedResults($objects, $results);

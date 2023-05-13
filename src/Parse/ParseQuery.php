@@ -140,7 +140,7 @@ class ParseQuery
      */
     public function equalTo($key, $value)
     {
-        $this->where[$key] = $value;
+        $this->addCondition($key, '$eq', $value);
 
         return $this;
     }

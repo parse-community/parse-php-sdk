@@ -2663,7 +2663,9 @@ class ParseQueryTest extends TestCase
 
         $this->assertEquals([
             'where' => [
-                'key'   => 'value',
+                'key'   => [
+                    '$eq' => 'value',
+                ],
                 'key2'  => [
                     '$ne'   => 'value2',
                 ],
@@ -2755,5 +2757,58 @@ class ParseQueryTest extends TestCase
         $query->_setConditions([
             'unrecognized'  => 1
         ]);
+    }
+
+    /**
+     * @group query-equalTo-conditions
+     */
+    public function testEqualToWithSameKeyDoesNotOverrideOtherConditions()
+    {
+        $baz = new ParseObject('TestObject');
+        $baz->setArray('fooStack', [
+            [
+                'status' => 'baz'
+            ],
+            [
+                'status' => 'bar'
+            ]
+        ]);
+        $baz->save();
+
+        $bar = new ParseObject('TestObject');
+        $bar->setArray('fooStack', [
+            [
+                'status' => 'bar'
+            ]
+        ]);
+        $bar->save();
+
+        $qux = new ParseObject('TestObject');
+        $qux->setArray('fooStack', [
+            [
+                'status' => 'bar',
+            ],
+            [
+                'status' => 'qux'
+            ]
+        ]);
+        $qux->save();
+
+        $query = new ParseQuery('TestObject');
+        $query->notEqualTo('fooStack.status', 'baz');
+        $query->equalTo('fooStack.status', 'bar');
+
+        $this->assertEquals(2, $query->count(true));
+
+        $this->assertSame([
+            'where' => [
+                'fooStack.status'   => [
+                    '$ne'   => 'baz',
+                    '$eq' => 'bar',
+                ]
+            ],
+            'limit' => 0,
+            'count' => 1,
+        ], $query->_getOptions());
     }
 }

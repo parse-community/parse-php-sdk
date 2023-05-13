@@ -1,3 +1,17 @@
+# [2.3.0](https://github.com/parse-community/parse-php-sdk/compare/2.2.0...2.3.0) (2023-05-13)
+
+
+### Features
+
+* Add query methods `fetchWithInclude` and `fetchAllWithInclude` ([#512](https://github.com/parse-community/parse-php-sdk/issues/512)) ([0570f15](https://github.com/parse-community/parse-php-sdk/commit/0570f157a5e4efb2310b7df44c25ff246077589a))
+
+# [2.2.0](https://github.com/parse-community/parse-php-sdk/compare/2.1.0...2.2.0) (2023-05-13)
+
+
+### Features
+
+* Allow http options to be passed into `ParseClient` ([#513](https://github.com/parse-community/parse-php-sdk/issues/513)) ([ee2a5fa](https://github.com/parse-community/parse-php-sdk/commit/ee2a5fa389d553e73e483130647fd93cf187d142))
+
 # [2.1.0](https://github.com/parse-community/parse-php-sdk/compare/2.0.0...2.1.0) (2023-04-29)
 
 
