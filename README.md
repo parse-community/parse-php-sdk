@@ -24,6 +24,7 @@ A library that gives you access to the powerful Parse Server backend from your P
 
 ## Table of Contents <!-- omit in toc -->
 
+- [Compatibility](#compatibility)
 - [Installation](#installation)
   - [Install with Composer](#install-with-composer)
   - [Install with Git](#install-with-git)
@@ -63,6 +64,15 @@ A library that gives you access to the powerful Parse Server backend from your P
     - [Purge](#purge)
   - [Logs](#logs)
 - [Contributing / Testing](#contributing--testing)
+
+## Compatibility
+
+The Parse PHP SDK is continuously tested with the most recent releases of PHP to ensure compatibility. We follow the [PHP Long Term Support plan](https://www.php.net/supported-versions.php) and only test against versions that are officially supported and have not reached their end-of-life date.
+
+| Version | End-of-Life | Compatible |
+|---------|-------------|------------|
+| PHP 8.2 | Dec 2024    | ✅ Yes      |
+| PHP 8.1 | Nov 2023    | ✅ Yes      |
 
 ## Installation
 There are various ways to install and use this sdk. We'll elaborate on a couple here.
