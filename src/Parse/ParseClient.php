@@ -115,7 +115,7 @@ final class ParseClient
      *
      * @var string
      */
-    const VERSION_STRING = '2.3.2';
+    const VERSION_STRING = '2.4.0';
 
     /**
      * Parse\Client::initialize, must be called before using Parse features.

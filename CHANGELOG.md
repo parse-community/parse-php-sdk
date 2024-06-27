@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/parse-community/parse-php-sdk/compare/2.3.2...2.4.0) (2024-06-27)
+
+
+### Features
+
+* Add support for PHP 8.3 ([#520](https://github.com/parse-community/parse-php-sdk/issues/520)) ([0a4efd8](https://github.com/parse-community/parse-php-sdk/commit/0a4efd8fd0a0eb55aed7c1e61ba47888ab6ef28b))
+
 ## [2.3.2](https://github.com/parse-community/parse-php-sdk/compare/2.3.1...2.3.2) (2023-05-13)
 
 
