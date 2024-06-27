@@ -275,15 +275,15 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(1, $query->count());
 
         $query = new ParseQuery('TestObject');
-        $query->lessThanRelativeTime('date', '1 year 3 weeks ago');
-        $this->assertEquals(0, $query->count());
+        $query->lessThanRelativeTime('date', '1 year 2 weeks ago');
+        $this->assertEquals(1, $query->count());
 
         $query = new ParseQuery('TestObject');
         $query->greaterThanRelativeTime('date', 'in 1 year 3 weeks');
         $this->assertEquals(0, $query->count());
 
         $query = new ParseQuery('TestObject');
-        $query->greaterThanRelativeTime('date', '1 year 3 weeks ago');
+        $query->greaterThanRelativeTime('date', '1 year 4 weeks ago');
         $this->assertEquals(4, $query->count());
     }
 

@@ -7,7 +7,7 @@
 [![Coverage](http://codecov.io/github/parse-community/parse-php-sdk/coverage.svg?branch=master)](http://codecov.io/github/parse-community/parse-php-sdk?branch=master)
 [![auto-release](https://img.shields.io/badge/%F0%9F%9A%80-auto--release-9e34eb.svg)](https://github.com/parse-community/parse-dashboard/releases)
 
-[![PHP Version](https://img.shields.io/badge/php-8.1,_8.2-green.svg?logo=php&style=flat)](https://php.org/)
+[![PHP Version](https://img.shields.io/badge/php-8.1,_8.2,_8.3-green.svg?logo=php&style=flat)](https://php.org/)
 
 [![packagist latest version](https://img.shields.io/packagist/v/parse/php-sdk)](https://packagist.org/packages/parse/php-sdk)
 
