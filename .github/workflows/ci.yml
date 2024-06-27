@@ -7,8 +7,6 @@ on:
   pull_request:
     branches:
       - "**"
-env:
-  NODE_VERSION: 16.17.1
 jobs:
   check-lock-file-version:
     name: NPM Lock File Version
@@ -26,6 +24,8 @@ jobs:
     strategy:
       matrix:
         include:
+          - name: PHP 8.3
+            PHP_VERSION: 8.3
           - name: PHP 8.2
             PHP_VERSION: 8.2
           - name: PHP 8.1
@@ -37,18 +37,12 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: 16.17.1
+          cache: npm
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.PHP_VERSION }}
-      - name: Cache Node.js modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
       - run: composer install
       - run: npm ci
       - run: npm start
