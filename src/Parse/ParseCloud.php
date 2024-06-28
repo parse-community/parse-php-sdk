@@ -13,6 +13,37 @@ namespace Parse;
  */
 class ParseCloud
 {
+    protected static $requestCallable;
+
+    /**
+     * Sets a callable to be used for making requests.
+     *
+     * This method allows injection of a mockable callable for testing purposes.
+     *
+     * @param callable $callable The callable to use for requests.
+     */
+    public static function setRequestCallable(callable $callable)
+    {
+        self::$requestCallable = $callable;
+    }
+
+    /**
+     * Gets the callable used for making requests.
+     *
+     * If no callable has been set, it returns the default callable that calls ParseClient::_request.
+     *
+     * @return callable The callable used for requests.
+     */
+    protected static function getRequestCallable()
+    {
+        if (!self::$requestCallable) {
+            self::$requestCallable = function($method, $path, $sessionToken = null, $data = null, $useMasterKey = false, $contentType = 'application/json', $returnHeaders = false) {
+                return ParseClient::_request($method, $path, $sessionToken, $data, $useMasterKey, $contentType, $returnHeaders);
+            };
+        }
+        return self::$requestCallable;
+    }
+
     /**
      * Makes a call to a Cloud function.
      *
@@ -28,7 +59,9 @@ class ParseCloud
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
-        $response = ParseClient::_request(
+
+        $response = call_user_func(
+            self::getRequestCallable(),
             'POST',
             'functions/'.$name,
             $sessionToken,
@@ -36,7 +69,8 @@ class ParseCloud
             $useMasterKey
         );
 
-        return ParseClient::_decode($response['result']);
+        $returnVal = isset($response['result']) ? $response['result'] : [];
+        return ParseClient::_decode($returnVal);
     }
 
     /**
