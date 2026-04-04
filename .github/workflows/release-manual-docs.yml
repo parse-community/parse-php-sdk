@@ -28,10 +28,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.PHP_VERSION }}
+      - name: Setup PHP ${{ env.PHP_VERSION }}
+        run: |
+          sudo add-apt-repository ppa:ondrej/php -y
+          sudo apt-get update -y
+          sudo apt-get install -y php${{ env.PHP_VERSION }} php${{ env.PHP_VERSION }}-mbstring php${{ env.PHP_VERSION }}-xml php${{ env.PHP_VERSION }}-curl
+          sudo update-alternatives --set php /usr/bin/php${{ env.PHP_VERSION }}
+          php --version
       - name: Generate Docs
         run: |
           composer install

@@ -42,10 +42,13 @@ jobs:
         with:
           node-version: 16.17.1
           cache: npm
-      - name: Setup PHP with PECL extension
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.PHP_VERSION }}
+      - name: Setup PHP ${{ matrix.PHP_VERSION }}
+        run: |
+          sudo add-apt-repository ppa:ondrej/php -y
+          sudo apt-get update -y
+          sudo apt-get install -y php${{ matrix.PHP_VERSION }} php${{ matrix.PHP_VERSION }}-mbstring php${{ matrix.PHP_VERSION }}-xml php${{ matrix.PHP_VERSION }}-curl
+          sudo update-alternatives --set php /usr/bin/php${{ matrix.PHP_VERSION }}
+          php --version
       - run: composer install
       - run: npm ci
       - run: npm start
