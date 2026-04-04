@@ -13,6 +13,12 @@ jobs:
     if: github.event.inputs.tag != ''
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -32,8 +38,12 @@ jobs:
           npm run document
         env:
           SOURCE_TAG: ${{ github.event.inputs.tag }}
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3.7.3
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./.phpdoc/build
+          path: ./.phpdoc/build
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

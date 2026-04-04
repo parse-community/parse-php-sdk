@@ -15,9 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Check NPM lock file version
-        uses: mansona/npm-lockfile-version@v1
-        with:
-          version: 2
+        run: |
+          version=$(node -e "console.log(require('./package-lock.json').lockfileVersion)")
+          if [ "$version" != "2" ]; then
+            echo "::error::Expected lockfileVersion 2, got $version"
+            exit 1
+          fi
   build:
     runs-on: ubuntu-20.04
     timeout-minutes: 30
