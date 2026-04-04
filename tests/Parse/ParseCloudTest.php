@@ -23,6 +23,13 @@ class ParseCloudTest extends TestCase
             ParseUser::logOut();
             $user->destroy(true);
         }
+
+        // Reset the callable after each test
+        ParseCloud::setRequestCallable(function($method, $path, $sessionToken = null, $data = null, $useMasterKey = false, $contentType = 'application/json', $returnHeaders = false) {
+            return \Parse\ParseClient::_request($method, $path, $sessionToken, $data, $useMasterKey, $contentType, $returnHeaders);
+        });
+
+        parent::tearDown();
     }
 
     /**
@@ -70,6 +77,55 @@ class ParseCloudTest extends TestCase
             'key1'  => 'value1',
             'key2'  => 'value2'
         ]);
+    }
+
+    /**
+     * @group cloud-code
+     */
+    public function testFunctionCallWithNullParams()
+    {
+        $this->expectException(
+            'Parse\ParseException',
+            'bad stuff happened'
+        );
+        $response = ParseCloud::run('bar', null);
+    }
+
+    /**
+     * @group cloud-code
+     */
+    public function testFunctionCallWithEmptyParams() {
+        $this->expectException(
+            'Parse\ParseException',
+            'bad stuff happened'
+        );
+        $response = ParseCloud::run('bar', []);
+    }
+
+    /**
+     * @group cloud-code
+     */
+    public function testFunctionCallWithoutResultKey()
+    {
+        // Mock the _request method to return a response without the 'result' key
+        $mockResponse = [];
+        $mockCallable = $this->getMockBuilder(\stdClass::class)
+            ->addMethods(['__invoke'])
+            ->getMock();
+        $mockCallable->expects($this->once())
+            ->method('__invoke')
+            ->willReturn($mockResponse);
+
+        // Set the mock callable in ParseCloud
+        ParseCloud::setRequestCallable($mockCallable);
+
+        $response = ParseCloud::run('bar', [
+            'key1' => 'value2',
+            'key2' => 'value1'
+        ]);
+
+        // Since 'result' key is missing, the default value is returned
+        $this->assertEquals([], $response);
     }
 
     /**
