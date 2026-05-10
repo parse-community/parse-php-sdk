@@ -140,9 +140,37 @@ class ParseQuery
      */
     public function equalTo($key, $value)
     {
+        if ($value instanceof ParseObject && !isset($this->where[$key])) {
+            $this->where[$key] = ParseClient::_encode($value, true);
+
+            return $this;
+        }
+
         $this->addCondition($key, '$eq', $value);
 
         return $this;
+    }
+
+    /**
+     * Checks whether a where entry is a map of query operators.
+     *
+     * @param mixed $entry The where entry to check
+     *
+     * @return bool
+     */
+    private function isConditionMap($entry)
+    {
+        if (!is_array($entry)) {
+            return false;
+        }
+
+        foreach (array_keys($entry) as $key) {
+            if (is_string($key) && strlen($key) > 0 && $key[0] === '$') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -156,8 +184,14 @@ class ParseQuery
      */
     private function addCondition($key, $condition, $value)
     {
+        $hasExistingCondition = isset($this->where[$key]);
         if (!isset($this->where[$key])) {
             $this->where[$key] = [];
+        }
+        if ($hasExistingCondition && !$this->isConditionMap($this->where[$key])) {
+            $this->where[$key] = [
+                '$eq' => $this->where[$key],
+            ];
         }
         $this->where[$key][$condition] = ParseClient::_encode($value, true);
     }

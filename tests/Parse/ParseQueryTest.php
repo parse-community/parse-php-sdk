@@ -2811,4 +2811,55 @@ class ParseQueryTest extends TestCase
             ],
         ], $query->_getOptions());
     }
+
+    /**
+     * @group query-equalTo-conditions
+     */
+    public function testEqualToObjectUsesDirectPointerCondition()
+    {
+        $user = ParseObject::create('_User', 'someUserId');
+
+        $query = new ParseQuery('_Role');
+        $query->equalTo('users', $user);
+
+        $this->assertSame([
+            'where' => [
+                'users' => [
+                    '__type'    => 'Pointer',
+                    'className' => '_User',
+                    'objectId'  => 'someUserId',
+                ],
+            ],
+        ], $query->_getOptions());
+    }
+
+    /**
+     * @group query-equalTo-conditions
+     */
+    public function testObjectEqualToWithSameKeyPreservesOtherConditions()
+    {
+        $user = ParseObject::create('_User', 'someUserId');
+        $otherUser = ParseObject::create('_User', 'otherUserId');
+
+        $query = new ParseQuery('_Role');
+        $query->equalTo('users', $user);
+        $query->notEqualTo('users', $otherUser);
+
+        $this->assertSame([
+            'where' => [
+                'users' => [
+                    '$eq' => [
+                        '__type'    => 'Pointer',
+                        'className' => '_User',
+                        'objectId'  => 'someUserId',
+                    ],
+                    '$ne' => [
+                        '__type'    => 'Pointer',
+                        'className' => '_User',
+                        'objectId'  => 'otherUserId',
+                    ],
+                ],
+            ],
+        ], $query->_getOptions());
+    }
 }
