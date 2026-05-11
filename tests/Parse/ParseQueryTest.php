@@ -2663,9 +2663,7 @@ class ParseQueryTest extends TestCase
 
         $this->assertEquals([
             'where' => [
-                'key'   => [
-                    '$eq' => 'value',
-                ],
+                'key'   => 'value',
                 'key2'  => [
                     '$ne'   => 'value2',
                 ],
@@ -2693,6 +2691,52 @@ class ParseQueryTest extends TestCase
             $query2,
             'Conditions set on query did not give the expected result'
         );
+    }
+
+    /**
+     * @group query-equalTo-conditions
+     */
+    public function testEqualToObjectUsesDirectEqualityForArrayMembershipQueries()
+    {
+        $object = new ParseObject('TestObject', 'testObjectId');
+
+        $query = new ParseQuery('TestObject');
+        $query->equalTo('items', $object);
+
+        $this->assertSame([
+            'where' => [
+                'items' => [
+                    '__type' => 'Pointer',
+                    'className' => 'TestObject',
+                    'objectId' => 'testObjectId',
+                ],
+            ],
+        ], $query->_getOptions());
+    }
+
+    /**
+     * @group query-equalTo-conditions
+     */
+    public function testEqualToWithRepeatedSameKeyConvertsDirectEqualityToConditionMap()
+    {
+        $firstObject = new ParseObject('TestObject', 'firstObjectId');
+        $secondObject = new ParseObject('TestObject', 'secondObjectId');
+
+        $query = new ParseQuery('TestObject');
+        $query->equalTo('items', $firstObject);
+        $query->equalTo('items', $secondObject);
+
+        $this->assertSame([
+            'where' => [
+                'items' => [
+                    '$eq' => [
+                        '__type' => 'Pointer',
+                        'className' => 'TestObject',
+                        'objectId' => 'secondObjectId',
+                    ],
+                ],
+            ],
+        ], $query->_getOptions());
     }
 
     /**
@@ -2726,9 +2770,7 @@ class ParseQueryTest extends TestCase
 
         $this->assertSame([
             'where' => [
-                'country' => [
-                    '$eq' => 'US'
-                ]
+                'country' => 'US'
             ],
             'limit' => 1,
         ], $query->_getOptions());
