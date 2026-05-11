@@ -140,7 +140,27 @@ class ParseQuery
      */
     public function equalTo($key, $value)
     {
-        $this->addCondition($key, '$eq', $value);
+        $encodedValue = ParseClient::_encode($value, true);
+        if (!isset($this->where[$key])) {
+            $this->where[$key] = $encodedValue;
+        } else {
+            $isConditionMap = false;
+            if (is_array($this->where[$key])) {
+                foreach ($this->where[$key] as $conditionKey => $_) {
+                    if (is_string($conditionKey) && str_starts_with($conditionKey, '$')) {
+                        $isConditionMap = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!$isConditionMap) {
+                $this->where[$key] = [
+                    '$eq' => $this->where[$key],
+                ];
+            }
+            $this->where[$key]['$eq'] = $encodedValue;
+        }
 
         return $this;
     }
