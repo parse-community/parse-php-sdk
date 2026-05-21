@@ -2663,9 +2663,7 @@ class ParseQueryTest extends TestCase
 
         $this->assertEquals([
             'where' => [
-                'key'   => [
-                    '$eq' => 'value',
-                ],
+                'key'   => 'value',
                 'key2'  => [
                     '$ne'   => 'value2',
                 ],
@@ -2726,9 +2724,7 @@ class ParseQueryTest extends TestCase
 
         $this->assertSame([
             'where' => [
-                'country' => [
-                    '$eq' => 'US'
-                ]
+                'country' => 'US'
             ],
             'limit' => 1,
         ], $query->_getOptions());
@@ -2808,6 +2804,49 @@ class ParseQueryTest extends TestCase
                     '$ne'   => 'baz',
                     '$eq' => 'bar',
                 ]
+            ],
+        ], $query->_getOptions());
+    }
+
+    /**
+     * @group query-equalTo-conditions
+     */
+    public function testEqualToAfterDirectEqualityDoesNotOverrideOtherConditions()
+    {
+        $query = new ParseQuery('TestObject');
+        $query->equalTo('status', 'active');
+        $query->notEqualTo('status', 'archived');
+
+        $this->assertSame([
+            'where' => [
+                'status' => [
+                    '$eq' => 'active',
+                    '$ne' => 'archived',
+                ]
+            ],
+        ], $query->_getOptions());
+    }
+
+    /**
+     * @group query-equalTo-conditions
+     */
+    public function testEqualToPointerUsesDirectEqualityForArrayFieldMembership()
+    {
+        $user = new ParseObject('_User');
+        $user->_mergeAfterFetch([
+            'objectId' => 'someUserId',
+        ]);
+
+        $query = new ParseQuery('_Role');
+        $query->equalTo('users', $user);
+
+        $this->assertSame([
+            'where' => [
+                'users' => [
+                    '__type' => 'Pointer',
+                    'className' => '_User',
+                    'objectId' => 'someUserId',
+                ],
             ],
         ], $query->_getOptions());
     }
