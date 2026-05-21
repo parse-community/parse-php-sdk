@@ -160,7 +160,7 @@ class ParseQuery
      */
     private function addCondition($key, $condition, $value)
     {
-        if (!isset($this->where[$key])) {
+        if (!array_key_exists($key, $this->where)) {
             $this->where[$key] = [];
         } elseif (!$this->isConditionMap($this->where[$key])) {
             $this->where[$key] = ['$eq' => $this->where[$key]];

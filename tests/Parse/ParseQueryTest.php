@@ -2830,6 +2830,25 @@ class ParseQueryTest extends TestCase
     /**
      * @group query-equalTo-conditions
      */
+    public function testEqualToNullBeforeConditionPreservesNullEquality()
+    {
+        $query = new ParseQuery('TestObject');
+        $query->equalTo('status', null);
+        $query->notEqualTo('status', 'archived');
+
+        $this->assertSame([
+            'where' => [
+                'status' => [
+                    '$eq' => null,
+                    '$ne' => 'archived',
+                ]
+            ],
+        ], $query->_getOptions());
+    }
+
+    /**
+     * @group query-equalTo-conditions
+     */
     public function testEqualToPointerSerializesAsDirectWhereValue()
     {
         $user = new ParseObject('_User');
