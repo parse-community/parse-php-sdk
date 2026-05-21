@@ -181,8 +181,8 @@ class ParseQuery
             return false;
         }
 
-        foreach (array_keys($value) as $key) {
-            if (!is_string($key) || strpos($key, '$') !== 0) {
+        foreach ($value as $operatorKey => $_) {
+            if (!is_string($operatorKey) || strpos($operatorKey, '$') !== 0) {
                 return false;
             }
         }

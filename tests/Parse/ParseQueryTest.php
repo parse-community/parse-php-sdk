@@ -2830,7 +2830,7 @@ class ParseQueryTest extends TestCase
     /**
      * @group query-equalTo-conditions
      */
-    public function testEqualToPointerUsesDirectEqualityForArrayFieldMembership()
+    public function testEqualToPointerSerializesAsDirectWhereValue()
     {
         $user = new ParseObject('_User');
         $user->_mergeAfterFetch([
