@@ -140,7 +140,13 @@ class ParseQuery
      */
     public function equalTo($key, $value)
     {
-        $this->addCondition($key, '$eq', $value);
+        if ($value instanceof ParseObject) {
+            // Mark pointer values with a special marker so we can collapse
+            // them to raw pointers at query build time (supports array queries)
+            $this->addCondition($key, '$eq_pointer', $value);
+        } else {
+            $this->addCondition($key, '$eq', $value);
+        }
 
         return $this;
     }
@@ -493,6 +499,40 @@ class ParseQuery
     }
 
     /**
+     * Recursively normalize the where clause, collapsing $eq_pointer sentinel
+     * values to raw pointers (for ParseObject equality) or rewriting mixed
+     * same-key cases to $eq. Handles nested condition trees (or/and/nor queries).
+     *
+     * @param mixed $value
+     * @return mixed
+     */
+    private function normalizeWhere($value)
+    {
+        if (!is_array($value)) {
+            return $value;
+        }
+
+        if (array_key_exists('$eq_pointer', $value)) {
+            $pointer = $value['$eq_pointer'];
+            unset($value['$eq_pointer']);
+
+            if (count($value) === 0) {
+                // Sole condition: collapse to raw pointer
+                return $pointer;
+            }
+
+            // Mixed same-key case: rewrite to $eq alongside other operators
+            $value['$eq'] = $pointer;
+        }
+
+        foreach ($value as $k => $v) {
+            $value[$k] = $this->normalizeWhere($v);
+        }
+
+        return $value;
+    }
+
+    /**
      * Returns an associative array of the query constraints.
      *
      * @return array
@@ -501,7 +541,7 @@ class ParseQuery
     {
         $opts = [];
         if (!empty($this->where)) {
-            $opts['where'] = $this->where;
+            $opts['where'] = $this->normalizeWhere($this->where);
         }
         if (count($this->includes)) {
             $opts['include'] = implode(',', $this->includes);
@@ -633,7 +673,7 @@ class ParseQuery
         }
          $opts = [];
         if (!empty($this->where)) {
-            $opts['where'] = $this->where;
+            $opts['where'] = $this->normalizeWhere($this->where);
         }
         $opts['distinct'] = $key;
         $queryString = $this->buildQueryString($opts);
