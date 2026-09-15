@@ -9,6 +9,7 @@ use Parse\ParseQuery;
 use Parse\ParseUser;
 use Parse\ParseClient;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseQueryTest extends TestCase
@@ -813,9 +814,7 @@ class ParseQueryTest extends TestCase
         );
     }
 
-    /**
-     * @group withCount
-     */
+    #[Group('withCount')]
     public function testWithCount()
     {
         Helper::clearClass('BoxedNumber');
@@ -835,9 +834,7 @@ class ParseQueryTest extends TestCase
         $this->assertEquals(count($response['results']), 3);
     }
 
-    /**
-     * @group withCount
-     */
+    #[Group('withCount')]
     public function testWithCountDestructure()
     {
         Helper::clearClass('BoxedNumber');
@@ -857,9 +854,7 @@ class ParseQueryTest extends TestCase
         $this->assertEquals(count($results), 3);
     }
 
-    /**
-     * @group withCount
-     */
+    #[Group('withCount')]
     public function testWithCountFalse()
     {
         Helper::clearClass('BoxedNumber');
@@ -879,9 +874,7 @@ class ParseQueryTest extends TestCase
         $this->assertEquals(count($response), 3);
     }
 
-    /**
-     * @group withCount
-     */
+    #[Group('withCount')]
     public function testWithCountEmptyClass()
     {
         Helper::clearClass('BoxedNumber');
@@ -892,9 +885,7 @@ class ParseQueryTest extends TestCase
         $this->assertEquals(count($response['results']), 0);
     }
 
-    /**
-     * @group withCount
-     */
+    #[Group('withCount')]
     public function testWithCountAndLimit()
     {
         Helper::clearClass('BoxedNumber');
@@ -915,9 +906,7 @@ class ParseQueryTest extends TestCase
         $this->assertEquals(count($response['results']), 2);
     }
 
-    /**
-     * @group withCount
-     */
+    #[Group('withCount')]
     public function testWithCountAndSkip()
     {
         Helper::clearClass('BoxedNumber');
@@ -946,9 +935,7 @@ class ParseQueryTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group query-equalTo-Zero-Count
-     */
+    #[Group('query-equalTo-Zero-Count')]
     public function testEqualToCountZero()
     {
         Helper::clearClass('BoxedNumber');
@@ -1838,9 +1825,7 @@ class ParseQueryTest extends TestCase
         }
     }
 
-    /**
-     * @group order-by-updated-at
-     */
+    #[Group('order-by-updated-at')]
     public function testOrderByUpdatedAtAsc()
     {
         $numbers = [3, 1, 2];
@@ -1876,8 +1861,8 @@ class ParseQueryTest extends TestCase
 
     /**
      * @throws ParseException
-     * @group order-by-updated-at-desc
      */
+    #[Group('order-by-updated-at-desc')]
     public function testOrderByUpdatedAtDesc()
     {
         $numbers = [3, 1, 2];
@@ -2603,7 +2588,7 @@ class ParseQueryTest extends TestCase
             Helper::$masterKey,
             false,
         );
-        ParseClient::setServerURL('http://localhost:1337', 'parse');
+        ParseClient::setServerURL(Helper::getHttpServerURL(), 'parse');
 
         $httpClient = new HttpClientMock();
         $httpClient->setResponse('{}');
@@ -2618,9 +2603,7 @@ class ParseQueryTest extends TestCase
         Helper::setUp();
     }
 
-    /**
-     * @group query-set-conditions
-     */
+    #[Group('query-set-conditions')]
     public function testSetConditions()
     {
         $query = new ParseQuery('TestObject');
@@ -2637,9 +2620,7 @@ class ParseQueryTest extends TestCase
         ], $query->_getOptions());
     }
 
-    /**
-     * @group query-set-conditions
-     */
+    #[Group('query-set-conditions')]
     public function testGetAndSetConditions()
     {
         $query = new ParseQuery('TestObject');
@@ -2695,9 +2676,7 @@ class ParseQueryTest extends TestCase
         );
     }
 
-    /**
-     * @group query-count-conditions
-     */
+    #[Group('query-count-conditions')]
     public function testCountDoesNotOverrideConditions()
     {
         $obj = new ParseObject('TestObject');
@@ -2745,9 +2724,7 @@ class ParseQueryTest extends TestCase
         $query->_setConditions('not-an-array');
     }
 
-    /**
-     * @group query-set-conditions
-     */
+    #[Group('query-set-conditions')]
     public function testUnknownCondition()
     {
         $this->expectException(
@@ -2761,9 +2738,7 @@ class ParseQueryTest extends TestCase
         ]);
     }
 
-    /**
-     * @group query-equalTo-conditions
-     */
+    #[Group('query-equalTo-conditions')]
     public function testEqualToWithSameKeyDoesNotOverrideOtherConditions()
     {
         $baz = new ParseObject('TestObject');

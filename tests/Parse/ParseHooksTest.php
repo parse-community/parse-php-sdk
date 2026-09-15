@@ -5,6 +5,7 @@ namespace Parse\Test;
 use Parse\ParseException;
 use Parse\ParseHooks;
 use Parse\ParseSchema;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseHooksTest extends TestCase
@@ -90,9 +91,7 @@ class ParseHooksTest extends TestCase
         self::$hooks->deleteFunction('baz');
     }
 
-    /**
-     * @group hook-create-trigger
-     */
+    #[Group('hook-create-trigger')]
     public function testCreateTrigger()
     {
         $trigger = self::$hooks->createTrigger('Game', 'beforeSave', 'https://api.example.com/Game/beforeSave');
@@ -175,9 +174,7 @@ class ParseHooksTest extends TestCase
         $this->assertEmpty($deleted_trigger);
     }
 
-    /**
-     * @group hooks-fetch-functions
-     */
+    #[Group('hooks-fetch-functions')]
     public function testFetchFunctions()
     {
         self::$hooks->createFunction('func1', 'http://example1.com');

@@ -20,3 +20,6 @@ output/
 .phpdoc/
 
 composer.phar
+
+# phpDocumentor phar, downloaded on demand
+tools/

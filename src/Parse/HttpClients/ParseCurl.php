@@ -18,7 +18,7 @@ class ParseCurl
     /**
      * Curl handle
      *
-     * @var resource
+     * @var \CurlHandle|null
      */
     private $curl;
 
@@ -133,10 +133,8 @@ class ParseCurl
             throw new ParseException('You must call ParseCurl::init first');
         }
 
-        // close our handle
-        curl_close($this->curl);
-
-        // unset our curl handle
+        // unset our curl handle, which closes it
+        // note: curl_close() has been a no-op since PHP 8.0 and is deprecated as of PHP 8.5
         $this->curl = null;
     }
 }

@@ -10,6 +10,7 @@ use Parse\Internal\DeleteOperation;
 use Parse\Internal\IncrementOperation;
 use Parse\Internal\SetOperation;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class IncrementOperationTest extends TestCase
@@ -19,18 +20,14 @@ class IncrementOperationTest extends TestCase
         Helper::setUp();
     }
 
-    /**
-     * @group increment-op
-     */
+    #[Group('increment-op')]
     public function testIncrementOperation()
     {
         $addOp = new IncrementOperation(32);
         $this->assertEquals(32, $addOp->getValue());
     }
 
-    /**
-     * @group increment-op
-     */
+    #[Group('increment-op')]
     public function testMergePrevious()
     {
         $addOp = new IncrementOperation();
@@ -52,9 +49,7 @@ class IncrementOperationTest extends TestCase
         $this->assertEquals(33, $merged->getValue(), 'Value was not as expected');
     }
 
-    /**
-     * @group increment-op
-     */
+    #[Group('increment-op')]
     public function testInvalidMerge()
     {
         $this->expectException(

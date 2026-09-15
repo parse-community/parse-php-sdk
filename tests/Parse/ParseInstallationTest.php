@@ -5,6 +5,7 @@ namespace Parse\Test;
 use Parse\ParseClient;
 use Parse\ParseInstallation;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseInstallationTest extends TestCase
@@ -19,9 +20,7 @@ class ParseInstallationTest extends TestCase
         Helper::clearClass(ParseInstallation::$parseClassName);
     }
 
-    /**
-     * @group installation-tests
-     */
+    #[Group('installation-tests')]
     public function testMissingIdentifyingField()
     {
         $this->expectException(
@@ -32,9 +31,7 @@ class ParseInstallationTest extends TestCase
         (new ParseInstallation())->save();
     }
 
-    /**
-     * @group installation-tests
-     */
+    #[Group('installation-tests')]
     public function testMissingDeviceType()
     {
         $this->expectException(
@@ -47,9 +44,7 @@ class ParseInstallationTest extends TestCase
         $installation->save();
     }
 
-    /**
-     * @group installation-tests
-     */
+    #[Group('installation-tests')]
     public function testClientsCannotFindWithoutMasterKey()
     {
         $this->expectException(
@@ -61,9 +56,7 @@ class ParseInstallationTest extends TestCase
         $query->first();
     }
 
-    /**
-     * @group installation-tests
-     */
+    #[Group('installation-tests')]
     public function testClientsCannotDestroyWithoutMasterKey()
     {
         $installation = new ParseInstallation();
@@ -80,9 +73,7 @@ class ParseInstallationTest extends TestCase
         $installation->destroy();
     }
 
-    /**
-     * @group installation-tests
-     */
+    #[Group('installation-tests')]
     public function testInstallation()
     {
         $installationId = '12345';

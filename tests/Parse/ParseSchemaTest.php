@@ -19,6 +19,7 @@ use Parse\ParseQuery;
 use Parse\ParseSchema;
 use Parse\ParseUser;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseSchemaTest extends TestCase
@@ -219,9 +220,7 @@ class ParseSchemaTest extends TestCase
         $schema->update();
     }
 
-    /**
-     * @group schema-purge
-     */
+    #[Group('schema-purge')]
     public function testPurgeSchema()
     {
         // get a handle to this schema
@@ -254,9 +253,7 @@ class ParseSchemaTest extends TestCase
         $schema->delete();
     }
 
-    /**
-     * @group schema-purge
-     */
+    #[Group('schema-purge')]
     public function testPurgingNonexistentSchema()
     {
         try {
@@ -412,9 +409,7 @@ class ParseSchemaTest extends TestCase
         $schema->assertTypes('StringFormatter');
     }
 
-    /**
-     * @group schema-test-errors
-     */
+    #[Group('schema-test-errors')]
     public function testBadSchemaGet()
     {
         $this->expectException('\Parse\ParseException');
@@ -428,9 +423,7 @@ class ParseSchemaTest extends TestCase
         $schema->get();
     }
 
-    /**
-     * @group schema-test-errors
-     */
+    #[Group('schema-test-errors')]
     public function testBadSchemaSave()
     {
         $this->expectException('\Exception');
@@ -444,9 +437,7 @@ class ParseSchemaTest extends TestCase
         $schema->save();
     }
 
-    /**
-     * @group schema-test-errors
-     */
+    #[Group('schema-test-errors')]
     public function testBadSchemaUpdate()
     {
         $this->expectException('\Exception');
@@ -460,9 +451,7 @@ class ParseSchemaTest extends TestCase
         $schema->update();
     }
 
-    /**
-     * @group schema-test-errors
-     */
+    #[Group('schema-test-errors')]
     public function testBadSchemaDelete()
     {
         $this->markTestSkipped('Curl is not sending the request and does not complain.');

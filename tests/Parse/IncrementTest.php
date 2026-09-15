@@ -5,6 +5,7 @@ namespace Parse\Test;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class IncrementTest extends TestCase
@@ -20,9 +21,7 @@ class IncrementTest extends TestCase
         Helper::tearDown();
     }
 
-    /**
-     * @group fresh-increment
-     */
+    #[Group('fresh-increment')]
     public function testIncrementOnFreshObject()
     {
         $obj = ParseObject::create('TestObject');
@@ -189,9 +188,7 @@ class IncrementTest extends TestCase
         );
     }
 
-    /**
-     * @group increment-empty
-     */
+    #[Group('increment-empty')]
     public function testIncrementEmptyField()
     {
         $obj = ParseObject::create('TestObject');
@@ -213,9 +210,7 @@ class IncrementTest extends TestCase
         );
     }
 
-    /**
-     * @group empty-field-type-conflict
-     */
+    #[Group('empty-field-type-conflict')]
     public function testIncrementEmptyFieldAndTypeConflict()
     {
         $obj = ParseObject::create('TestObject');

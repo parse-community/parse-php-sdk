@@ -11,6 +11,7 @@ use Parse\Internal\IncrementOperation;
 use Parse\Internal\SetOperation;
 use Parse\ParseClient;
 use Parse\ParseObject;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class AddUniqueOperationTest extends TestCase
@@ -25,9 +26,7 @@ class AddUniqueOperationTest extends TestCase
         Helper::clearClass('TestObject');
     }
 
-    /**
-     * @group add-unique-op
-     */
+    #[Group('add-unique-op')]
     public function testAddUniqueOp()
     {
         $objects = [
@@ -39,9 +38,7 @@ class AddUniqueOperationTest extends TestCase
         $this->assertEquals($objects, $addUnique->getValue());
     }
 
-    /**
-     * @group add-unique-op
-     */
+    #[Group('add-unique-op')]
     public function testBadObjects()
     {
         $this->expectException(
@@ -51,9 +48,7 @@ class AddUniqueOperationTest extends TestCase
         new AddUniqueOperation('not-an-array');
     }
 
-    /**
-     * @group add-unique-op
-     */
+    #[Group('add-unique-op')]
     public function testEncode()
     {
         $objects = [
@@ -70,9 +65,7 @@ class AddUniqueOperationTest extends TestCase
         ], $encoded);
     }
 
-    /**
-     * @group add-unique-op
-     */
+    #[Group('add-unique-op')]
     public function testMergePrevious()
     {
         $addOp = new AddUniqueOperation([
@@ -102,9 +95,7 @@ class AddUniqueOperationTest extends TestCase
         ], $merged->getValue(), 'Value was not as expected');
     }
 
-    /**
-     * @group add-unique-op
-     */
+    #[Group('add-unique-op')]
     public function testInvalidMerge()
     {
         $this->expectException(
@@ -117,9 +108,7 @@ class AddUniqueOperationTest extends TestCase
         $addOp->_mergeWithPrevious(new IncrementOperation());
     }
 
-    /**
-     * @group add-unique-op
-     */
+    #[Group('add-unique-op')]
     public function testApply()
     {
         // test a null old value

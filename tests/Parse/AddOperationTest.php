@@ -8,6 +8,7 @@ namespace Parse\Test;
 use Parse\Internal\AddOperation;
 use Parse\Internal\DeleteOperation;
 use Parse\Internal\SetOperation;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class AddOperationTest extends TestCase
@@ -17,9 +18,7 @@ class AddOperationTest extends TestCase
         Helper::setUp();
     }
 
-    /**
-     * @group add-op
-     */
+    #[Group('add-op')]
     public function testAddOperation()
     {
         $objects = [
@@ -30,9 +29,7 @@ class AddOperationTest extends TestCase
         $this->assertEquals($objects, $addOp->getValue());
     }
 
-    /**
-     * @group add-op
-     */
+    #[Group('add-op')]
     public function testBadObjects()
     {
         $this->expectException(
@@ -42,9 +39,7 @@ class AddOperationTest extends TestCase
         new AddOperation('not an array');
     }
 
-    /**
-     * @group add-op
-     */
+    #[Group('add-op')]
     public function testMergePrevious()
     {
         $addOp = new AddOperation([
@@ -74,9 +69,7 @@ class AddOperationTest extends TestCase
         ], $merged->getValue(), 'Value was not as expected');
     }
 
-    /**
-     * @group add-op
-     */
+    #[Group('add-op')]
     public function testInvalidMerge()
     {
         $this->expectException(

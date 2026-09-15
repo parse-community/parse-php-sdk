@@ -10,13 +10,12 @@ use Parse\Internal\DeleteOperation;
 use Parse\Internal\RemoveOperation;
 use Parse\Internal\SetOperation;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class RemoveOperationTest extends TestCase
 {
-    /**
-     * @group remove-op
-     */
+    #[Group('remove-op')]
     public function testMissingArray()
     {
         $this->expectException(
@@ -26,9 +25,7 @@ class RemoveOperationTest extends TestCase
         new RemoveOperation('not an array');
     }
 
-    /**
-     * @group remove-op-merge
-     */
+    #[Group('remove-op-merge')]
     public function testMergePrevious()
     {
         $removeOp = new RemoveOperation([
@@ -57,9 +54,7 @@ class RemoveOperationTest extends TestCase
         ], $merged->getValue(), 'Value was not as expected');
     }
 
-    /**
-     * @group remove-op
-     */
+    #[Group('remove-op')]
     public function testInvalidMerge()
     {
         $this->expectException(
@@ -72,9 +67,7 @@ class RemoveOperationTest extends TestCase
         $removeOp->_mergeWithPrevious(new AddOperation(['key'=>'value']));
     }
 
-    /**
-     * @group remove-op
-     */
+    #[Group('remove-op')]
     public function testEmptyApply()
     {
         $removeOp = new RemoveOperation([

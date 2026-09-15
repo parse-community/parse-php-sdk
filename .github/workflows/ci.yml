@@ -7,13 +7,16 @@ on:
   pull_request:
     branches:
       - "**"
+# Every job only reads the repository; codecov is uploaded with its own token.
+permissions:
+  contents: read
 jobs:
   check-lock-file-version:
     name: NPM Lock File Version
     timeout-minutes: 5
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Check NPM lock file version
         run: |
           version=$(node -e "console.log(require('./package-lock.json').lockfileVersion)")
@@ -22,11 +25,15 @@ jobs:
             exit 1
           fi
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       matrix:
         include:
+          - name: PHP 8.5
+            PHP_VERSION: 8.5
+          - name: PHP 8.4
+            PHP_VERSION: 8.4
           - name: PHP 8.3
             PHP_VERSION: 8.3
           - name: PHP 8.2
@@ -36,30 +43,67 @@ jobs:
       fail-fast: false
     name: Test ${{ matrix.name }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.17.1
+          node-version: 18
           cache: npm
       - name: Setup PHP ${{ matrix.PHP_VERSION }}
         run: |
           sudo add-apt-repository ppa:ondrej/php -y
           sudo apt-get update -y
-          sudo apt-get install -y php${{ matrix.PHP_VERSION }} php${{ matrix.PHP_VERSION }}-mbstring php${{ matrix.PHP_VERSION }}-xml php${{ matrix.PHP_VERSION }}-curl
+          sudo apt-get install -y php${{ matrix.PHP_VERSION }} php${{ matrix.PHP_VERSION }}-mbstring php${{ matrix.PHP_VERSION }}-xml php${{ matrix.PHP_VERSION }}-curl php${{ matrix.PHP_VERSION }}-xdebug
           sudo update-alternatives --set php /usr/bin/php${{ matrix.PHP_VERSION }}
           php --version
-      - run: composer install
+      - name: Start MongoDB
+        run: |
+          docker run -d --name mongo -p 27017:27017 mongo:6.0 --replSet rs0
+          until docker exec mongo mongosh --quiet --eval 'db.runCommand({ping:1})' > /dev/null 2>&1; do sleep 1; done
+          docker exec mongo mongosh --quiet --eval 'rs.initiate({_id:"rs0",members:[{_id:0,host:"localhost:27017"}]})'
+          until [ "$(docker exec mongo mongosh --quiet --eval 'rs.status().myState')" = "1" ]; do sleep 1; done
+      # `composer update` rather than `composer install`: a single lock file cannot
+      # cover PHP 8.1 to 8.5, since PHPUnit 10, 11 and 12 each support a different range.
+      - run: composer update --no-interaction --no-progress
       - run: npm ci
       - run: npm start
+      - name: Wait for the Parse test server
+        run: |
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:1337/parse/health && exit 0
+            sleep 2
+          done
+          echo "::error::Parse test server did not come up"
+          exit 1
       - run: npm run lint
       - run: npm run test-stream
       - run: npm run test:coverage
-      - run: npm run document-check
-      - run: npm run document
-        env:
-          CI: true
       - run: bash <(curl -s https://codecov.io/bash)
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      # phpDocumentor cannot be installed on PHP 8.5 yet, so docs are built on 8.4
+      - name: Setup PHP 8.4
+        run: |
+          sudo add-apt-repository ppa:ondrej/php -y
+          sudo apt-get update -y
+          sudo apt-get install -y php8.4 php8.4-mbstring php8.4-xml php8.4-curl
+          sudo update-alternatives --set php /usr/bin/php8.4
+          php --version
+      - name: Install phpDocumentor
+        env:
+          PHPDOC_VERSION: 3.10.0
+          PHPDOC_SHA256: fe1e7c23ba3329aa6f19ac3c807446159a431a195ec5d9163b0c281a15105207
+        run: |
+          mkdir -p tools
+          curl -sSL -o tools/phpDocumentor.phar \
+            "https://github.com/phpDocumentor/phpDocumentor/releases/download/v$PHPDOC_VERSION/phpDocumentor.phar"
+          echo "$PHPDOC_SHA256  tools/phpDocumentor.phar" | sha256sum --check --strict
+          chmod +x tools/phpDocumentor.phar
+      - run: npm run document-check
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true

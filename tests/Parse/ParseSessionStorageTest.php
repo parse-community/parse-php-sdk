@@ -5,6 +5,7 @@ namespace Parse\Test;
 use Parse\ParseClient;
 use Parse\ParseSessionStorage;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseSessionStorageTest extends TestCase
@@ -89,9 +90,7 @@ class ParseSessionStorageTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @group session-recreate-storage
-     */
+    #[Group('session-recreate-storage')]
     public function testRecreatingSessionStorage()
     {
         unset($_SESSION['parseData']);

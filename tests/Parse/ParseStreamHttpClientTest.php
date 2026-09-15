@@ -9,13 +9,12 @@ use Parse\HttpClients\ParseStreamHttpClient;
 use Parse\HttpClients\ParseStream;
 use Parse\ParseException;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseStreamHttpClientTest extends TestCase
 {
-    /**
-     * @group test-get-response
-     */
+    #[Group('test-get-response')]
     public function testGetResponse()
     {
         $client = new ParseStreamHttpClient();
@@ -44,9 +43,7 @@ class ParseStreamHttpClientTest extends TestCase
         $client->send($url);
     }
 
-    /**
-     * @group test-stream-context-error
-     */
+    #[Group('test-stream-context-error')]
     public function testStreamContextError()
     {
         $client = $this->getMockBuilder(ParseStream::class)

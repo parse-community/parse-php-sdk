@@ -21,6 +21,7 @@ use Parse\ParseRole;
 use Parse\ParseSession;
 use Parse\ParseUser;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseObjectTest extends TestCase
@@ -1013,9 +1014,7 @@ class ParseObjectTest extends TestCase
         }
     }
 
-    /**
-     * @group test-empty-objects-arrays
-     */
+    #[Group('test-empty-objects-arrays')]
     public function testEmptyObjectsAndArrays()
     {
         $obj = ParseObject::create('TestObject');
@@ -1095,9 +1094,7 @@ class ParseObjectTest extends TestCase
         $this->assertEquals('bar', $results[2]->get('foo'));
     }
 
-    /**
-     * @group test-fetch-all-include
-     */
+    #[Group('test-fetch-all-include')]
     public function testFetchAllWithInclude()
     {
         $child = ParseObject::create('TestObject');
@@ -1126,9 +1123,7 @@ class ParseObjectTest extends TestCase
         $this->assertEquals('parse', $results[2]->get('child')->get('name'));
     }
 
-    /**
-     * @group test-fetch-include
-     */
+    #[Group('test-fetch-include')]
     public function testFetchWithInclude()
     {
         $child = ParseObject::create('TestObject');
@@ -1254,9 +1249,7 @@ class ParseObjectTest extends TestCase
         ], $estimatedData);
     }
 
-    /**
-     * @group dirty-children
-     */
+    #[Group('dirty-children')]
     public function testDirtyChildren()
     {
         $obj = new ParseObject('TestClass');
@@ -1470,9 +1463,7 @@ class ParseObjectTest extends TestCase
         $obj->destroy();
     }
 
-    /**
-     * @group merge-from-server
-     */
+    #[Group('merge-from-server')]
     public function testMergeFromServer()
     {
         $obj = new ParseObject('TestClass');
@@ -1563,9 +1554,7 @@ class ParseObjectTest extends TestCase
         ParseObjectMock::query();
     }
 
-    /**
-     * @group encode-encodable
-     */
+    #[Group('encode-encodable')]
     public function testEncodeEncodable()
     {
 
@@ -1639,8 +1628,8 @@ class ParseObjectTest extends TestCase
 
     /**
      * Runs tests on encoding/decoding an unsaved ParseObject
-     * @group decode-test
      */
+    #[Group('decode-test')]
     public function testDecodeOnObject()
     {
         $obj = $this->getTestObject();
@@ -1668,8 +1657,8 @@ class ParseObjectTest extends TestCase
     /**
      * Runs tests on encoding/decoding a ParseObject that has been saved
      *
-     * @group decode-test
      */
+    #[Group('decode-test')]
     public function testDecodeOnSavedObject()
     {
         // setup IVs
@@ -1760,8 +1749,8 @@ class ParseObjectTest extends TestCase
     /**
      * Tests decoding with various ops
      *
-     * @group decode-test
      */
+    #[Group('decode-test')]
     public function testDecodeWithOps()
     {
         $obj = new ParseObject('TestClass');
@@ -1812,8 +1801,8 @@ class ParseObjectTest extends TestCase
     /**
      * Tests decoding with an unrecognized op
      *
-     * @group decode-unrecognized-test
      */
+    #[Group('decode-unrecognized-test')]
     public function testUnrecognizedOp()
     {
         $this->expectException(
@@ -1833,8 +1822,8 @@ class ParseObjectTest extends TestCase
     /**
      * Tests if object exists
      *
-     * @group object-exists
      */
+    #[Group('object-exists')]
     public function testObjectExists()
     {
         $obj = new ParseObject('TestClass');

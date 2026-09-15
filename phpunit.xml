@@ -1,11 +1,5 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="./tests/bootstrap.php" backupGlobals="false" colors="true" processIsolation="false" stopOnError="false" stopOnFailure="false" stopOnSkipped="false" stopOnIncomplete="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd" cacheDirectory=".phpunit.cache" backupStaticProperties="false">
-  <coverage>
-    <report>
-      <html outputDirectory="phpunit-test-results/"/>
-      <text outputFile="php://stdout" showUncoveredFiles="true"/>
-    </report>
-  </coverage>
+<phpunit bootstrap="./tests/bootstrap.php" backupGlobals="false" colors="true" processIsolation="false" stopOnError="false" stopOnFailure="false" stopOnSkipped="false" stopOnIncomplete="false" cacheDirectory=".phpunit.cache" backupStaticProperties="false">
   <testsuites>
     <testsuite name="parse-php-sdk">
       <directory suffix="Test.php">./tests</directory>

@@ -4,17 +4,17 @@ on:
     branches: [ master, release, alpha, beta ]
 env:
   NODE_VERSION: 18
-  PHP_VERSION: 8.1
+  PHP_VERSION: 8.4
 jobs:
   release:
     runs-on: ubuntu-latest
     outputs:
       current_tag: ${{ steps.tag.outputs.current_tag }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
       - run: npm ci
@@ -24,7 +24,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Determine tag on current commit
         id: tag
-        run: echo "::set-output name=current_tag::$(git describe --tags --abbrev=0 --exact-match || echo '')"
+        run: echo "current_tag=$(git describe --tags --abbrev=0 --exact-match || echo '')" >> "$GITHUB_OUTPUT"
   docs-publish:
     needs: release
     if: needs.release.outputs.current_tag != ''
@@ -38,11 +38,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ needs.release.outputs.current_tag }}
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Setup PHP ${{ env.PHP_VERSION }}
@@ -54,10 +54,16 @@ jobs:
           php --version
       - name: Generate Docs
         run: |
-          composer install
+          mkdir -p tools
+          curl -sSL -o tools/phpDocumentor.phar \
+            "https://github.com/phpDocumentor/phpDocumentor/releases/download/v$PHPDOC_VERSION/phpDocumentor.phar"
+          echo "$PHPDOC_SHA256  tools/phpDocumentor.phar" | sha256sum --check --strict
+          chmod +x tools/phpDocumentor.phar
           npm run document-check
           npm run document
         env:
+          PHPDOC_VERSION: 3.10.0
+          PHPDOC_SHA256: fe1e7c23ba3329aa6f19ac3c807446159a431a195ec5d9163b0c281a15105207
           SOURCE_TAG: ${{ needs.release.outputs.current_tag }}
       - name: Configure Pages
         uses: actions/configure-pages@v5

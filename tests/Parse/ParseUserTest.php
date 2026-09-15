@@ -8,6 +8,7 @@ use Parse\ParseObject;
 use Parse\ParseQuery;
 use Parse\ParseUser;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseUserTest extends TestCase
@@ -525,9 +526,7 @@ class ParseUserTest extends TestCase
         );
     }
 
-    /**
-     * @group test-fetch-include
-     */
+    #[Group('test-fetch-include')]
     public function testUserFetchWithInclude()
     {
         $child = ParseObject::create('TestObject');
@@ -725,9 +724,7 @@ class ParseUserTest extends TestCase
         $this->assertFalse($userAgain->isKeyDirty('bleep'));
     }
 
-    /**
-     * @group anon-login
-     */
+    #[Group('anon-login')]
     public function testAnonymousLogin()
     {
         $user = ParseUser::loginWithAnonymous();
@@ -735,9 +732,7 @@ class ParseUserTest extends TestCase
         ParseUser::logOut();
     }
 
-    /**
-     * @group user-by-id-session
-     */
+    #[Group('user-by-id-session')]
     public function testGetCurrentUserByIdAndSession()
     {
         $user = new ParseUser();
@@ -774,9 +769,7 @@ class ParseUserTest extends TestCase
         ParseUser::logOut();
     }
 
-    /**
-     * @group verification-email
-     */
+    #[Group('verification-email')]
     public function testRequestVerificationEmail()
     {
         $email = 'example@example.com';
@@ -789,9 +782,7 @@ class ParseUserTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @group verification-email
-     */
+    #[Group('verification-email')]
     public function testEmailAlreadyVerified()
     {
         $email = 'example2@example.com';
@@ -810,18 +801,14 @@ class ParseUserTest extends TestCase
         ParseUser::requestVerificationEmail($email);
     }
 
-    /**
-     * @group verification-email
-     */
+    #[Group('verification-email')]
     public function testRequestVerificationEmailEmpty()
     {
         $this->expectException('Parse\ParseException', 'you must provide an email');
         ParseUser::requestVerificationEmail('');
     }
 
-    /**
-     * @group verification-email
-     */
+    #[Group('verification-email')]
     public function testRequestVerificationEmailBad()
     {
         $this->expectException('Parse\ParseException', 'No user found with email not_a_known_email');

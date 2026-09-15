@@ -4,6 +4,7 @@ namespace Parse\Test;
 
 use Parse\ParseConfig;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseConfigTest extends TestCase
@@ -19,18 +20,14 @@ class ParseConfigTest extends TestCase
         Helper::clearClass('_GlobalConfig');
     }
 
-    /**
-     * @group parse-config
-     */
+    #[Group('parse-config')]
     public function testDefaultConfig()
     {
         $config = new ParseConfig();
         $this->assertEquals([], $config->getConfig());
     }
 
-    /**
-     * @group parse-config
-     */
+    #[Group('parse-config')]
     public function testGetConfig()
     {
         $config = new ConfigMock();
@@ -44,9 +41,7 @@ class ParseConfigTest extends TestCase
         $this->assertEquals('<html>value</html>', $config->get('another'));
     }
 
-    /**
-     * @group parse-config
-     */
+    #[Group('parse-config')]
     public function testEscapeConfig()
     {
         $config = new ConfigMock();
@@ -61,9 +56,7 @@ class ParseConfigTest extends TestCase
         $this->assertEquals('bar', $config->escape('foo'));
     }
 
-    /**
-     * @group parse-config
-     */
+    #[Group('parse-config')]
     public function testSaveConfig()
     {
         $config = new ParseConfig();

@@ -5,6 +5,7 @@ namespace Parse\Test;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseRelationTest extends TestCase
@@ -147,9 +148,7 @@ class ParseRelationTest extends TestCase
         $this->assertEquals($results[0]->getObjectId(), $parent2->getObjectId());
     }
 
-    /**
-     * @group relation-parent-set
-     */
+    #[Group('relation-parent-set')]
     public function testSwitchingParent()
     {
         // setup parent 1
@@ -193,8 +192,8 @@ class ParseRelationTest extends TestCase
     /**
      * Verifies bi directional relations can be saved when an array of pointers is used and is in dirty state
      * @author zeliard91
-     * @group bidir-test
      */
+    #[Group('bidir-test')]
     public function testBiDirectionalRelations()
     {
         Helper::clearClass('BiParent');

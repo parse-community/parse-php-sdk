@@ -8,6 +8,7 @@ namespace Parse\Test;
 use Parse\ParseClient;
 use Parse\ParseServerInfo;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseServerInfoTest extends TestCase
@@ -29,9 +30,7 @@ class ParseServerInfoTest extends TestCase
         $this->assertNotEmpty($features);
     }
 
-    /**
-     * @group test-get-version
-     */
+    #[Group('test-get-version')]
     public function testGetVersion()
     {
         ParseServerInfo::_setServerVersion(null);
@@ -52,9 +51,7 @@ class ParseServerInfoTest extends TestCase
         $this->assertEquals($version, ParseServerInfo::getVersion());
     }
 
-    /**
-     * @group server-info-missing-features
-     */
+    #[Group('server-info-missing-features')]
     public function testMissingFeatures()
     {
         $this->expectException(
@@ -65,8 +62,7 @@ class ParseServerInfoTest extends TestCase
         $httpClient = ParseClient::getHttpClient();
 
         // create a mock of the current http client
-        $stubClient = $this->getMockBuilder(get_class($httpClient))
-            ->getMock();
+        $stubClient = $this->createStub(get_class($httpClient));
 
         // stub the response type to return
         // something we will try to work with
@@ -87,9 +83,7 @@ class ParseServerInfoTest extends TestCase
         ParseServerInfo::getFeatures();
     }
 
-    /**
-     * @group server-info-missing-version
-     */
+    #[Group('server-info-missing-version')]
     public function testMissingVersion()
     {
         $this->expectException(
@@ -100,8 +94,7 @@ class ParseServerInfoTest extends TestCase
         $httpClient = ParseClient::getHttpClient();
 
         // create a mock of the current http client
-        $stubClient = $this->getMockBuilder(get_class($httpClient))
-            ->getMock();
+        $stubClient = $this->createStub(get_class($httpClient));
 
         // stub the response type to return
         // something we will try to work with

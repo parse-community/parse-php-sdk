@@ -5,6 +5,7 @@ namespace Parse\Test;
 use Parse\ParseLogs;
 use Parse\ParseObject;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseLogsTest extends TestCase
@@ -25,9 +26,7 @@ class ParseLogsTest extends TestCase
         Helper::clearClass('TestObject');
     }
 
-    /**
-     * @group parse-logs-tests
-     */
+    #[Group('parse-logs-tests')]
     public function testGettingDefaultLogs()
     {
         $logs = ParseLogs::getScriptLogs('info', 1);
@@ -35,9 +34,7 @@ class ParseLogsTest extends TestCase
         $this->assertEquals(1, count($logs));
     }
 
-    /**
-     * @group parse-logs-tests
-     */
+    #[Group('parse-logs-tests')]
     public function testGettingOneLog()
     {
         $logs = ParseLogs::getInfoLogs(1);
@@ -46,9 +43,7 @@ class ParseLogsTest extends TestCase
         $this->assertTrue(isset($logs[0]['url']));
     }
 
-    /**
-     * @group parse-logs-tests
-     */
+    #[Group('parse-logs-tests')]
     public function testFrom()
     {
         // test getting logs from 4 hours in the future
@@ -58,9 +53,7 @@ class ParseLogsTest extends TestCase
         $this->assertEquals(0, count($logs));
     }
 
-    /**
-     * @group parse-logs-tests
-     */
+    #[Group('parse-logs-tests')]
     public function testUntil()
     {
         // test getting logs from 1950 years in the past (not likely...)
@@ -70,9 +63,7 @@ class ParseLogsTest extends TestCase
         $this->assertEquals(0, count($logs));
     }
 
-    /**
-     * @group parse-logs-tests
-     */
+    #[Group('parse-logs-tests')]
     public function testOrderAscending()
     {
         $logs = ParseLogs::getInfoLogs(15, null, null, 'asc');

@@ -7,7 +7,7 @@ on:
         description: 'Version tag:' 
 env:
   NODE_VERSION: 18
-  PHP_VERSION: 8.1
+  PHP_VERSION: 8.4
 jobs:
   docs-publish:
     if: github.event.inputs.tag != ''
@@ -21,11 +21,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.tag }}
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Setup PHP ${{ env.PHP_VERSION }}
@@ -37,10 +37,16 @@ jobs:
           php --version
       - name: Generate Docs
         run: |
-          composer install
+          mkdir -p tools
+          curl -sSL -o tools/phpDocumentor.phar \
+            "https://github.com/phpDocumentor/phpDocumentor/releases/download/v$PHPDOC_VERSION/phpDocumentor.phar"
+          echo "$PHPDOC_SHA256  tools/phpDocumentor.phar" | sha256sum --check --strict
+          chmod +x tools/phpDocumentor.phar
           npm run document-check
           npm run document
         env:
+          PHPDOC_VERSION: 3.10.0
+          PHPDOC_SHA256: fe1e7c23ba3329aa6f19ac3c807446159a431a195ec5d9163b0c281a15105207
           SOURCE_TAG: ${{ github.event.inputs.tag }}
       - name: Configure Pages
         uses: actions/configure-pages@v5

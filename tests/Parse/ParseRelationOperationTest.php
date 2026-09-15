@@ -9,6 +9,7 @@ use Parse\Internal\ParseRelationOperation;
 use Parse\ParseObject;
 use Parse\ParseRelation;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseRelationOperationTest extends TestCase
@@ -23,9 +24,7 @@ class ParseRelationOperationTest extends TestCase
         Helper::clearClass('Class1');
     }
 
-    /**
-     * @group parse-relation-op
-     */
+    #[Group('parse-relation-op')]
     public function testMissingObjects()
     {
         $this->expectException(
@@ -35,9 +34,7 @@ class ParseRelationOperationTest extends TestCase
         new ParseRelationOperation(null, null);
     }
 
-    /**
-     * @group parse-relation-op
-     */
+    #[Group('parse-relation-op')]
     public function testMixedClasses()
     {
         $this->expectException(
@@ -52,9 +49,7 @@ class ParseRelationOperationTest extends TestCase
         new ParseRelationOperation($objects, null);
     }
 
-    /**
-     * @group parse-relation-op
-     */
+    #[Group('parse-relation-op')]
     public function testSingleObjects()
     {
         $addObj = new ParseObject('Class1');
@@ -72,9 +67,7 @@ class ParseRelationOperationTest extends TestCase
         ParseObject::destroyAll([$addObj, $delObj]);
     }
 
-    /**
-     * @group parse-relation-op
-     */
+    #[Group('parse-relation-op')]
     public function testApplyDifferentClassRelation()
     {
         $this->expectException(
@@ -91,9 +84,7 @@ class ParseRelationOperationTest extends TestCase
         $relOp1->_apply(new ParseRelation(null, null, 'DifferentClass'), null, null);
     }
 
-    /**
-     * @group parse-relation-op
-     */
+    #[Group('parse-relation-op')]
     public function testInvalidApply()
     {
         $this->expectException(
@@ -105,9 +96,7 @@ class ParseRelationOperationTest extends TestCase
         $op->_apply('bad value', null, null);
     }
 
-    /**
-     * @group parse-relation-op
-     */
+    #[Group('parse-relation-op')]
     public function testMergeNone()
     {
         $addObj = new ParseObject('Class1');
@@ -115,9 +104,7 @@ class ParseRelationOperationTest extends TestCase
         $this->assertEquals($op, $op->_mergeWithPrevious(null));
     }
 
-    /**
-     * @group parse-relation-op
-     */
+    #[Group('parse-relation-op')]
     public function testMergeDifferentClass()
     {
         $this->expectException(
@@ -136,9 +123,7 @@ class ParseRelationOperationTest extends TestCase
         $this->assertEquals($op, $op->_mergeWithPrevious($mergeOp));
     }
 
-    /**
-     * @group parse-relation-op
-     */
+    #[Group('parse-relation-op')]
     public function testInvalidMerge()
     {
         $this->expectException(
@@ -150,9 +135,7 @@ class ParseRelationOperationTest extends TestCase
         $op->_mergeWithPrevious('not a relational op');
     }
 
-    /**
-     * @group parse-relation-op
-     */
+    #[Group('parse-relation-op')]
     public function testRemoveElementsFromArray()
     {
         // test without passing an array
@@ -164,9 +147,7 @@ class ParseRelationOperationTest extends TestCase
         $this->assertEmpty($array);
     }
 
-    /**
-     * @group relation-remove-missing-object-id
-     */
+    #[Group('relation-remove-missing-object-id')]
     public function testRemoveMissingObjectId()
     {
         $obj = new ParseObject('Class1');

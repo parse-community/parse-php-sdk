@@ -7,7 +7,7 @@
 [![Coverage](http://codecov.io/github/parse-community/parse-php-sdk/coverage.svg?branch=master)](http://codecov.io/github/parse-community/parse-php-sdk?branch=master)
 [![auto-release](https://img.shields.io/badge/%F0%9F%9A%80-auto--release-9e34eb.svg)](https://github.com/parse-community/parse-dashboard/releases)
 
-[![PHP Version](https://img.shields.io/badge/php-8.1,_8.2,_8.3-green.svg?logo=php&style=flat)](https://php.org/)
+[![PHP Version](https://img.shields.io/badge/php-8.1,_8.2,_8.3,_8.4,_8.5-green.svg?logo=php&style=flat)](https://php.org/)
 
 [![packagist latest version](https://img.shields.io/packagist/v/parse/php-sdk)](https://packagist.org/packages/parse/php-sdk)
 
@@ -71,12 +71,15 @@ The Parse PHP SDK is continuously tested with the most recent releases of PHP to
 
 | Version | End-of-Life | Compatible |
 |---------|-------------|------------|
-| PHP 8.2 | Dec 2024    | ✅ Yes      |
-| PHP 8.1 | Nov 2023    | ✅ Yes      |
+| PHP 8.5 | Dec 2029    | ✅ Yes      |
+| PHP 8.4 | Dec 2028    | ✅ Yes      |
+| PHP 8.3 | Dec 2027    | ✅ Yes      |
+| PHP 8.2 | Dec 2026    | ✅ Yes      |
+| PHP 8.1 | Dec 2025    | ✅ Yes      |
 
 ## Installation
 There are various ways to install and use this sdk. We'll elaborate on a couple here.
-Note that the Parse PHP SDK requires PHP 5.4 or newer. It can also run on HHVM (recommended 3.0 or newer).
+Note that the Parse PHP SDK requires PHP 8.1 or newer.
 
 ### Install with Composer
 

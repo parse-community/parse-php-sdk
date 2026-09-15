@@ -10,6 +10,7 @@ use Parse\ParseQuery;
 use Parse\ParseRole;
 use Parse\ParseUser;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseACLTest extends TestCase
@@ -36,9 +37,7 @@ class ParseACLTest extends TestCase
         $this->assertFalse($acl->_isShared());
     }
 
-    /**
-     * @group acl-one-user
-     */
+    #[Group('acl-one-user')]
     public function testACLAnObjectOwnedByOneUser()
     {
         $user = new ParseUser();
@@ -385,9 +384,7 @@ class ParseACLTest extends TestCase
         $this->assertNull(ParseACL::_getDefaultACL());
     }
 
-    /**
-     * @group default-acls
-     */
+    #[Group('default-acls')]
     public function testDefaultACL()
     {
         // setup default acl
@@ -453,9 +450,7 @@ class ParseACLTest extends TestCase
         $this->assertFalse($objectAgain->getACL()->getPublicWriteAccess());
     }
 
-    /**
-     * @group acl-invalid
-     */
+    #[Group('acl-invalid')]
     public function testCreatingACLWithInvalidId()
     {
         $this->expectException(
@@ -468,9 +463,7 @@ class ParseACLTest extends TestCase
         ]);
     }
 
-    /**
-     * @group acl-invalid
-     */
+    #[Group('acl-invalid')]
     public function testCreatingWithBadAccessType()
     {
         $this->expectException(
@@ -485,9 +478,7 @@ class ParseACLTest extends TestCase
         ]);
     }
 
-    /**
-     * @group acl-invalid
-     */
+    #[Group('acl-invalid')]
     public function testCreatingWithInvalidPermissionValue()
     {
         $this->expectException(
@@ -502,9 +493,7 @@ class ParseACLTest extends TestCase
         ]);
     }
 
-    /**
-     * @group acl-user-notallowed
-     */
+    #[Group('acl-user-notallowed')]
     public function testSettingPermissionForUserNotAllowed()
     {
         // add 'userid'
@@ -528,9 +517,7 @@ class ParseACLTest extends TestCase
         ], $permissions);
     }
 
-    /**
-     * @group removing-from-acl
-     */
+    #[Group('removing-from-acl')]
     public function testRemovingFromAcl()
     {
         // add 'userid'
@@ -607,9 +594,7 @@ class ParseACLTest extends TestCase
         $acl->getUserWriteAccess(new ParseUser());
     }
 
-    /**
-     * @group test-role-access
-     */
+    #[Group('test-role-access')]
     public function testRoleAccess()
     {
         $acl = new ParseACL();

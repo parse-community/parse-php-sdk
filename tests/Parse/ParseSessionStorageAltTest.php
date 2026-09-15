@@ -7,13 +7,12 @@ namespace Parse\Test;
 
 use Parse\ParseSessionStorage;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseSessionStorageAltTest extends TestCase
 {
-    /**
-     * @group session-storage-not-active
-     */
+    #[Group('session-storage-not-active')]
     public function testNoSessionActive()
     {
         $this->expectException(

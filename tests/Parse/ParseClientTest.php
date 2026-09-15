@@ -14,6 +14,7 @@ use Parse\ParseObject;
 use Parse\ParseRole;
 use Parse\ParseUser;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 defined('CURLOPT_PINNEDPUBLICKEY') || define('CURLOPT_PINNEDPUBLICKEY', 10230);
@@ -42,9 +43,7 @@ class ParseClientTest extends TestCase
         ParseClient::setHttpOptions(null);
     }
 
-    /**
-     * @group client-not-initialized
-     */
+    #[Group('client-not-initialized')]
     public function testParseNotInitialized()
     {
         $this->expectException(
@@ -64,9 +63,7 @@ class ParseClientTest extends TestCase
         );
     }
 
-    /**
-     * @group client-init
-     */
+    #[Group('client-init')]
     public function testInitialize()
     {
 
@@ -95,9 +92,7 @@ class ParseClientTest extends TestCase
         $this->assertNotNull(ParseClient::getStorage());
     }
 
-    /**
-     * @group client-storage
-     */
+    #[Group('client-storage')]
     public function testStorage()
     {
 
@@ -148,9 +143,7 @@ class ParseClientTest extends TestCase
         */
     }
 
-    /**
-     * @group client-test
-     */
+    #[Group('client-test')]
     public function testSetServerURL()
     {
         // add extra slashes to test removal
@@ -169,9 +162,7 @@ class ParseClientTest extends TestCase
         );
     }
 
-    /**
-     * @group client-test
-     */
+    #[Group('client-test')]
     public function testRootMountPath()
     {
         ParseClient::setServerURL('https://example.com', '/');
@@ -182,9 +173,7 @@ class ParseClientTest extends TestCase
         );
     }
 
-    /**
-     * @group client-test
-     */
+    #[Group('client-test')]
     public function testBadServerURL()
     {
         $this->expectException(
@@ -194,9 +183,7 @@ class ParseClientTest extends TestCase
         ParseClient::setServerURL(null, 'parse');
     }
 
-    /**
-     * @group client-test
-     */
+    #[Group('client-test')]
     public function testBadMountPath()
     {
         $this->expectException(
@@ -206,9 +193,7 @@ class ParseClientTest extends TestCase
         ParseClient::setServerURL('https://example.com', null);
     }
 
-    /**
-     * @group encoding-error
-     */
+    #[Group('encoding-error')]
     public function testEncodingError()
     {
         $this->expectException(
@@ -218,9 +203,7 @@ class ParseClientTest extends TestCase
         ParseClient::_encode(new Helper(), false);
     }
 
-    /**
-     * @group client-decoding
-     */
+    #[Group('client-decoding')]
     public function testDecodingStdClass()
     {
         $obj = new \stdClass();
@@ -234,9 +217,7 @@ class ParseClientTest extends TestCase
         $this->assertEquals($emptyClass, ParseClient::_decode($emptyClass));
     }
 
-    /**
-     * @group timeouts
-     */
+    #[Group('timeouts')]
     public function testCurlTimeout()
     {
 
@@ -255,9 +236,7 @@ class ParseClientTest extends TestCase
         ParseClient::setTimeout(null);
     }
 
-    /**
-     * @group timeouts
-     */
+    #[Group('timeouts')]
     public function testCurlConnectionTimeout()
     {
         ParseClient::setConnectionTimeout(3000);
@@ -275,9 +254,7 @@ class ParseClientTest extends TestCase
         ParseClient::setConnectionTimeout(null);
     }
 
-    /**
-     * @group timeouts
-     */
+    #[Group('timeouts')]
     public function testStreamTimeout()
     {
 
@@ -298,9 +275,7 @@ class ParseClientTest extends TestCase
         ParseClient::setTimeout(null);
     }
 
-    /**
-     * @group timeouts
-     */
+    #[Group('timeouts')]
     public function testStreamConnectionTimeout()
     {
 
@@ -321,9 +296,7 @@ class ParseClientTest extends TestCase
         ParseClient::setConnectionTimeout(null);
     }
 
-    /**
-     * @group no-curl-exceptions
-     */
+    #[Group('no-curl-exceptions')]
     public function testNoCurlExceptions()
     {
         global $USE_CLIENT_STREAM;
@@ -345,9 +318,7 @@ class ParseClientTest extends TestCase
         Helper::setUp();
     }
 
-    /**
-     * @group curl-exceptions
-     */
+    #[Group('curl-exceptions')]
     public function testCurlException()
     {
         if (function_exists('curl_init')) {
@@ -364,9 +335,7 @@ class ParseClientTest extends TestCase
         }
     }
 
-    /**
-     * @group stream-exceptions
-     */
+    #[Group('stream-exceptions')]
     public function testStreamException()
     {
 
@@ -382,15 +351,14 @@ class ParseClientTest extends TestCase
         );
     }
 
-    /**
-     * @group stream-bad-request
-     *
+    /**     *
      * **NOTE**
      * file_get_contents may SOMETIMES not return a full set of headers.
      * This causes this case to fail frequently while not being a serious error.
      * If you are running test cases and are having problems with this,
      *  run it a few more times and you should be OK
      */
+    #[Group('stream-bad-request')]
     public function testBadStreamRequest()
     {
         $this->expectException(
@@ -408,9 +376,7 @@ class ParseClientTest extends TestCase
         );
     }
 
-    /**
-     * @group client-bad-request
-     */
+    #[Group('client-bad-request')]
     public function testCurlBadRequest()
     {
         if (function_exists('curl_init')) {
@@ -430,9 +396,7 @@ class ParseClientTest extends TestCase
         }
     }
 
-    /**
-     * @group default-http-client
-     */
+    #[Group('default-http-client')]
     public function testGetDefaultHttpClient()
     {
         // clear existing client
@@ -450,9 +414,7 @@ class ParseClientTest extends TestCase
         }
     }
 
-    /**
-     * @group ca-file
-     */
+    #[Group('ca-file')]
     public function testCurlCAFile()
     {
         if (function_exists('curl_init')) {
@@ -476,9 +438,7 @@ class ParseClientTest extends TestCase
         }
     }
 
-    /**
-     * @group ca-file
-     */
+    #[Group('ca-file')]
     public function testStreamCAFile()
     {
         // set a stream client
@@ -500,9 +460,7 @@ class ParseClientTest extends TestCase
         );
     }
 
-    /**
-     * @group api-not-set
-     */
+    #[Group('api-not-set')]
     public function testURLNotSet()
     {
         $this->expectException(
@@ -516,9 +474,7 @@ class ParseClientTest extends TestCase
         (new ParseObject('TestingClass'))->save();
     }
 
-    /**
-     * @group api-not-set
-     */
+    #[Group('api-not-set')]
     public function testMountPathNotSet()
     {
         $this->expectException(
@@ -532,9 +488,7 @@ class ParseClientTest extends TestCase
         (new ParseObject('TestingClass'))->save();
     }
 
-    /**
-     * @group bad-api-response
-     */
+    #[Group('bad-api-response')]
     public function testBadApiResponse()
     {
         $this->expectException(
@@ -545,8 +499,7 @@ class ParseClientTest extends TestCase
         $httpClient = ParseClient::getHttpClient();
 
         // create a mock of the current http client
-        $stubClient = $this->getMockBuilder(get_class($httpClient))
-            ->getMock();
+        $stubClient = $this->createStub(get_class($httpClient));
 
         // stub the response type to return
         // something we will try to work with
@@ -566,9 +519,7 @@ class ParseClientTest extends TestCase
         $obj->save();
     }
 
-    /**
-     * @group check-server
-     */
+    #[Group('check-server')]
     public function testCheckServer()
     {
         $health = ParseClient::getServerHealth();
@@ -581,15 +532,14 @@ class ParseClientTest extends TestCase
     /**
      * Structured response present in modified/later versions of parse-server
      *
-     * @group check-server
      */
+    #[Group('check-server')]
     public function testStructuredHealthResponse()
     {
         $httpClient = ParseClient::getHttpClient();
 
         // create a mock of the current http client
-        $stubClient = $this->getMockBuilder(get_class($httpClient))
-            ->getMock();
+        $stubClient = $this->createStub(get_class($httpClient));
 
         // stub the response type to return
         // something we will try to work with
@@ -617,15 +567,14 @@ class ParseClientTest extends TestCase
 
     /**
      * Plain response present in earlier versions of parse-server (from 2.2.25 on)
-     * @group check-server
      */
+    #[Group('check-server')]
     public function testPlainHealthResponse()
     {
         $httpClient = ParseClient::getHttpClient();
 
         // create a mock of the current http client
-        $stubClient = $this->getMockBuilder(get_class($httpClient))
-            ->getMock();
+        $stubClient = $this->createStub(get_class($httpClient));
 
         // stub the response type to return
         // something we will try to work with
@@ -651,12 +600,10 @@ class ParseClientTest extends TestCase
         $this->assertEquals($health['response']['status'], 'ok');
     }
 
-    /**
-     * @group check-server
-     */
+    #[Group('check-server')]
     public function testCheckBadServer()
     {
-        ParseClient::setServerURL('http://localhost:1337', 'not-a-real-endpoint');
+        ParseClient::setServerURL(Helper::getHttpServerURL(), 'not-a-real-endpoint');
         $health = ParseClient::getServerHealth();
         $this->assertNotNull($health);
         $this->assertFalse(isset($health['error']));
@@ -673,14 +620,12 @@ class ParseClientTest extends TestCase
         }
     }
 
-    /**
-     * @group test-http-options
-     */
+    #[Group('test-http-options')]
     public function testCurlHttpOptions()
     {
         if (function_exists('curl_init')) {
             ParseClient::setHttpClient(new ParseCurlHttpClient());
-            ParseClient::setServerURL('https://localhost:1338', 'parse');
+            ParseClient::setServerURL(Helper::getHttpsServerURL(), 'parse');
             ParseClient::setHttpOptions([
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_PINNEDPUBLICKEY => 'sha256//Oz+R70/uIv0irdBWc7RNPyCGeZNbN+CBiPLjJxXWigg=',
@@ -696,13 +641,11 @@ class ParseClientTest extends TestCase
         }
     }
 
-    /**
-     * @group test-http-options
-     */
+    #[Group('test-http-options')]
     public function testStreamHttpOptions()
     {
         ParseClient::setHttpClient(new ParseStreamHttpClient());
-        ParseClient::setServerURL('https://localhost:1338', 'parse');
+        ParseClient::setServerURL(Helper::getHttpsServerURL(), 'parse');
         ParseClient::setHttpOptions([
             'ssl' => [
                 'verify_peer' => false,
@@ -710,7 +653,7 @@ class ParseClientTest extends TestCase
                 'allow_self_signed' => true,
                 'local_cert' => dirname(__DIR__).'/keys/client.crt',
                 'local_pk' => dirname(__DIR__).'/keys/client.key',
-                'peer_fingerprint' => '29F36676EFA0CA18B5B571C6144580044CB289C2',
+                'peer_fingerprint' => '5036363125B57017255B3BB3241666827BD6A3A8',
             ]
         ]);
         $health = ParseClient::getServerHealth();

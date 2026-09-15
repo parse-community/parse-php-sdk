@@ -110,7 +110,15 @@ class ParseStream
     public function getFileContents($filename, $use_include_path, $context)
     {
         $result = file_get_contents($filename, $use_include_path, $context);
-        $this->responseHeaders = $http_response_header;
+
+        if (function_exists('http_get_last_response_headers')) {
+            // PHP 8.4+, the magic $http_response_header variable is deprecated as of PHP 8.5
+            $this->responseHeaders = http_get_last_response_headers();
+        } else {
+            // $http_response_header is only defined when the http wrapper produced a response
+            $this->responseHeaders = $http_response_header ?? null;
+        }
+
         return $result;
     }
 }

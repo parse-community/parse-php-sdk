@@ -6,6 +6,7 @@ use Parse\ParseInstallation;
 use Parse\ParsePush;
 use Parse\ParsePushStatus;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParsePushTest extends TestCase
@@ -44,9 +45,7 @@ class ParsePushTest extends TestCase
         $this->assertEquals($response['result'], 1);
     }
 
-    /**
-     * @group parse-push
-     */
+    #[Group('parse-push')]
     public function testMissingWhereAndChannels()
     {
         $this->expectException(
@@ -61,9 +60,7 @@ class ParsePushTest extends TestCase
         ], true);
     }
 
-    /**
-     * @group parse-push
-     */
+    #[Group('parse-push')]
     public function testWhereAndChannels()
     {
         $this->expectException(
@@ -160,9 +157,7 @@ class ParsePushTest extends TestCase
         );
     }
 
-    /**
-     * @group push-status
-     */
+    #[Group('push-status')]
     public function testPushHasHeaders()
     {
         $response = ParsePush::send(
@@ -177,9 +172,7 @@ class ParsePushTest extends TestCase
         $this->assertArrayHasKey('_headers', $response);
     }
 
-    /**
-     * @group push-status
-     */
+    #[Group('push-status')]
     public function testGettingPushStatus()
     {
         $payload = [
@@ -278,9 +271,7 @@ class ParsePushTest extends TestCase
         }
     }
 
-    /**
-     * @group push-status
-     */
+    #[Group('push-status')]
     public function testGettingNonExistentPushStatus()
     {
         $pushStatus = ParsePushStatus::getFromId('not-a-real-id');

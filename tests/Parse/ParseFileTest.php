@@ -6,6 +6,7 @@ use Parse\ParseFile;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseFileTest extends TestCase
@@ -41,9 +42,7 @@ class ParseFileTest extends TestCase
         );
     }
 
-    /**
-     * @group file-upload-test
-     */
+    #[Group('file-upload-test')]
     public function testParseFileUpload()
     {
         $file = ParseFile::createFromData('Fosco', 'test.txt');
@@ -63,9 +62,7 @@ class ParseFileTest extends TestCase
         );
     }
 
-    /**
-     * @group file-download-test
-     */
+    #[Group('file-download-test')]
     public function testParseFileDownloadUnsaved()
     {
         $this->expectException(
@@ -76,9 +73,7 @@ class ParseFileTest extends TestCase
         $file->getData();
     }
 
-    /**
-     * @group file-download-test
-     */
+    #[Group('file-download-test')]
     public function testParsefileDeleteUnsaved()
     {
         $this->expectException(
@@ -89,9 +84,7 @@ class ParseFileTest extends TestCase
         $file->delete();
     }
 
-    /**
-     * @group file-download-test
-     */
+    #[Group('file-download-test')]
     public function testParseFileDownloadBadURL()
     {
         global $USE_CLIENT_STREAM;
@@ -109,9 +102,7 @@ class ParseFileTest extends TestCase
         }
     }
 
-    /**
-     * @group test-parsefile-round-trip
-     */
+    #[Group('test-parsefile-round-trip')]
     public function testParseFileRoundTrip()
     {
         $contents = 'What would Bryan do?';

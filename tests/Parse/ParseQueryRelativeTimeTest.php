@@ -8,6 +8,7 @@ namespace Parse\Test;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseQueryRelativeTimeTest extends TestCase
@@ -107,9 +108,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $obj->save();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testGreaterThanRelativeTime()
     {
         $this->provideDateTestObjects();
@@ -138,9 +137,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(0, $query->count());
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testLessThanRelativeTime()
     {
         $this->provideDateTestObjects();
@@ -169,9 +166,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(4, $query->count());
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testGreaterThanEqualToRelativeTime()
     {
         $this->provideDateTestObjects();
@@ -200,9 +195,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(0, $query->count());
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testLessThanEqualToRelativeTime()
     {
         $this->provideDateTestObjects();
@@ -231,9 +224,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(4, $query->count());
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testRelativeTimeUnits()
     {
         $this->provideDateTestObjects();
@@ -259,9 +250,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(1, $query->count());
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testLongRelativeTime()
     {
         $this->provideExtendedDateTestObjects();
@@ -287,9 +276,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(4, $query->count());
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testNowRelativeTime()
     {
         $this->provideDateTestObjects();
@@ -303,9 +290,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(2, $query->count());
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testBetweenRelativeTimes()
     {
         $this->provideDateTestObjects();
@@ -323,9 +308,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(2, $query->count());
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testBadRelativeTimeString()
     {
         $this->expectException(
@@ -337,9 +320,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testRelativeTimeStringDanglingNumber()
     {
         $this->expectException(
@@ -351,9 +332,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testRelativeTimeStringDanglingUnit()
     {
         $this->expectException(
@@ -365,9 +344,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testRelativeTimeCannotUseBothInAndAgo()
     {
         $this->expectException(
@@ -379,9 +356,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testRelativeTimeNotOnDateField()
     {
         $this->expectException(
@@ -398,9 +373,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testRelativeTimeOnNonExistantField()
     {
         $this->provideDateTestObjects();
@@ -412,9 +385,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $this->assertEquals(0, $query->count());
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testRelativeTimeEqualTo()
     {
         $this->expectException(
@@ -430,9 +401,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testRelativeTimeNotEqualTo()
     {
         $this->expectException(
@@ -447,9 +416,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testRelativeTimeMissingAgoAndIn()
     {
         $this->expectException(
@@ -461,9 +428,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testEmptyRelativeTime()
     {
         $this->expectException(
@@ -475,9 +440,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testFractionalRelativeTime()
     {
         $this->expectException(
@@ -489,9 +452,7 @@ class ParseQueryRelativeTimeTest extends TestCase
         $query->count();
     }
 
-    /**
-     * @group relative-time-queries
-     */
+    #[Group('relative-time-queries')]
     public function testBadRelativeTimeUnit()
     {
         $this->expectException(

@@ -7,14 +7,36 @@ import emailAdapter from './MockEmailAdapter.js';
 const app = express();
 const __dirname = path.resolve();
 
+// Ports and database can be overridden to avoid clashing with a local Parse stack.
+// The PHP test suite resolves these ports the same way, so an ephemeral port (0)
+// is rejected rather than silently disagreeing with the client.
+function resolvePort(name, value, fallback) {
+  if (value === undefined || value === '') {
+    return fallback;
+  }
+  const port = Number(value);
+  if (!Number.isInteger(port) || port < 1 || port > 65535) {
+    throw new Error(`${name} must be an integer between 1 and 65535, got "${value}"`);
+  }
+  return port;
+}
+
+const httpPort = resolvePort('PARSE_TEST_HTTP_PORT', process.env.PARSE_TEST_HTTP_PORT, 1337);
+const httpsPort = resolvePort(
+  'PARSE_TEST_HTTPS_PORT',
+  process.env.PARSE_TEST_HTTPS_PORT ?? process.env.PORT,
+  1338
+);
+const databaseURI = process.env.PARSE_TEST_DATABASE_URI || 'mongodb://localhost/test';
+
 const server = new ParseServer({
   appName: "MyTestApp",
   appId: "app-id-here",
   masterKey: "master-key-here",
   restKey: "rest-api-key-here",
-  databaseURI: "mongodb://localhost/test",
+  databaseURI: databaseURI,
   cloud: __dirname + "/tests/cloud-code.js",
-  publicServerURL: "http://localhost:1337/parse",
+  publicServerURL: `http://localhost:${httpPort}/parse`,
   logsFolder: path.resolve(process.cwd(), 'logs'),
   verbose: true,
   silent: true,
@@ -53,13 +75,12 @@ await server.start();
 // Serve the Parse API on the /parse URL prefix
 app.use('/parse', server.app);
 
-const port = 1337;
-app.listen(port, function() {
-  console.error('[ Parse Test Http Server running on port ' + port + ' ]');
+app.listen(httpPort, function() {
+  console.error('[ Parse Test Http Server running on port ' + httpPort + ' ]');
 });
 
 const options = {
-  port:       process.env.PORT       || 1338,
+  port:       httpsPort,
   server_key: process.env.SERVER_KEY || __dirname + '/tests/keys/localhost.key',
   server_crt: process.env.SERVER_CRT || __dirname + '/tests/keys/localhost.crt',
   server_fp:  process.env.SERVER_FP  || __dirname + '/tests/keys/localhost.fp',

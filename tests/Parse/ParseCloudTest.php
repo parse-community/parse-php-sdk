@@ -7,6 +7,7 @@ use Parse\ParseGeoPoint;
 use Parse\ParseObject;
 use Parse\ParseUser;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseCloudTest extends TestCase
@@ -25,9 +26,7 @@ class ParseCloudTest extends TestCase
         }
     }
 
-    /**
-     * @group cloud-code
-     */
+    #[Group('cloud-code')]
     public function testFunctionCall()
     {
         $response = ParseCloud::run('bar', [
@@ -56,9 +55,7 @@ class ParseCloudTest extends TestCase
         $user->destroy(true);
     }
 
-    /**
-     * @group cloud-code
-     */
+    #[Group('cloud-code')]
     public function testFunctionCallException()
     {
         $this->expectException(
@@ -72,9 +69,7 @@ class ParseCloudTest extends TestCase
         ]);
     }
 
-    /**
-     * @group cloud-code
-     */
+    #[Group('cloud-code')]
     public function testFunctionsWithObjectParamsFails()
     {
         // login as user
@@ -86,9 +81,7 @@ class ParseCloudTest extends TestCase
         ParseCloud::run('foo', $params);
     }
 
-    /**
-     * @group cloud-code
-     */
+    #[Group('cloud-code')]
     public function testFunctionsWithGeoPointParamsDoNotThrow()
     {
         $params = ['key1' => new ParseGeoPoint(50, 50)];
@@ -99,9 +92,7 @@ class ParseCloudTest extends TestCase
         ParseCloud::run('unknown_function', $params);
     }
 
-    /**
-     * @group cloud-code
-     */
+    #[Group('cloud-code')]
     public function testUnknownFunctionFailure()
     {
         $params = ['key1' => 'value1'];
@@ -112,9 +103,7 @@ class ParseCloudTest extends TestCase
         ParseCloud::run('unknown_function', $params);
     }
 
-    /**
-     * @group cloud-code-jobs
-     */
+    #[Group('cloud-code-jobs')]
     public function testGetJobsData()
     {
         $jobsData = ParseCloud::getJobsData();
@@ -124,9 +113,7 @@ class ParseCloudTest extends TestCase
         $this->assertEquals(3, count($jobsData['jobs']));
     }
 
-    /**
-     * @group cloud-code-jobs
-     */
+    #[Group('cloud-code-jobs')]
     public function testRunJob()
     {
         $jobStatusId = ParseCloud::startJob('CloudJob1', [
@@ -140,9 +127,7 @@ class ParseCloudTest extends TestCase
         $this->assertEquals('Monty Python', $jobStatus->get('params')['startedBy']);
     }
 
-    /**
-     * @group cloud-code-jobs
-     */
+    #[Group('cloud-code-jobs')]
     public function testLongJob()
     {
         $jobStatusId = ParseCloud::startJob('CloudJob2');
@@ -151,18 +136,14 @@ class ParseCloudTest extends TestCase
         $this->assertEquals('running', $jobStatus->get('status'));
     }
 
-    /**
-     * @group cloud-code-jobs
-     */
+    #[Group('cloud-code-jobs')]
     public function testBadJob()
     {
         $this->expectException('Parse\ParseException', 'Invalid job.');
         ParseCloud::startJob('bad_job');
     }
 
-    /**
-     * @group cloud-code-jobs
-     */
+    #[Group('cloud-code-jobs')]
     public function testFailingJob()
     {
         $jobStatusId = ParseCloud::startJob('CloudJobFailing');
@@ -174,9 +155,7 @@ class ParseCloudTest extends TestCase
         $this->assertEquals('cloud job failed', $jobStatus->get('message'));
     }
 
-    /**
-     * @group cloud-code-jobs
-     */
+    #[Group('cloud-code-jobs')]
     public function testGettingNotARealJobStatus()
     {
         $this->expectException('Parse\ParseException', 'Object not found.');

@@ -6,6 +6,7 @@ use Parse\ParseGeoPoint;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseGeoBoxTest extends TestCase
@@ -25,9 +26,7 @@ class ParseGeoBoxTest extends TestCase
         Helper::tearDown();
     }
 
-    /**
-     * @group test-geo-box
-     */
+    #[Group('test-geo-box')]
     public function testGeoBox()
     {
         $caltrainStationLocation = new ParseGeoPoint(37.776346, -122.394218);

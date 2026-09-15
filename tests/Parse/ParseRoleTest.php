@@ -9,6 +9,7 @@ use Parse\ParseQuery;
 use Parse\ParseRole;
 use Parse\ParseUser;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseRoleTest extends TestCase
@@ -85,9 +86,7 @@ class ParseRoleTest extends TestCase
         $this->assertEquals(2, $query3->count());
     }
 
-    /**
-     * @group role-name-duplicate
-     */
+    #[Group('role-name-duplicate')]
     public function testRoleNameUnique()
     {
         $role = ParseRole::createRole('Admin', $this->aclPublic());
@@ -100,9 +99,7 @@ class ParseRoleTest extends TestCase
         $role2->save();
     }
 
-    /**
-     * @group explicit-role-acl
-     */
+    #[Group('explicit-role-acl')]
     public function testExplicitRoleACL()
     {
         $eden = $this->createEden();
@@ -262,9 +259,7 @@ class ParseRoleTest extends TestCase
         $role->setName(12345);
     }
 
-    /**
-     * @group role-save-noname
-     */
+    #[Group('role-save-noname')]
     public function testSavingWithoutName()
     {
         $this->expectException(

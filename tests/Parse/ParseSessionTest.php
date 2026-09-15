@@ -6,6 +6,7 @@ use Parse\ParseClient;
 use Parse\ParseSession;
 use Parse\ParseUser;
 
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 class ParseSessionTest extends TestCase
@@ -59,9 +60,7 @@ class ParseSessionTest extends TestCase
         ParseUser::become($sessionToken);
     }
 
-    /**
-     * @group upgrade-to-revocable-session
-     */
+    #[Group('upgrade-to-revocable-session')]
     public function testUpgradeToRevocableSession()
     {
         $user = new ParseUser();
@@ -82,9 +81,7 @@ class ParseSessionTest extends TestCase
         $this->assertTrue($session->isCurrentSessionRevocable());
     }
 
-    /**
-     * @group upgrade-to-revocable-session
-     */
+    #[Group('upgrade-to-revocable-session')]
     public function testBadUpgradeToRevocableSession()
     {
         // upgrade the current session (changes our session as well)
