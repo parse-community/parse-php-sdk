@@ -110,7 +110,22 @@ class ParseStream
     public function getFileContents($filename, $use_include_path, $context)
     {
         $result = file_get_contents($filename, $use_include_path, $context);
-        $this->responseHeaders = $http_response_header;
+
+        // PHP 8.5 deprecated the locally scoped `$http_response_header`
+        // variable in favour of `http_get_last_response_headers()`. That
+        // function does not exist before 8.5, so both paths are kept.
+        //
+        // The legacy read uses `??` deliberately: a direct read raises the
+        // deprecation at compile time on 8.5, even inside `isset()`, while
+        // a null coalesced read does not.
+        $hasHeaderFunction = \function_exists(
+            'http_get_last_response_headers'
+        );
+
+        $this->responseHeaders = $hasHeaderFunction
+            ? (http_get_last_response_headers() ?? [])
+            : ($http_response_header ?? []);
+
         return $result;
     }
 }
