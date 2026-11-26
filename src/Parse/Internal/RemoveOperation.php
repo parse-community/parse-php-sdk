@@ -116,24 +116,36 @@ class RemoveOperation implements FieldOperation
 
         $newValue = [];
         foreach ($oldValue as $oldObject) {
-            foreach ($this->objects as $newObject) {
-                if ($oldObject instanceof ParseObject) {
-                    if ($newObject instanceof ParseObject
-                        && !$oldObject->isDirty()
-                        && $oldObject->getObjectId() == $newObject->getObjectId()
-                    ) {
-                        // found the object, won't add it.
-                    } else {
-                        $newValue[] = $oldObject;
-                    }
-                } else {
-                    if ($oldObject !== $newObject) {
-                        $newValue[] = $oldObject;
-                    }
-                }
+            if (!$this->isRemoved($oldObject)) {
+                $newValue[] = $oldObject;
             }
         }
 
         return $newValue;
+    }
+
+    /**
+     * Checks if a value matches any of the objects to remove.
+     *
+     * @param mixed $oldObject Value to check.
+     *
+     * @return bool
+     */
+    private function isRemoved($oldObject)
+    {
+        foreach ($this->objects as $newObject) {
+            if ($oldObject instanceof ParseObject) {
+                if ($newObject instanceof ParseObject
+                    && !$oldObject->isDirty()
+                    && $oldObject->getObjectId() == $newObject->getObjectId()
+                ) {
+                    return true;
+                }
+            } elseif ($oldObject === $newObject) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
